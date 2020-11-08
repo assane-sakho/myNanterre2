@@ -5,6 +5,13 @@
 [![Version](https://img.shields.io/github/release/sankarvijay/MyNanterreM2.svg?label=version&style=flat-square)](build.gradle)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
+Projet issue de l'application MyNanterre : https://github.com/sankarvijay/myNanterreM2
+
+___
+# Documentation pour les développeurs
+
+La **documentation pour les développeurs** et **L'architecture générale du logiciel** se trouvent ici : 
+___
 # MyNanterre
 
 **MyNanterre**, l'application pour une meilleure vie étudiante à Nanterre. 
@@ -30,7 +37,7 @@ MyNanterre est une application qui vous permettra de :
 
 -Vous pouvez récupérer la dernière version de l'application depuis la rubrique "Mise à jour".
 
-Pour avoir plus d'informations, visitez notre site web : https://sankarvijay.github.io/myNanterreM2/
+Pour avoir plus d'informations, visitez le site web du premier groupe ayant maintenu l'application : https://sankarvijay.github.io/myNanterreM2/
 
 ## Télécharger 
 
@@ -96,12 +103,13 @@ Depuis votre mobile Android, récupérez l'apk sur notre site web https://sankar
 Et voila ! le projet est prêt pour utilisation.
 
 ## Auteurs
-* **SANKAR Vijay** - [Github](https://github.com/sankarvijay)
-* **VIEIRA Dorian** - [Github](https://github.com/dorianvieira)
-* **BAGHRAR El Hassan** - [Github](https://github.com/ElHassanBaghrar)
+* **DAS Rahul** - [Github](https://github.com/das-rahul)
+* **BROCHADO Alexandre** - [Github](https://github.com/Alexqlf)
+* **MOUZOURI Ilhame** - [Github](https://github.com/ilhame5)
+* **SAKHO Assane** - [Github](https://github.com/assane-sakho)
 
 ## Licences
-MyNanterre©: Copyright 2020 Vijay.S, Dorian.V and El Hassan.B; Apache License v2.0 https://www.apache.org/licenses/
+MyNanterre©: Copyright 2020 https://www.apache.org/licenses/
 
 -   Données Open data : [RATP](https://github.com/pgrimaud/horaires-ratp-api) sous [(licences)](https://github.com/pgrimaud/horaires-ratp-api/blob/master/LICENSE)
 -   Données Open data : [STIF](https://opendata.stif.info/page/licences/) sous [(licences)](https://opendata.stif.info/page/licences/)
