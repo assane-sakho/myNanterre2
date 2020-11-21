@@ -110,13 +110,13 @@ Et voila ! le projet est prêt pour utilisation.
 
 ## Licences
 MyNanterre©: Copyright 2020 https://www.apache.org/licenses/
-
+-   Données des bibliothèques de l'université : http://scd.parisnanterre.fr/
 -   Données Open data : [RATP](https://github.com/pgrimaud/horaires-ratp-api) sous [(licences)](https://github.com/pgrimaud/horaires-ratp-api/blob/master/LICENSE)
 -   Données Open data : [STIF](https://opendata.stif.info/page/licences/) sous [(licences)](https://opendata.stif.info/page/licences/)
 -   Données Open data : [Batiments API](https://opendata.hauts-de-seine.fr/explore/dataset/affectations-et-usages-des-batiments-de-luniversite-paris-nanterre/table/?sort=campus&rows=40&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJjb2x1bW4iLCJmdW5jIjoiQ09VTlQiLCJ5QXhpcyI6InN1cmZhY2Vfc2hvbiIsInNjaWVudGlmaWNEaXNwbGF5Ijp0cnVlLCJjb2xvciI6IiM2NmMyYTUifV0sInhBeGlzIjoiYW5uZWVfZGVfY29uc3RydWN0aW9uIiwibWF4cG9pbnRzIjoiIiwidGltZXNjYWxlIjoieWVhciIsInNvcnQiOiIiLCJjb25maWciOnsiZGF0YXNldCI6ImFmZmVjdGF0aW9ucy1ldC11c2FnZXMtZGVzLWJhdGltZW50cy1kZS1sdW5pdmVyc2l0ZS1wYXJpcy1uYW50ZXJyZSIsIm9wdGlvbnMiOnsic29ydCI6ImNhbXB1cyIsInJvd3MiOiI0MCJ9fX1dLCJ0aW1lc2NhbGUiOiIiLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlfQ%3D%3D&location=17,48.90371,2.21429&basemap=jawg.streets) sous [(licences)](https://opendata.hauts-de-seine.fr/explore/dataset/affectations-et-usages-des-batiments-de-luniversite-paris-nanterre/table/?sort=campus&rows=40&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJjb2x1bW4iLCJmdW5jIjoiQ09VTlQiLCJ5QXhpcyI6InN1cmZhY2Vfc2hvbiIsInNjaWVudGlmaWNEaXNwbGF5Ijp0cnVlLCJjb2xvciI6IiM2NmMyYTUifV0sInhBeGlzIjoiYW5uZWVfZGVfY29uc3RydWN0aW9uIiwibWF4cG9pbnRzIjoiIiwidGltZXNjYWxlIjoieWVhciIsInNvcnQiOiIiLCJjb25maWciOnsiZGF0YXNldCI6ImFmZmVjdGF0aW9ucy1ldC11c2FnZXMtZGVzLWJhdGltZW50cy1kZS1sdW5pdmVyc2l0ZS1wYXJpcy1uYW50ZXJyZSIsIm9wdGlvbnMiOnsic29ydCI6ImNhbXB1cyIsInJvd3MiOiI0MCJ9fX1dLCJ0aW1lc2NhbGUiOiIiLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlfQ%3D%3D&location=17,48.90371,2.21429&basemap=jawg.streets)
--    MPAndroidChart : [Histogramme affluence](https://github.com/PhilJay/MPAndroidChart) Copyright 2019 Philipp Jahoda; sous [(licences)](https://www.apache.org/licenses/)
--    Chart.js : [Histogramme bibliothèque](https://www.chartjs.org/) Copyright 2018 Chart.js Contributors; sous [(licences)](https://opensource.org/licenses/MIT)
--    Twitter Kit : [Tweets API](https://github.com/twitter-archive/twitter-kit-android) Copyright 2017 Twitter, Inc; sous [(licences)](https://www.apache.org/licenses/)
--    Google Maps : [Plan](https://console.developers.google.com/apis) Copyright 2020 Google, Inc; sous [(licences)](https://www.cloud.google/maps-platform/terms)
--    Open Street Map : [Bibliothèques](https://www.openstreetmap.org/#map=6/46.449/2.210) Copyright 2020 OpenStreetMap contributors OSM-Fr map data; sous [(licences)](https://www.openstreetmap.org/copyright)
--    Icônes : Toutes les icones de notre application sont tirées du site : https://icones8.fr/
+-   MPAndroidChart : [Histogramme affluence](https://github.com/PhilJay/MPAndroidChart) Copyright 2019 Philipp Jahoda; sous [(licences)](https://www.apache.org/licenses/)
+-   Chart.js : [Histogramme bibliothèque](https://www.chartjs.org/) Copyright 2018 Chart.js Contributors; sous [(licences)](https://opensource.org/licenses/MIT)
+-   Twitter Kit : [Tweets API](https://github.com/twitter-archive/twitter-kit-android) Copyright 2017 Twitter, Inc; sous [(licences)](https://www.apache.org/licenses/)
+-   Google Maps : [Plan](https://console.developers.google.com/apis) Copyright 2020 Google, Inc; sous [(licences)](https://www.cloud.google/maps-platform/terms)
+-   Open Street Map : [Bibliothèques](https://www.openstreetmap.org/#map=6/46.449/2.210) Copyright 2020 OpenStreetMap contributors OSM-Fr map data; sous [(licences)](https://www.openstreetmap.org/copyright)
+-   Icônes : Toutes les icones de notre application sont tirées du site : https://icones8.fr/
