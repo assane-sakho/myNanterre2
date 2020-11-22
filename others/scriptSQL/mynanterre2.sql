@@ -643,4 +643,66 @@ INSERT INTO `product` VALUES (30, 'Pâtes', 3.00);
 INSERT INTO `product` VALUES (31, 'Saveurs du monde', 3.00);
 INSERT INTO `product` VALUES (32, 'Salades', 3.00);
 
+
+-- ----------------------------
+-- Records of library_documentary_fund
+-- ----------------------------
+
+INSERT INTO `library_documentary_fund` (`id`, `name`, `library_id`) VALUES
+(2, '1 850 ouvrages', 8),
+(3, '3 revues', 8),
+(4, 'Thèses', 8),
+(5, 'Mémoires', 8),
+(6, '5 700 ouvrages', 1),
+(7, '78 titres de périodiques (dont 58 abonnements en cours)', 1),
+(8, 'Fonds de l’Institut d’études judiciaires (IEJ) : empruntables par les étudiants suivant cette formation', 1),
+(9, 'Fonds du Master d’études bilingues des droits de l’Europe (BDE)', 1),
+(10, 'Fonds de mélanges', 1),
+(11, 'Fonds Guy Carcassonne (FGC)', 1),
+(12, '7 000 ouvrages.', 9),
+(13, '100 titres de périodiques dont 12 abonnements en cours', 9),
+(14, '150 thèses et mémoires', 9),
+(15, '36 000 cartes topographiques, géologiques, climatiques et de végétation à différentes échelles (cartes françaises et étrangères)', 9),
+(16, '30 000 ouvrages', 2),
+(17, '112 titres de périodiques dont 29 abonnements en cours', 2),
+(18, '4 500 mémoires', 2),
+(19, '11 000 ouvrages', 3),
+(20, '6 revues : Courrier International, Time, the Economist, Vocable espagnol, Deutch Perfekt, Monde chinois', 3),
+(21, '148 mémoires de Master de Langues (soutenus au sein de l\'Université Paris Nanterre)', 3),
+(22, 'Agrégation et CAPES d\'anglais et d\'espagnol : la plupart des ouvrages signalés dans les bibliographies officielles des concours sont disponibles.', 3),
+(23, '30 000 ouvrages en lettres modernes et classiques et sciences du langage', 10),
+(24, '150 titres de périodiques', 10),
+(25, 'Une centaine de mémoires', 10),
+(26, 'Rapports du jury CAPES et AGREGATION', 10),
+(27, '17 000 ouvrages', 4),
+(28, '70 titres de périodiques consultables sur place, plus 13 empruntables (dont 3 abonnements en cours)', 4),
+(29, '350 thèses et mémoires consultables sur places (Inventaire à consulter/télécharger)\r\n', 4),
+(30, 'Copies de concours en consultation sur place\r\n', 4),
+(31, 'ouvrages', 5),
+(32, 'ressources en ligne', 5),
+(33, 'bases de données', 5),
+(34, 'un fonds concours principalement catégories A et B', 5),
+(35, 'revues spécialisées', 5),
+(36, '6 500 ouvrages', 11),
+(37, '16 revues', 11),
+(38, 'Mémoires de master', 11),
+(39, '6 200 ouvrages', 6),
+(40, '20 titres de périodiques', 6),
+(41, '400 à 500 mémoires', 6),
+(42, '2 035 ouvrages', 6),
+(43, '27 titres de périodiques dont 14 abonnements en cours', 6),
+(44, '855 mémoires', 6),
+(45, '90 rapports de stage', 6),
+(46, 'Environ 20 800 documents', 12),
+(47, '12 000 volumes d\'ouvrages', 12),
+(48, '74 titres de périodiques dont 48 abonnements en cours', 12),
+(49, '891 titres de mémoires, en Sciences de l\'éducation et en Sciences Psychologiques', 12),
+(50, 'Documents pédagogiques, tirés a part, veille, annales', 12),
+(51, '950 ouvrages', 7),
+(52, '654 mémoires', 7),
+(53, '3 800 ouvrages', 13),
+(54, '10 titres de périodiques', 13),
+(55, '1 400 thèses, mémoires et rapports de stages', 13);
+
+
 SET FOREIGN_KEY_CHECKS = 1;
