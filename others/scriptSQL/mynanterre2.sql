@@ -217,20 +217,20 @@ INSERT INTO `library` VALUES (12, 'LA BIBLIOTHÈQUE DE PSYCHOLOGIE ET SCIENCES D
 INSERT INTO `library` VALUES (13, 'LA BIBLIOTHÈQUE D\'AMÉNAGEMENT ET URBANISME (UFR SSA)', 'Salle 412', 'Rattachée au département de géographie de l\'UFR SSA, au laboratoire Mosaïques depuis 2006 et à la formation en aménagement, la bibliothèque d\'aménagement et d\'urbanisme accueille en priorité les étudiants à partir du L2, les Master 1 et 2, ainsi que les doctorants et chercheurs de l\'Université Université Paris Nanterre.\r\n\r\nElle autorise aussi l\'accès à toute personne extérieure intéressée par le fonds documentaire (étudiants d\'autres universités, professionnels de l\'aménagement et de la ville, membres d\'associations...) en consultation sur place. (Prêt aux personnes inscrites au préalable à la BU comme Lecteur extérieur.)', 21, NULL, NULL);
 
 -- ----------------------------
--- Table structure for library_condition_consultation_loan
+-- Table structure for library_consultation_loan_condition
 -- ----------------------------
-DROP TABLE IF EXISTS `library_condition_consultation_loan`;
-CREATE TABLE `library_condition_consultation_loan`  (
+DROP TABLE IF EXISTS `library_consultation_loan_condition`;
+CREATE TABLE `library_consultation_loan_condition`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `library_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
-  CONSTRAINT `library_condition_consultation_loan_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `library_consultation_loan_condition_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of library_condition_consultation_loan
+-- Records of library_consultation_loan_condition
 -- ----------------------------
 
 -- ----------------------------
