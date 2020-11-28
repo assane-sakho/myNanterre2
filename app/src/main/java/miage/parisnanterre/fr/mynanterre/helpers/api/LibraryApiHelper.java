@@ -4,7 +4,6 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,12 +13,12 @@ import miage.parisnanterre.fr.mynanterre.api.library.Library;
 public class LibraryApiHelper extends ApiHelper {
     private static LibraryApiHelper instance = new LibraryApiHelper();
     private List<Library> libraries;
-    private boolean loaded;
+    private boolean isDataLoaded;
 
     // Hide default constructor
     private LibraryApiHelper(){
         libraries = new ArrayList<>();
-        loaded = false;
+        isDataLoaded = false;
     }
 
     public static LibraryApiHelper getInstance()
@@ -28,22 +27,23 @@ public class LibraryApiHelper extends ApiHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<Library> getLibraries() throws IOException {
+    public List<Library> getLibraries() {
 
-        if(loaded)
-            return libraries;
-
-        try {
-            String jsonString = getJsonAsString("libraries");
-            libraries = Arrays.asList(gson.fromJson(jsonString, Library[].class));
-            loaded = true;
-        }
-        catch (Exception e)
+        synchronized (libraries)
         {
-           e.printStackTrace();
+            if(isDataLoaded)
+                return libraries;
+
+            try {
+                String jsonString = getJsonAsString("libraries");
+                libraries = Arrays.asList(gson.fromJson(jsonString, Library[].class));
+                isDataLoaded = true;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return libraries;
         }
-
-       return libraries;
     }
-
 }
