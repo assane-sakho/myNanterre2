@@ -1,8 +1,11 @@
 package miage.parisnanterre.fr.mynanterre.api.library;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import android.os.Build;
 
-import java.util.ArrayList;
+import androidx.annotation.RequiresApi;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 import miage.parisnanterre.fr.mynanterre.api.building.Building;
@@ -16,36 +19,26 @@ public class Library {
     private String mail;
     private Building building;
 
-    @JsonProperty("libraryConsultationLoanConditions")
+    @SerializedName("libraryConsultationLoanConditions")
     private List<ConsultationLoanCondition> consultationLoanConditions;
 
-    @JsonProperty("libraryDocumentaryFund")
+    @SerializedName("libraryDocumentaryFunds")
     private List<DocumentaryFund> documentaryFunds;
 
-    @JsonProperty("libraryService")
+    @SerializedName("libraryServices")
     private List<Service> services;
 
-    @JsonProperty("libraryResponsables")
+    @SerializedName("libraryResponsables")
     private List<Responsable> responsables;
 
-    @JsonProperty("librarySchedules")
+    @SerializedName("librarySchedules")
     private List<Schedule> schedules;
 
+    @SerializedName("libraryAttendances")
+    private List<Attendance> attendances;
 
-    public Library(Integer id, String name, String location, String description, String receptionPhoneNumber, String mail, Building building, List<ConsultationLoanCondition> consultationLoanConditions, List<DocumentaryFund> documentaryFunds, List<Service> services, List<Responsable> responsables, List<Schedule> schedules) {
-        this.id = id;
-        this.name = name;
-        this.location = location;
-        this.description = description;
-        this.receptionPhoneNumber = receptionPhoneNumber;
-        this.mail = mail;
-        this.building = building;
-        this.consultationLoanConditions = consultationLoanConditions;
-        this.documentaryFunds = documentaryFunds;
-        this.services = services;
-        this.responsables = responsables;
-        this.schedules = schedules;
-    }
+    @SerializedName("libraryDomains")
+    private List<Domain> domains;
 
     public Integer getId() {
         return id;
@@ -83,8 +76,11 @@ public class Library {
         this.receptionPhoneNumber = receptionPhoneNumber;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public String getMail() {
-        return mail;
+        if(!mail.isEmpty())
+            return mail;
+        return responsables.stream().map(Responsable::getMail).filter(t -> t.isEmpty() == false).findFirst().get();
     }
 
     public void setMail(String mail) {
@@ -133,6 +129,14 @@ public class Library {
 
     public List<Schedule> getSchedules() {
         return schedules;
+    }
+
+    public List<Attendance> getAttendances() {
+        return attendances;
+    }
+
+    public void setAttendances(List<Attendance> attendances) {
+        this.attendances = attendances;
     }
 
     public void setSchedules(List<Schedule> schedules) {

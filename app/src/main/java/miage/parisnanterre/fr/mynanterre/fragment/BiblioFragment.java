@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import miage.parisnanterre.fr.mynanterre.R;
-import miage.parisnanterre.fr.mynanterre.implem.ListeEspacesBu;
+import miage.parisnanterre.fr.mynanterre.implem.library.ListeEspacesBu;
 
 
 public class BiblioFragment extends Fragment {
@@ -21,8 +21,7 @@ public class BiblioFragment extends Fragment {
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.biblio, container, false);
         mWebView = v.findViewById(R.id.webview);

@@ -1,8 +1,17 @@
 package miage.parisnanterre.fr.mynanterre.helpers.api;
 
+import android.os.Build;
 import android.os.StrictMode;
 
+import androidx.annotation.RequiresApi;
+
 import com.google.android.gms.common.api.Api;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,8 +21,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,11 +35,22 @@ abstract class ApiHelper {
     protected static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     protected static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/index.php/api/";
     protected static final String BASEURL = BASEURLDEV;
+    protected  Gson gson;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public ApiHelper()
     {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        gson = new GsonBuilder().registerTypeAdapter(LocalTime.class, new JsonDeserializer<LocalTime>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public LocalTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+
+                return LocalTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("HH:mm")); }
+
+        }).create();
     }
 
     protected final String getJsonAsString(String endpoint) throws IOException {
@@ -43,32 +66,11 @@ abstract class ApiHelper {
             String response = readIt(is);
             return response;
         }
-        catch(Exception ex) {
-            ex.printStackTrace();
-            return  "";
-        }
         finally {
-            // Makes sure that the InputStream is closed after the app is
-            // finished using it.
             if (is != null) {
                 is.close();
             }
         }
-    }
-
-    protected final List<String> getJsonAsStringList(String url, List<String> keys) throws IOException, JSONException {
-        List<String> result = new ArrayList<>();
-
-        String jsonResult = getJsonAsString(url);
-        JSONArray jsonArray = new JSONArray(jsonResult);
-
-        for (int i=0; i<jsonArray.length(); i++) {
-            JSONObject j = new JSONObject(jsonArray.getString(i));
-            for(String key : keys)
-                result.add(j.getString(key));
-        }
-
-        return result;
     }
 
     private String readIt(InputStream is) throws IOException {

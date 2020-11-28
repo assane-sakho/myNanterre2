@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre.implem;
+package miage.parisnanterre.fr.mynanterre.implem.library;
 
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -23,6 +23,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import miage.parisnanterre.fr.mynanterre.R;
+import miage.parisnanterre.fr.mynanterre.implem.library.ListeEspacesBu;
 
 
 public class FrequentationBu extends AppCompatActivity {

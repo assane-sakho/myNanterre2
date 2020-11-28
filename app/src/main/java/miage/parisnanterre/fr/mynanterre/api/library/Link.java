@@ -1,7 +1,10 @@
 package miage.parisnanterre.fr.mynanterre.api.library;
 
 public class Link extends LibraryRelatedElement {
-    public Link(int id, String content, Library library) {
-        super(id, content, library);
+    private String url;
+
+    public Link(int id, String url, Library library) {
+        super(id, library);
+        this.url = url;
     }
 }

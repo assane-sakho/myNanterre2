@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre.implem;
+package miage.parisnanterre.fr.mynanterre.implem.library;
 
 import android.content.Intent;
 import android.os.Build;
@@ -10,13 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
