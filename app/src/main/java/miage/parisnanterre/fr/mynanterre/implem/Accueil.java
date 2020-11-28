@@ -2,12 +2,14 @@ package miage.parisnanterre.fr.mynanterre.implem;
 
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -27,7 +29,7 @@ public class Accueil extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
-
+    private int mSelectedId;
     // Make sure to be using androidx.appcompat.app.ActionBarDrawerToggle version.
 
     @Override
@@ -55,7 +57,12 @@ public class Accueil extends AppCompatActivity {
         mDrawer = findViewById(R.id.drawer_layout);
         nvDrawer = findViewById(R.id.nvView);
         // Setup drawer view
+
         setupDrawerContent(nvDrawer);
+
+        mSelectedId = R.id.nav_accueil;
+        selectDrawerItem(mSelectedId);
+        setTitle("Accueil");
     }
 
     @Override
@@ -70,22 +77,26 @@ public class Accueil extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
+                        selectDrawerItem(menuItem.getItemId());
+                        menuItem.setChecked(true);
+                        // Set action bar title
+                        setTitle(menuItem.getTitle());
                         return true;
                     }
                 });
     }
 
-    public void selectDrawerItem(MenuItem menuItem) {
+    public void selectDrawerItem(int mSelectedId) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
-        switch(menuItem.getItemId()) {
+        switch(mSelectedId) {
             case R.id.nav_accueil:
                 fragmentClass = AccueilFragment.class;
                 break;
@@ -119,12 +130,12 @@ public class Accueil extends AppCompatActivity {
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction()
+                       .replace(R.id.flContent, fragment)
+                       .commit();
 
         // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
+
         // Close the navigation drawer
         mDrawer.closeDrawers();
     }
