@@ -45,7 +45,7 @@
         <activity android:name=".implem.CarteCrous"></activity>
         <activity android:name=".implem.LocalisationCrousMain"></activity>
 		<activity android:name=".implem.library.ListeEspacesBu" />
-        <activity android:name=".implem.library.FrequentationBu" />
+        <activity android:name=".implem.library.LibraryInfo" />
 
         <receiver android:name=".implem.NotificationReceiver" />
         <activity android:name=".implem.AuthSandwich" />

@@ -57,7 +57,7 @@ public class ListeEspacesBu extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(view.getContext(), FrequentationBu.class);
+        Intent intent = new Intent(view.getContext(), LibraryInfo.class);
         intent.putExtra("clickedLibraryIndex", position);
 
         //Start details activity

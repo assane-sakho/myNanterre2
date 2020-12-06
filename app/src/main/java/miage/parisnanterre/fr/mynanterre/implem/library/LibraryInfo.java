@@ -24,7 +24,7 @@ import miage.parisnanterre.fr.mynanterre.api.library.Library;
 import miage.parisnanterre.fr.mynanterre.helpers.api.LibraryApiHelper;
 
 
-public class FrequentationBu extends AppCompatActivity {
+public class LibraryInfo extends AppCompatActivity {
 
     BarChart barChart;
 
