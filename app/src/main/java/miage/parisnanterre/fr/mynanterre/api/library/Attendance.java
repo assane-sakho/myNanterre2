@@ -1,7 +1,9 @@
 package miage.parisnanterre.fr.mynanterre.api.library;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.time.LocalTime;
 
 public class Attendance extends LibraryRelatedElement{
@@ -12,5 +14,14 @@ public class Attendance extends LibraryRelatedElement{
         super(id, library);
         this.proportion = proportion;
         this.hour = hour;
+    }
+
+    public int getProportion() {
+        return proportion;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int getHour() {
+        return hour.getHour();
     }
 }

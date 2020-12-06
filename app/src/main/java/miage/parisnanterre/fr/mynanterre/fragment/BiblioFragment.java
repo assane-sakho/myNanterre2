@@ -12,7 +12,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -32,7 +31,7 @@ public class BiblioFragment extends Fragment {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.biblio, container, false);
+        v = inflater.inflate(R.layout.library_webmap, container, false);
 
         libraryApiHelper = LibraryApiHelper.getInstance();
         GetLibrariesAsync getLibrariesAsync = new GetLibrariesAsync();
@@ -48,8 +47,8 @@ public class BiblioFragment extends Fragment {
         // Force links and redirects to open in the WebView instead of in a browser
         mWebView.setWebViewClient(new WebViewClient());
 
-        Button frequentationBtn = v.findViewById(R.id.btnFrequentation);
-        frequentationBtn.setOnClickListener(new View.OnClickListener() {
+        Button btnLibrariesInfos = v.findViewById(R.id.btnLibrariesInfos);
+        btnLibrariesInfos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), ListeEspacesBu.class));
@@ -70,8 +69,8 @@ public class BiblioFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Button frequentationBtn = v.findViewById(R.id.btnFrequentation);
-            frequentationBtn.setText("Infos. bibliothèques");
+            Button btnLibrariesInfos = v.findViewById(R.id.btnLibrariesInfos);
+            btnLibrariesInfos.setText("Infos. bibliothèques");
         }
     }
 

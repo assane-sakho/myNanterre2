@@ -63,7 +63,7 @@ public class M2BiblioTest {
         navigationMenuItemView.perform(click());
 
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btnFrequentation), withText("Fréquentation BU ici"),
+                allOf(withId(R.id.btnLibrariesInfos), withText("Fréquentation BU ici"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.flContent),

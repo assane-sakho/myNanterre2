@@ -21,9 +21,6 @@ import miage.parisnanterre.fr.mynanterre.helpers.api.LibraryApiHelper;
 
 public class ListeEspacesBu extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    public static final String EXTRA_MESSAGE2 = "com.example.myfirstapp.MESSAGE2";
-
     private LibraryApiHelper libraryApiHelper;
     private List<Library> libraries;
     private List<String> librariesName;
@@ -60,20 +57,9 @@ public class ListeEspacesBu extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        try {
-           
-
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Une erreur est survenue.", Toast.LENGTH_SHORT).show();
-        }
-
-        //Create intent
-        id = (int) id + 1;
         Intent intent = new Intent(view.getContext(), FrequentationBu.class);
-        Bundle extras = new Bundle();
-        extras.putString(EXTRA_MESSAGE, id + ""); //get id
-        extras.putString(EXTRA_MESSAGE2, String.valueOf(this.m_listview.getItemAtPosition(position).toString())); //get nom espace bu
-        intent.putExtras(extras);
+        intent.putExtra("clickedLibraryIndex", position);
+
         //Start details activity
         startActivity(intent);
     }
