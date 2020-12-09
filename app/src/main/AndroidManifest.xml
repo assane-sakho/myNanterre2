@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="miage.parisnanterre.fr.mynanterre">
+    package="miage.parisnanterre.fr.mynanterre2">
 
     <application
         android:allowBackup="true"
@@ -17,39 +17,39 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDM6SztNHKpGR6ZHVQ7PC3yL2925gwBPHw"/>
-        <activity android:name=".implem.Accueil">
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.Accueil">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".implem.ListeSport"></activity>
-        <activity android:name=".implem.Plannification"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.ListeSport"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.Plannification"></activity>
 <!--        <activity android:name=".implem.Seance"></activity>-->
-        <activity android:name=".implem.TrainLigneL"></activity>
-        <activity android:name=".implem.TrainPlanLigneL"></activity>
-        <activity android:name=".implem.GareFavoriteLigneL"></activity>
-        <activity android:name=".implem.GareFavoriteRerA"></activity>
-        <activity android:name=".implem.TrainRerA"></activity>
-        <activity android:name=".implem.TrainPlanRerA"></activity>
-        <activity android:name=".implem.ListeCrous"></activity>
-        <activity android:name=".implem.ListeProduit"></activity>
-        <activity android:name=".implem.Cgu"></activity>
-        <activity android:name=".implem.PlanBatiments"></activity>
-        <activity android:name=".implem.ListeTrain"></activity>
-        <activity android:name=".implem.GoogleMaps"></activity>
-        <activity android:name=".implem.FrequentationBatiment"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.TrainLigneL"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.TrainPlanLigneL"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.GareFavoriteLigneL"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.GareFavoriteRerA"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.TrainRerA"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.TrainPlanRerA"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.ListeCrous"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.ListeProduit"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.Cgu"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.PlanBatiments"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.ListeTrain"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.GoogleMaps"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.FrequentationBatiment"></activity>
 
-        <activity android:name=".implem.MenuCrous"></activity>
-        <activity android:name=".implem.LiveTweet"></activity>
-        <activity android:name=".implem.CarteCrous"></activity>
-        <activity android:name=".implem.LocalisationCrousMain"></activity>
-		<activity android:name=".implem.library.ListeEspacesBu" />
-        <activity android:name=".implem.library.FrequentationBu" />
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.MenuCrous"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.LiveTweet"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.CarteCrous"></activity>
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.LocalisationCrousMain"></activity>
+		<activity android:name="miage.parisnanterre.fr.mynanterre2.implem.library.ListeEspacesBu" />
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.library.FrequentationBu" />
 
-        <receiver android:name=".implem.NotificationReceiver" />
-        <activity android:name=".implem.AuthSandwich" />
-        <activity android:name=".implem.SandwichDispo" />
+        <receiver android:name="miage.parisnanterre.fr.mynanterre2.implem.NotificationReceiver" />
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.AuthSandwich" />
+        <activity android:name="miage.parisnanterre.fr.mynanterre2.implem.SandwichDispo" />
     </application>
 
     <uses-permission android:name="android.permission." />
