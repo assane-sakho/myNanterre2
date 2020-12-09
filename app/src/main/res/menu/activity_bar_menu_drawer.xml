@@ -8,30 +8,30 @@
             android:id="@+id/nav_accueil"
             android:checked="true"
             android:icon="@drawable/home"
-            android:title="Accueil" />
+            android:title="@string/accueil" />
         <item
             android:id="@+id/nav_clubs"
             android:icon="@drawable/clubs"
-            android:title="Clubs" />
+            android:title="@string/clubs" />
         <item
             android:id="@+id/nav_crous"
             android:icon="@drawable/crous"
-            android:title="Crous" />
+            android:title="@string/crous" />
         <item
             android:id="@+id/nav_bu"
             android:icon="@drawable/bu"
-            android:title="Bibliothèque" />
+            android:title="@string/biblioth_que" />
         <item
             android:id="@+id/nav_train"
             android:icon="@drawable/train"
-            android:title="Train" />
+            android:title="@string/train" />
         <item
             android:id="@+id/nav_plan"
             android:icon="@drawable/plan"
-            android:title="Plan" />
+            android:title="@string/plan" />
         <item
             android:id="@+id/nav_maj"
             android:icon="@drawable/maj"
-            android:title="Mise à jour" />
+            android:title="@string/mise_jour" />
     </group>
 </menu>

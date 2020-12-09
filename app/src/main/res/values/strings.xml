@@ -5,4 +5,11 @@
     <string name="nav_header_subtitle">contact.mynanterre@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="nav_header_profil">test</string>
+    <string name="clubs">Clubs</string>
+    <string name="accueil">Accueil</string>
+    <string name="crous">Crous</string>
+    <string name="plan">Plan</string>
+    <string name="train">Train</string>
+    <string name="mise_jour">Mise à jour</string>
+    <string name="biblioth_que">Bibliothèque</string>
 </resources>

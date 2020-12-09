@@ -20,8 +20,8 @@ import miage.parisnanterre.fr.mynanterre2.fragment.BiblioFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.CrousFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.MajFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.PlanFragment;
-import miage.parisnanterre.fr.mynanterre2.fragment.SportFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.TrainFragment;
+import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
 
 public class Accueil extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -93,7 +93,7 @@ public class Accueil extends AppCompatActivity {
     public void selectDrawerItem(int mSelectedId) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
-        Class fragmentClass;
+        Class fragmentClass = null;
         switch(mSelectedId) {
             case R.id.nav_accueil:
                 fragmentClass = AccueilFragment.class;
@@ -108,7 +108,7 @@ public class Accueil extends AppCompatActivity {
                 fragmentClass = PlanFragment.class;
                 break;
             case R.id.nav_clubs:
-                fragmentClass = SportFragment.class;
+                fragmentClass = ClubFragment.class;
                 break;
             case R.id.nav_train:
                 fragmentClass = TrainFragment.class;
