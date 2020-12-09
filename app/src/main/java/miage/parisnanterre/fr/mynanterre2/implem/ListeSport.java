@@ -28,9 +28,9 @@ import miage.parisnanterre.fr.mynanterre2.fragment.SportFragment;
 
 
 public class ListeSport extends AppCompatActivity {
-    private static final String url = "jdbc:mysql://sql171.main-hosting.eu/u749839367_m1";
-    private static final String user = "u749839367_vijay";
-    private static final String psw = "9IDCqTm8Lig2";
+    private static final String url = "jdbc:mysql://den1.mysql2.gear.host/mynanterre";
+    private static final String user = "mynanterre";
+    private static final String psw = "Bk0JQmNO5~u~";
     private static Connection conn;
     private List<Sport> liste = new ArrayList<>();
 

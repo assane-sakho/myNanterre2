@@ -10,9 +10,9 @@
             android:icon="@drawable/home"
             android:title="Accueil" />
         <item
-            android:id="@+id/nav_sport"
-            android:icon="@drawable/sport"
-            android:title="Sport" />
+            android:id="@+id/nav_clubs"
+            android:icon="@drawable/clubs"
+            android:title="Clubs" />
         <item
             android:id="@+id/nav_crous"
             android:icon="@drawable/crous"

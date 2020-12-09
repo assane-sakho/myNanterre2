@@ -17,7 +17,7 @@ public class Seance extends AppCompatActivity {
     int numero;
     int nbInscrit;
 
-    public Seance(int numero, Time heured, Time heuref, String sport, String lieu, String dateRdv, int nb) {
+   /* public Seance(int numero, Time heured, Time heuref, String sport, String lieu, String dateRdv, int nb) {
         this.numero = numero;
         this.heured = heured;
         this.heuref = heuref;
@@ -26,7 +26,7 @@ public class Seance extends AppCompatActivity {
         this.dateRdv = dateRdv;
         this.nbInscrit = nb;
 
-    }
+    }*/
 
     public int getNbInscrit() {
         return nbInscrit;

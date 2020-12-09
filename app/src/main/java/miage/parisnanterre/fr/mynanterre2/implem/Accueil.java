@@ -107,7 +107,7 @@ public class Accueil extends AppCompatActivity {
             case R.id.nav_plan:
                 fragmentClass = PlanFragment.class;
                 break;
-            case R.id.nav_sport:
+            case R.id.nav_clubs:
                 fragmentClass = SportFragment.class;
                 break;
             case R.id.nav_train:

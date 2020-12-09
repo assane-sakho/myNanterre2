@@ -28,9 +28,9 @@ import miage.parisnanterre.fr.mynanterre2.implem.Seance;
 
 public class SeancesFragment extends Fragment {
 
-    private static final String url = "jdbc:mysql://sql171.main-hosting.eu/u749839367_m1";
-    private static final String user = "u749839367_vijay";
-    private static final String psw = "9IDCqTm8Lig2";
+    private static final String url = "jdbc:mysql://den1.mysql2.gear.host/mynanterre";
+    private static final String user = "mynanterre";
+    private static final String psw = "Bk0JQmNO5~u~";
     private static Connection conn;
     private List<Seance> liste = new ArrayList<>();
     private SeanceAdapter sAdapter;
@@ -85,7 +85,15 @@ public class SeancesFragment extends Fragment {
                 String sport = rst.getString("sport");
                 String lieu = rst.getString("lieu");
                 int nbInscrit = rst.getInt("nbInscrit");
-                Seance seance = new Seance(numero, heured, heuref, sport, lieu, dateRdv, nbInscrit);
+                //Seance seance = new Seance(numero, heured, heuref, sport, lieu, dateRdv, nbInscrit);
+                Seance seance = new Seance();
+                seance.setNumero(numero);
+                seance.setHeured(heured);
+                seance.setHeuref(heuref);
+                seance.setSport(sport);
+                seance.setLieu(lieu);
+                seance.setDateRdv(dateRdv);
+                seance.setNbInscrit(nbInscrit);
                 liste.add(seance);
 
             }
@@ -117,7 +125,15 @@ public class SeancesFragment extends Fragment {
                 String sport = rst.getString("sport");
                 String lieu = rst.getString("lieu");
                 int nbInscrit = rst.getInt("nbInscrit");
-                Seance seance = new Seance(numero, heured, heuref, sport, lieu, dateRdv, nbInscrit);
+               // Seance seance = new Seance(numero, heured, heuref, sport, lieu, dateRdv, nbInscrit);
+                Seance seance = new Seance();
+                seance.setNumero(numero);
+                seance.setHeured(heured);
+                seance.setHeuref(heuref);
+                seance.setSport(sport);
+                seance.setLieu(lieu);
+                seance.setDateRdv(dateRdv);
+                seance.setNbInscrit(nbInscrit);
                 liste.add(seance);
 
             }
