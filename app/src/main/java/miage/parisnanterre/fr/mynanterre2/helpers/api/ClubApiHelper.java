@@ -34,7 +34,7 @@ public class ClubApiHelper extends ApiHelper {
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                 e.printStackTrace();
             }
             return clubs;
         }

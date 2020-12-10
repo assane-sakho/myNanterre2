@@ -5,6 +5,6 @@ import java.time.LocalDateTime;
 public class Grade {
     private int id;
     private String name;
-    private LocalDateTime year;
+    private int year;
 }
 
