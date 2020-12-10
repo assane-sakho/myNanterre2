@@ -56,8 +56,5 @@ public class ClubFragment extends Fragment {
 
             return "executed";
         }
-
     }
-
-
 }
