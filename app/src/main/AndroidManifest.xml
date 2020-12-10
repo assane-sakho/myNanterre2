@@ -46,6 +46,7 @@
         <activity android:name=".implem.LocalisationCrousMain"></activity>
 		<activity android:name=".implem.library.ListeEspacesBu" />
         <activity android:name=".implem.library.LibraryInfo" />
+        <activity android:name=".implem.library.LibraryDesc" />
 
         <receiver android:name=".implem.NotificationReceiver" />
         <activity android:name=".implem.AuthSandwich" />

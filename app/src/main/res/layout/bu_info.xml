@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="29dp"
+        android:layout_height="39dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/back"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/NameBU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:fontFamily="@font/alice"
+        android:textColor="#E40E1F"
+        android:textSize="25sp" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="759dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-7dp"
+        android:addStatesFromChildren="true"
+        android:alwaysDrawnWithCache="true"
+        android:animateLayoutChanges="true"
+        android:background="#4A9F2E3C"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:keepScreenOn="false">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="511dp"
+            android:layout_marginBottom="400dp"
+            android:background="#B18686"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="511dp" />
+
+        <TextView
+            android:id="@+id/ResponsableName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="97dp"
+            android:layout_marginEnd="435dp"
+            android:layout_marginBottom="643dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="348dp"
+            android:layout_marginBottom="663dp"
+            android:text="Nom des responsables"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>
