@@ -2,23 +2,21 @@ package miage.parisnanterre.fr.mynanterre2.helpers.api;
 
 import android.os.Build;
 import android.os.StrictMode;
+import android.util.Base64;
 
 import androidx.annotation.RequiresApi;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -35,14 +33,11 @@ abstract class ApiHelper {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        gson = new GsonBuilder().registerTypeAdapter(LocalTime.class, new JsonDeserializer<LocalTime>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public LocalTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-
-                return LocalTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("HH:mm")); }
-
-        }).create();
+        gson = new GsonBuilder()
+                .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json, typeOfT, context) -> LocalTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("HH:mm")))
+                .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .registerTypeAdapter(byte[].class, (JsonDeserializer<byte[]>) (json, typeOfT, context) -> Base64.decode(json.getAsString(), Base64.NO_WRAP))
+                .create();
     }
 
     protected final String getJsonAsString(String endpoint) throws IOException {
@@ -55,8 +50,7 @@ abstract class ApiHelper {
             conn.addRequestProperty("accept", "application/json");
             conn.connect();
             is = conn.getInputStream();
-            String response = readIt(is);
-            return response;
+            return readIt(is);
         }
         finally {
             if (is != null) {

@@ -1,3 +1,19 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : devmynanterre - HOST
+ Source Server Type    : MySQL
+ Source Server Version : 50726
+ Source Host           : den1.mysql3.gear.host:3306
+ Source Schema         : devmynanterre
+
+ Target Server Type    : MySQL
+ Target Server Version : 50726
+ File Encoding         : 65001
+
+ Date: 10/12/2020 09:51:00
+*/
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -10,7 +26,7 @@ CREATE TABLE `building`  (
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `alias` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of building
@@ -40,6 +56,67 @@ INSERT INTO `building` VALUES (22, 'Jean Rouch', 'DD');
 INSERT INTO `building` VALUES (23, 'Clémence Ramnoux', 'E');
 
 -- ----------------------------
+-- Table structure for club
+-- ----------------------------
+DROP TABLE IF EXISTS `club`;
+CREATE TABLE `club`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `image` mediumblob NULL,
+  `creationDate` datetime(0) NOT NULL,
+  `description` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `is_certificate` binary(1) NOT NULL,
+  `creator_id` int(11) NOT NULL,
+  `club_type_id` int(11) NOT NULL,
+  `is_validate` binary(1) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `club_type_id`(`club_type_id`) USING BTREE,
+  INDEX `creator_id`(`creator_id`) USING BTREE,
+  CONSTRAINT `club_ibfk_2` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `club_ibfk_3` FOREIGN KEY (`club_type_id`) REFERENCES `club_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of club
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for club_publication
+-- ----------------------------
+DROP TABLE IF EXISTS `club_publication`;
+CREATE TABLE `club_publication`  (
+  `id` int(11) NOT NULL,
+  `message` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `date` datetime(0) NOT NULL,
+  `club_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `club_id`(`club_id`) USING BTREE,
+  CONSTRAINT `club_publication_ibfk_1` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of club_publication
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for club_type
+-- ----------------------------
+DROP TABLE IF EXISTS `club_type`;
+CREATE TABLE `club_type`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of club_type
+-- ----------------------------
+INSERT INTO `club_type` VALUES (1, 'informative');
+INSERT INTO `club_type` VALUES (2, 'varied');
+INSERT INTO `club_type` VALUES (3, 'sport');
+INSERT INTO `club_type` VALUES (4, 'association');
+
+-- ----------------------------
 -- Table structure for crous
 -- ----------------------------
 DROP TABLE IF EXISTS `crous`;
@@ -48,7 +125,7 @@ CREATE TABLE `crous`  (
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `location` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous
@@ -76,9 +153,9 @@ CREATE TABLE `crous_product`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
   INDEX `crous_id`(`crous_id`) USING BTREE,
-  CONSTRAINT `crous_product_ibfk_2` FOREIGN KEY (`crous_id`) REFERENCES `crous` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `crous_product_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+  CONSTRAINT `crous_product_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `crous_product_ibfk_2` FOREIGN KEY (`crous_id`) REFERENCES `crous` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous_product
@@ -144,7 +221,7 @@ CREATE TABLE `crous_product_availability`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `crous_product_availability_ibfk_1`(`crous_product_id`) USING BTREE,
   CONSTRAINT `crous_product_availability_ibfk_1` FOREIGN KEY (`crous_product_id`) REFERENCES `crous_product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous_product_availability
@@ -163,7 +240,7 @@ CREATE TABLE `crous_schedule`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `crous_id`(`crous_id`) USING BTREE,
   CONSTRAINT `crous_schedule_ibfk_1` FOREIGN KEY (`crous_id`) REFERENCES `crous` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous_schedule
@@ -182,6 +259,21 @@ INSERT INTO `crous_schedule` VALUES (11, '00:08:00.000000', '00:21:00.000000', 1
 INSERT INTO `crous_schedule` VALUES (12, '00:11:30.000000', '00:14:00.000000', 11, 'MO-TU-WE-TH-FR');
 
 -- ----------------------------
+-- Table structure for grade
+-- ----------------------------
+DROP TABLE IF EXISTS `grade`;
+CREATE TABLE `grade`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `year` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of grade
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for library
 -- ----------------------------
 DROP TABLE IF EXISTS `library`;
@@ -196,12 +288,11 @@ CREATE TABLE `library`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `building_id`(`building_id`) USING BTREE,
   CONSTRAINT `library_ibfk_1` FOREIGN KEY (`building_id`) REFERENCES `building` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library
 -- ----------------------------
-INSERT INTO `library` VALUES (0, 'LA BIBLIOTHÈQUE UNIVERSITAIRE', 'Campus Nanterre, Bâtiment BU - La Contemporaine (2 allée de la bibliothèque 92000 Nanterre)', 'La bibliothèque universitaire est composée de 5 salles thématiques où vous pouvez travailler et accéder librement à des ouvrages, des films et aux dernières années des revues auxquelles la BU est abonnée.\r\n\r\nCertains ouvrages et revues sont conservés dans les magasins situés dans la Tour du bâtiment. Ces documents doivent être demandés via le catalogue en ligne.\r\n\r\nAttention ! En 2019/2020, l’aile sud de la BU (BUlle, salle des Sciences sociales) est fermée, en raison des travaux de réalisation d\'un centre de ressources et des cultures numériques qui remplacera la BUlle. Les collections de la salle des Sciences sociales restent cependant accessibles en salle des Sciences économiques ou sur demande via le catalogue scd.parisnanterre.fr', 9, '0140977202', NULL);
 INSERT INTO `library` VALUES (1, 'BIBLIOTHÈQUE DE L\'UFR DSP', 'Entresol, salle E16', 'La BUFR de DSP rouvre ses portes ce mardi 13 octobre, dès 9 heures.\r\n\r\nDans le cadre de la mobilisation contre l\'épidémie de Covid-19, le nombre de places disponibles est réduit (45 contre 100). Merci de bien respecter les distances de sécurité en ne déplaçant pas les chaises et en suivant les marquages au sol.\r\n\r\nNos horaires sont également modifiés : 9h-17h du lundi au jeudi. Nous restons disponibles à distance pour toutes interrogations le vendredi.\r\n\r\nL\'accès à la salle des photocopieurs sera également limité à une personne à la fois.\r\n\r\nNous rappelons que le port du masque est obligatoire et ce pour toute la durée de votre passage dans la bibliothèque, comme c\'est le cas dans le reste du bâtiment.\r\n\r\nPour toute question ou renseignement, l\'équipe de la BUFR reste à votre disposition au 01.40.97.77.11, ou en écrivant à apare@parisnanterre.fr\r\n', 1, '0140977711', NULL);
 INSERT INTO `library` VALUES (2, 'LA BIBLIOTHÈQUE D’HISTOIRE ET D’HISTOIRE DE L’ART (UFR SSA)', 'Rez-de-chaussée', NULL, 23, NULL, NULL);
 INSERT INTO `library` VALUES (3, 'LA BIBLIOTHÈQUE DE LANGUES ET CULTURES ETRANGÈRES (UFR LCE)\r\n', '1er étage, salle 108', 'La biblothèque de l\'UFR LCE est fermée pendant toute la durée du confinement.\r\n\r\nLa durée de l\'ensemble des prêts de documents est automatiquement prolongée jusqu\'à la réouverture de la bibliothèque. Aucune pénalité n\'est encourue.\r\n\r\nLa bibliothèque universitaire vous accueille sur rendez-vous pour emprunter et retourner les ouvrages, travailler sur place aux horaires suivants : 10h-13h ; 14h-17h', 14, '0140974943', NULL);
@@ -215,6 +306,7 @@ INSERT INTO `library` VALUES (10, 'LA BIBLIOTHÈQUE DE LETTRES ET DES SCIENCES D
 INSERT INTO `library` VALUES (11, 'LA BIBLIOTHÈQUE DE SCIENCES ECONOMIQUES, GESTION, MATHÉMATIQUES ET INFORMATIQUE (UFR SEGMI)', 'Salle 113', 'Re-Confinement de novembre - Fermeture de la bibliothèque SEGMI\r\n\r\nSuite aux annonces présidentielles et aux nouvelles consignes sanitaires, la bibliothèque SEGMI ferme ses portes au public jusqu\'à nouvel ordre.\r\nLes ouvrages empruntés avant le confinement peuvent être rendus à la grande BU pendant toute la durée de la fermeture, cependant la durée de prêt de tous les documents a été automatiquement prolongée jusqu’au 7 décembre et le sera au-delà si nécessaire. Il n\'est donc pas nécessaire de vous déplacer pour retourner des documents.\r\n\r\nA titre d\'information, à partir du 9 novembre, la grande BU est accessible aux membres de la communauté universitaire sur rendez-vous, une journée maximum par personne par semaine. Prendre rendez-vous est nécessaire pour accéder à une place de travail individuelle mais aussi pour utiliser les autres services de la BU (prêt / retour de documents, impressions / photocopies).', 2, NULL, NULL);
 INSERT INTO `library` VALUES (12, 'LA BIBLIOTHÈQUE DE PSYCHOLOGIE ET SCIENCES DE L’ÉDUCATION (UFR SPSE)', 'Salle R01', 'LA BIBLIOTHÈQUE DE PSYCHOLOGIE ET SCIENCES DE L’ÉDUCATION (UFR SPSE)\r\nConfinement de novembre - Fermeture de la Bibliothèque de l\'UFR SPSE\r\nLa bibliothèque de l\'UFR ferme ses portes au public à partir de ce lundi 2 novembre 2020.\r\n\r\nJe demeure néanmoins joignable via ma messagerie professionnelle ljouvin@parisnanterre.fr et serai théoriquement présente sur site chaque lundi et jeudi.  Ces jours-là, vous pourrez donc m\'obtenir au 01.40.97.74.24.\r\n\r\nPour ce qui est du retour des documents que vous aviez empruntés avant ce confinement, nous avons porté la date de retour au 7 décembre.\r\n\r\nIl est également envisageable de nous adresser les ouvrages par voie postale (Université de Nanterre / Bibliothèque de l\'UFR de SPSE / L. Jouvin / Bât Zazzo RDC / 200 avenue de la République / 92001 NANTERRE)\r\n\r\nLa grande B.U. réouvrant à partir du 9 novembre mais avec des horaires restreints et un nombre limité de places de travail (attention prise de rendez-vous préalable, voir les modalités), en vous y rendant, vous pourrez également déposer chez eux nos ouvrages. Nous nous chargerons de les récupérer ensuite.\r\n\r\nMerci à vous et bonne continuation dans le distanciel.', 20, '0140977044', NULL);
 INSERT INTO `library` VALUES (13, 'LA BIBLIOTHÈQUE D\'AMÉNAGEMENT ET URBANISME (UFR SSA)', 'Salle 412', 'Rattachée au département de géographie de l\'UFR SSA, au laboratoire Mosaïques depuis 2006 et à la formation en aménagement, la bibliothèque d\'aménagement et d\'urbanisme accueille en priorité les étudiants à partir du L2, les Master 1 et 2, ainsi que les doctorants et chercheurs de l\'Université Université Paris Nanterre.\r\n\r\nElle autorise aussi l\'accès à toute personne extérieure intéressée par le fonds documentaire (étudiants d\'autres universités, professionnels de l\'aménagement et de la ville, membres d\'associations...) en consultation sur place. (Prêt aux personnes inscrites au préalable à la BU comme Lecteur extérieur.)', 21, NULL, NULL);
+INSERT INTO `library` VALUES (16, 'LA BIBLIOTHÈQUE UNIVERSITAIRE', 'Campus Nanterre, Bâtiment BU - La Contemporaine (2 allée de la bibliothèque 92000 Nanterre)', 'La bibliothèque universitaire est composée de 5 salles thématiques où vous pouvez travailler et accéder librement à des ouvrages, des films et aux dernières années des revues auxquelles la BU est abonnée.\r\n\r\nCertains ouvrages et revues sont conservés dans les magasins situés dans la Tour du bâtiment. Ces documents doivent être demandés via le catalogue en ligne.\r\n\r\nAttention ! En 2019/2020, l’aile sud de la BU (BUlle, salle des Sciences sociales) est fermée, en raison des travaux de réalisation d\'un centre de ressources et des cultures numériques qui remplacera la BUlle. Les collections de la salle des Sciences sociales restent cependant accessibles en salle des Sciences économiques ou sur demande via le catalogue scd.parisnanterre.fr', 9, '0140977202', NULL);
 
 -- ----------------------------
 -- Table structure for library_consultation_loan_condition
@@ -227,7 +319,7 @@ CREATE TABLE `library_consultation_loan_condition`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
   CONSTRAINT `library_consultation_loan_condition_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library_consultation_loan_condition
@@ -244,11 +336,65 @@ CREATE TABLE `library_documentary_fund`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
   CONSTRAINT `library_documentary_fund_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library_documentary_fund
 -- ----------------------------
+INSERT INTO `library_documentary_fund` VALUES (2, '1 850 ouvrages', 8);
+INSERT INTO `library_documentary_fund` VALUES (3, '3 revues', 8);
+INSERT INTO `library_documentary_fund` VALUES (4, 'Thèses', 8);
+INSERT INTO `library_documentary_fund` VALUES (5, 'Mémoires', 8);
+INSERT INTO `library_documentary_fund` VALUES (6, '5 700 ouvrages', 1);
+INSERT INTO `library_documentary_fund` VALUES (7, '78 titres de périodiques (dont 58 abonnements en cours)', 1);
+INSERT INTO `library_documentary_fund` VALUES (8, 'Fonds de l’Institut d’études judiciaires (IEJ) : empruntables par les étudiants suivant cette formation', 1);
+INSERT INTO `library_documentary_fund` VALUES (9, 'Fonds du Master d’études bilingues des droits de l’Europe (BDE)', 1);
+INSERT INTO `library_documentary_fund` VALUES (10, 'Fonds de mélanges', 1);
+INSERT INTO `library_documentary_fund` VALUES (11, 'Fonds Guy Carcassonne (FGC)', 1);
+INSERT INTO `library_documentary_fund` VALUES (12, '7 000 ouvrages.', 9);
+INSERT INTO `library_documentary_fund` VALUES (13, '100 titres de périodiques dont 12 abonnements en cours', 9);
+INSERT INTO `library_documentary_fund` VALUES (14, '150 thèses et mémoires', 9);
+INSERT INTO `library_documentary_fund` VALUES (15, '36 000 cartes topographiques, géologiques, climatiques et de végétation à différentes échelles (cartes françaises et étrangères)', 9);
+INSERT INTO `library_documentary_fund` VALUES (16, '30 000 ouvrages', 2);
+INSERT INTO `library_documentary_fund` VALUES (17, '112 titres de périodiques dont 29 abonnements en cours', 2);
+INSERT INTO `library_documentary_fund` VALUES (18, '4 500 mémoires', 2);
+INSERT INTO `library_documentary_fund` VALUES (19, '11 000 ouvrages', 3);
+INSERT INTO `library_documentary_fund` VALUES (20, '6 revues : Courrier International, Time, the Economist, Vocable espagnol, Deutch Perfekt, Monde chinois', 3);
+INSERT INTO `library_documentary_fund` VALUES (21, '148 mémoires de Master de Langues (soutenus au sein de l\'Université Paris Nanterre)', 3);
+INSERT INTO `library_documentary_fund` VALUES (22, 'Agrégation et CAPES d\'anglais et d\'espagnol : la plupart des ouvrages signalés dans les bibliographies officielles des concours sont disponibles.', 3);
+INSERT INTO `library_documentary_fund` VALUES (23, '30 000 ouvrages en lettres modernes et classiques et sciences du langage', 10);
+INSERT INTO `library_documentary_fund` VALUES (24, '150 titres de périodiques', 10);
+INSERT INTO `library_documentary_fund` VALUES (25, 'Une centaine de mémoires', 10);
+INSERT INTO `library_documentary_fund` VALUES (26, 'Rapports du jury CAPES et AGREGATION', 10);
+INSERT INTO `library_documentary_fund` VALUES (27, '17 000 ouvrages', 4);
+INSERT INTO `library_documentary_fund` VALUES (28, '70 titres de périodiques consultables sur place, plus 13 empruntables (dont 3 abonnements en cours)', 4);
+INSERT INTO `library_documentary_fund` VALUES (29, '350 thèses et mémoires consultables sur places (Inventaire à consulter/télécharger)\r\n', 4);
+INSERT INTO `library_documentary_fund` VALUES (30, 'Copies de concours en consultation sur place\r\n', 4);
+INSERT INTO `library_documentary_fund` VALUES (31, 'ouvrages', 5);
+INSERT INTO `library_documentary_fund` VALUES (32, 'ressources en ligne', 5);
+INSERT INTO `library_documentary_fund` VALUES (33, 'bases de données', 5);
+INSERT INTO `library_documentary_fund` VALUES (34, 'un fonds concours principalement catégories A et B', 5);
+INSERT INTO `library_documentary_fund` VALUES (35, 'revues spécialisées', 5);
+INSERT INTO `library_documentary_fund` VALUES (36, '6 500 ouvrages', 11);
+INSERT INTO `library_documentary_fund` VALUES (37, '16 revues', 11);
+INSERT INTO `library_documentary_fund` VALUES (38, 'Mémoires de master', 11);
+INSERT INTO `library_documentary_fund` VALUES (39, '6 200 ouvrages', 6);
+INSERT INTO `library_documentary_fund` VALUES (40, '20 titres de périodiques', 6);
+INSERT INTO `library_documentary_fund` VALUES (41, '400 à 500 mémoires', 6);
+INSERT INTO `library_documentary_fund` VALUES (42, '2 035 ouvrages', 6);
+INSERT INTO `library_documentary_fund` VALUES (43, '27 titres de périodiques dont 14 abonnements en cours', 6);
+INSERT INTO `library_documentary_fund` VALUES (44, '855 mémoires', 6);
+INSERT INTO `library_documentary_fund` VALUES (45, '90 rapports de stage', 6);
+INSERT INTO `library_documentary_fund` VALUES (46, 'Environ 20 800 documents', 12);
+INSERT INTO `library_documentary_fund` VALUES (47, '12 000 volumes d\'ouvrages', 12);
+INSERT INTO `library_documentary_fund` VALUES (48, '74 titres de périodiques dont 48 abonnements en cours', 12);
+INSERT INTO `library_documentary_fund` VALUES (49, '891 titres de mémoires, en Sciences de l\'éducation et en Sciences Psychologiques', 12);
+INSERT INTO `library_documentary_fund` VALUES (50, 'Documents pédagogiques, tirés a part, veille, annales', 12);
+INSERT INTO `library_documentary_fund` VALUES (51, '950 ouvrages', 7);
+INSERT INTO `library_documentary_fund` VALUES (52, '654 mémoires', 7);
+INSERT INTO `library_documentary_fund` VALUES (53, '3 800 ouvrages', 13);
+INSERT INTO `library_documentary_fund` VALUES (54, '10 titres de périodiques', 13);
+INSERT INTO `library_documentary_fund` VALUES (55, '1 400 thèses, mémoires et rapports de stages', 13);
 
 -- ----------------------------
 -- Table structure for library_domain
@@ -261,7 +407,7 @@ CREATE TABLE `library_domain`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
   CONSTRAINT `library_domain_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library_domain
@@ -379,7 +525,7 @@ CREATE TABLE `library_link`  (
   INDEX `link_type`(`link_type`) USING BTREE,
   CONSTRAINT `library_link_ibfk_2` FOREIGN KEY (`link_type`) REFERENCES `link_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `library_link_ibfk_3` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library_link
@@ -422,7 +568,7 @@ CREATE TABLE `library_responsable`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
   CONSTRAINT `library_responsable_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library_responsable
@@ -462,7 +608,7 @@ CREATE TABLE `library_schedule`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
   CONSTRAINT `library_schedule_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library_schedule
@@ -507,7 +653,7 @@ CREATE TABLE `library_service`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
   CONSTRAINT `library_service_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library_service
@@ -585,7 +731,7 @@ CREATE TABLE `link_type`  (
   `type` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `base` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of link_type
@@ -605,7 +751,7 @@ CREATE TABLE `product`  (
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `price` decimal(10, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of product
@@ -643,66 +789,44 @@ INSERT INTO `product` VALUES (30, 'Pâtes', 3.00);
 INSERT INTO `product` VALUES (31, 'Saveurs du monde', 3.00);
 INSERT INTO `product` VALUES (32, 'Salades', 3.00);
 
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `lastname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `birthdate` datetime(0) NULL DEFAULT NULL,
+  `grade_id` int(11) NOT NULL,
+  `user_type_id` int(11) NOT NULL DEFAULT 1,
+  `university_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `university_id`(`university_id`) USING BTREE,
+  INDEX `grade_id`(`grade_id`) USING BTREE,
+  INDEX `user_type_id`(`user_type_id`) USING BTREE,
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `user_ibfk_3` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
--- Records of library_documentary_fund
+-- Records of user
 -- ----------------------------
 
-INSERT INTO `library_documentary_fund` (`id`, `name`, `library_id`) VALUES
-(2, '1 850 ouvrages', 8),
-(3, '3 revues', 8),
-(4, 'Thèses', 8),
-(5, 'Mémoires', 8),
-(6, '5 700 ouvrages', 1),
-(7, '78 titres de périodiques (dont 58 abonnements en cours)', 1),
-(8, 'Fonds de l’Institut d’études judiciaires (IEJ) : empruntables par les étudiants suivant cette formation', 1),
-(9, 'Fonds du Master d’études bilingues des droits de l’Europe (BDE)', 1),
-(10, 'Fonds de mélanges', 1),
-(11, 'Fonds Guy Carcassonne (FGC)', 1),
-(12, '7 000 ouvrages.', 9),
-(13, '100 titres de périodiques dont 12 abonnements en cours', 9),
-(14, '150 thèses et mémoires', 9),
-(15, '36 000 cartes topographiques, géologiques, climatiques et de végétation à différentes échelles (cartes françaises et étrangères)', 9),
-(16, '30 000 ouvrages', 2),
-(17, '112 titres de périodiques dont 29 abonnements en cours', 2),
-(18, '4 500 mémoires', 2),
-(19, '11 000 ouvrages', 3),
-(20, '6 revues : Courrier International, Time, the Economist, Vocable espagnol, Deutch Perfekt, Monde chinois', 3),
-(21, '148 mémoires de Master de Langues (soutenus au sein de l\'Université Paris Nanterre)', 3),
-(22, 'Agrégation et CAPES d\'anglais et d\'espagnol : la plupart des ouvrages signalés dans les bibliographies officielles des concours sont disponibles.', 3),
-(23, '30 000 ouvrages en lettres modernes et classiques et sciences du langage', 10),
-(24, '150 titres de périodiques', 10),
-(25, 'Une centaine de mémoires', 10),
-(26, 'Rapports du jury CAPES et AGREGATION', 10),
-(27, '17 000 ouvrages', 4),
-(28, '70 titres de périodiques consultables sur place, plus 13 empruntables (dont 3 abonnements en cours)', 4),
-(29, '350 thèses et mémoires consultables sur places (Inventaire à consulter/télécharger)\r\n', 4),
-(30, 'Copies de concours en consultation sur place\r\n', 4),
-(31, 'ouvrages', 5),
-(32, 'ressources en ligne', 5),
-(33, 'bases de données', 5),
-(34, 'un fonds concours principalement catégories A et B', 5),
-(35, 'revues spécialisées', 5),
-(36, '6 500 ouvrages', 11),
-(37, '16 revues', 11),
-(38, 'Mémoires de master', 11),
-(39, '6 200 ouvrages', 6),
-(40, '20 titres de périodiques', 6),
-(41, '400 à 500 mémoires', 6),
-(42, '2 035 ouvrages', 6),
-(43, '27 titres de périodiques dont 14 abonnements en cours', 6),
-(44, '855 mémoires', 6),
-(45, '90 rapports de stage', 6),
-(46, 'Environ 20 800 documents', 12),
-(47, '12 000 volumes d\'ouvrages', 12),
-(48, '74 titres de périodiques dont 48 abonnements en cours', 12),
-(49, '891 titres de mémoires, en Sciences de l\'éducation et en Sciences Psychologiques', 12),
-(50, 'Documents pédagogiques, tirés a part, veille, annales', 12),
-(51, '950 ouvrages', 7),
-(52, '654 mémoires', 7),
-(53, '3 800 ouvrages', 13),
-(54, '10 titres de périodiques', 13),
-(55, '1 400 thèses, mémoires et rapports de stages', 13);
+-- ----------------------------
+-- Table structure for user_type
+-- ----------------------------
+DROP TABLE IF EXISTS `user_type`;
+CREATE TABLE `user_type`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
+-- ----------------------------
+-- Records of user_type
+-- ----------------------------
+INSERT INTO `user_type` VALUES (1, 'student');
+INSERT INTO `user_type` VALUES (2, 'administrator');
 
 SET FOREIGN_KEY_CHECKS = 1;
