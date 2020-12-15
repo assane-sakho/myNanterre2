@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem.library;
+package miage.parisnanterre.fr.mynanterre2.implem.library.fragment;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;

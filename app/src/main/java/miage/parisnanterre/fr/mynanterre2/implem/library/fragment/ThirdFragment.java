@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem.library;
+package miage.parisnanterre.fr.mynanterre2.implem.library.fragment;
 
 
 
