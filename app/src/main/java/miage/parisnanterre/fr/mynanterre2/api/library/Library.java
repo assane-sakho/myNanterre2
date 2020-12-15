@@ -78,9 +78,7 @@ public class Library {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public String getMail() {
-        if(!mail.isEmpty())
-            return mail;
-        return responsables.stream().map(Responsable::getMail).filter(t -> t.isEmpty() == false).findFirst().get();
+        return mail;
     }
 
     public void setMail(String mail) {

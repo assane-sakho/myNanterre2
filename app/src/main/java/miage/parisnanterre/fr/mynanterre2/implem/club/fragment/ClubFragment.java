@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.fragment;
+package miage.parisnanterre.fr.mynanterre2.implem.club.fragment;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;

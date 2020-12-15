@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".implem.club.ClubInfoActivity"></activity>
+        <activity android:name=".implem.library.BiblioActivity"></activity>
+        <activity android:name=".implem.club.ClubInfoActivity" />
         <activity android:name=".implem.club.ClubActivity" />
 
         <uses-library
@@ -65,7 +66,7 @@
         <activity android:name=".implem.CarteCrous" />
         <activity android:name=".implem.LocalisationCrousMain" />
         <activity android:name=".implem.library.ListeEspacesBu" />
-        <activity android:name=".implem.library.FrequentationBu" />
+        <activity android:name=".implem.library.LibraryDesc" />
 
         <receiver android:name=".implem.NotificationReceiver" />
 

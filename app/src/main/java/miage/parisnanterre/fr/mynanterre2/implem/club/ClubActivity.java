@@ -1,14 +1,11 @@
 package miage.parisnanterre.fr.mynanterre2.implem.club;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Menu;
 
-import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
-import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubFragment;
 import miage.parisnanterre.fr.mynanterre2.R;
 
 public class ClubActivity extends AppCompatActivity {
