@@ -44,6 +44,8 @@ public class LibraryDesc extends AppCompatActivity {
 
         List<BarEntry> barEntries = new ArrayList<>();
 
+
+
         Intent myIntent = getIntent(); // gets the previously created intent
 
         //Insertion des données
@@ -83,21 +85,31 @@ public class LibraryDesc extends AppCompatActivity {
             // get the reference of FrameLayout and TabLayout
             simpleFrameLayout = (FrameLayout) findViewById(R.id.simpleFrameLayout);
             tabLayout = (TabLayout) findViewById(R.id.simpleTabLayout);
+
+
+
             // Create a new Tab named "First"
             TabLayout.Tab firstTab = tabLayout.newTab();
             firstTab.setText("Information"); // set the Text for the first Tab
-
             tabLayout.addTab(firstTab); // add  the tab at in the TabLayout
+
+            //Send Intent data to fragment
+            Intent recipientsIntent = new Intent(this, LibraryDesc.class);
+
+
+
             // Create a new Tab named "Second"
             TabLayout.Tab secondTab = tabLayout.newTab();
             secondTab.setText("Affluences"); // set the Text for the second Tab
-
             tabLayout.addTab(secondTab); // add  the tab  in the TabLayout
+
+
             // Create a new Tab named "Third"
             TabLayout.Tab thirdTab = tabLayout.newTab();
-            thirdTab.setText("Conditions de prêt"); // set the Text for the first Tab
-
+            thirdTab.setText("Contacts"); // set the Text for the third Tab
             tabLayout.addTab(thirdTab); // add  the tab at in the TabLayout
+
+
 
             Fragment fragment = new FirstFragment();
             FragmentManager fm = getSupportFragmentManager();
@@ -114,13 +126,13 @@ public class LibraryDesc extends AppCompatActivity {
                     Fragment fragment = null;
                     switch (tab.getPosition()) {
                         case 0:
-                            fragment = new FirstFragment();
+                            fragment = new FirstFragment(clickedLibrary);
                             break;
                         case 1:
                             fragment = new SecondFragment();
                             break;
                         case 2:
-                            fragment = new ThirdFragment();
+                            fragment = new ThirdFragment(clickedLibrary);
                             break;
                     }
                     FragmentManager fm = getSupportFragmentManager();

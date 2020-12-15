@@ -7,37 +7,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="49dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="5dp"
+            app:srcCompat="@drawable/button_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:text="Bibliothèque Universitaire"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="95dp"
         android:background="@color/white"
-        android:fontFamily="@font/alice"></ListView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
         android:fontFamily="@font/alice"
-        android:text="Bibliothèque Universitaire"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="21sp" />
-
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="29dp"
-        android:layout_height="33dp"
-        android:layout_marginLeft="15dp"
-        app:srcCompat="@drawable/back"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:divider="@color/black"
+        android:dividerHeight="1dp">
+    </ListView>
 </RelativeLayout>

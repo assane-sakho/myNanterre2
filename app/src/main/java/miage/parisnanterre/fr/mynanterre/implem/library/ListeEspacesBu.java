@@ -19,8 +19,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import miage.parisnanterre.fr.mynanterre.R;
 import miage.parisnanterre.fr.mynanterre.api.library.Library;
+import miage.parisnanterre.fr.mynanterre.fragment.AccueilFragment;
 import miage.parisnanterre.fr.mynanterre.fragment.BiblioFragment;
 import miage.parisnanterre.fr.mynanterre.helpers.api.LibraryApiHelper;
+import miage.parisnanterre.fr.mynanterre.implem.Accueil;
 
 public class ListeEspacesBu extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -51,12 +53,12 @@ public class ListeEspacesBu extends AppCompatActivity implements AdapterView.OnI
             m_listview.setOnItemClickListener(this);
 
 
-            //Retour vers la carte des ibliothèques.
+            //Retour vers la carte des bibliothèques.
             ImageView back = findViewById(R.id.back);
             back.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getApplicationContext(), BiblioFragment.class));
+                    startActivity(new Intent(getApplicationContext(), AccueilFragment.class));
                 }
             });
 
