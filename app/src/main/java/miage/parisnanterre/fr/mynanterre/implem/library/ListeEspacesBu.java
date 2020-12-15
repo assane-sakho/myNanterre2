@@ -1,5 +1,6 @@
 package miage.parisnanterre.fr.mynanterre.implem.library;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class ListeEspacesBu extends AppCompatActivity implements AdapterView.OnI
 
     private ListView m_listview;
 
+    @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate( Bundle savedInstanceState) {

@@ -99,6 +99,13 @@ public class LibraryDesc extends AppCompatActivity {
 
             tabLayout.addTab(thirdTab); // add  the tab at in the TabLayout
 
+            Fragment fragment = new FirstFragment();
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.simpleFrameLayout, fragment);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.commit();
+
             // perform setOnTabSelectedListener event on TabLayout
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
