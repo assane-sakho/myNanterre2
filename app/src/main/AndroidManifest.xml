@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".implem.club.ClubActivity"></activity>
+        <activity android:name=".implem.club.ClubInfoActivity"></activity>
+        <activity android:name=".implem.club.ClubActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

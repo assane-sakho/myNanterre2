@@ -79,7 +79,6 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.+'
     implementation 'com.google.android.material:material:1.2.0-alpha2.0'
 
-
 }
 repositories {
     mavenCentral()
