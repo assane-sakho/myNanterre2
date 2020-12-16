@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -40,14 +39,28 @@ public class FirstFragment extends Fragment {
         try {
 
             //BU Name
+
             TextView txtview = v.findViewById(R.id.NameBU);
             txtview.setText(clickedLibrary.getName());
 
 
+            TextView txtEmail = v.findViewById(R.id.txtEmail);
+            TextView txtTel = v.findViewById(R.id.txtTel);
+            txtTel.setText(clickedLibrary.getReceptionPhoneNumber());
+            txtEmail.setText(clickedLibrary.getMail());
+
+
+            //Description
+            TextView txtDesc = v.findViewById(R.id.txtDescription);
+            txtDesc.setText(clickedLibrary.getDescription());
+
+
             //EMAIL
 
+            /*
             TextView txtEmail = v.findViewById(R.id.email);
             ImageView imgEmail = v.findViewById(R.id.imgMail);
+
             if(!StringUtils.isEmpty(clickedLibrary.getMail()))
             {
                 txtEmail.setText(clickedLibrary.getMail());
@@ -64,7 +77,7 @@ public class FirstFragment extends Fragment {
 
             //TELEPHONE
 
-            TextView txtTel = v.findViewById(R.id.tel);
+            TextView txtTel = v.findViewById(R.id.txtTel);
             ImageView imgTel = v.findViewById(R.id.imgTel);
             if(!StringUtils.isEmpty(clickedLibrary.getReceptionPhoneNumber()))
             {
@@ -79,7 +92,7 @@ public class FirstFragment extends Fragment {
                 txtTel.setVisibility(v.GONE);
             }
 
-
+             */
 
 
             /*
@@ -149,6 +162,28 @@ public class FirstFragment extends Fragment {
 
 
              */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             //Ajouter dynamiquement une image (email & tel)
