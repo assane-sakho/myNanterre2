@@ -46,6 +46,18 @@ public class FirstFragment extends Fragment {
 
             TextView txtEmail = v.findViewById(R.id.txtEmail);
             TextView txtTel = v.findViewById(R.id.txtTel);
+
+            ImageView imgEmail = v.findViewById(R.id.imgMail);
+            if(StringUtils.isEmpty(clickedLibrary.getMail()))
+            {
+                imgEmail.setVisibility(v.GONE);
+            }
+
+            ImageView imgTel = v.findViewById(R.id.imgTel);
+            if(StringUtils.isEmpty(clickedLibrary.getReceptionPhoneNumber()))
+            {
+                imgTel.setVisibility(v.GONE);
+            }
             txtTel.setText(clickedLibrary.getReceptionPhoneNumber());
             txtEmail.setText(clickedLibrary.getMail());
 
