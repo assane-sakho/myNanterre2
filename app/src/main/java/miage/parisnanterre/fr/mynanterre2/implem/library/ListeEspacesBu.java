@@ -60,7 +60,6 @@ public class ListeEspacesBu extends AppCompatActivity implements AdapterView.OnI
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), BiblioActivity.class);
-
                     startActivity(intent);
                 }
             });

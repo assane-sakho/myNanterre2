@@ -15,7 +15,13 @@ public class ClubInfoActivity extends AppCompatActivity {
         setContentView(R.layout.club_info_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, ClubInfoFragment.newInstance())
+                    .replace(R.id.container, ClubInfoFragment.newInstance(getIntent().getByteArrayExtra("image"),
+                            getIntent().getStringExtra("nom"),
+                            getIntent().getStringExtra("cat"),
+                            getIntent().getStringExtra("creator"),
+                            getIntent().getStringExtra("desc"),
+                            getIntent().getStringExtra("date"),
+                            getIntent().getBooleanExtra("certified", false)))
                     .commitNow();
         }
     }

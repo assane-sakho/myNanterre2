@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,6 +30,7 @@ import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.implem.club.ClubInfoActivity;
 import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubInfoFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.library.BiblioActivity;
 
 public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapter.ViewHolder> implements Filterable {
 
@@ -68,15 +70,15 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
            @Override
             public void onClick(View view) {
-
+                Toast.makeText(view.getContext(), clubList.get(position).getName(), Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(context, ClubInfoActivity.class);
-                //intent.putExtra("image", bitmap);
+                intent.putExtra("image", clubList.get(position).getImage());
                 intent.putExtra("nom", clubList.get(position).getName());
-                /*intent.putExtra("cat", clubList.get(position).getType().getName());
+                intent.putExtra("cat", clubList.get(position).getType().getName());
                 intent.putExtra("creator", clubList.get(position).getCreator().getFirstName() + " " + clubList.get(position).getCreator().getLastName() );
                 intent.putExtra("desc", clubList.get(position).getDescription());
                 intent.putExtra("date", clubList.get(position).getCreationDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
-                intent.putExtra("certified", clubList.get(position).isCertificate());*/
+                intent.putExtra("certified", clubList.get(position).isCertificate());
 
                 context.startActivity(intent);
             }
@@ -88,7 +90,6 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
     @Override
     public int getItemCount() {
         return clubList.size();
-        //return 10;
     }
 
     @Override

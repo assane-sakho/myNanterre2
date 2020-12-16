@@ -65,8 +65,9 @@ public class ClubFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.menu_search,menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView)item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+        final androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) (SearchView)item.getActionView();
+        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
