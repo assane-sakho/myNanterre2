@@ -97,8 +97,6 @@ public class ClubFragment extends Fragment {
             rvClub = v.findViewById(R.id.recyclerViewClub);
             rca = new RecyclerClubAdapter(getContext());
 
-            // rvClub.setLayoutManager(new LinearLayoutManager(this));
-
             rvClub.setAdapter(rca);
             ClubFragment.newInstance();
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);

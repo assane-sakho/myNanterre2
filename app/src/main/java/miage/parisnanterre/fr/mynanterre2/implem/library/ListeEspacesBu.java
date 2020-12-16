@@ -78,7 +78,6 @@ public class ListeEspacesBu extends AppCompatActivity implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(view.getContext(), LibraryDesc.class);
         intent.putExtra("clickedLibraryIndex", position);
-
         //Start details activity
         startActivity(intent);
     }
