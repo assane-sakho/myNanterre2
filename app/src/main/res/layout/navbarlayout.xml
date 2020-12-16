@@ -29,18 +29,10 @@
             android:textSize="21sp" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/simpleTabLayout"
             android:layout_width="match_parent"
             android:layout_height="12dp"
             app:tabMode="scrollable"></com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <FrameLayout
-        android:id="@+id/simpleFrameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

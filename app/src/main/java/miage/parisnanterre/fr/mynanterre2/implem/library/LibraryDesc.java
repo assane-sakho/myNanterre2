@@ -32,6 +32,7 @@ public class LibraryDesc extends AppCompatActivity {
 
     FrameLayout simpleFrameLayout;
     TabLayout tabLayout;
+    TextView title;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -43,8 +44,6 @@ public class LibraryDesc extends AppCompatActivity {
         List<Library> libraries = libraryApiHelper.getLibraries();
 
         List<BarEntry> barEntries = new ArrayList<>();
-
-
 
         Intent myIntent = getIntent(); // gets the previously created intent
 
@@ -77,8 +76,9 @@ public class LibraryDesc extends AppCompatActivity {
                 }
             });
 
-            TextView txtview = findViewById(R.id.NameBU);
-            txtview.setText(clickedLibrary.getName());
+            title = findViewById(R.id.Title);
+            title.setText(clickedLibrary.getName());
+            title.setTextSize(19);
 
             //TextView txtResponsable = findViewById(R.id.ResponsableName);
             //txtResponsable.setText(clickedLibrary.getResponsables().stream().map(Responsable::getFullName).collect(Collectors.joining(", ")));

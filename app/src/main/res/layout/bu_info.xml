@@ -1,44 +1,40 @@
-
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout3"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        app:layout_constraintBottom_toTopOf="@+id/simpleFrameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="49dp"
-            android:layout_height="63dp"
-            android:layout_marginStart="5dp"
-            app:srcCompat="@drawable/button_back" />
-
-
-        <TextView
-            android:id="@+id/NameBU"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="#FFFFFF" />
+        <include
+            layout="@layout/navbarlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/simpleTabLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:tabMode="scrollable">
-        </com.google.android.material.tabs.TabLayout>
+            app:tabMode="scrollable"></com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/simpleFrameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="599dp"
-        android:layout_marginTop="131dp"
-        android:background="#F6DEDE" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#F6DEDE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout3" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

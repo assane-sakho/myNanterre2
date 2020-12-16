@@ -17,7 +17,7 @@
         android:layout_height="85dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/logomynanterre" />
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
         android:layout_width="match_parent"

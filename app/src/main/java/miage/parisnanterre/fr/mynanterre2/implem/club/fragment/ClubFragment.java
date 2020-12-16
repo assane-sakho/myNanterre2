@@ -62,24 +62,24 @@ public class ClubFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.menu_search,menu);
-        MenuItem item = menu.findItem(R.id.action_search);
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+            inflater.inflate(R.menu.menu_search,menu);
+            MenuItem item = menu.findItem(R.id.action_search);
 
-        final androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) (SearchView)item.getActionView();
-        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+            final androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) (SearchView)item.getActionView();
+            searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                rca.getFilter().filter(newText);
-                return false;
-            }
-        });
-        super.onCreateOptionsMenu(menu, inflater);
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    rca.getFilter().filter(newText);
+                    return false;
+                }
+            });
+            super.onCreateOptionsMenu(menu, inflater);
     }
 
     private final class GetClubsAsync extends AsyncTask<Void, Void, String> {

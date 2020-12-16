@@ -1,7 +1,6 @@
 package miage.parisnanterre.fr.mynanterre2.adapter;
 
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.Responsable;
 
-public class RecyclerBiblioAdapter extends RecyclerView.Adapter<RecyclerBiblioAdapter.ViewHolderBiblio> {
+public class RecyclerBiblioContactAdapter extends RecyclerView.Adapter<RecyclerBiblioContactAdapter.ViewHolderBiblio> {
 
     private Library clickedLibrary;
     List<Responsable> listResponsable;
-    public RecyclerBiblioAdapter(Library clickedLibrary)
+    public RecyclerBiblioContactAdapter(Library clickedLibrary)
     {
         this.clickedLibrary = clickedLibrary;
         this.listResponsable = clickedLibrary.getResponsables();
@@ -39,7 +36,7 @@ public class RecyclerBiblioAdapter extends RecyclerView.Adapter<RecyclerBiblioAd
     public ViewHolderBiblio onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.row_item_biblio, parent, false);
+        View view = layoutInflater.inflate(R.layout.row_item_biblio_contact, parent, false);
         ViewHolderBiblio viewHolderBiblio = new ViewHolderBiblio(view);
 
         return viewHolderBiblio;

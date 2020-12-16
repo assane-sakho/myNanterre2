@@ -4,60 +4,34 @@ package miage.parisnanterre.fr.mynanterre2.implem.library.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
-
-import com.github.mikephil.charting.data.BarEntry;
-
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerBiblioAdapter;
+import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerBiblioContactAdapter;
 import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
-import miage.parisnanterre.fr.mynanterre2.api.library.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
-import miage.parisnanterre.fr.mynanterre2.api.library.Responsable;
-import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
-import miage.parisnanterre.fr.mynanterre2.implem.Accueil;
-import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.club.viewModel.clubViewModel;
 import miage.parisnanterre.fr.mynanterre2.implem.library.viewModel.BiblioViewModel;
 
 public class ThirdFragment extends Fragment {
 
     private View v;
     private RecyclerView rvBiblio;
-    RecyclerBiblioAdapter recyclerBiblioAdapter;
+    RecyclerBiblioContactAdapter recyclerBiblioContactAdapter;
 
 
     private BiblioViewModel mViewModel;
@@ -81,11 +55,11 @@ public class ThirdFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_third, container, false);
 
         rvBiblio = v.findViewById(R.id.recyclerViewBiblio);
-        recyclerBiblioAdapter = new RecyclerBiblioAdapter(clickedLibrary);
+        recyclerBiblioContactAdapter = new RecyclerBiblioContactAdapter(clickedLibrary);
 
         //rvBiblio.setLayoutManager(new LinearLayoutManager(v.getContext()));
 
-        rvBiblio.setAdapter(recyclerBiblioAdapter);
+        rvBiblio.setAdapter(recyclerBiblioContactAdapter);
 
         /*
         try{
