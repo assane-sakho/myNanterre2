@@ -50,9 +50,11 @@ public class LibraryDesc extends AppCompatActivity {
 
         //Insertion des données
         try {
+
             int clickedLibraryIndex = myIntent.getIntExtra("clickedLibraryIndex", 0);
             Library clickedLibrary = libraries.get(clickedLibraryIndex);
 
+            /*
             int xValues;
             int yValues;
 
@@ -63,6 +65,7 @@ public class LibraryDesc extends AppCompatActivity {
 
                 barEntries.add(new BarEntry(xValues,yValues));
             }
+             */
 
 
             //Retour vers la liste des bibliothèques.
@@ -129,7 +132,7 @@ public class LibraryDesc extends AppCompatActivity {
                             fragment = new FirstFragment(clickedLibrary);
                             break;
                         case 1:
-                            fragment = new SecondFragment();
+                            fragment = new SecondFragment(myIntent);
                             break;
                         case 2:
                             fragment = new ThirdFragment(clickedLibrary);
