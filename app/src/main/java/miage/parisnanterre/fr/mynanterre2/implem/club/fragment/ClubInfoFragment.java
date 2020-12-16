@@ -73,7 +73,7 @@ public class ClubInfoFragment extends Fragment {
         img.setImageBitmap(bitmap);
         nom.setText(nomC);
         cat.setText("Catégorie : "+catC);
-        creator.setText("Créateur : "+creatorC);
+        creator.setText("Président(e) : "+creatorC);
         desc.setText(descC);
         date.setText("Date de création : "+dateC);
 

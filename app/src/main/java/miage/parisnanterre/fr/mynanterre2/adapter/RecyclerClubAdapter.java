@@ -66,6 +66,10 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
         Bitmap bitmap = BitmapFactory.decodeByteArray(clubList.get(position).getImage(), 0, clubList.get(position).getImage().length);
         holder.imageViewClub.setImageBitmap(bitmap);
 
+        if(clubList.get(position).isCertificate() == false){
+            holder.certif.setVisibility(View.INVISIBLE);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener(){
 
            @Override
@@ -130,7 +134,7 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        ImageView imageViewClub;
+        ImageView imageViewClub, certif;
         TextView textViewNomClub, textViewCatClub;
 
         public ViewHolder(@NonNull View itemView){
@@ -139,6 +143,7 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
             imageViewClub = itemView.findViewById(R.id.imageViewClub);
             textViewNomClub = itemView.findViewById(R.id.textViewNomClub);
             textViewCatClub = itemView.findViewById(R.id.textViewCatClub);
+            certif = itemView.findViewById(R.id.certif);
 
             itemView.setOnClickListener(this);
 
