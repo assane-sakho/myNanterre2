@@ -111,7 +111,7 @@ public class LibraryDesc extends AppCompatActivity {
 
 
 
-            Fragment fragment = new FirstFragment();
+            Fragment fragment = new FirstFragment(clickedLibrary);
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.simpleFrameLayout, fragment);

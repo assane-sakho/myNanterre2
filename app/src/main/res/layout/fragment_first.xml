@@ -7,17 +7,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="602dp"
-        android:layout_marginTop="132dp"
-        android:background="#B53D3D">
+        android:layout_height="match_parent"
+        android:background="#CA8282">
 
         <ImageView
             android:id="@+id/imageView8"
-            android:layout_width="103dp"
-            android:layout_height="120dp"
+            android:layout_width="130dp"
+            android:layout_height="134dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            app:srcCompat="@mipmap/icn_libr_round" />
+            app:srcCompat="@mipmap/icn_bibliotheque" />
 
         <TextView
             android:id="@+id/NameBU"
@@ -28,7 +27,46 @@
             android:layout_marginRight="20dp"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textSize="19sp"
-            android:text="TextView" />
+            android:textSize="19sp" />
+
+        <ImageView
+            android:id="@+id/imgMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="610dp"
+            app:srcCompat="@mipmap/icn_email" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="620dp"
+            android:layout_marginRight="14dp"
+            android:ems="27"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imgTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="670dp"
+            app:srcCompat="@mipmap/icn_tel" />
+
+        <TextView
+            android:id="@+id/tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="680dp"
+            android:layout_marginRight="10dp"
+            android:ems="20"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
     </RelativeLayout>
 </RelativeLayout>
