@@ -23,8 +23,8 @@ import java.time.format.DateTimeFormatter;
 abstract class ApiHelper {
     protected static final String LOCALURLDEV = "https://localhost:3000/index.php/api/";
     protected static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
-    protected static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/index.php/api/";
-    protected static final String BASEURL = BASEURLDEV;
+    protected static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
+    protected static final String BASEURL = BASEURLPROD;
     protected  Gson gson;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
