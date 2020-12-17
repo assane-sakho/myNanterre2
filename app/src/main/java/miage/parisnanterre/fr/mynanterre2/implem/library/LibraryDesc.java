@@ -3,6 +3,7 @@ package miage.parisnanterre.fr.mynanterre2.implem.library;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -77,7 +79,7 @@ public class LibraryDesc extends AppCompatActivity {
 
             title = findViewById(R.id.Title);
             title.setText(clickedLibrary.getName());
-            title.setTextSize(19);
+            title.setAutoSizeTextTypeUniformWithConfiguration(10,21,1, TypedValue.COMPLEX_UNIT_SP);
 
             //TextView txtResponsable = findViewById(R.id.ResponsableName);
             //txtResponsable.setText(clickedLibrary.getResponsables().stream().map(Responsable::getFullName).collect(Collectors.joining(", ")));
