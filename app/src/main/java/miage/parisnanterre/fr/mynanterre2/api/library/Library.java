@@ -10,9 +10,7 @@ import java.util.List;
 
 import miage.parisnanterre.fr.mynanterre2.api.building.Building;
 
-public class Library {
-    private Integer id;
-    private String name;
+public class Library extends SimpleLibrary{
     private String location;
     private String description;
     private String receptionPhoneNumber;
@@ -39,18 +37,6 @@ public class Library {
 
     @SerializedName("libraryDomains")
     private List<Domain> domains;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getLocation() {
         return location;

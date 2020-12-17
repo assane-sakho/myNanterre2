@@ -24,6 +24,7 @@ import java.util.List;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.library.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
+import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
 
 public class SecondFragment extends Fragment {
@@ -55,7 +56,7 @@ public class SecondFragment extends Fragment {
 
 
         LibraryApiHelper libraryApiHelper = LibraryApiHelper.getInstance();
-        List<Library> libraries = libraryApiHelper.getLibraries();
+        List<SimpleLibrary> libraries = libraryApiHelper.getSimpleLibraries();
 
         List<BarEntry> barEntries = new ArrayList<>();
 
@@ -64,7 +65,7 @@ public class SecondFragment extends Fragment {
         //Insertion des données
         try {
             int clickedLibraryIndex = myIntent.getIntExtra("clickedLibraryIndex", 0);
-            Library clickedLibrary = libraries.get(clickedLibraryIndex);
+            Library clickedLibrary = libraryApiHelper.getLibrary(clickedLibraryIndex);
 
             int xValues;
             int yValues;

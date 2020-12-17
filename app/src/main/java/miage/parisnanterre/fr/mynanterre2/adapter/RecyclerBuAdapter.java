@@ -27,16 +27,17 @@ import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.club.Club;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.Responsable;
+import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 import miage.parisnanterre.fr.mynanterre2.implem.club.ClubInfoActivity;
 import miage.parisnanterre.fr.mynanterre2.implem.library.LibraryDesc;
 
 public class RecyclerBuAdapter extends RecyclerView.Adapter<RecyclerBuAdapter.ViewHolderBu> implements Filterable {
 
-    private List<Library> libraries;
-    private List<Library> librariesAll;
+    private List<SimpleLibrary> libraries;
+    private List<SimpleLibrary> librariesAll;
     Context context;
 
-    public RecyclerBuAdapter(List<Library> libraries, Context context)
+    public RecyclerBuAdapter(List<SimpleLibrary> libraries, Context context)
     {
         this.context = context;
         this.libraries = libraries;
@@ -89,12 +90,12 @@ public class RecyclerBuAdapter extends RecyclerView.Adapter<RecyclerBuAdapter.Vi
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
 
-            List<Library> filteredList = new ArrayList<>();
+            List<SimpleLibrary> filteredList = new ArrayList<>();
 
             if(charSequence.toString().isEmpty()){
                 filteredList.addAll(librariesAll);
             }else{
-                for(Library lib: librariesAll){
+                for(SimpleLibrary lib: librariesAll){
                     if(lib.getName().toLowerCase().contains(charSequence.toString().toLowerCase())){
                         filteredList.add(lib);
                     }

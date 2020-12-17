@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
-import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.library.ListeEspacesBu;
 
 
@@ -67,7 +66,7 @@ public class BiblioFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected String doInBackground(Void... params) {
-            libraryApiHelper.getLibraries();
+            libraryApiHelper.getSimpleLibraries();
 
             return "executed";
         }

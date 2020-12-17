@@ -5,43 +5,30 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerBiblioContactAdapter;
 import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerBuAdapter;
-import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
+import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
-import miage.parisnanterre.fr.mynanterre2.implem.club.ClubInfoActivity;
-import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.library.viewModel.BiblioViewModel;
 
 public class ListeEspacesBu extends AppCompatActivity {
 
     private LibraryApiHelper libraryApiHelper;
-    private List<Library> libraries;
+    private List<SimpleLibrary> simpleLibraries;
     TextView title;
 
     private RecyclerView rvBu;
@@ -99,7 +86,7 @@ public class ListeEspacesBu extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected String doInBackground(Void... params) {
-            libraries = libraryApiHelper.getLibraries();
+            simpleLibraries = libraryApiHelper.getSimpleLibraries();
             return "executed";
         }
 
@@ -107,7 +94,7 @@ public class ListeEspacesBu extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             rvBu = findViewById(R.id.recyclerViewBu);
-            rca = new RecyclerBuAdapter(libraries,ListeEspacesBu.this);
+            rca = new RecyclerBuAdapter(simpleLibraries,ListeEspacesBu.this);
 
             rvBu.setAdapter(rca);
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ListeEspacesBu.this, DividerItemDecoration.VERTICAL);

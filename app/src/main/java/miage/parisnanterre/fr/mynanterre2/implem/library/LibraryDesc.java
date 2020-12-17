@@ -41,7 +41,6 @@ public class LibraryDesc extends AppCompatActivity {
         setContentView(R.layout.bu_info);
 
         LibraryApiHelper libraryApiHelper = LibraryApiHelper.getInstance();
-        List<Library> libraries = libraryApiHelper.getLibraries();
 
         List<BarEntry> barEntries = new ArrayList<>();
 
@@ -51,7 +50,7 @@ public class LibraryDesc extends AppCompatActivity {
         try {
 
             int clickedLibraryIndex = myIntent.getIntExtra("clickedLibraryIndex", 0);
-            Library clickedLibrary = libraries.get(clickedLibraryIndex);
+            Library clickedLibrary = libraryApiHelper.getLibrary(clickedLibraryIndex);
 
             /*
             int xValues;
