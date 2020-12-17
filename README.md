@@ -12,6 +12,14 @@ ___
 
 La **documentation pour les développeurs** et **L'architecture générale du logiciel** se trouvent ici : 
 ___
+
+__
+# Lien vers le APK
+
+Le lien vers le APK : https://github.com/assane-sakho/myNanterre2/tree/master/app/release
+__
+
+
 # MyNanterre
 
 **MyNanterre**, l'application pour une meilleure vie étudiante à Nanterre. 
