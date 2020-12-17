@@ -78,9 +78,6 @@ public class SecondFragment extends Fragment {
                 barEntries.add(new BarEntry(xValues,yValues));
             }
 
-            TextView txtview = v.findViewById(R.id.nomEspace);
-            txtview.setText(clickedLibrary.getName());
-
             barChart = v.findViewById(R.id.barchart);
 
             //Config
