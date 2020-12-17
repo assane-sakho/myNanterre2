@@ -31,3 +31,5 @@ local.properties
 build.gradle
 
 gradle/wrapper/gradle-wrapper.properties
+
+app/release/app-release.apk
