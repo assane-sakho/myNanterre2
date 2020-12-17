@@ -71,15 +71,16 @@
 
     <TextView
         android:id="@+id/descClub"
-        android:layout_width="379dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
 
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageClub"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barre1"
         tools:ignore="MissingConstraints" />
 
@@ -109,24 +110,27 @@
 
     <ImageView
         android:id="@+id/barre2"
-        android:layout_width="351dp"
+        android:layout_width="0dp"
         android:layout_height="2dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:background="#E40E1F"
-        app:layout_constraintEnd_toEndOf="@+id/descClub"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="@+id/descClub"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descClub"
         app:srcCompat="?attr/actionBarItemBackground" />
 
     <ImageView
         android:id="@+id/barre1"
-        android:layout_width="351dp"
+        android:layout_width="0dp"
         android:layout_height="2dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="26dp"
+        android:layout_marginEnd="32dp"
         android:background="#E40E1F"
-        app:layout_constraintEnd_toEndOf="@+id/descClub"
-        app:layout_constraintStart_toStartOf="@+id/descClub"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageClub"
         app:srcCompat="?attr/actionBarItemBackground" />
 
