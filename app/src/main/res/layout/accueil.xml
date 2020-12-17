@@ -55,7 +55,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:paddingBottom="20dp">
@@ -63,7 +63,7 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/sandw" />
 
@@ -75,19 +75,19 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/alice"
                 android:gravity="center"
-                android:text="Consulte toutes les cafétariats disponibles dans l'université et aussi leurs affluence ainsi que les produits encore disponibles pour chacune. Tu peux aussi regarder la carte des prix du Crous" />
+                android:text="Consulte toutes les cafétariats disponibles dans l'université et leurs affluence ainsi que les produits encore disponibles pour chacune. Regarde également la carte des prix du Crous" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingBottom="20dp">
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/transpo" />
 
@@ -138,7 +138,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ballon" />
+                app:srcCompat="@drawable/group" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -148,7 +148,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/alice"
                 android:gravity="center"
-                android:text="Regarde l'ensemble des activités sportives de l'université avec leurs horaires. Tu peux aussi programmer un séance de sport pour que d'autres étudiants te rejoignent" />
+                android:text="Vous pourrez retrouver les clubs et associations présentent au sein de l'université ou créer le votre. " />
 
         </LinearLayout>
 
