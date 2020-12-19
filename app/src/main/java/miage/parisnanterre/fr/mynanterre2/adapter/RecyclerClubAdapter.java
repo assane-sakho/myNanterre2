@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,34 +17,33 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.api.club.Club;
+import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.implem.club.ClubInfoActivity;
-import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubInfoFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.library.BiblioActivity;
 
 public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapter.ViewHolder> implements Filterable {
 
     ClubApiHelper clubApiHelper;
-    List<Club> clubList;
-    List<Club> clubListAll;
+    List<SimpleClub> clubList;
+    List<SimpleClub> clubListAll;
     Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public RecyclerClubAdapter(Context context){
+    public RecyclerClubAdapter(Context context) throws ExecutionException, InterruptedException {
         this.context = context;
         this.clubApiHelper = ClubApiHelper.getInstance();
-        clubList = new ArrayList<>(clubApiHelper.getClubs());
+        clubList = new ArrayList<>(clubApiHelper.getSimpleClubs());
         clubListAll = new ArrayList<>(clubList);
     }
 
@@ -52,7 +52,7 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater LayoutI = LayoutInflater.from(parent.getContext());
-        View view = LayoutI.inflate(R.layout.row_item_club,parent,false);
+        View view = LayoutI.inflate(R.layout.row_item_club, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;
@@ -66,20 +66,22 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
         Bitmap bitmap = BitmapFactory.decodeByteArray(clubList.get(position).getImage(), 0, clubList.get(position).getImage().length);
         holder.imageViewClub.setImageBitmap(bitmap);
 
-        if(clubList.get(position).isCertificate() == false){
+        if (clubList.get(position).isCertificate() == false) {
             holder.certif.setVisibility(View.INVISIBLE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
 
-           @Override
+            @Override
             public void onClick(View view) {
+                SimpleClub clubClicked = clubList.get(position);
+
                 Toast.makeText(view.getContext(), clubList.get(position).getName(), Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(context, ClubInfoActivity.class);
+                Intent intent = new Intent(context, ClubInfoActivity.class);
                 intent.putExtra("image", clubList.get(position).getImage());
                 intent.putExtra("nom", clubList.get(position).getName());
                 intent.putExtra("cat", clubList.get(position).getType().getName());
-                intent.putExtra("creator", clubList.get(position).getCreator().getFirstName() + " " + clubList.get(position).getCreator().getLastName() );
+                intent.putExtra("creator", clubList.get(position).getCreator().getFirstName() + " " + clubList.get(position).getCreator().getLastName());
                 intent.putExtra("desc", clubList.get(position).getDescription());
                 intent.putExtra("date", clubList.get(position).getCreationDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
                 intent.putExtra("certified", clubList.get(position).isCertificate());
@@ -106,13 +108,13 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
 
-            List<Club> filteredList = new ArrayList<>();
+            List<SimpleClub> filteredList = new ArrayList<>();
 
-            if(charSequence.toString().isEmpty()){
+            if (charSequence.toString().isEmpty()) {
                 filteredList.addAll(clubListAll);
-            }else{
-                for(Club club: clubListAll){
-                    if(club.getName().toLowerCase().contains(charSequence.toString().toLowerCase()) || club.getType().getName().toLowerCase().contains(charSequence.toString().toLowerCase())){
+            } else {
+                for (SimpleClub club : clubListAll) {
+                    if (club.getName().toLowerCase().contains(charSequence.toString().toLowerCase()) || club.getType().getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filteredList.add(club);
                     }
                 }
@@ -127,17 +129,17 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             clubList.clear();
-            clubList.addAll((Collection<Club>)filterResults.values);
+            clubList.addAll((Collection<Club>) filterResults.values);
             notifyDataSetChanged();
         }
     };
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageViewClub, certif;
         TextView textViewNomClub, textViewCatClub;
 
-        public ViewHolder(@NonNull View itemView){
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageViewClub = itemView.findViewById(R.id.imageViewClub);

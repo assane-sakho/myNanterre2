@@ -20,6 +20,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.library.Attendance;
@@ -56,7 +57,13 @@ public class SecondFragment extends Fragment {
 
 
         LibraryApiHelper libraryApiHelper = LibraryApiHelper.getInstance();
-        List<SimpleLibrary> libraries = libraryApiHelper.getSimpleLibraries();
+        try {
+            List<SimpleLibrary> libraries = libraryApiHelper.getSimpleLibraries();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         List<BarEntry> barEntries = new ArrayList<>();
 

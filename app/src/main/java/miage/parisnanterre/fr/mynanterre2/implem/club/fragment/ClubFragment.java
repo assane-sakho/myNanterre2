@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.concurrent.ExecutionException;
+
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
@@ -38,6 +40,7 @@ public class ClubFragment extends Fragment {
         return new ClubFragment();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -87,7 +90,13 @@ public class ClubFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected String doInBackground(Void... params) {
-            clubApiHelper.getClubs();
+            try {
+                clubApiHelper.getSimpleClubs();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return "executed";
         }
 
@@ -95,7 +104,13 @@ public class ClubFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             rvClub = v.findViewById(R.id.recyclerViewClub);
-            rca = new RecyclerClubAdapter(getContext());
+            try {
+                rca = new RecyclerClubAdapter(getContext());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             rvClub.setAdapter(rca);
             ClubFragment.newInstance();
