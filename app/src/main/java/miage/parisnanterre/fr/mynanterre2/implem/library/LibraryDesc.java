@@ -1,6 +1,7 @@
 package miage.parisnanterre.fr.mynanterre2.implem.library;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -14,6 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +23,10 @@ import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import miage.parisnanterre.fr.mynanterre2.R;
+import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerBuAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.library.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
@@ -35,6 +39,9 @@ public class LibraryDesc extends AppCompatActivity {
     FrameLayout simpleFrameLayout;
     TabLayout tabLayout;
     TextView title;
+    private LibraryApiHelper libraryApiHelper;
+    private  int clickedLibraryIndex;
+    private Library clickedLibrary;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -42,7 +49,7 @@ public class LibraryDesc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bu_info);
 
-        LibraryApiHelper libraryApiHelper = LibraryApiHelper.getInstance();
+        libraryApiHelper = LibraryApiHelper.getInstance();
 
         List<BarEntry> barEntries = new ArrayList<>();
 
@@ -51,8 +58,9 @@ public class LibraryDesc extends AppCompatActivity {
         //Insertion des données
         try {
 
-            int clickedLibraryIndex = myIntent.getIntExtra("clickedLibraryIndex", 0);
-            Library clickedLibrary = libraryApiHelper.getLibrary(clickedLibraryIndex);
+            clickedLibraryIndex = myIntent.getIntExtra("clickedLibraryIndex", 0);
+            GetLibraryAsync getLibrariesAsync = new GetLibraryAsync();
+            getLibrariesAsync.execute().get();
 
             /*
             int xValues;
@@ -164,4 +172,13 @@ public class LibraryDesc extends AppCompatActivity {
 
     }
 
+    private final class GetLibraryAsync extends AsyncTask<Void, Void, String> {
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        protected String doInBackground(Void... params) {
+            clickedLibrary = libraryApiHelper.getLibrary(clickedLibraryIndex);
+            return "executed";
+        }
+    }
 }
