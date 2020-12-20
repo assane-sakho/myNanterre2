@@ -1,7 +1,6 @@
 package miage.parisnanterre.fr.mynanterre2.helpers.api;
 
 import android.os.Build;
-import android.os.StrictMode;
 import android.util.Base64;
 
 import androidx.annotation.RequiresApi;
@@ -34,23 +33,57 @@ import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
-    protected static final String LOCALURLDEV = "http://192.168.1.22:3000/api/";
-    protected static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
-    protected static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
-    protected static final String BASEURL = LOCALURLDEV;
+    private static final String LOCALURLDEV = "http://192.168.42.101:3000/api/";
+    private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
+    private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
+    private static final String BASEURL = LOCALURLDEV;
     protected  Gson gson;
 
-    private List<SimpleElement> simpleElements;
-    private List<CompleteElement> completeElements;
-    private boolean dataLoaded;
-    private int pagesNumber;
+    protected List<SimpleElement> simpleElements;
+    protected List<CompleteElement> completeElements;
+    protected boolean dataLoaded;
+    protected int pagesNumber;
 
-    private String baseEndPoint;
+    protected boolean loadAllPages;
 
-    public ApiHelper(String baseEndPoint)
+    protected String baseEndpointUrl;
+    protected String endPointParameters;
+
+    public ApiHelper(String baseEndpointUrl)
     {
-        this.baseEndPoint = baseEndPoint;
+        this.baseEndpointUrl = baseEndpointUrl + "?";
+        this.loadAllPages = true;
+        endPointParameters = "";
 
+        instantiateParameters();
+    }
+
+    public ApiHelper(String baseEndpointUrl, boolean loadAllPages)
+    {
+        this.baseEndpointUrl = baseEndpointUrl+ "?";
+        this.loadAllPages = loadAllPages;
+
+        instantiateParameters();
+    }
+
+    public ApiHelper(String baseEndpointUrl, String endPointParameters)
+    {
+        this.baseEndpointUrl = baseEndpointUrl + endPointParameters + "&";
+        this.loadAllPages = true;
+
+        instantiateParameters();
+    }
+
+    public ApiHelper(String baseEndpointUrl, boolean loadAllPages, String endPointParameters)
+    {
+        this.baseEndpointUrl = baseEndpointUrl + endPointParameters + "&";
+        this.loadAllPages = loadAllPages;
+
+        instantiateParameters();
+    }
+
+    private final void instantiateParameters()
+    {
         gson = new GsonBuilder()
                 .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json, typeOfT, context) -> LocalTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("HH:mm")))
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
@@ -60,6 +93,12 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         simpleElements = new ArrayList<>();
         completeElements = new ArrayList<>();
     }
+
+    abstract List<SimpleElement> convertToList(JsonArray jsonArray);
+
+    abstract List<SimpleElement> convertToList(String jsonString);
+
+    abstract CompleteElement convertToComplete(String jsonString);
 
     protected final String getJsonWithIdAsString(String endpoint) throws IOException {
         return getResultAsString(endpoint, "application/ld+json");
@@ -88,21 +127,39 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         }
     }
 
-    private String readIt(InputStream is) throws IOException {
-        BufferedReader r = new BufferedReader(new InputStreamReader(is));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = r.readLine()) != null) {
-            response.append(line).append('\n');
+    protected SimpleElement getSimpleElement(int id) {
+        synchronized (simpleElements) {
+
+            return simpleElements.stream().filter(l -> l.getId() == id).findFirst().get();
         }
-        return response.toString();
+    }
+
+    protected CompleteElement getCompleteElement(int id) {
+
+        synchronized (completeElements) {
+            Optional<CompleteElement> optionalLibrary = completeElements.stream().filter(l -> l.getId() == id).findFirst();
+
+            if (!optionalLibrary.isPresent()) {
+                try {
+                    String jsonString = getJsonAsString(baseEndpointUrl + "/" + id);
+                    optionalLibrary = Optional.of(convertToComplete(jsonString));
+                    completeElements.add(optionalLibrary.get());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return optionalLibrary.get();
+        }
     }
 
     protected List<SimpleElement> getSimpleElements() throws ExecutionException, InterruptedException {
         if (!dataLoaded) {
             synchronized (simpleElements) {
                 simpleElements.addAll(getFirstPage());
-                getAllPages();
+
+                if(loadAllPages)
+                    getAllPages();
 
                 dataLoaded = true;
             }
@@ -114,8 +171,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         List<SimpleElement> simpleClubList = new ArrayList<>();
 
         try {
-            String baseEndpointUrl = baseEndPoint + "/?page=";
-            String jsonString = getJsonWithIdAsString(baseEndpointUrl + 1);
+            String jsonString = getJsonWithIdAsString(baseEndpointUrl + "page=" + 1);
             JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
             JsonArray jsonMembersArray = jsonObject.getAsJsonArray("hydra:member");
 
@@ -141,7 +197,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         List<SimpleElement> simpleClubList = new ArrayList<>();
 
         try {
-            String jsonString = getJsonAsString(baseEndPoint + "/?page=" + page);
+            String jsonString = getJsonAsString(baseEndpointUrl + "page=" + page);
 
             simpleClubList = convertToList(jsonString);
         } catch (Exception e) {
@@ -176,37 +232,13 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
             simpleElements.addAll(f.get());
     }
 
-    protected SimpleElement getSimpleElement(int id) {
-        synchronized (simpleElements) {
-
-            return simpleElements.stream().filter(l -> l.getId() == id).findFirst().get();
+    private final String readIt(InputStream is) throws IOException {
+        BufferedReader r = new BufferedReader(new InputStreamReader(is));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = r.readLine()) != null) {
+            response.append(line).append('\n');
         }
+        return response.toString();
     }
-
-    protected CompleteElement getCompleteElement(int id) {
-
-        synchronized (completeElements) {
-            Optional<CompleteElement> optionalLibrary = completeElements.stream().filter(l -> l.getId() == id).findFirst();
-
-            if (!optionalLibrary.isPresent()) {
-                try {
-                    String jsonString = getJsonAsString(baseEndPoint + "/" + id);
-                    optionalLibrary = Optional.of(convertToComplete(jsonString));
-                    completeElements.add(optionalLibrary.get());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return optionalLibrary.get();
-        }
-    }
-
-    abstract List<SimpleElement> convertToList(JsonArray jsonArray);
-
-    abstract List<SimpleElement> convertToList(String jsonString);
-
-    abstract CompleteElement convertToComplete(String jsonString);
-
-
 }

@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi;
 
 import com.google.gson.JsonArray;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -20,9 +19,11 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
 
     private static ClubApiHelper instance;
     private static String baseEndPoint = "clubs";
+    private ClubPublicationApiHelper clubPublicationApiHelper;
 
     private ClubApiHelper() {
-        super(baseEndPoint);
+        super(baseEndPoint, false);
+        clubPublicationApiHelper = ClubPublicationApiHelper.getInstance();
     }
 
     public static ClubApiHelper getInstance()
@@ -56,11 +57,7 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
         return getSimpleElement(id);
     }
 
-    public Club getClub(SimpleClub simpleClub)
-    {
-        Club club = new Club(simpleClub);
-
-        return club;
+    public List<Publication> getPublications(int clubId) throws ExecutionException, InterruptedException {
+        return clubPublicationApiHelper.getPublications(clubId);
     }
-
 }
