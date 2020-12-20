@@ -2,8 +2,6 @@ package miage.parisnanterre.fr.mynanterre2.api.club;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Blob;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
