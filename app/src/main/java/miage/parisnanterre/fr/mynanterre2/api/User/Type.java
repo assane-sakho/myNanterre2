@@ -1,6 +1,10 @@
 package miage.parisnanterre.fr.mynanterre2.api.user;
 
-public class Type {
+import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
+
+public class Type extends BaseDbElement {
+    private String name;
+
     public String getName() {
         return name;
     }
@@ -9,6 +13,4 @@ public class Type {
         return id;
     }
 
-    private int id;
-    private String name;
 }
