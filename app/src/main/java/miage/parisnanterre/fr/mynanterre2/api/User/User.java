@@ -10,10 +10,6 @@ public class User extends BaseDbElement {
     private String lastName;
     private String firstName;
 
-    public int getId() {
-        return id;
-    }
-
     public String getLastName() {
         return lastName;
     }

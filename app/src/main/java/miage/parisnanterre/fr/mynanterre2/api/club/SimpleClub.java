@@ -4,10 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 
+import miage.parisnanterre.fr.mynanterre2.api.db.NamedDbElement;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
-public class SimpleClub extends BaseDbElement {
+public class SimpleClub extends NamedDbElement {
     protected byte[] image;
     protected LocalDateTime creationDate;
     protected String description;
