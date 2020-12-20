@@ -32,6 +32,7 @@ import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.implem.club.ClubInfoActivity;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapter.ViewHolder> implements Filterable {
 
     ClubApiHelper clubApiHelper;
@@ -39,7 +40,6 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
     List<SimpleClub> clubListAll;
     Context context;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public RecyclerClubAdapter(Context context) throws ExecutionException, InterruptedException {
         this.context = context;
         this.clubApiHelper = ClubApiHelper.getInstance();
@@ -58,7 +58,6 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
         return viewHolder;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textViewNomClub.setText(clubList.get(position).getName());
@@ -78,13 +77,7 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
                 Toast.makeText(view.getContext(), clubList.get(position).getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ClubInfoActivity.class);
-                intent.putExtra("image", clubList.get(position).getImage());
-                intent.putExtra("nom", clubList.get(position).getName());
-                intent.putExtra("cat", clubList.get(position).getType().getName());
-                intent.putExtra("creator", clubList.get(position).getCreator().getFirstName() + " " + clubList.get(position).getCreator().getLastName());
-                intent.putExtra("desc", clubList.get(position).getDescription());
-                intent.putExtra("date", clubList.get(position).getCreationDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
-                intent.putExtra("certified", clubList.get(position).isCertificate());
+                intent.putExtra("simpleClubId",clubClicked.getId());
 
                 context.startActivity(intent);
             }
@@ -92,7 +85,6 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int getItemCount() {
         return clubList.size();
@@ -104,7 +96,6 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
     }
 
     Filter filter = new Filter() {
-        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
 
@@ -151,7 +142,6 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onClick(View view) {
             Toast.makeText(view.getContext(), clubList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();

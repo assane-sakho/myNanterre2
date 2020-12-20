@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.api.User;
+package miage.parisnanterre.fr.mynanterre2.api.user;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -27,4 +27,9 @@ public class User {
 
     @SerializedName("userType")
     private Type type;
+
+    public String getFullName()
+    {
+        return firstName + " " + lastName;
+    }
 }

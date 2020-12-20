@@ -28,6 +28,7 @@ import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.club.viewModel.clubViewModel;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ClubFragment extends Fragment {
 
     private View v;
@@ -40,7 +41,6 @@ public class ClubFragment extends Fragment {
         return new ClubFragment();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -87,7 +87,6 @@ public class ClubFragment extends Fragment {
 
     private final class GetClubsAsync extends AsyncTask<Void, Void, String> {
 
-        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected String doInBackground(Void... params) {
             try {
@@ -100,7 +99,6 @@ public class ClubFragment extends Fragment {
             return "executed";
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected void onPostExecute(String result) {
             rvClub = v.findViewById(R.id.recyclerViewClub);

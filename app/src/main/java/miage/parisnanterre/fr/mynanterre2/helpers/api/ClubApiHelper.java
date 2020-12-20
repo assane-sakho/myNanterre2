@@ -15,17 +15,16 @@ import miage.parisnanterre.fr.mynanterre2.api.club.Club;
 import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
 
     private static ClubApiHelper instance;
     private static String baseEndPoint = "clubs";
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private ClubApiHelper() {
         super(baseEndPoint);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public static ClubApiHelper getInstance()
     {
         if(instance == null)
@@ -48,9 +47,20 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
         return gson.fromJson(jsonString, Club.class);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public List<SimpleClub> getSimpleClubs() throws ExecutionException, InterruptedException {
         return getSimpleElements();
+    }
+
+    public SimpleClub getSimpleClub(int id)
+    {
+        return getSimpleElement(id);
+    }
+
+    public Club getClub(SimpleClub simpleClub)
+    {
+        Club club = new Club(simpleClub);
+
+        return club;
     }
 
 }

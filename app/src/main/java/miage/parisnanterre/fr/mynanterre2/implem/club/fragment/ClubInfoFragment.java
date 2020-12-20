@@ -1,5 +1,6 @@
 package miage.parisnanterre.fr.mynanterre2.implem.club.fragment;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,37 +23,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import miage.parisnanterre.fr.mynanterre2.R;
+import miage.parisnanterre.fr.mynanterre2.api.club.Club;
+import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.club.ClubActivity;
 import miage.parisnanterre.fr.mynanterre2.implem.club.viewModel.ClubInfoViewModel;
 import miage.parisnanterre.fr.mynanterre2.implem.library.BiblioActivity;
 
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ClubInfoFragment extends Fragment {
 
     private ClubInfoViewModel mViewModel;
     private ImageView img;
     private TextView nom, cat, creator, desc, date, titre;
     private View v;
-    private String nomC, catC, creatorC, descC, dateC;
-    private byte[] imgC;
-    private boolean certifiedC;
+    private Club club;
 
-    public ClubInfoFragment(byte[] img, String nom, String cat, String creator, String desc, String date, boolean certified){
-        this.imgC = img;
-        this.nomC = nom;
-        this.catC = cat;
-        this.creatorC = creator;
-        this.descC = desc;
-        this.dateC = date;
-        this.certifiedC = certified;
+    private ClubApiHelper clubApiHelper;
+
+    public ClubInfoFragment(int simpleClubId){
+        this.clubApiHelper = ClubApiHelper.getInstance();
+        SimpleClub simpleClub = clubApiHelper.getSimpleClub(simpleClubId);
+        club = new Club(simpleClub);
     }
 
-    public static ClubInfoFragment newInstance(byte[] img, String nom, String cat, String creator, String desc, String date, boolean certified) {
-        return new ClubInfoFragment(img,nom,cat,creator,desc,date,certified);
+    public static ClubInfoFragment newInstance(int simpleClubId) {
+        return new ClubInfoFragment(simpleClubId);
     }
-
-
-
 
     @Nullable
     @Override
@@ -69,19 +67,17 @@ public class ClubInfoFragment extends Fragment {
         date=(TextView)v.findViewById(R.id.dateClub);
 
         titre.setText("Clubs");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(imgC, 0, imgC.length);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(club.getImage(), 0, club.getImage().length);
         img.setImageBitmap(bitmap);
-        nom.setText(nomC);
-        cat.setText("Catégorie : "+catC);
-        creator.setText("Président(e) : "+creatorC);
-        desc.setText(descC);
-        date.setText("Date de création : "+dateC);
+        nom.setText(club.getName());
+        cat.setText("Catégorie : "+club.getType().getName());
+        creator.setText("Président(e) : "+ club.getCreator().getFullName());
+        desc.setText(club.getDescription());
+        date.setText("Date de création : "+club.getCreationDate());
 
-        if(certifiedC == false){
+        if(club.isCertificate() == false){
             v.findViewById(R.id.certif).setVisibility(View.INVISIBLE);
         }
-
-
 
         ImageView back = v.findViewById(R.id.back);
 
@@ -102,5 +98,4 @@ public class ClubInfoFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(ClubInfoViewModel.class);
         // TODO: Use the ViewModel
     }
-
 }

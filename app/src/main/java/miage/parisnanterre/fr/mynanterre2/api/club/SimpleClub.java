@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 
-import miage.parisnanterre.fr.mynanterre2.api.User.User;
+import miage.parisnanterre.fr.mynanterre2.api.user.User;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
 public class SimpleClub extends BaseDbElement {
-    private byte[] image;
-    private LocalDateTime creationDate;
-    private String description;
-    private boolean isCertificate;
-    private boolean isValidate;
-    private User creator;
-    private String contact;
-    private String mail;
-    private String website;
+    protected byte[] image;
+    protected LocalDateTime creationDate;
+    protected String description;
+    protected boolean isCertificate;
+    protected boolean isValidate;
+    protected User creator;
+    protected String contact;
+    protected String mail;
+    protected String website;
     @SerializedName("clubType")
-    private Type type;
+    protected Type type;
 
     public String getContact() {
         return contact;

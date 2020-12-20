@@ -32,8 +32,9 @@ import java.util.concurrent.Future;
 
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
-    protected static final String LOCALURLDEV = "http://192.168.43.209:3000/api/";
+    protected static final String LOCALURLDEV = "http://192.168.1.22:3000/api/";
     protected static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     protected static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
     protected static final String BASEURL = LOCALURLDEV;
@@ -46,7 +47,6 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
 
     private String baseEndPoint;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public ApiHelper(String baseEndPoint)
     {
         this.baseEndPoint = baseEndPoint;
@@ -98,8 +98,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         return response.toString();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<SimpleElement> getSimpleElements() throws ExecutionException, InterruptedException {
+    protected List<SimpleElement> getSimpleElements() throws ExecutionException, InterruptedException {
         if (!dataLoaded) {
             synchronized (simpleElements) {
                 simpleElements.addAll(getFirstPage());
@@ -111,7 +110,6 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         return simpleElements;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private List<SimpleElement> getFirstPage() {
         List<SimpleElement> simpleClubList = new ArrayList<>();
 
@@ -139,8 +137,6 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         return simpleClubList;
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private List<SimpleElement> getClubsByPage(int page) {
         List<SimpleElement> simpleClubList = new ArrayList<>();
 
@@ -161,13 +157,11 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
             this.pageIndex = pageIndex;
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.O)
         public List<SimpleElement> call() {
             return getClubsByPage(pageIndex);
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getAllPages() throws InterruptedException, ExecutionException {
         ExecutorService executorService = Executors.newFixedThreadPool(pagesNumber);
 
@@ -182,8 +176,14 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
             simpleElements.addAll(f.get());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public CompleteElement getCompleteElement(int id) {
+    protected SimpleElement getSimpleElement(int id) {
+        synchronized (simpleElements) {
+
+            return simpleElements.stream().filter(l -> l.getId() == id).findFirst().get();
+        }
+    }
+
+    protected CompleteElement getCompleteElement(int id) {
 
         synchronized (completeElements) {
             Optional<CompleteElement> optionalLibrary = completeElements.stream().filter(l -> l.getId() == id).findFirst();

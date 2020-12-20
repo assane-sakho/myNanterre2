@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.api.User;
+package miage.parisnanterre.fr.mynanterre2.api.user;
 
 public class Type {
     public String getName() {
