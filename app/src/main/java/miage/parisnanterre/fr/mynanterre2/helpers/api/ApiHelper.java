@@ -43,6 +43,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     protected List<CompleteElement> completeElements;
     protected boolean dataLoaded;
     protected int pagesNumber;
+    protected int pageIndex;
 
     protected boolean loadAllPages;
 
@@ -92,6 +93,8 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
 
         simpleElements = new ArrayList<>();
         completeElements = new ArrayList<>();
+
+        pageIndex = 1;
     }
 
     abstract List<SimpleElement> convertToList(JsonArray jsonArray);
@@ -230,6 +233,23 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
 
         for (Future<List<SimpleElement>> f : futures)
             simpleElements.addAll(f.get());
+    }
+
+    protected List<SimpleElement> getMoreSimpleElements()
+    {
+        List<SimpleElement> simpleElementsList = new ArrayList<>();
+
+        if(pageIndex < pagesNumber || pagesNumber == 0)
+        {
+            if(pageIndex == 1)
+                simpleElementsList =  getFirstPage();
+            else
+                simpleElementsList = getClubsByPage(pageIndex);
+
+            pageIndex ++;
+        }
+
+        return simpleElementsList;
     }
 
     private final String readIt(InputStream is) throws IOException {

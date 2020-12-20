@@ -60,4 +60,9 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
     public List<Publication> getPublications(int clubId) throws ExecutionException, InterruptedException {
         return clubPublicationApiHelper.getPublications(clubId);
     }
+
+    public List<SimpleClub> getMoreSimpleClubs()
+    {
+        return getMoreSimpleElements();
+    }
 }
