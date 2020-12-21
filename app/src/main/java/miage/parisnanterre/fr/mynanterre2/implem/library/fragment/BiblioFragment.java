@@ -69,7 +69,7 @@ public class BiblioFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                libraryApiHelper.getSimpleLibraries();
+                libraryApiHelper.getAllSimpleLibraries();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

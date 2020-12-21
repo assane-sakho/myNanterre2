@@ -44,8 +44,8 @@ public class ClubPublicationApiHelper extends ApiHelper<Publication, Publication
         return gson.fromJson(jsonString, Publication.class);
     }
 
-    public List<Publication> getPublications(int clubId) throws ExecutionException, InterruptedException {
+    public List<Publication> getAllPublications(int clubId) throws ExecutionException, InterruptedException {
         baseEndpointUrl = baseEndpointUrl.replaceAll("#clubId", "" + clubId);
-        return getSimpleElements();
+        return getAllSimpleElements();
     }
 }

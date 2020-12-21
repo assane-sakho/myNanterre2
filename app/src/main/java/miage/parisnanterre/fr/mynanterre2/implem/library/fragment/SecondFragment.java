@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -58,7 +57,7 @@ public class SecondFragment extends Fragment {
 
         LibraryApiHelper libraryApiHelper = LibraryApiHelper.getInstance();
         try {
-            List<SimpleLibrary> libraries = libraryApiHelper.getSimpleLibraries();
+            List<SimpleLibrary> libraries = libraryApiHelper.getAllSimpleLibraries();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

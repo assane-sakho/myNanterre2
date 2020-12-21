@@ -40,11 +40,11 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
     List<SimpleClub> clubListAll;
     Context context;
 
-    public RecyclerClubAdapter(Context context) throws ExecutionException, InterruptedException {
+    public RecyclerClubAdapter(Context context, List<SimpleClub> clubList) throws ExecutionException, InterruptedException {
         this.context = context;
         this.clubApiHelper = ClubApiHelper.getInstance();
-        clubList = new ArrayList<>(clubApiHelper.getSimpleClubs());
-        clubListAll = new ArrayList<>(clubList);
+        this.clubList = clubList;
+        clubListAll = clubList;
     }
 
     @NonNull
@@ -112,6 +112,7 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
             }
 
             FilterResults filterResults = new FilterResults();
+
             filterResults.values = filteredList;
 
             return filterResults;
@@ -120,7 +121,7 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             clubList.clear();
-            clubList.addAll((Collection<Club>) filterResults.values);
+            clubList.addAll((List<SimpleClub>) filterResults.values);
             notifyDataSetChanged();
         }
     };

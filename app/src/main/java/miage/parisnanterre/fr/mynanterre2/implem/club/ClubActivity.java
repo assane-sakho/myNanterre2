@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,6 +64,7 @@ public class ClubActivity extends AppCompatActivity {
 
         mSelectedId = R.id.nav_clubs;
         selectDrawerItem(mSelectedId);
+
         setTitle("Clubs");
     }
 
@@ -110,6 +112,11 @@ public class ClubActivity extends AppCompatActivity {
                 break;
             case R.id.nav_clubs:
                 fragmentClass = ClubFragment.class;
+//                android.app.Fragment currentFragment = getFragmentManager().findFragmentById(R.id.flContent);
+//                FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+//                fragTransaction.detach(currentFragment);
+//                fragTransaction.attach(currentFragment);
+//                fragTransaction.commit();
                 break;
             case R.id.nav_train:
                 fragmentClass = TrainFragment.class;
@@ -129,6 +136,7 @@ public class ClubActivity extends AppCompatActivity {
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
+
         fragmentManager.beginTransaction()
                 .replace(R.id.flContent, fragment)
                 .commitNow();

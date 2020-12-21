@@ -28,6 +28,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
@@ -41,44 +42,40 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
 
     protected List<SimpleElement> simpleElements;
     protected List<CompleteElement> completeElements;
-    protected boolean dataLoaded;
+    protected boolean dataLoadedOnce;
+    protected boolean refreshSimpleElementsEveryCall;
     protected int pagesNumber;
     protected int pageIndex;
 
-    protected boolean loadAllPages;
-
     protected String baseEndpointUrl;
     protected String endPointParameters;
+    protected char parametersCompleter;
 
     public ApiHelper(String baseEndpointUrl)
     {
-        this.baseEndpointUrl = baseEndpointUrl + "?";
-        this.loadAllPages = true;
+        this.baseEndpointUrl = baseEndpointUrl;
+        this.refreshSimpleElementsEveryCall = false;
         endPointParameters = "";
+        parametersCompleter = '?';
 
         instantiateParameters();
     }
 
-    public ApiHelper(String baseEndpointUrl, boolean loadAllPages)
+    public ApiHelper(String baseEndpointUrl, boolean refreshSimpleElementsEveryCall)
     {
-        this.baseEndpointUrl = baseEndpointUrl+ "?";
-        this.loadAllPages = loadAllPages;
+        this.baseEndpointUrl = baseEndpointUrl;
+        this.refreshSimpleElementsEveryCall = refreshSimpleElementsEveryCall;
+        endPointParameters = "";
+        parametersCompleter = '?';
 
         instantiateParameters();
     }
 
-    public ApiHelper(String baseEndpointUrl, String endPointParameters)
+    public ApiHelper(String baseEndpointUrl, boolean refreshSimpleElementsEveryCall, String endPointParameters)
     {
-        this.baseEndpointUrl = baseEndpointUrl + endPointParameters + "&";
-        this.loadAllPages = true;
-
-        instantiateParameters();
-    }
-
-    public ApiHelper(String baseEndpointUrl, boolean loadAllPages, String endPointParameters)
-    {
-        this.baseEndpointUrl = baseEndpointUrl + endPointParameters + "&";
-        this.loadAllPages = loadAllPages;
+        this.baseEndpointUrl = baseEndpointUrl + endPointParameters;
+        parametersCompleter = '&';
+        this.refreshSimpleElementsEveryCall = refreshSimpleElementsEveryCall;
 
         instantiateParameters();
     }
@@ -94,6 +91,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         simpleElements = new ArrayList<>();
         completeElements = new ArrayList<>();
 
+        dataLoadedOnce = false;
         pageIndex = 1;
     }
 
@@ -156,25 +154,24 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         }
     }
 
-    protected List<SimpleElement> getSimpleElements() throws ExecutionException, InterruptedException {
-        if (!dataLoaded) {
+    protected List<SimpleElement> getAllSimpleElements() throws ExecutionException, InterruptedException {
+        if (refreshSimpleElementsEveryCall || !dataLoadedOnce) {
             synchronized (simpleElements) {
                 simpleElements.addAll(getFirstPage());
 
-                if(loadAllPages)
-                    getAllPages();
+                getAllPages();
 
-                dataLoaded = true;
+                dataLoadedOnce = true;
             }
         }
         return simpleElements;
     }
 
     private List<SimpleElement> getFirstPage() {
-        List<SimpleElement> simpleClubList = new ArrayList<>();
+        List<SimpleElement> simpleElementsList = new ArrayList<>();
 
         try {
-            String jsonString = getJsonWithIdAsString(baseEndpointUrl + "page=" + 1);
+            String jsonString = getJsonWithIdAsString(baseEndpointUrl + parametersCompleter + "page=" + 1);
             JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
             JsonArray jsonMembersArray = jsonObject.getAsJsonArray("hydra:member");
 
@@ -182,25 +179,25 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
             {
                 pagesNumber = Integer.valueOf(jsonObject
                         .getAsJsonObject("hydra:view")
-                        .get("hydra:last").getAsString().split("=")[1]);
+                        .get("hydra:last").getAsString().split("page=")[1]);
             }
             else
             {
                 pagesNumber = 1;
             }
 
-            simpleClubList = convertToList(jsonMembersArray);
+            simpleElementsList = convertToList(jsonMembersArray);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return simpleClubList;
+        return simpleElementsList;
     }
 
     private List<SimpleElement> getClubsByPage(int page) {
         List<SimpleElement> simpleClubList = new ArrayList<>();
 
         try {
-            String jsonString = getJsonAsString(baseEndpointUrl + "page=" + page);
+            String jsonString = getJsonAsString(baseEndpointUrl + parametersCompleter + "page=" + page);
 
             simpleClubList = convertToList(jsonString);
         } catch (Exception e) {
@@ -239,7 +236,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     {
         List<SimpleElement> simpleElementsList = new ArrayList<>();
 
-        if(pageIndex < pagesNumber || pagesNumber == 0)
+        if(pageIndex <= pagesNumber || pagesNumber == 0)
         {
             if(pageIndex == 1)
                 simpleElementsList =  getFirstPage();
@@ -249,7 +246,20 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
             pageIndex ++;
         }
 
+        updateSimpleList(simpleElementsList);
+
         return simpleElementsList;
+    }
+
+    protected final void updateSimpleList(List<SimpleElement> simpleElementsList)
+    {
+        simpleElements.addAll(simpleElementsList);
+        simpleElements.stream().distinct().collect(Collectors.toList());
+    }
+
+    protected final List<SimpleElement> getLoadedSimpleElements()
+    {
+        return simpleElements;
     }
 
     private final String readIt(InputStream is) throws IOException {

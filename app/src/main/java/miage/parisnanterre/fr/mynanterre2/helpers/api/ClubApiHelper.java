@@ -22,7 +22,7 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
     private ClubPublicationApiHelper clubPublicationApiHelper;
 
     private ClubApiHelper() {
-        super(baseEndPoint, false);
+        super(baseEndPoint);
         clubPublicationApiHelper = ClubPublicationApiHelper.getInstance();
     }
 
@@ -48,21 +48,22 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
         return gson.fromJson(jsonString, Club.class);
     }
 
-    public List<SimpleClub> getSimpleClubs() throws ExecutionException, InterruptedException {
-        return getSimpleElements();
-    }
-
     public SimpleClub getSimpleClub(int id)
     {
         return getSimpleElement(id);
     }
 
     public List<Publication> getPublications(int clubId) throws ExecutionException, InterruptedException {
-        return clubPublicationApiHelper.getPublications(clubId);
+        return clubPublicationApiHelper.getAllPublications(clubId);
     }
 
     public List<SimpleClub> getMoreSimpleClubs()
     {
         return getMoreSimpleElements();
+    }
+
+    public List<SimpleClub> getLoadedSimpleClubs()
+    {
+        return getLoadedSimpleElements();
     }
 }

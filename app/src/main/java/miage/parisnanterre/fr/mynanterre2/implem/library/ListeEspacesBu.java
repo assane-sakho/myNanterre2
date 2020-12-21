@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerBuAdapter;
-import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
 
@@ -88,7 +87,7 @@ public class ListeEspacesBu extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                simpleLibraries = libraryApiHelper.getSimpleLibraries();
+                simpleLibraries = libraryApiHelper.getAllSimpleLibraries();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

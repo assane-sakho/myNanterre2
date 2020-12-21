@@ -45,8 +45,8 @@ public class LibraryApiHelper extends ApiHelper<SimpleLibrary, Library> {
         return gson.fromJson(jsonString, Library.class);
     }
 
-    public List<SimpleLibrary> getSimpleLibraries() throws ExecutionException, InterruptedException {
-        return getSimpleElements();
+    public List<SimpleLibrary> getAllSimpleLibraries() throws ExecutionException, InterruptedException {
+        return getAllSimpleElements();
     }
 
     public Library getLibrary(int id) {
