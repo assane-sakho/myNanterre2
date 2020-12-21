@@ -1,9 +1,6 @@
 package miage.parisnanterre.fr.mynanterre2.implem.club.fragment;
 
 import androidx.annotation.RequiresApi;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -26,17 +23,11 @@ import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.club.Club;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
-import miage.parisnanterre.fr.mynanterre2.implem.club.ClubActivity;
-import miage.parisnanterre.fr.mynanterre2.implem.club.viewModel.ClubInfoViewModel;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ClubInfoFragment extends Fragment {
 
-    private ClubInfoViewModel mViewModel;
-    private ImageView img;
-    private TextView nom, cat, creator, desc, date, titre;
-    private View v;
-    private Club club;
+    private final Club club;
 
     private ClubApiHelper clubApiHelper;
 
@@ -55,18 +46,18 @@ public class ClubInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.club_info_fragment, container, false);
+        View v1 = inflater.inflate(R.layout.club_info_fragment, container, false);
 
         GetClubPublicationsAsync getClubPublicationsAsync = new GetClubPublicationsAsync();
         getClubPublicationsAsync.execute();
 
-        titre = (TextView)v.findViewById(R.id.Title);
-        img = (ImageView)v.findViewById(R.id.imageClub);
-        nom = (TextView)v.findViewById(R.id.nomClub);
-        cat = (TextView)v.findViewById(R.id.catClub);
-        creator = (TextView)v.findViewById(R.id.creatorClub);
-        desc = (TextView)v.findViewById(R.id.descClub);
-        date = (TextView)v.findViewById(R.id.dateClub);
+        TextView titre = v1.findViewById(R.id.Title);
+        ImageView img = v1.findViewById(R.id.imageClub);
+        TextView nom = v1.findViewById(R.id.nomClub);
+        TextView cat = v1.findViewById(R.id.catClub);
+        TextView creator = v1.findViewById(R.id.creatorClub);
+        TextView desc = v1.findViewById(R.id.descClub);
+        TextView date = v1.findViewById(R.id.dateClub);
 
         titre.setText("Clubs");
         Bitmap bitmap = BitmapFactory.decodeByteArray(club.getImage(), 0, club.getImage().length);
@@ -77,27 +68,15 @@ public class ClubInfoFragment extends Fragment {
         desc.setText(club.getDescription());
         date.setText("Date de création : " + club.getCreationDate());
 
-        if(club.isCertificate() == false){
-            v.findViewById(R.id.certif).setVisibility(View.INVISIBLE);
+        if(!club.isCertificate()){
+            v1.findViewById(R.id.certif).setVisibility(View.INVISIBLE);
         }
 
-        ImageView back = v.findViewById(R.id.back);
+        ImageView back = v1.findViewById(R.id.back);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ClubActivity.class);
-                startActivity(intent);
-            }
-        });
+        back.setOnClickListener(v -> getActivity().onBackPressed());
 
-        return v;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ClubInfoViewModel.class);
+        return v1;
     }
 
     private final class GetClubPublicationsAsync extends AsyncTask<Void, Void, String> {
@@ -107,9 +86,7 @@ public class ClubInfoFragment extends Fragment {
 
             try {
                 club.setPublications(clubApiHelper.getPublications(club.getId()));
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
             return "executed";
