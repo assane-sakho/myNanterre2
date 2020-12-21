@@ -44,6 +44,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     protected List<CompleteElement> completeElements;
     protected boolean dataLoadedOnce;
     protected boolean refreshSimpleElementsEveryCall;
+    protected boolean endPointContainsParameters;
     protected int pagesNumber;
     protected int pageIndex;
 
@@ -55,8 +56,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     {
         this.baseEndpointUrl = baseEndpointUrl;
         this.refreshSimpleElementsEveryCall = false;
-        endPointParameters = "";
-        parametersCompleter = '?';
+        endPointContainsParameters = false;
 
         instantiateParameters();
     }
@@ -65,17 +65,17 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     {
         this.baseEndpointUrl = baseEndpointUrl;
         this.refreshSimpleElementsEveryCall = refreshSimpleElementsEveryCall;
-        endPointParameters = "";
-        parametersCompleter = '?';
+        endPointContainsParameters = false;
 
         instantiateParameters();
     }
 
-    public ApiHelper(String baseEndpointUrl, boolean refreshSimpleElementsEveryCall, String endPointParameters)
+    public ApiHelper(String baseEndpointUrl, boolean refreshSimpleElementsEveryCall, boolean endPointContainsParameters)
     {
         this.baseEndpointUrl = baseEndpointUrl + endPointParameters;
-        parametersCompleter = '&';
+
         this.refreshSimpleElementsEveryCall = refreshSimpleElementsEveryCall;
+        this.endPointContainsParameters = endPointContainsParameters;
 
         instantiateParameters();
     }
@@ -90,6 +90,8 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
 
         simpleElements = new ArrayList<>();
         completeElements = new ArrayList<>();
+
+        parametersCompleter = endPointContainsParameters ? '&' : '?';
 
         dataLoadedOnce = false;
         pageIndex = 1;

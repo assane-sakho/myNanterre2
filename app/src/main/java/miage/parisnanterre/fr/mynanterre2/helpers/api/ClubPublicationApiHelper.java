@@ -19,7 +19,7 @@ public class ClubPublicationApiHelper extends ApiHelper<Publication, Publication
     private static final String baseFinalEndPoint = "club_publications";
 
     private ClubPublicationApiHelper() {
-        super(baseFinalEndPoint, true, "?club=#clubId");
+        super(baseFinalEndPoint, true, true);
     }
 
     public static ClubPublicationApiHelper getInstance()
@@ -45,7 +45,7 @@ public class ClubPublicationApiHelper extends ApiHelper<Publication, Publication
     }
 
     public List<Publication> getAllPublications(int clubId) throws ExecutionException, InterruptedException {
-        baseEndpointUrl = baseEndpointUrl.replaceAll("#clubId", "" + clubId);
+        baseEndpointUrl = baseFinalEndPoint + "?club=" + clubId;
         return getAllSimpleElements();
     }
 }
