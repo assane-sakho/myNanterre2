@@ -1,7 +1,8 @@
 package miage.parisnanterre.fr.mynanterre2.api.library;
 
-public abstract class LibraryRelatedElement {
-    protected final int id;
+import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
+
+public abstract class LibraryRelatedElement extends BaseDbElement {
     protected final Library library;
 
     public LibraryRelatedElement(int id, Library library)
@@ -11,11 +12,6 @@ public abstract class LibraryRelatedElement {
     }
 
     /* GETTER */
-    protected int getId()
-    {
-        return id;
-    }
-
     protected Library getLibrary()
     {
         return library;

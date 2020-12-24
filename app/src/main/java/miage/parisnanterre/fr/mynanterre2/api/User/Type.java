@@ -1,14 +1,7 @@
-package miage.parisnanterre.fr.mynanterre2.api.User;
+package miage.parisnanterre.fr.mynanterre2.api.user;
 
-public class Type {
-    public String getName() {
-        return name;
-    }
+import miage.parisnanterre.fr.mynanterre2.api.db.NamedDbElement;
 
-    public int getId() {
-        return id;
-    }
+public class Type extends NamedDbElement {
 
-    private int id;
-    private String name;
 }

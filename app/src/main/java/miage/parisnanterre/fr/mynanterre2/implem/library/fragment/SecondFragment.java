@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -20,6 +19,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.library.Attendance;
@@ -56,7 +56,13 @@ public class SecondFragment extends Fragment {
 
 
         LibraryApiHelper libraryApiHelper = LibraryApiHelper.getInstance();
-        List<SimpleLibrary> libraries = libraryApiHelper.getSimpleLibraries();
+        try {
+            List<SimpleLibrary> libraries = libraryApiHelper.getAllSimpleLibraries();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         List<BarEntry> barEntries = new ArrayList<>();
 

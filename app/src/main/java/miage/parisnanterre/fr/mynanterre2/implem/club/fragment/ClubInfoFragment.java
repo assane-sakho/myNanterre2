@@ -1,18 +1,15 @@
 package miage.parisnanterre.fr.mynanterre2.implem.club.fragment;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Context;
-import android.content.Intent;
+import androidx.annotation.RequiresApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,87 +17,85 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.concurrent.ExecutionException;
+
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.implem.club.ClubActivity;
-import miage.parisnanterre.fr.mynanterre2.implem.club.viewModel.ClubInfoViewModel;
-import miage.parisnanterre.fr.mynanterre2.implem.library.BiblioActivity;
+import miage.parisnanterre.fr.mynanterre2.api.club.Club;
+import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ClubInfoFragment extends Fragment {
 
-    private ClubInfoViewModel mViewModel;
-    private ImageView img;
-    private TextView nom, cat, creator, desc, date, titre;
-    private View v;
-    private String nomC, catC, creatorC, descC, dateC;
-    private byte[] imgC;
-    private boolean certifiedC;
+    private final Club club;
 
-    public ClubInfoFragment(byte[] img, String nom, String cat, String creator, String desc, String date, boolean certified){
-        this.imgC = img;
-        this.nomC = nom;
-        this.catC = cat;
-        this.creatorC = creator;
-        this.descC = desc;
-        this.dateC = date;
-        this.certifiedC = certified;
+    private ClubApiHelper clubApiHelper;
+
+    public ClubInfoFragment(int simpleClubId){
+        this.clubApiHelper = ClubApiHelper.getInstance();
+        SimpleClub simpleClub = clubApiHelper.getSimpleClub(simpleClubId);
+        club = new Club(simpleClub);
     }
 
-    public static ClubInfoFragment newInstance(byte[] img, String nom, String cat, String creator, String desc, String date, boolean certified) {
-        return new ClubInfoFragment(img,nom,cat,creator,desc,date,certified);
+    public static ClubInfoFragment newInstance(int simpleClubId) {
+        return new ClubInfoFragment(simpleClubId);
     }
-
-
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.club_info_fragment, container, false);
+        View v1 = inflater.inflate(R.layout.club_info_fragment, container, false);
 
-        titre = (TextView) v.findViewById(R.id.Title);
-        img=(ImageView)v.findViewById(R.id.imageClub);
-        nom=(TextView) v.findViewById(R.id.nomClub);
-        cat=(TextView)v.findViewById(R.id.catClub);
-        creator=(TextView)v.findViewById(R.id.creatorClub);
-        desc=(TextView)v.findViewById(R.id.descClub);
-        date=(TextView)v.findViewById(R.id.dateClub);
+        GetClubPublicationsAsync getClubPublicationsAsync = new GetClubPublicationsAsync();
+        getClubPublicationsAsync.execute();
+
+        TextView titre = v1.findViewById(R.id.Title);
+        ImageView img = v1.findViewById(R.id.imageClub);
+        TextView nom = v1.findViewById(R.id.nomClub);
+        TextView cat = v1.findViewById(R.id.catClub);
+        TextView creator = v1.findViewById(R.id.creatorClub);
+        TextView desc = v1.findViewById(R.id.descClub);
+        TextView date = v1.findViewById(R.id.dateClub);
 
         titre.setText("Clubs");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(imgC, 0, imgC.length);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(club.getImage(), 0, club.getImage().length);
         img.setImageBitmap(bitmap);
-        nom.setText(nomC);
-        cat.setText("Catégorie : "+catC);
-        creator.setText("Président(e) : "+creatorC);
-        desc.setText(descC);
-        date.setText("Date de création : "+dateC);
+        nom.setText(club.getName());
+        cat.setText("Catégorie : " + club.getType().getName());
+        creator.setText("Président(e) : " + club.getCreator().getFullName());
+        desc.setText(club.getDescription());
+        date.setText("Date de création : " + club.getCreationDate());
 
-        if(certifiedC == false){
-            v.findViewById(R.id.certif).setVisibility(View.INVISIBLE);
+        if(!club.isCertificate()){
+            v1.findViewById(R.id.certif).setVisibility(View.INVISIBLE);
         }
 
+        ImageView back = v1.findViewById(R.id.back);
 
+        back.setOnClickListener(v -> getActivity().onBackPressed());
 
-        ImageView back = v.findViewById(R.id.back);
+        return v1;
+    }
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ClubActivity.class);
-                startActivity(intent);
+    private final class GetClubPublicationsAsync extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+                club.setPublications(clubApiHelper.getPublications(club.getId()));
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
             }
-        });
+            return "executed";
+        }
 
-        return v;
+        @Override
+        protected void onPostExecute(String result) {
+          //TODO Afficher les publications
+        }
+
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ClubInfoViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
 }
