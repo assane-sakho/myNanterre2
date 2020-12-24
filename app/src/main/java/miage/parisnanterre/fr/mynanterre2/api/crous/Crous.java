@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import java.util.List;
 
 import miage.parisnanterre.fr.mynanterre2.api.schedule.Schedulable;
+import miage.parisnanterre.fr.mynanterre2.helpers.ScheduleHelper;
 
 public class Crous extends SimpleCrous implements Schedulable {
     private List<CrousProduct> crousProducts;
@@ -21,9 +22,9 @@ public class Crous extends SimpleCrous implements Schedulable {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean isOpen() {
-        return ScheduleHelper.isOpen(crousSchedules);
+        return ScheduleHelper.isOpen((List<miage.parisnanterre.fr.mynanterre2.api.schedule.Schedule>)(List<?>) crousSchedules);
     }
 }

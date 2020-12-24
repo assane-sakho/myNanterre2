@@ -12,11 +12,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import miage.parisnanterre.fr.mynanterre2.api.crous.Schedule;
+import miage.parisnanterre.fr.mynanterre2.api.schedule.Schedule;
 
 public class ScheduleHelper {
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static boolean isOpen(List<Schedule> schedules) {
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();

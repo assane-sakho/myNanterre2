@@ -4,20 +4,10 @@ import java.time.LocalTime;
 
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
-public class Schedule extends BaseDbElement {
-    private String days;
-    private LocalTime openingTime;
-    private LocalTime closingTime;
-
-    public String getDays() {
-        return days;
-    }
-
-    public LocalTime getOpeningTime() {
-        return openingTime;
-    }
-
-    public LocalTime getClosingTime() {
-        return closingTime;
+public class Schedule extends miage.parisnanterre.fr.mynanterre2.api.schedule.Schedule {
+    private Crous crous;
+    public Schedule(int id, LocalTime openingTime, LocalTime closingTime, String days, Crous crous) {
+        super(id, openingTime, closingTime, days);
+        this.crous = crous;
     }
 }
