@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -276,5 +277,31 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         simpleElements.addAll(simpleElementsList);
 
         return simpleElementsList;
+    }
+
+    public String postData(String jsonString, String endpoint) throws IOException {
+        InputStream is = null;
+        try {
+            final URL url = new URL(BASEURL + endpoint);
+            final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+
+            OutputStream os = conn.getOutputStream();
+            os.write(jsonString.getBytes("UTF-8"));
+            os.close();
+
+            is = conn.getInputStream();
+           return readIt(is);
+        }
+        finally {
+            if (is != null) {
+                is.close();
+            }
+        }
     }
 }

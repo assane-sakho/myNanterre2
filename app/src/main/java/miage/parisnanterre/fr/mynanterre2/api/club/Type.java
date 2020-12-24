@@ -1,13 +1,23 @@
 package miage.parisnanterre.fr.mynanterre2.api.club;
 
-public class Type extends ClubRelatedElement {
-    private String name;
+import miage.parisnanterre.fr.mynanterre2.api.db.NamedDbElement;
 
-    public Type(int id, Club club) {
-        super(id, club);
+public class Type extends NamedDbElement {
+    public Type(String name) {
+        super(name);
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

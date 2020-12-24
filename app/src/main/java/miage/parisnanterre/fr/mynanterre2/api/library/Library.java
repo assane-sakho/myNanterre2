@@ -38,6 +38,22 @@ public class Library extends SimpleLibrary{
     @SerializedName("libraryDomains")
     private List<Domain> domains;
 
+    public Library(String name, String location, String description, String receptionPhoneNumber, String mail, Building building, List<ConsultationLoanCondition> consultationLoanConditions, List<DocumentaryFund> documentaryFunds, List<Service> services, List<Responsable> responsables, List<Schedule> schedules, List<Attendance> attendances, List<Domain> domains) {
+        super(name);
+        this.location = location;
+        this.description = description;
+        this.receptionPhoneNumber = receptionPhoneNumber;
+        this.mail = mail;
+        this.building = building;
+        this.consultationLoanConditions = consultationLoanConditions;
+        this.documentaryFunds = documentaryFunds;
+        this.services = services;
+        this.responsables = responsables;
+        this.schedules = schedules;
+        this.attendances = attendances;
+        this.domains = domains;
+    }
+
     public String getLocation() {
         return location;
     }
