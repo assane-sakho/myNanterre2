@@ -8,7 +8,8 @@ import miage.parisnanterre.fr.mynanterre2.api.db.NamedDbElement;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 
 public class SimpleClub extends NamedDbElement {
-    protected byte[] image;
+    protected byte[] imageBytes;
+    protected String imageUrl;
     protected LocalDateTime creationDate;
     protected String description;
     protected boolean isCertificate;
@@ -32,8 +33,12 @@ public class SimpleClub extends NamedDbElement {
         return website;
     }
 
-    public byte[] getImage() {
-        return image;
+    public byte[] getImageBytes() {
+        return imageBytes;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public LocalDateTime getCreationDate() {

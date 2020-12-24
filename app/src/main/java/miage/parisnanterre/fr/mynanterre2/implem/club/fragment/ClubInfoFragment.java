@@ -60,7 +60,7 @@ public class ClubInfoFragment extends Fragment {
         TextView date = v1.findViewById(R.id.dateClub);
 
         titre.setText("Clubs");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(club.getImage(), 0, club.getImage().length);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(club.getImageBytes(), 0, club.getImageBytes().length);
         img.setImageBitmap(bitmap);
         nom.setText(club.getName());
         cat.setText("Catégorie : " + club.getType().getName());

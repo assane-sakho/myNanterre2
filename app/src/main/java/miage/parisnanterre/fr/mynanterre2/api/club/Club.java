@@ -8,7 +8,8 @@ import java.util.List;
 public class Club extends SimpleClub {
     public Club(SimpleClub simpleClub) {
         id = simpleClub.getId();
-        image = simpleClub.image;
+        imageBytes = simpleClub.imageBytes;
+        imageUrl = simpleClub.imageUrl;
         creationDate = simpleClub.creationDate;
         description = simpleClub.description;
         isCertificate = simpleClub.isCertificate;

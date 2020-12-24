@@ -54,18 +54,19 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textViewNomClub.setText(clubList.get(position).getName());
-        holder.textViewCatClub.setText(clubList.get(position).getType().getName());
-        Bitmap bitmap = BitmapFactory.decodeByteArray(clubList.get(position).getImage(), 0, clubList.get(position).getImage().length);
+        SimpleClub clubClicked = clubList.get(position);
+
+        holder.textViewNomClub.setText(clubClicked.getName());
+        holder.textViewCatClub.setText(clubClicked.getType().getName());
+        Bitmap bitmap = BitmapFactory.decodeByteArray(clubClicked.getImageBytes(), 0,clubClicked.getImageBytes().length);
+
         holder.imageViewClub.setImageBitmap(bitmap);
 
-        if (!clubList.get(position).isCertificate()) {
+        if (!clubClicked.isCertificate()) {
             holder.certif.setVisibility(View.INVISIBLE);
         }
 
         holder.itemView.setOnClickListener(view -> {
-            SimpleClub clubClicked = clubList.get(position);
-
             Toast.makeText(view.getContext(), clubList.get(position).getName(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(context, ClubInfoActivity.class);
             intent.putExtra("simpleClubId",clubClicked.getId());
