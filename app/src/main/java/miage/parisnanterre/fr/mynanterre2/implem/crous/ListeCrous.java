@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem;
+package miage.parisnanterre.fr.mynanterre2.implem.crous;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -37,8 +37,7 @@ import androidx.core.content.ContextCompat;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
-
-
+import miage.parisnanterre.fr.mynanterre2.implem.Accueil;
 
 
 public class ListeCrous extends AppCompatActivity {

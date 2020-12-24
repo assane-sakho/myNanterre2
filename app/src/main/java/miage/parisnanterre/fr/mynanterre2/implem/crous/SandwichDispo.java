@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem;
+package miage.parisnanterre.fr.mynanterre2.implem.crous;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import miage.parisnanterre.fr.mynanterre2.R;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.ListeCrous;
 
 public class SandwichDispo extends AppCompatActivity {
 

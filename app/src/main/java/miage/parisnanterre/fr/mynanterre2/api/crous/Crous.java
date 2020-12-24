@@ -9,7 +9,7 @@ import java.util.List;
 import miage.parisnanterre.fr.mynanterre2.api.schedule.Schedulable;
 import miage.parisnanterre.fr.mynanterre2.helpers.ScheduleHelper;
 
-public class Crous extends SimpleCrous implements Schedulable {
+public class Crous extends SimpleCrous implements Schedulable{
     private List<CrousProduct> crousProducts;
     private List<Schedule> crousSchedules;
 

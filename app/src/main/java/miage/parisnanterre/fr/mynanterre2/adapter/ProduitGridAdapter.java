@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.implem.Produit;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.Produit;
 
 public class ProduitGridAdapter extends BaseAdapter {
 

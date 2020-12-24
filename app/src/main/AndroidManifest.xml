@@ -52,24 +52,24 @@
         <activity android:name=".implem.GareFavoriteRerA" />
         <activity android:name=".implem.TrainRerA" />
         <activity android:name=".implem.TrainPlanRerA" />
-        <activity android:name=".implem.ListeCrous" />
-        <activity android:name=".implem.ListeProduit" />
+        <activity android:name=".implem.crous.ListeCrous" />
+        <activity android:name=".implem.crous.ListeProduit" />
         <activity android:name=".implem.Cgu" />
         <activity android:name=".implem.PlanBatiments" />
         <activity android:name=".implem.ListeTrain" />
         <activity android:name=".implem.GoogleMaps" />
         <activity android:name=".implem.FrequentationBatiment" />
-        <activity android:name=".implem.MenuCrous" />
+        <activity android:name=".implem.crous.MenuCrous" />
         <activity android:name=".implem.LiveTweet" />
-        <activity android:name=".implem.CarteCrous" />
-        <activity android:name=".implem.LocalisationCrousMain" />
+        <activity android:name=".implem.crous.CarteCrous" />
+        <activity android:name=".implem.crous.LocalisationCrousMain" />
         <activity android:name=".implem.library.ListeEspacesBu" />
         <activity android:name=".implem.library.LibraryDesc" />
 
         <receiver android:name=".implem.NotificationReceiver" />
 
-        <activity android:name=".implem.AuthSandwich" />
-        <activity android:name=".implem.SandwichDispo" />
+        <activity android:name=".implem.crous.AuthSandwich" />
+        <activity android:name=".implem.crous.SandwichDispo" />
     </application>
 
 </manifest>

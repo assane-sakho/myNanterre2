@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem;
+package miage.parisnanterre.fr.mynanterre2.implem.crous;
 
 /**
  * Created by Sankar Vijay on 28/02/2019.

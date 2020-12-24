@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem;
+package miage.parisnanterre.fr.mynanterre2.implem.crous;
 
 
 import android.content.Intent;
@@ -17,6 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import miage.parisnanterre.fr.mynanterre2.R;
+import miage.parisnanterre.fr.mynanterre2.implem.LocalisationListener;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.ListeCrous;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.LocalisationCafet;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.LocalisationCrousAdapter;
 
 public class LocalisationCrousMain extends AppCompatActivity {
 

@@ -15,9 +15,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.implem.Crous;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.Crous;
 import miage.parisnanterre.fr.mynanterre2.implem.FrequentationBatiment;
-import miage.parisnanterre.fr.mynanterre2.implem.ListeProduit;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.ListeProduit;
 
 
 public class CrousGridAdapter extends BaseAdapter{

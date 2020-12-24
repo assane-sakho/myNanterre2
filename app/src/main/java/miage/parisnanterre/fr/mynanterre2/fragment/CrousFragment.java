@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.ListeCrous;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.ListeCrous;
 
 public class CrousFragment extends ListFragment {
     //lance l'activté avec categories des crous
