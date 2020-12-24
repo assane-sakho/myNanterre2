@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
@@ -34,7 +36,7 @@ import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
-    private static final String LOCALURLDEV = "http://192.168.42.101:3000/api/";
+    private static final String LOCALURLDEV = "http://192.168.1.43:3000/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
     private static final String BASEURL = LOCALURLDEV;
@@ -248,15 +250,9 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
             pageIndex ++;
         }
 
-        updateSimpleList(simpleElementsList);
+        simpleElements.addAll(simpleElementsList);
 
         return simpleElementsList;
-    }
-
-    protected final void updateSimpleList(List<SimpleElement> simpleElementsList)
-    {
-        simpleElements.addAll(simpleElementsList);
-        simpleElements.stream().distinct().collect(Collectors.toList());
     }
 
     protected final List<SimpleElement> getLoadedSimpleElements()

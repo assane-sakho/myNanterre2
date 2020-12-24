@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import miage.parisnanterre.fr.mynanterre2.api.club.Club;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.R;
@@ -37,25 +31,25 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
     ClubApiHelper clubApiHelper;
     List<SimpleClub> clubList;
-    List<SimpleClub> clubListAll;
+    List<SimpleClub> finalClubList;
     Context context;
 
-    public RecyclerClubAdapter(Context context, List<SimpleClub> clubList) throws ExecutionException, InterruptedException {
+    public RecyclerClubAdapter(Context context, List<SimpleClub> clubList) {
         this.context = context;
         this.clubApiHelper = ClubApiHelper.getInstance();
-        this.clubList = clubList;
-        clubListAll = clubList;
+        finalClubList = clubList;
+        this.clubList = finalClubList;
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        LayoutInflater LayoutI = LayoutInflater.from(parent.getContext());
-        View view = LayoutI.inflate(R.layout.row_item_club, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        LayoutInflater layoutI = LayoutInflater.from(parent.getContext());
+        View view = layoutI.inflate(R.layout.row_item_club, parent, false);
 
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -65,22 +59,18 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
         Bitmap bitmap = BitmapFactory.decodeByteArray(clubList.get(position).getImage(), 0, clubList.get(position).getImage().length);
         holder.imageViewClub.setImageBitmap(bitmap);
 
-        if (clubList.get(position).isCertificate() == false) {
+        if (!clubList.get(position).isCertificate()) {
             holder.certif.setVisibility(View.INVISIBLE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(view -> {
+            SimpleClub clubClicked = clubList.get(position);
 
-            @Override
-            public void onClick(View view) {
-                SimpleClub clubClicked = clubList.get(position);
+            Toast.makeText(view.getContext(), clubList.get(position).getName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, ClubInfoActivity.class);
+            intent.putExtra("simpleClubId",clubClicked.getId());
 
-                Toast.makeText(view.getContext(), clubList.get(position).getName(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, ClubInfoActivity.class);
-                intent.putExtra("simpleClubId",clubClicked.getId());
-
-                context.startActivity(intent);
-            }
+            context.startActivity(intent);
         });
 
     }
@@ -102,10 +92,11 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
             List<SimpleClub> filteredList = new ArrayList<>();
 
             if (charSequence.toString().isEmpty()) {
-                filteredList.addAll(clubListAll);
+                filteredList = finalClubList;
             } else {
-                for (SimpleClub club : clubListAll) {
-                    if (club.getName().toLowerCase().contains(charSequence.toString().toLowerCase()) || club.getType().getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                for (SimpleClub club : finalClubList) {
+                    if (club.getName().toLowerCase().contains(charSequence.toString().toLowerCase()) ||
+                            club.getType().getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filteredList.add(club);
                     }
                 }
@@ -118,18 +109,21 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
             return filterResults;
         }
 
+
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            clubList.clear();
-            clubList.addAll((List<SimpleClub>) filterResults.values);
+            clubList = (List<SimpleClub>) filterResults.values;
             notifyDataSetChanged();
         }
+
     };
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView imageViewClub, certif;
-        TextView textViewNomClub, textViewCatClub;
+        ImageView imageViewClub;
+        ImageView certif;
+        TextView textViewNomClub;
+        TextView textViewCatClub;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

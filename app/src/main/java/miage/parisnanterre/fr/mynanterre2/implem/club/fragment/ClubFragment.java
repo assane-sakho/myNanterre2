@@ -22,7 +22,6 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
@@ -34,7 +33,6 @@ public class ClubFragment extends Fragment {
 
     private RecyclerClubAdapter recyclerClubAdapter;
     private ClubApiHelper clubApiHelper;
-    private LinearLayoutManager mLayoutManager;
     private List<SimpleClub> clubLoaded;
     private ProgressBar progressBar;
 
@@ -53,17 +51,14 @@ public class ClubFragment extends Fragment {
 
         RecyclerView rvClub = v.findViewById(R.id.recyclerViewClub);
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+
+        mLayoutManager.setReverseLayout(false);
+        mLayoutManager.setStackFromEnd(false);
 
         progressBar = (ProgressBar) v.findViewById(R.id.progress);
         clubLoaded = new ArrayList<>();
-        try {
-            recyclerClubAdapter = new RecyclerClubAdapter(getContext(), clubLoaded);
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        recyclerClubAdapter = new RecyclerClubAdapter(getContext(), clubLoaded);
 
         rvClub.setAdapter(recyclerClubAdapter);
 
@@ -87,7 +82,6 @@ public class ClubFragment extends Fragment {
 
         fetchData();
 
-
         return v;
     }
 
@@ -106,7 +100,7 @@ public class ClubFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 recyclerClubAdapter.getFilter().filter(newText);
-                return false;
+                return true;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
