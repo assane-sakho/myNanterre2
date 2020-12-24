@@ -20,7 +20,7 @@ public class LibraryApiHelper extends ApiHelper<SimpleLibrary, Library> {
     private static String baseEndPoint = "libraries";
 
     private LibraryApiHelper() {
-        super(baseEndPoint);
+        super(baseEndPoint, true);
     }
 
     public static LibraryApiHelper getInstance()

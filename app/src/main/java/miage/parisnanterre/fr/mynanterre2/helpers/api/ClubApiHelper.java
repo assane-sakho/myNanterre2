@@ -22,7 +22,7 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
     private ClubPublicationApiHelper clubPublicationApiHelper;
 
     private ClubApiHelper() {
-        super(baseEndPoint);
+        super(baseEndPoint, true);
         clubPublicationApiHelper = ClubPublicationApiHelper.getInstance();
     }
 
@@ -60,10 +60,5 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
     public List<SimpleClub> getMoreSimpleClubs()
     {
         return getMoreSimpleElements();
-    }
-
-    public List<SimpleClub> getLoadedSimpleClubs()
-    {
-        return getLoadedSimpleElements();
     }
 }

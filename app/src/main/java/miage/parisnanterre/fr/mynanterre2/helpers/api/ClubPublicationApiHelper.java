@@ -19,7 +19,7 @@ public class ClubPublicationApiHelper extends ApiHelper<Publication, Publication
     private static final String baseFinalEndPoint = "club_publications";
 
     private ClubPublicationApiHelper() {
-        super(baseFinalEndPoint, true, true);
+        super(baseFinalEndPoint, false, true, true);
     }
 
     public static ClubPublicationApiHelper getInstance()

@@ -47,6 +47,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     protected boolean dataLoadedOnce;
     protected boolean refreshSimpleElementsEveryCall;
     protected boolean endPointContainsParameters;
+    protected boolean hasPagination;
     protected int pagesNumber;
     protected int pageIndex;
 
@@ -54,28 +55,21 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     protected String endPointParameters;
     protected char parametersCompleter;
 
-    public ApiHelper(String baseEndpointUrl)
+    public ApiHelper(String baseEndpointUrl, boolean hasPagination)
     {
         this.baseEndpointUrl = baseEndpointUrl;
         this.refreshSimpleElementsEveryCall = false;
+        this.hasPagination = hasPagination;
         endPointContainsParameters = false;
 
         instantiateParameters();
     }
 
-    public ApiHelper(String baseEndpointUrl, boolean refreshSimpleElementsEveryCall)
-    {
-        this.baseEndpointUrl = baseEndpointUrl;
-        this.refreshSimpleElementsEveryCall = refreshSimpleElementsEveryCall;
-        endPointContainsParameters = false;
-
-        instantiateParameters();
-    }
-
-    public ApiHelper(String baseEndpointUrl, boolean refreshSimpleElementsEveryCall, boolean endPointContainsParameters)
+    public ApiHelper(String baseEndpointUrl, boolean hasPagination, boolean refreshSimpleElementsEveryCall, boolean endPointContainsParameters)
     {
         this.baseEndpointUrl = baseEndpointUrl + endPointParameters;
 
+        this.hasPagination = hasPagination;
         this.refreshSimpleElementsEveryCall = refreshSimpleElementsEveryCall;
         this.endPointContainsParameters = endPointContainsParameters;
 
@@ -97,6 +91,16 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
 
         dataLoadedOnce = false;
         pageIndex = 1;
+    }
+
+    private final String readIt(InputStream is) throws IOException {
+        BufferedReader r = new BufferedReader(new InputStreamReader(is));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = r.readLine()) != null) {
+            response.append(line).append('\n');
+        }
+        return response.toString();
     }
 
     abstract List<SimpleElement> convertToList(JsonArray jsonArray);
@@ -161,14 +165,33 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     protected List<SimpleElement> getAllSimpleElements() throws ExecutionException, InterruptedException {
         if (refreshSimpleElementsEveryCall || !dataLoadedOnce) {
             synchronized (simpleElements) {
-                simpleElements.addAll(getFirstPage());
-
-                getAllPages();
+                if(hasPagination)
+                {
+                    simpleElements.addAll(getFirstPage());
+                    getAllPages();
+                }
+                else
+                {
+                    simpleElements.addAll(getSimpleElements());
+                }
 
                 dataLoadedOnce = true;
             }
         }
         return simpleElements;
+    }
+
+    private List<SimpleElement> getSimpleElements() {
+        List<SimpleElement> simpleElementsList = new ArrayList<>();
+
+        try {
+            String jsonString = getJsonAsString(baseEndpointUrl);
+
+            simpleElementsList = convertToList(jsonString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return simpleElementsList;
     }
 
     private List<SimpleElement> getFirstPage() {
@@ -253,20 +276,5 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         simpleElements.addAll(simpleElementsList);
 
         return simpleElementsList;
-    }
-
-    protected final List<SimpleElement> getLoadedSimpleElements()
-    {
-        return simpleElements;
-    }
-
-    private final String readIt(InputStream is) throws IOException {
-        BufferedReader r = new BufferedReader(new InputStreamReader(is));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = r.readLine()) != null) {
-            response.append(line).append('\n');
-        }
-        return response.toString();
     }
 }
