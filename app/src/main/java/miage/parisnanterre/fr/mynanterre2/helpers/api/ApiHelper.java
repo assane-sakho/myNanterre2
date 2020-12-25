@@ -5,42 +5,55 @@ import android.util.Base64;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.annotations.Expose;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
+import miage.parisnanterre.fr.mynanterre2.api.club.Club;
+import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
+import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
+import miage.parisnanterre.fr.mynanterre2.api.library.Attendance;
+import miage.parisnanterre.fr.mynanterre2.api.library.Library;
+import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
+import miage.parisnanterre.fr.mynanterre2.api.user.User;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubAdapter;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubPublicationAdapter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
+public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
     private static final String LOCALURLDEV = "http://192.168.1.43:3000/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
-    private static final String BASEURL = BASEURLDEV;
+    private static final String BASEURL = LOCALURLDEV;
     protected  Gson gson;
 
     protected List<SimpleElement> simpleElements;
@@ -53,8 +66,20 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     protected int pageIndex;
 
     protected String baseEndpointUrl;
-    protected String endPointParameters;
     protected char parametersCompleter;
+
+    public final static Map<Type, String> childrenBaseEndpoint = new HashMap<Type, String>()
+    {
+        {
+            put(SimpleClub.class, "clubs");
+            put(Club.class, "clubs");
+            put(Publication.class, "club_publications");
+            put(miage.parisnanterre.fr.mynanterre2.api.club.Type.class, "club_types");
+            put(SimpleLibrary.class, "libraries");
+            put(Library.class, "libraries");
+            put(User.class, "users");
+        }
+    };
 
     public ApiHelper(String baseEndpointUrl, boolean hasPagination)
     {
@@ -68,7 +93,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
 
     public ApiHelper(String baseEndpointUrl, boolean hasPagination, boolean refreshSimpleElementsEveryCall, boolean endPointContainsParameters)
     {
-        this.baseEndpointUrl = baseEndpointUrl + endPointParameters;
+        this.baseEndpointUrl = baseEndpointUrl;
 
         this.hasPagination = hasPagination;
         this.refreshSimpleElementsEveryCall = refreshSimpleElementsEveryCall;
@@ -83,6 +108,32 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
                 .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json, typeOfT, context) -> LocalTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("HH:mm")))
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .registerTypeAdapter(byte[].class, (JsonDeserializer<byte[]>) (json, typeOfT, context) -> Base64.decode(json.getAsString(), Base64.NO_WRAP))
+                .registerTypeAdapter(Club.class, new JsonClubAdapter())
+                .registerTypeAdapter(Publication.class, new JsonClubPublicationAdapter())
+                .addSerializationExclusionStrategy(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes fieldAttributes) {
+                        final Expose expose = fieldAttributes.getAnnotation(Expose.class);
+                        return expose != null && !expose.serialize();
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> aClass) {
+                        return false;
+                    }
+                })
+                .addDeserializationExclusionStrategy(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes fieldAttributes) {
+                        final Expose expose = fieldAttributes.getAnnotation(Expose.class);
+                        return expose != null && !expose.deserialize();
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> aClass) {
+                        return false;
+                    }
+                })
                 .create();
 
         simpleElements = new ArrayList<>();
@@ -279,13 +330,13 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         return simpleElementsList;
     }
 
-    public String postData(String jsonString, String endpoint) throws IOException {
+    protected String sendData(String jsonString, ApiRequestMethod requestMethod, Optional<Integer> id) throws IOException {
         InputStream is = null;
         try {
-            final URL url = new URL(BASEURL + endpoint);
+            final URL url = new URL(BASEURL + baseEndpointUrl + (id.isPresent()? "/" + id.get() : ""));
             final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod(requestMethod.name());
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setRequestProperty("Accept", "application/json");
             conn.setDoOutput(true);
@@ -303,5 +354,9 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
                 is.close();
             }
         }
+    }
+
+    protected String sendData(String jsonString, ApiRequestMethod requestMethod) throws IOException {
+      return sendData(jsonString, requestMethod, Optional.empty());
     }
 }
