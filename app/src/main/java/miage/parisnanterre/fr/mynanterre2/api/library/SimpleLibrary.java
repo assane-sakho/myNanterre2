@@ -4,4 +4,7 @@ import miage.parisnanterre.fr.mynanterre2.api.db.NamedDbElement;
 
 public class SimpleLibrary extends NamedDbElement {
 
+    public SimpleLibrary(String name) {
+        super(name);
+    }
 }

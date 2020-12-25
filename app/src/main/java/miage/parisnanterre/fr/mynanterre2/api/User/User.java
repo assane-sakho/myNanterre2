@@ -10,6 +10,12 @@ public class User extends BaseDbElement {
     private String lastName;
     private String firstName;
 
+    public User(String lastName, String firstName, Type type) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.type = type;
+    }
+
     public String getLastName() {
         return lastName;
     }

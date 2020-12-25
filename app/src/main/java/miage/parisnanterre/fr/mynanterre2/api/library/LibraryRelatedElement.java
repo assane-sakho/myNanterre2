@@ -7,7 +7,7 @@ public abstract class LibraryRelatedElement extends BaseDbElement {
 
     public LibraryRelatedElement(int id, Library library)
     {
-        this.id = id;
+//        this.id = id;
         this.library = library;
     }
 
