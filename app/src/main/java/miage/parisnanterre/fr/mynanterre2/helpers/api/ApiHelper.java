@@ -46,6 +46,7 @@ import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubAdapter;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubPublicationAdapter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
@@ -65,7 +66,6 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
     protected int pageIndex;
 
     protected String baseEndpointUrl;
-    protected String endPointParameters;
     protected char parametersCompleter;
 
     public final static Map<Type, String> childrenBaseEndpoint = new HashMap<Type, String>()
@@ -93,7 +93,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
 
     public ApiHelper(String baseEndpointUrl, boolean hasPagination, boolean refreshSimpleElementsEveryCall, boolean endPointContainsParameters)
     {
-        this.baseEndpointUrl = baseEndpointUrl + endPointParameters;
+        this.baseEndpointUrl = baseEndpointUrl;
 
         this.hasPagination = hasPagination;
         this.refreshSimpleElementsEveryCall = refreshSimpleElementsEveryCall;
@@ -109,6 +109,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .registerTypeAdapter(byte[].class, (JsonDeserializer<byte[]>) (json, typeOfT, context) -> Base64.decode(json.getAsString(), Base64.NO_WRAP))
                 .registerTypeAdapter(Club.class, new JsonClubAdapter())
+                .registerTypeAdapter(Publication.class, new JsonClubPublicationAdapter())
                 .addSerializationExclusionStrategy(new ExclusionStrategy() {
                     @Override
                     public boolean shouldSkipField(FieldAttributes fieldAttributes) {

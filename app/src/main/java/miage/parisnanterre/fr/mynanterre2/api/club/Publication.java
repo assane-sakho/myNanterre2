@@ -9,14 +9,18 @@ import java.util.Objects;
 
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
-public class Publication extends BaseDbElement {
+public class Publication extends ClubRelatedElement {
     private String message;
     private LocalDateTime date;
+    private Boolean isEdited;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Publication(String message) {
+    public Publication(String message, Club club) {
         this.message = message;
         date = LocalDateTime.now();
+        isEdited = false;
+        this.club = club;
     }
 
     public String getMessage() {
@@ -27,16 +31,28 @@ public class Publication extends BaseDbElement {
         return date;
     }
 
+    public Boolean isEdited() {
+        return isEdited;
+    }
+
+    public Publication setMessage(String message) {
+        this.message = message;
+        isEdited = true;
+        return this;
+    }
+
+    public Publication setEdited(Boolean edited) {
+        isEdited = edited;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Publication that = (Publication) o;
-        return Objects.equals(message, that.message);
+        return super.equals(o);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(message);
+        return super.hashCode();
     }
 }

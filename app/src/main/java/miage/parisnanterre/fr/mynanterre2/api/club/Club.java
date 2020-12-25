@@ -13,6 +13,7 @@ import java.util.Objects;
 
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class Club extends SimpleClub {
 
     @SerializedName("clubPublications")
@@ -40,15 +41,28 @@ public class Club extends SimpleClub {
         publications = new ArrayList<>();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public Club() {
         publications = new ArrayList<>();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public Club addPublication(String publicationMessage) {
-        this.publications.add(new Publication(publicationMessage));
+        this.publications.add(new Publication(publicationMessage, this));
         return this;
+    }
+
+    public void updatePublication(Publication publication) {
+        if(publications.contains(publication))
+        {
+            publications.remove(publication);
+            publications.add(publication);
+        }
+    }
+
+    public void deletePublication(Publication publication) {
+        if(publications.contains(publication))
+        {
+            publications.remove(publication);
+        }
     }
 
     public Club addPublication(Publication publication) {
@@ -73,4 +87,6 @@ public class Club extends SimpleClub {
     public int hashCode() {
         return super.hashCode();
     }
+
+
 }
