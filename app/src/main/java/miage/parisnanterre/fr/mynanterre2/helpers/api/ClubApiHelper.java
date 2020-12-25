@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.google.gson.JsonArray;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -60,5 +61,10 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
     public List<SimpleClub> getMoreSimpleClubs()
     {
         return getMoreSimpleElements();
+    }
+
+    public String createClub(Club club) throws IOException {
+        String jsonString = gson.toJson(club);
+        return postData(jsonString);
     }
 }

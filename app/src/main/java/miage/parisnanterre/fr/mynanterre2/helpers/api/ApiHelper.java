@@ -40,7 +40,7 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     private static final String LOCALURLDEV = "http://192.168.1.43:3000/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
-    private static final String BASEURL = BASEURLDEV;
+    private static final String BASEURL = LOCALURLDEV;
     protected  Gson gson;
 
     protected List<SimpleElement> simpleElements;
@@ -279,10 +279,10 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
         return simpleElementsList;
     }
 
-    public String postData(String jsonString, String endpoint) throws IOException {
+    protected String postData(String jsonString) throws IOException {
         InputStream is = null;
         try {
-            final URL url = new URL(BASEURL + endpoint);
+            final URL url = new URL(BASEURL + baseEndpointUrl);
             final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("POST");

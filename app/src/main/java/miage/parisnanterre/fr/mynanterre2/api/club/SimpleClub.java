@@ -16,8 +16,8 @@ public class SimpleClub extends NamedDbElement {
     private static final String EMPTY_STRING = "";
 
     protected byte[] imageBytes;
-    protected String imageUrl;
-    protected LocalDateTime creationDate;
+    protected transient String imageUrl;
+    protected transient LocalDateTime creationDate;
     protected String description;
     protected boolean isCertificate;
     protected boolean isValidate;

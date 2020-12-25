@@ -2,6 +2,7 @@ package miage.parisnanterre.fr.mynanterre2;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import miage.parisnanterre.fr.mynanterre2.api.club.Club;
@@ -9,6 +10,7 @@ import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.club.Type;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 
 import static org.junit.Assert.assertEquals;
 
@@ -129,5 +131,25 @@ public class ClubUnitTest {
         assertEquals(true, club.isValidate());
         assertEquals("www.monclub.fr", club.getWebsite());
         assertEquals(LocalDateTime.now().toLocalDate(), club.getCreationDate().toLocalDate());
+    }
+
+    @Test
+    public void testApiCreation() throws IOException {
+        SimpleClub simpleClub = new SimpleClub();
+        simpleClub.setName("club de test")
+                .setWebsite("www.mynanterre2.fr")
+                .setImageUrl("www.mynanterre2.fr/logo")
+                .setContact("mynanterre2 - UPN")
+                .setMail("mynanterre2@gmail.com")
+                .setDescription("une description")
+                .setContact("des informations de contact")
+                .setMail("uneAdresseMail@domaine.com")
+                .setWebsite("www.monclub.fr");
+
+        Club club = new Club(simpleClub);
+
+        ClubApiHelper clubApiHelper = ClubApiHelper.getInstance();
+
+        clubApiHelper.createClub(club);
     }
 }

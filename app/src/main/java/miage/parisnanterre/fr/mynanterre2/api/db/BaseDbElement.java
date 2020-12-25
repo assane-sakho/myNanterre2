@@ -3,7 +3,7 @@ package miage.parisnanterre.fr.mynanterre2.api.db;
 import java.util.Objects;
 
 public abstract class BaseDbElement {
-    protected int id;
+    protected transient int id;
 
     public BaseDbElement()
     {
