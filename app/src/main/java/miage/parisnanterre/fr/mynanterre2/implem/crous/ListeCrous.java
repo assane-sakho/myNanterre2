@@ -4,265 +4,150 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
+import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
+import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousAttendanceApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.Accueil;
+import miage.parisnanterre.fr.mynanterre2.implem.library.ListeEspacesBu;
 
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ListeCrous extends AppCompatActivity {
 
-    private static final String url = "jdbc:mysql://den1.mysql2.gear.host/mynanterre";
-    private static final String user = "mynanterre";
-    private static final String psw = "Bk0JQmNO5~u~";
-    private static final int REQUEST_CODE_ONE = 0;
-    private static Connection conn;
-    private List<Crous> liste = new ArrayList<>();
-    private int STORAGE_LOCATION_CODE = 1;
+    private final int STORAGE_LOCATION_CODE = 1;
+    private CrousApiHelper crousApiHelper;
+    private CrousAttendanceApiHelper crousAttendanceApiHelper;
+    private List<SimpleCrous> crousLoaded;
+//    private ProgressBar progressBar;
+    private GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.liste_batiments);
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Problème au niveau du driver", Toast.LENGTH_SHORT).show();
-        }
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        crousApiHelper = CrousApiHelper.getInstance();
+        crousAttendanceApiHelper = CrousAttendanceApiHelper.getInstance();
 
         ImageView back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Accueil.class));
-            }
+        back.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), Accueil.class)));
+
+        gridView = findViewById(R.id.gridview);
+
+//        progressBar = findViewById(R.id.progress);
+        crousLoaded = new ArrayList<>();
+
+        GetCrousAsync getCrousAsync = new GetCrousAsync();
+        getCrousAsync.execute();
+
+        gridView.setOnItemClickListener((parent, v, position, id) -> {
+            Object o = gridView.getItemAtPosition(position);
+            String batiment = "";
+
+            //On instancie notre layout en tant que View
+            LayoutInflater factory = LayoutInflater.from(ListeCrous.this);
+            final View alertDialogView = factory.inflate(R.layout.dialog_box_frequentation, null);
+
+            AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(ListeCrous.this);
+            alertDialogBuilder.setView(alertDialogView);
+
+            Button btn1 = alertDialogView.findViewById(R.id.buttonfaible);
+            Button btn2 = alertDialogView.findViewById(R.id.buttonmoyenne);
+            Button btn3 = alertDialogView.findViewById(R.id.buttonforte);
+
+            btn1.setOnClickListener(v1 -> {
+                miage.parisnanterre.fr.mynanterre2.api.crous.Crous clickedCrous = null;
+                crousAttendanceApiHelper.createLowAttendance(clickedCrous);
+
+                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+            });
+
+            btn2.setOnClickListener(v12 -> {
+                miage.parisnanterre.fr.mynanterre2.api.crous.Crous clickedCrous = null;
+                crousAttendanceApiHelper.createMediumAttendance(clickedCrous);
+
+                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+            });
+
+            btn3.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    miage.parisnanterre.fr.mynanterre2.api.crous.Crous clickedCrous = null;
+                    crousAttendanceApiHelper.createHighAttendance(clickedCrous);
+
+                    Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+                }
+            });
+
+            alertDialogBuilder.create().show();
         });
 
+        FloatingActionButton menuCrous = findViewById(R.id.MenuCrous);
+        menuCrous.setOnClickListener(view -> {
+            Intent myIntent = new Intent(getApplicationContext(), CarteCrous.class);
+            Bundle extras = new Bundle();
+            myIntent.putExtras(extras);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getApplicationContext().startActivity(myIntent);
 
-
-
-        List<Crous> donnees = getListData();
-        final GridView gridView = findViewById(R.id.gridview);
-        gridView.setAdapter(new CrousGridAdapter(this, donnees));
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Object o = gridView.getItemAtPosition(position);
-                String batiment = ((Crous) o).getBatiment();
-
-                //On instancie notre layout en tant que View
-                LayoutInflater factory = LayoutInflater.from(ListeCrous.this);
-                final View alertDialogView = factory.inflate(R.layout.dialog_box_frequentation, null);
-
-                AlertDialog.Builder alertDialogBuilder;
-                alertDialogBuilder = new AlertDialog.Builder(ListeCrous.this);
-                alertDialogBuilder.setView(alertDialogView);
-
-                Button btn1 = alertDialogView.findViewById(R.id.buttonfaible);
-                Button btn2 = alertDialogView.findViewById(R.id.buttonmoyenne);
-                Button btn3 = alertDialogView.findViewById(R.id.buttonforte);
-
-                btn1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-
-                        // btnAdd1 has been clicked
-                        try {
-                            Date currentTime = Calendar.getInstance().getTime();
-
-                            SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-                            String s = f.format(currentTime);
-
-                            conn = DriverManager.getConnection(url, user, psw);
-                            String sqliD = "UPDATE Crous SET frequentation = 1 WHERE batiment='" + batiment + "';";
-                            String sqliD2 = "UPDATE Crous SET vote='" + s + "' WHERE batiment='" + batiment + "';";
-
-                            PreparedStatement preparedStatement = conn.prepareStatement(sqliD);
-                            PreparedStatement preparedStatement2 = conn.prepareStatement(sqliD2);
-                            preparedStatement.executeUpdate();
-                            preparedStatement2.executeUpdate();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ListeCrous.this, ListeCrous.class));
-                    }
-                });
-
-                btn2.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-
-                        // btnAdd2 has been clicked
-                        try {
-                            Date currentTime = Calendar.getInstance().getTime();
-
-                            SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-                            String s = f.format(currentTime);
-
-                            conn = DriverManager.getConnection(url, user, psw);
-                            String sqliD = "UPDATE Crous SET frequentation = 2 WHERE batiment='" + batiment + "';";
-                            String sqliD2 = "UPDATE Crous SET vote='" + s + "' WHERE batiment='" + batiment + "';";
-
-                            PreparedStatement preparedStatement = conn.prepareStatement(sqliD);
-                            PreparedStatement preparedStatement2 = conn.prepareStatement(sqliD2);
-
-                            preparedStatement.executeUpdate();
-                            preparedStatement2.executeUpdate();
-
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ListeCrous.this, ListeCrous.class));
-
-                    }
-                });
-
-                btn3.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-
-                        // btnAdd3 has been clicked
-                        try {
-                            Date currentTime = Calendar.getInstance().getTime();
-
-                            SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-                            String s = f.format(currentTime);
-
-                            conn = DriverManager.getConnection(url, user, psw);
-                            String sqliD = "UPDATE Crous SET frequentation = 3 WHERE batiment='" + batiment + "';";
-                            String sqliD2 = "UPDATE Crous SET vote='" + s + "' WHERE batiment='" + batiment + "';";
-
-                            PreparedStatement preparedStatement = conn.prepareStatement(sqliD);
-                            PreparedStatement preparedStatement2 = conn.prepareStatement(sqliD2);
-
-                            preparedStatement.executeUpdate();
-                            preparedStatement2.executeUpdate();
-
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-
-                        startActivity(new Intent(ListeCrous.this, ListeCrous.class));
-
-                    }
-                });
-
-                alertDialogBuilder.create().show();
-            }
         });
 
+        FloatingActionButton geo = findViewById(R.id.Geo);
+        geo.setOnClickListener(view -> {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-
-
-
-        FloatingActionButton MenuCrous = findViewById(R.id.MenuCrous);
-        MenuCrous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //  Toast.makeText(getApplicationContext(), "TEXT",Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(getApplicationContext(), CarteCrous.class);
+                Intent myIntent = new Intent(getApplicationContext(), LocalisationCrousMain.class);
                 Bundle extras = new Bundle();
                 myIntent.putExtras(extras);
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(myIntent);
-
+            } else {
+                requestLocationPermission();
             }
         });
-
-
-
-
-        FloatingActionButton Geo = findViewById(R.id.Geo);
-        Geo.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                   // Toast.makeText(getApplicationContext(), "You have already granted this permission!",
-               //             Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent(getApplicationContext(), LocalisationCrousMain.class);
-                    Bundle extras = new Bundle();
-                    myIntent.putExtras(extras);
-                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    getApplicationContext().startActivity(myIntent);
-                }
-                else {
-                    requestLocationPermission();
-                }
-
-
-
-            }
-        });
-
-
-
-
-
-
-
-
 
         FloatingActionButton sandwich = findViewById(R.id.sandwich);
-        sandwich.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                Intent myIntent = new Intent(getApplicationContext(), AuthSandwich.class);
-                Bundle extras = new Bundle();
-                myIntent.putExtras(extras);
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(myIntent);
-
-
-
-            }
+        sandwich.setOnClickListener(view -> {
+            Intent myIntent = new Intent(getApplicationContext(), AuthSandwich.class);
+            Bundle extras = new Bundle();
+            myIntent.putExtras(extras);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getApplicationContext().startActivity(myIntent);
         });
 
     }
 
-    private void requestLocationPermission()
-    {
+    private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
 
@@ -271,38 +156,25 @@ public class ListeCrous extends AppCompatActivity {
                     .setMessage("Nous avons besoin de votre localisation pour afficher les cafétérias proche de chez vous")
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            ActivityCompat.requestPermissions(ListeCrous.this,
-                                    new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, STORAGE_LOCATION_CODE);
-                        }
-
-
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
+                            ActivityCompat.requestPermissions(ListeCrous.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, STORAGE_LOCATION_CODE);
                         }
+
                     })
+                    .setNegativeButton("cancel", (dialog, which) -> dialog.dismiss())
                     .create().show();
 
         } else {
             ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, STORAGE_LOCATION_CODE);
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, STORAGE_LOCATION_CODE);
         }
     }
 
-
-
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults)
-    {
-        if (requestCode == STORAGE_LOCATION_CODE)  {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_LOCATION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
-
 
                 Intent myIntent = new Intent(getApplicationContext(), LocalisationCrousMain.class);
                 Bundle extras = new Bundle();
@@ -310,53 +182,33 @@ public class ListeCrous extends AppCompatActivity {
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(myIntent);
 
-
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    private final class GetCrousAsync extends AsyncTask<Void, Void, String> {
 
-
-    private List<Crous> getListData() {
-        Date currentTime = Calendar.getInstance().getTime();
-
-        SimpleDateFormat f = new SimpleDateFormat("HHmmss");
-        String s = f.format(currentTime);
-        int i = Integer.parseInt(s);
-
-        try {
-            conn = DriverManager.getConnection(url, user, psw);
-
-            String sqliD = "SELECT * FROM Crous WHERE ouverture<=" + i + " AND fermeture>=" + i + " ORDER BY frequentation ASC;";
-            System.out.println(sqliD);
-            Statement st = conn.createStatement();
-            ResultSet rst = st.executeQuery(sqliD);
-
-            if(!rst.isBeforeFirst()) {
-                TextView nothing = findViewById(R.id.nothing);
-                nothing.setText("Il n'y a actuellement aucun restaurant/cafet ouvert ;)");
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                crousLoaded.addAll(crousApiHelper.getAllSimpleCrous());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            else {
-                while (rst.next()) {
-                    String batiment = rst.getString("batiment");
-                    String lieu = rst.getString("lieu");
-                    int frequentation = rst.getInt("frequentation");
-                    int id = rst.getInt("id_bat");
-                    String v = rst.getString("vote");
-                    String v2 = "Dernière info : " + v;
-                    Crous crous = new Crous(id, batiment, lieu, frequentation, v2);
-                    liste.add(crous);
-
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return "executed";
         }
-        return liste;
+
+        @Override
+        protected void onPostExecute(String result) {
+//            progressBar.setVisibility(View.GONE);
+
+            gridView.setAdapter(new CrousGridAdapter(getApplicationContext(), crousLoaded));
+        }
+
     }
 
 }

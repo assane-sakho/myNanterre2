@@ -1,30 +1,21 @@
 package miage.parisnanterre.fr.mynanterre2.api.crous;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
+import java.util.ArrayList;
 import java.util.List;
 
-import miage.parisnanterre.fr.mynanterre2.api.schedule.Schedulable;
-import miage.parisnanterre.fr.mynanterre2.helpers.ScheduleHelper;
-
-public class Crous extends SimpleCrous implements Schedulable{
+public class Crous extends SimpleCrous{
     private List<CrousProduct> crousProducts;
-    private List<Schedule> crousSchedules;
+
+    public Crous()
+    {
+        crousProducts = new ArrayList();
+    }
 
     public List<CrousProduct> getCrousProducts() {
         return crousProducts;
     }
 
-    public List<Schedule> getCrousSchedules() {
-        return crousSchedules;
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public boolean isOpen() {
-        return ScheduleHelper.isOpen((List<miage.parisnanterre.fr.mynanterre2.api.schedule.Schedule>)(List<?>) crousSchedules);
+    public void setCrousProducts(List<CrousProduct> crousProducts) {
+        this.crousProducts = crousProducts;
     }
 }

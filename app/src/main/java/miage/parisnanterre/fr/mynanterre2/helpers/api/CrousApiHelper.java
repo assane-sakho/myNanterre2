@@ -15,17 +15,16 @@ import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
+import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CrousApiHelper extends ApiHelper<SimpleCrous, Crous> {
 
     private static CrousApiHelper instance;
     private static String baseEndPoint = "crouses";
-    private CrousApiHelper crousApiHelper;
 
     private CrousApiHelper() {
         super(baseEndPoint, true);
-        crousApiHelper = CrousApiHelper.getInstance();
     }
 
     public static CrousApiHelper getInstance()
@@ -55,8 +54,7 @@ public class CrousApiHelper extends ApiHelper<SimpleCrous, Crous> {
         return getSimpleElement(id);
     }
 
-    public List<SimpleCrous> getMoreSimpleCrous()
-    {
-        return getMoreSimpleElements();
+    public List<SimpleCrous> getAllSimpleCrous() throws ExecutionException, InterruptedException {
+        return getAllSimpleElements();
     }
 }

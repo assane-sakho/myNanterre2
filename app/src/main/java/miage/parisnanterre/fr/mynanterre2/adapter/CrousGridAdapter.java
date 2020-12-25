@@ -3,8 +3,8 @@ package miage.parisnanterre.fr.mynanterre2.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,37 +12,42 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.Crous;
+import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
+import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.implem.FrequentationBatiment;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.ListeProduit;
 
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class CrousGridAdapter extends BaseAdapter{
 
-    private List<Crous> listData;
+    private List<SimpleCrous> crousList;
     private LayoutInflater layoutInflater;
     private Context context;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     public static final String EXTRA_MESSAGE2 = "com.example.myfirstapp.MESSAGE2";
 
 
-    public CrousGridAdapter(Context aContext, List<Crous> listData) {
+    public CrousGridAdapter(Context aContext, List<SimpleCrous> crousList) {
         this.context = aContext;
-        this.listData = listData;
+        this.crousList = crousList;
         layoutInflater = LayoutInflater.from(aContext);
     }
 
     @Override
     public int getCount() {
-        return listData.size();
+        return crousList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return listData.get(position);
+        return crousList.get(position);
     }
 
     @Override
@@ -66,53 +71,38 @@ public class CrousGridAdapter extends BaseAdapter{
             holder = (CrousGridAdapter.ViewHolder) convertView.getTag();
         }
 
-        Crous crous = this.listData.get(position);
-        holder.batiment.setText(crous.getBatiment());
-        holder.lieu.setText(crous.getLieu());
-        holder.vote.setText(crous.getVote());
+        SimpleCrous simpleCrous = this.crousList.get(position);
+        holder.batiment.setText("1");
+        holder.lieu.setText(simpleCrous.getLocation());
+        holder.vote.setText("1");
 
-        if (crous.getFrequentation() == 1) {
+        Collections.reverse(simpleCrous.getCrousAttendances());
+        Optional<Attendance> lastAttendance = simpleCrous.getCrousAttendances().stream().findFirst();
+        if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 1) {
             convertView.setBackgroundColor(Color.rgb(147, 194, 6));
-        } else if (crous.getFrequentation() == 2) {
+        } else if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 2) {
             convertView.setBackgroundColor(Color.rgb(242, 178, 55));
         } else {
             convertView.setBackgroundColor(Color.rgb(191, 10, 1));
         }
 
-
-        holder.sandwich.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(context.getApplicationContext(), ListeProduit.class);
-                Bundle extras = new Bundle();
-                extras.putString(EXTRA_MESSAGE, String.valueOf(crous.getId()));
-                myIntent.putExtras(extras);
-                context.startActivity(myIntent);
-            }
+        holder.sandwich.setOnClickListener(v -> {
+            Intent myIntent = new Intent(context.getApplicationContext(), ListeProduit.class);
+            Bundle extras = new Bundle();
+            extras.putString(EXTRA_MESSAGE, String.valueOf(""));
+            myIntent.putExtras(extras);
+            context.startActivity(myIntent);
         });
 
-        holder.chart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(context.getApplicationContext(), FrequentationBatiment.class);
-                Bundle extras = new Bundle();
-                extras.putString(EXTRA_MESSAGE, String.valueOf(crous.getId()));
-                extras.putString(EXTRA_MESSAGE2, String.valueOf(crous.getBatiment()));
-                myIntent.putExtras(extras);
-                context.startActivity(myIntent);
-            }
+        holder.chart.setOnClickListener(v -> {
+            Intent myIntent = new Intent(context.getApplicationContext(), FrequentationBatiment.class);
+            Bundle extras = new Bundle();
+            extras.putString(EXTRA_MESSAGE,String.valueOf(""));
+            extras.putString(EXTRA_MESSAGE2, String.valueOf(""));
+            myIntent.putExtras(extras);
+            context.startActivity(myIntent);
         });
         return convertView;
-    }
-
-    // Find Image ID corresponding to the name of the image (in the directory mipmap).
-    public int getMipmapResIdByName(String resName) {
-        String pkgName = context.getPackageName();
-
-        // Return 0 if not found.
-        int resID = context.getResources().getIdentifier(resName, "mipmap", pkgName);
-        Log.i("CustomGridView", "Res Name: " + resName + "==> Res ID = " + resID);
-        return resID;
     }
 
     private static class ViewHolder {
@@ -121,7 +111,6 @@ public class CrousGridAdapter extends BaseAdapter{
         private ImageView sandwich;
         private TextView vote;
         private ImageView chart;
-
     }
 
 }
