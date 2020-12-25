@@ -21,7 +21,6 @@ public class Club extends SimpleClub {
     public Club(SimpleClub simpleClub) {
         super(simpleClub.getName(),
                 simpleClub.getImageBytes(),
-                simpleClub.getImageUrl(),
                 simpleClub.getCreationDate(),
                 simpleClub.getDescription(),
                 simpleClub.isCertificate(),
@@ -36,8 +35,8 @@ public class Club extends SimpleClub {
         publications = new ArrayList<>();
     }
 
-    public Club(String name, byte[] imageBytes, String imageUrl, LocalDateTime creationDate, String description, boolean isCertificate, boolean isValidate, User creator, String contact, String mail, String website, Type type) {
-        super(name, imageBytes, imageUrl, creationDate, description, isCertificate, isValidate, creator, contact, mail, website, type);
+    public Club(String name, byte[] imageBytes, LocalDateTime creationDate, String description, boolean isCertificate, boolean isValidate, User creator, String contact, String mail, String website, Type type) {
+        super(name, imageBytes, creationDate, description, isCertificate, isValidate, creator, contact, mail, website, type);
         publications = new ArrayList<>();
     }
 

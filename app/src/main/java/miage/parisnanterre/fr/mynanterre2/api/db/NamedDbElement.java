@@ -2,7 +2,7 @@ package miage.parisnanterre.fr.mynanterre2.api.db;
 
 import java.util.Objects;
 
-public class NamedDbElement extends BaseDbElement {
+public abstract class  NamedDbElement extends BaseDbElement {
     protected String name;
 
     public NamedDbElement(String name) {

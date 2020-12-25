@@ -4,6 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
@@ -16,8 +17,8 @@ public class SimpleClub extends NamedDbElement {
     private static final String EMPTY_STRING = "";
 
     protected byte[] imageBytes;
-    protected transient String imageUrl;
-    protected transient LocalDateTime creationDate;
+    @Expose(serialize = false)
+    protected LocalDateTime creationDate;
     protected String description;
     protected boolean isCertificate;
     protected boolean isValidate;
@@ -28,10 +29,9 @@ public class SimpleClub extends NamedDbElement {
     @SerializedName("clubType")
     protected Type type;
 
-    public SimpleClub(String name, byte[] imageBytes, String imageUrl, LocalDateTime creationDate, String description, boolean isCertificate, boolean isValidate, User creator, String contact, String mail, String website, Type type) {
+    public SimpleClub(String name, byte[] imageBytes, LocalDateTime creationDate, String description, boolean isCertificate, boolean isValidate, User creator, String contact, String mail, String website, Type type) {
         super(name);
         this.imageBytes = imageBytes;
-        this.imageUrl = imageUrl;
         this.creationDate = creationDate;
         this.description = description;
         this.isCertificate = isCertificate;
@@ -47,7 +47,6 @@ public class SimpleClub extends NamedDbElement {
     public SimpleClub() {
         super(EMPTY_STRING);
         this.imageBytes = EMPTY_STRING.getBytes();
-        this.imageUrl = EMPTY_STRING;
         this.creationDate = LocalDateTime.now();
         this.description = EMPTY_STRING;
         this.isCertificate = false;
@@ -66,11 +65,6 @@ public class SimpleClub extends NamedDbElement {
 
     public SimpleClub setImageBytes(byte[] imageBytes) {
         this.imageBytes = imageBytes;
-        return this;
-    }
-
-    public SimpleClub setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
         return this;
     }
 
@@ -133,10 +127,6 @@ public class SimpleClub extends NamedDbElement {
 
     public byte[] getImageBytes() {
         return imageBytes;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
     }
 
     public LocalDateTime getCreationDate() {

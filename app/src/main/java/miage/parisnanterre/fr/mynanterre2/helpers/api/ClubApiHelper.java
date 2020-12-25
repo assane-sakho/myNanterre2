@@ -63,8 +63,8 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
         return getMoreSimpleElements();
     }
 
-    public String createClub(Club club) throws IOException {
-        String jsonString = gson.toJson(club);
-        return postData(jsonString);
+    public Club createClub(Club club) throws IOException {
+        String jsonString = gson.toJson(club).replace("{\"id\":0,", "{"); //id is not used for insertion
+        return convertToComplete(postData(jsonString));
     }
 }

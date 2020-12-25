@@ -1,14 +1,15 @@
 package miage.parisnanterre.fr.mynanterre2.api.db;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.Objects;
 
-public abstract class BaseDbElement {
-    protected transient int id;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.ApiHelper;
 
-    public BaseDbElement()
-    {
-        id = 0;
-    }
+public abstract class BaseDbElement {
+    protected int id;
 
     public int getId() {
         return id;
@@ -24,5 +25,13 @@ public abstract class BaseDbElement {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getUri() {
+
+        String baseEndPoint = ApiHelper.childrenBaseEndpoint.get(this.getClass());
+
+        return "/api/" + baseEndPoint + "/" + id;
     }
 }

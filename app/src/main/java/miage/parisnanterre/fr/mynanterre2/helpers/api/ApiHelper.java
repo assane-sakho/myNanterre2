@@ -5,38 +5,50 @@ import android.util.Base64;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.annotations.Expose;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
+import miage.parisnanterre.fr.mynanterre2.api.club.Club;
+import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
+import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
+import miage.parisnanterre.fr.mynanterre2.api.library.Attendance;
+import miage.parisnanterre.fr.mynanterre2.api.library.Library;
+import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
+import miage.parisnanterre.fr.mynanterre2.api.user.User;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubAdapter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
+public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
     private static final String LOCALURLDEV = "http://192.168.1.43:3000/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
@@ -55,6 +67,19 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
     protected String baseEndpointUrl;
     protected String endPointParameters;
     protected char parametersCompleter;
+
+    public final static Map<Type, String> childrenBaseEndpoint = new HashMap<Type, String>()
+    {
+        {
+            put(SimpleClub.class, "clubs");
+            put(Club.class, "clubs");
+            put(Publication.class, "club_publications");
+            put(miage.parisnanterre.fr.mynanterre2.api.club.Type.class, "club_types");
+            put(SimpleLibrary.class, "libraries");
+            put(Library.class, "libraries");
+            put(User.class, "users");
+        }
+    };
 
     public ApiHelper(String baseEndpointUrl, boolean hasPagination)
     {
@@ -83,6 +108,31 @@ abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement ex
                 .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json, typeOfT, context) -> LocalTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("HH:mm")))
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .registerTypeAdapter(byte[].class, (JsonDeserializer<byte[]>) (json, typeOfT, context) -> Base64.decode(json.getAsString(), Base64.NO_WRAP))
+                .registerTypeAdapter(Club.class, new JsonClubAdapter())
+                .addSerializationExclusionStrategy(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes fieldAttributes) {
+                        final Expose expose = fieldAttributes.getAnnotation(Expose.class);
+                        return expose != null && !expose.serialize();
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> aClass) {
+                        return false;
+                    }
+                })
+                .addDeserializationExclusionStrategy(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes fieldAttributes) {
+                        final Expose expose = fieldAttributes.getAnnotation(Expose.class);
+                        return expose != null && !expose.deserialize();
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> aClass) {
+                        return false;
+                    }
+                })
                 .create();
 
         simpleElements = new ArrayList<>();
