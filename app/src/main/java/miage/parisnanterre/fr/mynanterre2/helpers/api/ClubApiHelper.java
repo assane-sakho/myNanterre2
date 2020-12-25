@@ -9,6 +9,7 @@ import com.google.gson.JsonArray;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.api.club.Club;
@@ -65,6 +66,17 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
 
     public Club createClub(Club club) throws IOException {
         String jsonString = gson.toJson(club).replace("{\"id\":0,", "{"); //id is not used for insertion
-        return convertToComplete(postData(jsonString));
+        return convertToComplete(sendData(jsonString, ApiRequestMethod.POST));
+    }
+
+    public Club updateClub(Club club) throws IOException {
+        String jsonString = gson.toJson(club);
+        return convertToComplete(sendData(jsonString, ApiRequestMethod.PUT, Optional.of(club.getId())));
+    }
+
+    public boolean deleteClub(Club club) throws IOException {
+        String jsonString = gson.toJson(club);
+        sendData(jsonString, ApiRequestMethod.DELETE, Optional.of(club.getId()));
+        return true;
     }
 }

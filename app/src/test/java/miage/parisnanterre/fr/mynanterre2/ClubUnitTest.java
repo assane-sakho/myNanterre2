@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.api.club.Club;
@@ -131,14 +134,14 @@ public class ClubUnitTest {
     }
 
     @Test
-    public void testApiCreation() throws IOException, ExecutionException, InterruptedException {
+    public void testApiCreateUpdateDelete() throws IOException, ExecutionException, InterruptedException {
 
         ClubTypeApiHelper clubTypeApiHelper = ClubTypeApiHelper.getInstance();
 
-        Type clubType = clubTypeApiHelper.getAllTypes().stream().findFirst().get();
+        List<Type> clubTypes= clubTypeApiHelper.getAllTypes();
+        Type clubType = clubTypes.stream().findFirst().get();
 
         UserApiHelper userApiHelper = UserApiHelper.getInstance();
-
         User creator = userApiHelper.getCompleteUser(0); //bot myNanterre
 
         SimpleClub simpleClub = new SimpleClub();
@@ -147,9 +150,6 @@ public class ClubUnitTest {
                 .setContact("mynanterre2 - UPN")
                 .setMail("mynanterre2@gmail.com")
                 .setDescription("une description")
-                .setContact("des informations de contact")
-                .setMail("uneAdresseMail@domaine.com")
-                .setWebsite("www.monclub.fr")
                 .setType(clubType)
                 .setCreator(creator);
 
@@ -160,5 +160,33 @@ public class ClubUnitTest {
         club = clubApiHelper.createClub(club);
 
         assertNotEquals(0, club.getId());
+
+        String oldClubName = club.getName();
+        String oldWebsite = club.getName();
+        String oldContact = club.getName();
+        String oldMail = club.getName();
+        String oldDescription = club.getName();
+        Type oldType = club.getType();
+
+        Collections.reverse(clubTypes);
+        Type newClubType = clubTypes.stream().findFirst().get();
+
+        club.setName("nouveau " + oldClubName)
+            .setWebsite("nouveau " +"www.mynanterre2.fr")
+            .setContact("nouveau " +"mynanterre2 - UPN")
+            .setMail("nouveau " +"mynanterre2@gmail.com")
+            .setDescription("nouveau " +"une description")
+            .setType(newClubType);
+
+        club = clubApiHelper.updateClub(club);
+
+        assertNotEquals(oldClubName, club.getName());
+        assertNotEquals(oldWebsite, club.getWebsite());
+        assertNotEquals(oldContact, club.getContact());
+        assertNotEquals(oldMail, club.getMail());
+        assertNotEquals(oldDescription, club.getDescription());
+        assertNotEquals(oldType, club.getType());
+
+        assertEquals(true, clubApiHelper.deleteClub(club));
     }
 }

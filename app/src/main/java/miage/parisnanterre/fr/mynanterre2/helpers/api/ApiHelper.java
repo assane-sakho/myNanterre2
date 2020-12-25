@@ -329,13 +329,13 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
         return simpleElementsList;
     }
 
-    protected String postData(String jsonString) throws IOException {
+    protected String sendData(String jsonString, ApiRequestMethod requestMethod, Optional<Integer> id) throws IOException {
         InputStream is = null;
         try {
-            final URL url = new URL(BASEURL + baseEndpointUrl);
+            final URL url = new URL(BASEURL + baseEndpointUrl + (id.isPresent()? "/" + id.get() : ""));
             final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod(requestMethod.name());
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setRequestProperty("Accept", "application/json");
             conn.setDoOutput(true);
@@ -353,5 +353,9 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
                 is.close();
             }
         }
+    }
+
+    protected String sendData(String jsonString, ApiRequestMethod requestMethod) throws IOException {
+      return sendData(jsonString, requestMethod, Optional.empty());
     }
 }
