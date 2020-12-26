@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -31,6 +32,7 @@ import java.util.concurrent.ExecutionException;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
+import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousAttendanceApiHelper;
@@ -82,30 +84,21 @@ public class ListeCrous extends AppCompatActivity {
             Button btn2 = alertDialogView.findViewById(R.id.buttonmoyenne);
             Button btn3 = alertDialogView.findViewById(R.id.buttonforte);
 
-            btn1.setOnClickListener(v1 -> {
-                miage.parisnanterre.fr.mynanterre2.api.crous.Crous clickedCrous = null;
-                crousAttendanceApiHelper.createLowAttendance(clickedCrous);
+            SimpleCrous clickedSimpleCrous = crousLoaded.get(position);
 
-                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+            btn1.setOnClickListener(v1 -> {
+                PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 1);
+                postAttendanceAsync.execute();
             });
 
             btn2.setOnClickListener(v12 -> {
-                miage.parisnanterre.fr.mynanterre2.api.crous.Crous clickedCrous = null;
-                crousAttendanceApiHelper.createMediumAttendance(clickedCrous);
-
-                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+                PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 2);
+                postAttendanceAsync.execute();
             });
 
-            btn3.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    miage.parisnanterre.fr.mynanterre2.api.crous.Crous clickedCrous = null;
-                    crousAttendanceApiHelper.createHighAttendance(clickedCrous);
-
-                    Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ListeCrous.this, ListeCrous.class));
-                }
+            btn3.setOnClickListener(v13 -> {
+                PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 3);
+                postAttendanceAsync.execute();
             });
 
             alertDialogBuilder.create().show();
@@ -210,5 +203,52 @@ public class ListeCrous extends AppCompatActivity {
         }
 
     }
+
+    private final class PostAttendanceAsync extends AsyncTask<Void, Void, String> {
+
+        private SimpleCrous clickedSimpleCrous;
+        private int p;
+        public PostAttendanceAsync(SimpleCrous clickedSimpleCrous, int p)
+        {
+            this.clickedSimpleCrous = clickedSimpleCrous;
+            this.p = p;
+        }
+        @Override
+        protected String doInBackground(Void... params) {
+            switch(p)
+            {
+                case 1:
+                    try {
+                        crousAttendanceApiHelper.createLowAttendance(clickedSimpleCrous);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    try {
+                        crousAttendanceApiHelper.createMediumAttendance(clickedSimpleCrous);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 3:
+                    try {
+                        crousAttendanceApiHelper.createHighAttendance(clickedSimpleCrous);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+            return "executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+        }
+
+    }
+
 
 }

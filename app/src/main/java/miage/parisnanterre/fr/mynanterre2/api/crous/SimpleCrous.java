@@ -15,9 +15,10 @@ import miage.parisnanterre.fr.mynanterre2.helpers.ScheduleHelper;
 
 public class SimpleCrous extends NamedDbElement implements Schedulable {
     protected String location;
-    private List<Schedule> crousSchedules;
+    protected List<Schedule> crousSchedules;
 
-    private List<Attendance> crousAttendances;
+    @SerializedName("crousAttendance")
+    protected List<Attendance> crousAttendances;
 
     public SimpleCrous()
     {

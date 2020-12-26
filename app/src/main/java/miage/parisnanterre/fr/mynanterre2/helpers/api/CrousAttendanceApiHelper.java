@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.google.gson.JsonArray;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,24 +59,23 @@ public class CrousAttendanceApiHelper extends ApiHelper<Attendance, Attendance> 
         return getMoreSimpleElements();
     }
 
-    public void createLowAttendance(Crous crous)
-    {
-        createAttendance(LOW_ATTENDANCE, crous);
+    public void createLowAttendance(SimpleCrous simpleCrous) throws IOException {
+        createAttendance(LOW_ATTENDANCE, simpleCrous);
     }
 
-    public void createMediumAttendance(Crous crous)
-    {
-        createAttendance(MEDIUM_ATTENDANCE, crous);
+    public void createMediumAttendance(SimpleCrous simpleCrous) throws IOException {
+        createAttendance(MEDIUM_ATTENDANCE, simpleCrous);
     }
 
-    public void createHighAttendance(Crous crous)
-    {
-        createAttendance(HIGH_ATTENDANCE, crous);
+    public void createHighAttendance(SimpleCrous simpleCrous) throws IOException {
+        createAttendance(HIGH_ATTENDANCE, simpleCrous);
     }
 
-    private void createAttendance(int proportion, Crous crous)
-    {
-        Attendance attendance = new Attendance(proportion, crous);
-        crous.addAttendance(attendance);
+    private void createAttendance(int proportion, SimpleCrous simpleCrous) throws IOException {
+        Attendance attendance = new Attendance(proportion, new Crous(simpleCrous));
+        simpleCrous.addAttendance(attendance);
+
+        String jsonString = gson.toJson(attendance).replace("{\"id\":0,", "{"); //id is not used for insertion
+        convertToComplete(sendData(jsonString, ApiRequestMethod.POST));
     }
 }

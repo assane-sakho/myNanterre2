@@ -24,7 +24,7 @@ public class CrousApiHelper extends ApiHelper<SimpleCrous, Crous> {
     private static String baseEndPoint = "crouses";
 
     private CrousApiHelper() {
-        super(baseEndPoint, true);
+        super(baseEndPoint, false);
     }
 
     public static CrousApiHelper getInstance()

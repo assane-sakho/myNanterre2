@@ -11,6 +11,15 @@ public class Crous extends SimpleCrous{
         crousProducts = new ArrayList();
     }
 
+    public Crous(SimpleCrous simpleCrous) {
+        id = simpleCrous.getId();
+        location = simpleCrous.getLocation();
+        name = simpleCrous.getName();
+        crousAttendances = simpleCrous.getCrousAttendances();
+        crousSchedules = simpleCrous.getCrousSchedules();
+        crousProducts = new ArrayList();
+    }
+
     public List<CrousProduct> getCrousProducts() {
         return crousProducts;
     }
