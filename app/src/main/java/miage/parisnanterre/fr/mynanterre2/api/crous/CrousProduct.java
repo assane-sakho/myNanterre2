@@ -1,5 +1,7 @@
 package miage.parisnanterre.fr.mynanterre2.api.crous;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
 public class CrousProduct  extends CrousRelatedElement {
     private Product product;
+    @SerializedName("crousProductAvailabilities")
     private List<ProductAvailability> productAvailabilities;
 
     public CrousProduct(Crous crous, Product product) {
