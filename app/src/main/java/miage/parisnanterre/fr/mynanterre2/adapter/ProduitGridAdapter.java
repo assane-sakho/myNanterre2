@@ -2,26 +2,34 @@ package miage.parisnanterre.fr.mynanterre2.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.Produit;
+import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
+import miage.parisnanterre.fr.mynanterre2.api.crous.CrousProduct;
+import miage.parisnanterre.fr.mynanterre2.api.crous.ProductAvailability;
 
 public class ProduitGridAdapter extends BaseAdapter {
 
-    private List<Produit> listData;
+    private List<CrousProduct> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ProduitGridAdapter(Context aContext, List<Produit> listData) {
+    public ProduitGridAdapter(Context aContext, Crous clickedCrous) {
         this.context = aContext;
-        this.listData = listData;
+        this.listData = clickedCrous.getCrousProducts();
         layoutInflater = LayoutInflater.from(aContext);
     }
 
@@ -40,6 +48,7 @@ public class ProduitGridAdapter extends BaseAdapter {
         return position;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ProduitGridAdapter.ViewHolder holder;
@@ -53,15 +62,23 @@ public class ProduitGridAdapter extends BaseAdapter {
             holder = (ProduitGridAdapter.ViewHolder) convertView.getTag();
         }
 
-        Produit produit = this.listData.get(position);
-        holder.produit.setText(produit.getNomProduit());
-        holder.vote.setText(produit.getVote());
+        CrousProduct crousProduct = this.listData.get(position);
+        holder.produit.setText(crousProduct.getProduct().getName());
 
+        List<ProductAvailability> listAvailability=crousProduct.getProductAvailabilities().stream().filter(productAvailability -> productAvailability.getDate().toLocalDate()== LocalDate.now()
+        ).collect(Collectors.toList());
 
-        if (produit.getDispo() == 1) {
+        Optional<ProductAvailability> p=listAvailability.stream().findFirst();
+
+        holder.vote.setText("");
+
+        if (p.isPresent() && p.get().isAvailable()) {
             convertView.setBackgroundColor(Color.rgb(147, 194, 6));
-        } else if (produit.getDispo() == 2) {
+        } else if (p.isPresent() && !(p.get().isAvailable())) {
             convertView.setBackgroundColor(Color.rgb(191, 10, 1));
+        }
+        else{
+            convertView.setBackgroundColor(Color.rgb(0, 0, 0));
         }
 
         return convertView;

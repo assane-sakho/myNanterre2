@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,6 +30,7 @@ import java.util.List;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
 import miage.parisnanterre.fr.mynanterre2.adapter.ProduitGridAdapter;
@@ -36,15 +38,11 @@ import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.library.LibraryDesc;
+import miage.parisnanterre.fr.mynanterre2.api.crous.CrousProduct;
 
 
 public class ListeProduit extends AppCompatActivity {
 
-    private static final String url = "jdbc:mysql://den1.mysql2.gear.host/mynanterre";
-    private static final String user = "mynanterre";
-    private static final String psw = "Bk0JQmNO5~u~";
-    private static Connection conn;
-    private List<Produit> liste = new ArrayList<>();
     int burger;
     private CrousApiHelper crousApiHelper;
     private Crous clickedCrous;
@@ -60,144 +58,56 @@ public class ListeProduit extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         clickedSimpleCrousId = extras.getInt("clickedSimpleCrousId");
-        
+
         GetCrousAsync getCrousAsync = new GetCrousAsync();
         getCrousAsync.execute();
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Problème au niveau du driver", Toast.LENGTH_SHORT).show();
-        }
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         ImageView back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ListeCrous.class));
-            }
-        });
+        back.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ListeCrous.class)));
 
-        List<Produit> donnees = getListData();
         final GridView gridView = findViewById(R.id.gridview);
-        gridView.setAdapter(new ProduitGridAdapter(this, donnees));
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Object o = gridView.getItemAtPosition(position);
-                Bundle extras = getIntent().getExtras();
-                String stringVariableName = extras.getString(CrousGridAdapter.EXTRA_MESSAGE);
-                int idBat = Integer.parseInt(stringVariableName);
-                String produit = ((Produit) o).getNomProduit();
-                //On instancie notre layout en tant que View
-                LayoutInflater factory = LayoutInflater.from(ListeProduit.this);
-                final View alertDialogView = factory.inflate(R.layout.dialog_box_dispo, null);
-                AlertDialog.Builder alertDialogBuilder;
-                alertDialogBuilder = new AlertDialog.Builder(ListeProduit.this);
-                alertDialogBuilder.setView(alertDialogView);
+        gridView.setOnItemClickListener((parent, v, position, id) -> {
+            LayoutInflater factory = LayoutInflater.from(ListeProduit.this);
+            final View alertDialogView = factory.inflate(R.layout.dialog_box_dispo, null);
 
-                Button btn1 = alertDialogView.findViewById(R.id.buttonok);
-                Button btn2 = alertDialogView.findViewById(R.id.buttonko);
+            AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(ListeProduit.this);
+            alertDialogBuilder.setView(alertDialogView);
 
-                btn1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-
-                        // btnAdd1 has been clicked
-                        try {
-
-                            Date currentTime = Calendar.getInstance().getTime();
-
-                            SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-                            String s = f.format(currentTime);
+            Button btnOK = alertDialogView.findViewById(R.id.buttonok);
+            Button btnKO = alertDialogView.findViewById(R.id.buttonko);
 
 
-                            conn = DriverManager.getConnection(url, user, psw);
-                            String sqliD = "UPDATE vente SET dispo = 1 WHERE produit='" + produit + "' AND id_bat=" + idBat + ";";
-                            String sqliD2 = "UPDATE vente SET vote='" + s + "'  WHERE produit='" + produit + "' AND id_bat=" + idBat + ";";
-                            PreparedStatement preparedStatement = conn.prepareStatement(sqliD);
-                            PreparedStatement preparedStatement2 = conn.prepareStatement(sqliD2);
-                            preparedStatement.executeUpdate();
-                            preparedStatement2.executeUpdate();
+            gridView.setOnItemClickListener((parent1, v13, position1, id1) -> {
+                LayoutInflater factory1 = LayoutInflater.from(ListeProduit.this);
+                final View alertDialogView1 = factory1.inflate(R.layout.dialog_box_dispo, null);
+                AlertDialog.Builder alertDialogBuilder1;
+                alertDialogBuilder1 = new AlertDialog.Builder(ListeProduit.this);
+                alertDialogBuilder1.setView(alertDialogView1);
 
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ListeProduit.this, ListeCrous.class));
-                    }
+                btnOK.setOnClickListener(v1 -> {
+                    PostAvailability(position1, true);
                 });
 
-                btn2.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-
-                        // btnAdd2 has been clicked
-                        try {
-                            Date currentTime = Calendar.getInstance().getTime();
-
-                            SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-                            String s = f.format(currentTime);
-
-                            conn = DriverManager.getConnection(url, user, psw);
-                            String sqliD = "UPDATE vente SET dispo = 2 WHERE produit='" + produit + "' AND id_bat=" + idBat + ";";
-                            String sqliD2 = "UPDATE vente SET vote='" + s + "'  WHERE produit='" + produit + "' AND id_bat=" + idBat + ";";
-
-                            PreparedStatement preparedStatement = conn.prepareStatement(sqliD);
-                            PreparedStatement preparedStatement2 = conn.prepareStatement(sqliD2);
-                            preparedStatement.executeUpdate();
-                            preparedStatement2.executeUpdate();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ListeProduit.this, ListeCrous.class));
-
-                    }
+                btnKO.setOnClickListener(v12 -> {
+                    PostAvailability(position1, false);
                 });
 
-
-                alertDialogBuilder.create().show();
-            }
+                alertDialogBuilder1.create().show();
+            });
         });
     }
 
 
-    private List<Produit> getListData() {
-
-        try {
-            conn = DriverManager.getConnection(url, user, psw);
-            Bundle extras = getIntent().getExtras();
-            String stringVariableName = extras.getString(CrousGridAdapter.EXTRA_MESSAGE);
-            int idBat = Integer.parseInt(stringVariableName);
-
-            String sqliD = "SELECT * FROM vente where id_bat ='" + idBat + "'ORDER BY dispo ASC;;";
-            Statement st = conn.createStatement();
-            ResultSet rst = st.executeQuery(sqliD);
-
-            if (!rst.isBeforeFirst()) {
-                TextView nothing = findViewById(R.id.nothing);
-                nothing.setText("Ce resto/cafet ne propose pas de produits à vendre ;)");
-            } else {
-                while (rst.next()) {
-                    String produit = rst.getString("produit");
-                    int dispo = rst.getInt("dispo");
-
-                    String v = rst.getString("vote");
-                    String v2 = "Dernière information : " + v;
-
-                    Produit produits = new Produit(dispo, produit, v2);
-                    liste.add(produits);
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return liste;
+    private void PostAvailability(int position, boolean isAvailable) {
+        CrousProduct crousProduct = clickedCrous.getCrousProducts().get(position);
+        PostAvailabilityAsync postAvailabilityAsync = new PostAvailabilityAsync(crousProduct, isAvailable);
+        postAvailabilityAsync.execute();
+        Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(ListeProduit.this, ListeCrous.class));
     }
+
 
     private final class GetCrousAsync extends AsyncTask<Void, Void, String> {
 
@@ -208,4 +118,21 @@ public class ListeProduit extends AppCompatActivity {
             return "executed";
         }
     }
+
+    private final class PostAvailabilityAsync extends AsyncTask<Void, Void, String> {
+
+        private CrousProduct clickedCrousProduct;
+        private boolean isAvailable;
+
+        public PostAvailabilityAsync(CrousProduct clickedSimpleCrous, boolean isAvailable) {
+            this.clickedCrousProduct = clickedSimpleCrous;
+            this.isAvailable = isAvailable;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            return "executed";
+        }
+    }
+
 }
