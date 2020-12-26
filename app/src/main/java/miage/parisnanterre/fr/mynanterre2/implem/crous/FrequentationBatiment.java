@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem;
+package miage.parisnanterre.fr.mynanterre2.implem.crous;
 
 import android.os.Bundle;
 import android.os.StrictMode;

@@ -21,7 +21,7 @@ import java.util.Optional;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
-import miage.parisnanterre.fr.mynanterre2.implem.FrequentationBatiment;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.FrequentationBatiment;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.ListeProduit;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -93,6 +93,7 @@ public class CrousGridAdapter extends BaseAdapter{
             Bundle extras = new Bundle();
             extras.putString(EXTRA_MESSAGE, String.valueOf(""));
             myIntent.putExtras(extras);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(myIntent);
         });
 
@@ -102,6 +103,7 @@ public class CrousGridAdapter extends BaseAdapter{
             extras.putString(EXTRA_MESSAGE,String.valueOf(""));
             extras.putString(EXTRA_MESSAGE2, String.valueOf(""));
             myIntent.putExtras(extras);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(myIntent);
         });
         return convertView;

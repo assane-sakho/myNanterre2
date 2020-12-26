@@ -58,7 +58,7 @@
         <activity android:name=".implem.PlanBatiments" />
         <activity android:name=".implem.ListeTrain" />
         <activity android:name=".implem.GoogleMaps" />
-        <activity android:name=".implem.FrequentationBatiment" />
+        <activity android:name=".implem.crous.FrequentationBatiment" />
         <activity android:name=".implem.crous.MenuCrous" />
         <activity android:name=".implem.LiveTweet" />
         <activity android:name=".implem.crous.CarteCrous" />
