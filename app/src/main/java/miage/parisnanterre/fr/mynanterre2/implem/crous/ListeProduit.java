@@ -1,6 +1,8 @@
 package miage.parisnanterre.fr.mynanterre2.implem.crous;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
@@ -24,11 +26,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
 import miage.parisnanterre.fr.mynanterre2.adapter.ProduitGridAdapter;
+import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
+import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
+import miage.parisnanterre.fr.mynanterre2.implem.library.LibraryDesc;
 
 
 public class ListeProduit extends AppCompatActivity {
@@ -39,12 +46,23 @@ public class ListeProduit extends AppCompatActivity {
     private static Connection conn;
     private List<Produit> liste = new ArrayList<>();
     int burger;
+    private CrousApiHelper crousApiHelper;
+    private Crous clickedCrous;
+    private int clickedSimpleCrousId;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.liste_produit);
 
+        crousApiHelper = CrousApiHelper.getInstance();
+
+        Bundle extras = getIntent().getExtras();
+        clickedSimpleCrousId = extras.getInt("clickedSimpleCrousId");
+        
+        GetCrousAsync getCrousAsync = new GetCrousAsync();
+        getCrousAsync.execute();
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -179,5 +197,15 @@ public class ListeProduit extends AppCompatActivity {
             e.printStackTrace();
         }
         return liste;
+    }
+
+    private final class GetCrousAsync extends AsyncTask<Void, Void, String> {
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        protected String doInBackground(Void... params) {
+            clickedCrous = crousApiHelper.getCrous(clickedSimpleCrousId);
+            return "executed";
+        }
     }
 }

@@ -30,9 +30,6 @@ public class CrousGridAdapter extends BaseAdapter{
     private List<SimpleCrous> crousList;
     private LayoutInflater layoutInflater;
     private Context context;
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    public static final String EXTRA_MESSAGE2 = "com.example.myfirstapp.MESSAGE2";
-
 
     public CrousGridAdapter(Context aContext, List<SimpleCrous> crousList) {
         this.context = aContext;
@@ -89,23 +86,23 @@ public class CrousGridAdapter extends BaseAdapter{
         }
 
         holder.sandwich.setOnClickListener(v -> {
-            Intent myIntent = new Intent(context.getApplicationContext(), ListeProduit.class);
-            Bundle extras = new Bundle();
-            extras.putString(EXTRA_MESSAGE, String.valueOf(""));
-            myIntent.putExtras(extras);
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(myIntent);
+            StartActivity(simpleCrous, ListeProduit.class);
         });
 
         holder.chart.setOnClickListener(v -> {
-            Intent myIntent = new Intent(context.getApplicationContext(), CrousAttendance.class);
-            Bundle extras = new Bundle();
-            extras.putInt("clickedSimpleCrousId", simpleCrous.getId());
-            myIntent.putExtras(extras);
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(myIntent);
+            StartActivity(simpleCrous, CrousAttendance.class);
         });
         return convertView;
+    }
+
+    private void StartActivity(SimpleCrous simpleCrous, Class aClass)
+    {
+        Intent myIntent = new Intent(context.getApplicationContext(), aClass);
+        Bundle extras = new Bundle();
+        extras.putInt("clickedSimpleCrousId", simpleCrous.getId());
+        myIntent.putExtras(extras);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(myIntent);
     }
 
     private static class ViewHolder {

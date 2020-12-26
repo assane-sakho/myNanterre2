@@ -46,7 +46,7 @@ public class ListeCrous extends AppCompatActivity {
     private CrousApiHelper crousApiHelper;
     private CrousAttendanceApiHelper crousAttendanceApiHelper;
     private List<SimpleCrous> crousLoaded;
-//    private ProgressBar progressBar;
+    //    private ProgressBar progressBar;
     private GridView gridView;
 
     @Override
@@ -70,7 +70,6 @@ public class ListeCrous extends AppCompatActivity {
 
         gridView.setOnItemClickListener((parent, v, position, id) -> {
             Object o = gridView.getItemAtPosition(position);
-            String batiment = "";
 
             //On instancie notre layout en tant que View
             LayoutInflater factory = LayoutInflater.from(ListeCrous.this);
@@ -84,27 +83,16 @@ public class ListeCrous extends AppCompatActivity {
             Button btn2 = alertDialogView.findViewById(R.id.buttonmoyenne);
             Button btn3 = alertDialogView.findViewById(R.id.buttonforte);
 
-            SimpleCrous clickedSimpleCrous = crousLoaded.get(position);
-
             btn1.setOnClickListener(v1 -> {
-                PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 1);
-                postAttendanceAsync.execute();
-                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+                PostAttendance(position, 1);
             });
 
             btn2.setOnClickListener(v12 -> {
-                PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 2);
-                postAttendanceAsync.execute();
-                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+                PostAttendance(position, 2);
             });
 
             btn3.setOnClickListener(v13 -> {
-                PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 3);
-                postAttendanceAsync.execute();
-                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
+                PostAttendance(position, 3);
             });
 
             alertDialogBuilder.create().show();
@@ -144,6 +132,15 @@ public class ListeCrous extends AppCompatActivity {
             getApplicationContext().startActivity(myIntent);
         });
 
+    }
+
+    private void PostAttendance(int position, int p) {
+        SimpleCrous clickedSimpleCrous = crousLoaded.get(position);
+
+        PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 3);
+        postAttendanceAsync.execute();
+        Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(ListeCrous.this, ListeCrous.class));
     }
 
     private void requestLocationPermission() {
@@ -214,15 +211,15 @@ public class ListeCrous extends AppCompatActivity {
 
         private SimpleCrous clickedSimpleCrous;
         private int p;
-        public PostAttendanceAsync(SimpleCrous clickedSimpleCrous, int p)
-        {
+
+        public PostAttendanceAsync(SimpleCrous clickedSimpleCrous, int p) {
             this.clickedSimpleCrous = clickedSimpleCrous;
             this.p = p;
         }
+
         @Override
         protected String doInBackground(Void... params) {
-            switch(p)
-            {
+            switch (p) {
                 case 1:
                     try {
                         crousAttendanceApiHelper.createLowAttendance(clickedSimpleCrous);

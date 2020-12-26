@@ -15,6 +15,7 @@ import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
+import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -56,5 +57,9 @@ public class CrousApiHelper extends ApiHelper<SimpleCrous, Crous> {
 
     public List<SimpleCrous> getAllSimpleCrous() throws ExecutionException, InterruptedException {
         return getAllSimpleElements();
+    }
+
+    public Crous getCrous(int id) {
+        return getCompleteElement(id);
     }
 }
