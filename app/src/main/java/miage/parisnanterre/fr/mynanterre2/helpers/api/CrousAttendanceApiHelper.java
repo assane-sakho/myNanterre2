@@ -76,6 +76,6 @@ public class CrousAttendanceApiHelper extends ApiHelper<Attendance, Attendance> 
         simpleCrous.addAttendance(attendance);
 
         String jsonString = gson.toJson(attendance).replace("{\"id\":0,", "{"); //id is not used for insertion
-        convertToComplete(sendData(jsonString, ApiRequestMethod.POST));
+        sendData(jsonString, ApiRequestMethod.POST);
     }
 }

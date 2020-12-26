@@ -89,16 +89,22 @@ public class ListeCrous extends AppCompatActivity {
             btn1.setOnClickListener(v1 -> {
                 PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 1);
                 postAttendanceAsync.execute();
+                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
             });
 
             btn2.setOnClickListener(v12 -> {
                 PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 2);
                 postAttendanceAsync.execute();
+                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
             });
 
             btn3.setOnClickListener(v13 -> {
                 PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 3);
                 postAttendanceAsync.execute();
+                Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ListeCrous.this, ListeCrous.class));
             });
 
             alertDialogBuilder.create().show();
@@ -241,14 +247,5 @@ public class ListeCrous extends AppCompatActivity {
             }
             return "executed";
         }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(ListeCrous.this, ListeCrous.class));
-        }
-
     }
-
-
 }
