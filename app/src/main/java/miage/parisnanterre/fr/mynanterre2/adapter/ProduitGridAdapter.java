@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -64,15 +66,19 @@ public class ProduitGridAdapter extends BaseAdapter {
         CrousProduct crousProduct = this.listData.get(position);
         holder.produit.setText(crousProduct.getProduct().getName());
 
-        List<ProductAvailability> listAvailability=crousProduct.getProductAvailabilities().stream().filter(productAvailability -> productAvailability.getDate().toLocalDate()== LocalDate.now()
-        ).collect(Collectors.toList());
+        LocalDate today = LocalDate.now();
 
-        Optional<ProductAvailability> p=listAvailability.stream().findFirst();
+        List<ProductAvailability> listAvailability = crousProduct.getProductAvailabilities().stream().filter(productAvailability -> productAvailability.getDate().toLocalDate().equals(today)).collect(Collectors.toList());
 
-        if (p.isPresent() && p.get().isAvailable()) {
+        Collections.reverse(listAvailability);
+
+        Optional<ProductAvailability> p = listAvailability.stream().findFirst();
+
+        if (p.isPresent() && !p.get().isAvailable()) {
             convertView.setBackgroundColor(Color.rgb(191, 10, 1));
         } else {
             convertView.setBackgroundColor(Color.rgb(147, 194, 6));
+
         }
 
         return convertView;
