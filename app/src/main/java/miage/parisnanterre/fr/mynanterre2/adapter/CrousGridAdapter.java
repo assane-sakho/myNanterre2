@@ -21,7 +21,7 @@ import java.util.Optional;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.FrequentationBatiment;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.CrousAttendance;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.ListeProduit;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -98,10 +98,9 @@ public class CrousGridAdapter extends BaseAdapter{
         });
 
         holder.chart.setOnClickListener(v -> {
-            Intent myIntent = new Intent(context.getApplicationContext(), FrequentationBatiment.class);
+            Intent myIntent = new Intent(context.getApplicationContext(), CrousAttendance.class);
             Bundle extras = new Bundle();
-            extras.putString(EXTRA_MESSAGE,String.valueOf(""));
-            extras.putString(EXTRA_MESSAGE2, String.valueOf(""));
+            extras.putInt("clickedSimpleCrousId", simpleCrous.getId());
             myIntent.putExtras(extras);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(myIntent);
