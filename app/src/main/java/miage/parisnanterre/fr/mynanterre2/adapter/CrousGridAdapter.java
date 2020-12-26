@@ -72,9 +72,9 @@ public class CrousGridAdapter extends BaseAdapter{
         }
 
         SimpleCrous simpleCrous = this.crousList.get(position);
-        holder.batiment.setText("1");
-        holder.lieu.setText(simpleCrous.getLocation());
-        holder.vote.setText("1");
+        holder.batiment.setText(simpleCrous.getLocation());
+        holder.lieu.setText(simpleCrous.getName());
+        holder.vote.setText("Vous devez voter");
 
         Collections.reverse(simpleCrous.getCrousAttendances());
         Optional<Attendance> lastAttendance = simpleCrous.getCrousAttendances().stream().findFirst();
