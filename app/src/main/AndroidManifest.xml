@@ -68,7 +68,6 @@
 
         <receiver android:name=".implem.NotificationReceiver" />
 
-        <activity android:name=".implem.crous.AuthSandwich" />
         <activity android:name=".implem.crous.SandwichDispo" />
     </application>
 

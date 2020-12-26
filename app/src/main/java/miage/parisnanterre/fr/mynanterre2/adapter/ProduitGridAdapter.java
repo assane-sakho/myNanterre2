@@ -56,7 +56,6 @@ public class ProduitGridAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.grid_produit, null);
             holder = new ProduitGridAdapter.ViewHolder();
             holder.produit = convertView.findViewById(R.id.produit);
-            holder.vote = convertView.findViewById(R.id.vote);
             convertView.setTag(holder);
         } else {
             holder = (ProduitGridAdapter.ViewHolder) convertView.getTag();
@@ -70,15 +69,10 @@ public class ProduitGridAdapter extends BaseAdapter {
 
         Optional<ProductAvailability> p=listAvailability.stream().findFirst();
 
-        holder.vote.setText("");
-
         if (p.isPresent() && p.get().isAvailable()) {
-            convertView.setBackgroundColor(Color.rgb(147, 194, 6));
-        } else if (p.isPresent() && !(p.get().isAvailable())) {
             convertView.setBackgroundColor(Color.rgb(191, 10, 1));
-        }
-        else{
-            convertView.setBackgroundColor(Color.rgb(0, 0, 0));
+        } else {
+            convertView.setBackgroundColor(Color.rgb(147, 194, 6));
         }
 
         return convertView;
@@ -86,8 +80,6 @@ public class ProduitGridAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         private TextView produit;
-        private TextView vote;
-
     }
 
 }

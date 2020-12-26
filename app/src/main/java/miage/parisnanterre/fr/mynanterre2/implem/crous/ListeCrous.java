@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,13 +30,10 @@ import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
-import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
-import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousAttendanceApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.Accueil;
-import miage.parisnanterre.fr.mynanterre2.implem.library.ListeEspacesBu;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ListeCrous extends AppCompatActivity {
@@ -52,7 +48,7 @@ public class ListeCrous extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.liste_batiments);
+        setContentView(R.layout.liste_crous);
 
         crousApiHelper = CrousApiHelper.getInstance();
         crousAttendanceApiHelper = CrousAttendanceApiHelper.getInstance();
@@ -122,16 +118,6 @@ public class ListeCrous extends AppCompatActivity {
                 requestLocationPermission();
             }
         });
-
-        FloatingActionButton sandwich = findViewById(R.id.sandwich);
-        sandwich.setOnClickListener(view -> {
-            Intent myIntent = new Intent(getApplicationContext(), AuthSandwich.class);
-            Bundle extras = new Bundle();
-            myIntent.putExtras(extras);
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getApplicationContext().startActivity(myIntent);
-        });
-
     }
 
     private void PostAttendance(int position, int p) {

@@ -61,7 +61,6 @@ public class CrousGridAdapter extends BaseAdapter{
             holder.batiment = convertView.findViewById(R.id.batiment);
             holder.lieu = convertView.findViewById(R.id.lieu);
             holder.sandwich = convertView.findViewById(R.id.buttonSand);
-            holder.vote = convertView.findViewById(R.id.vote);
             holder.chart = convertView.findViewById(R.id.buttonChartFreq);
             convertView.setTag(holder);
         } else {
@@ -71,18 +70,15 @@ public class CrousGridAdapter extends BaseAdapter{
         SimpleCrous simpleCrous = this.crousList.get(position);
         holder.batiment.setText(simpleCrous.getLocation());
         holder.lieu.setText(simpleCrous.getName());
-        holder.vote.setText("Vous devez voter");
 
         Collections.reverse(simpleCrous.getCrousAttendances());
         Optional<Attendance> lastAttendance = simpleCrous.getCrousAttendances().stream().findFirst();
-        if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 30) {
-            convertView.setBackgroundColor(Color.rgb(147, 194, 6));
+        if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 100) {
+            convertView.setBackgroundColor(Color.rgb(191, 10, 1));
         } else if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 60) {
             convertView.setBackgroundColor(Color.rgb(242, 178, 55));
-        } else if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 60){
-            convertView.setBackgroundColor(Color.rgb(191, 10, 1));
-        } else{
-            convertView.setBackgroundColor(Color.rgb(0, 0, 0));
+        } else {
+            convertView.setBackgroundColor(Color.rgb(147, 194, 6));
         }
 
         holder.sandwich.setOnClickListener(v -> {
@@ -109,7 +105,6 @@ public class CrousGridAdapter extends BaseAdapter{
         private TextView batiment;
         private TextView lieu;
         private ImageView sandwich;
-        private TextView vote;
         private ImageView chart;
     }
 
