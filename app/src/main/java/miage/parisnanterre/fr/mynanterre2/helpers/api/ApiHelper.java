@@ -42,11 +42,14 @@ import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
+import miage.parisnanterre.fr.mynanterre2.api.crous.CrousProduct;
+import miage.parisnanterre.fr.mynanterre2.api.crous.ProductAvailability;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonCrousAttendanceAdapter;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonProductAvailabilityAdapter;
 //import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubAdapter;
 //import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubPublicationAdapter;
 
@@ -82,6 +85,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
             put(User.class, "users");
             put(Crous.class, "crouses");
             put(Attendance.class, "crous_attendances");
+            put(CrousProduct.class, "crous_products");
         }
     };
 
@@ -113,6 +117,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .registerTypeAdapter(byte[].class, (JsonDeserializer<byte[]>) (json, typeOfT, context) -> Base64.decode(json.getAsString(), Base64.NO_WRAP))
                 .registerTypeAdapter(Attendance.class, new JsonCrousAttendanceAdapter())
+                .registerTypeAdapter(ProductAvailability.class, new JsonProductAvailabilityAdapter())
 //                .registerTypeAdapter(Club.class, new JsonClubAdapter())
 //                .registerTypeAdapter(Publication.class, new JsonClubPublicationAdapter())
                 .addSerializationExclusionStrategy(new ExclusionStrategy() {

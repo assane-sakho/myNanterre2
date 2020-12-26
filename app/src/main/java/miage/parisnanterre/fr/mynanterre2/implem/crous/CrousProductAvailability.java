@@ -15,16 +15,20 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.ProduitGridAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.api.crous.CrousProduct;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousProductAvailabilityApiHelper;
 
 
 public class CrousProductAvailability extends AppCompatActivity {
 
     private CrousApiHelper crousApiHelper;
+    private CrousProductAvailabilityApiHelper crousProductAvailabilityApiHelper;
     private Crous clickedCrous;
     private int clickedSimpleCrousId;
     private GridView gridView;
@@ -36,7 +40,7 @@ public class CrousProductAvailability extends AppCompatActivity {
         setContentView(R.layout.liste_produit);
 
         crousApiHelper = CrousApiHelper.getInstance();
-
+        crousProductAvailabilityApiHelper = CrousProductAvailabilityApiHelper.getInstance();
         Bundle extras = getIntent().getExtras();
         clickedSimpleCrousId = extras.getInt("clickedSimpleCrousId");
 
@@ -48,22 +52,16 @@ public class CrousProductAvailability extends AppCompatActivity {
 
         gridView = findViewById(R.id.gridview);
 
-        LayoutInflater factory = LayoutInflater.from(CrousProductAvailability.this);
-        final View alertDialogView = factory.inflate(R.layout.dialog_box_dispo, null);
-
-        AlertDialog.Builder alertDialogBuilder;
-        alertDialogBuilder = new AlertDialog.Builder(CrousProductAvailability.this);
-        alertDialogBuilder.setView(alertDialogView);
-
-        Button btnOK = alertDialogView.findViewById(R.id.buttonok);
-        Button btnKO = alertDialogView.findViewById(R.id.buttonko);
-
         gridView.setOnItemClickListener((parent1, v13, position1, id1) -> {
+
             LayoutInflater factory1 = LayoutInflater.from(CrousProductAvailability.this);
             final View alertDialogView1 = factory1.inflate(R.layout.dialog_box_dispo, null);
             AlertDialog.Builder alertDialogBuilder1;
             alertDialogBuilder1 = new AlertDialog.Builder(CrousProductAvailability.this);
             alertDialogBuilder1.setView(alertDialogView1);
+
+            Button btnOK = alertDialogView1.findViewById(R.id.buttonok);
+            Button btnKO = alertDialogView1.findViewById(R.id.buttonko);
 
             btnOK.setOnClickListener(v1 -> {
                 PostAvailability(position1, true);
@@ -113,7 +111,11 @@ public class CrousProductAvailability extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected String doInBackground(Void... params) {
-            //clickedCrous = crousApiHelper.getCrous(clickedSimpleCrousId);
+            try {
+                crousProductAvailabilityApiHelper.createAvailability(isAvailable,clickedCrousProduct);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return "executed";
         }
     }
