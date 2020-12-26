@@ -24,7 +24,7 @@ public class JsonCrousAttendanceAdapter implements JsonSerializer<Attendance> {
 
         obj.addProperty("id", attendance.getId());
         obj.addProperty("proportion", attendance.getProportion());
-        obj.addProperty("hour", attendance.getHour());
+        obj.addProperty("hour", attendance.getHour()+":00");
         obj.addProperty("crous", attendance.getCrous().getUri());
 
         return obj;

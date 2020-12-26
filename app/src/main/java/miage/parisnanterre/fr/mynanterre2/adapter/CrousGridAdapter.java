@@ -78,12 +78,14 @@ public class CrousGridAdapter extends BaseAdapter{
 
         Collections.reverse(simpleCrous.getCrousAttendances());
         Optional<Attendance> lastAttendance = simpleCrous.getCrousAttendances().stream().findFirst();
-        if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 1) {
+        if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 30) {
             convertView.setBackgroundColor(Color.rgb(147, 194, 6));
-        } else if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 2) {
+        } else if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 60) {
             convertView.setBackgroundColor(Color.rgb(242, 178, 55));
-        } else {
+        } else if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 60){
             convertView.setBackgroundColor(Color.rgb(191, 10, 1));
+        } else{
+            convertView.setBackgroundColor(Color.rgb(0, 0, 0));
         }
 
         holder.sandwich.setOnClickListener(v -> {
