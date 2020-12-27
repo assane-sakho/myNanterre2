@@ -11,6 +11,7 @@ import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.fragment.CrousFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubInfoFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousAttendanceFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousMenuFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousProductAvaiabilityFragment;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -32,6 +33,9 @@ public class CrousActivity extends AppCompatActivity {
                     break;
                 case "CrousProductAvaiabilityFragment" :
                     fragmentClass = CrousProductAvaiabilityFragment.newInstance(getIntent().getIntExtra("clickedSimpleCrousId", 0));
+                    break;
+                case "CrousMenuFragment" :
+                    fragmentClass = CrousMenuFragment.newInstance();
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + nextFragment);

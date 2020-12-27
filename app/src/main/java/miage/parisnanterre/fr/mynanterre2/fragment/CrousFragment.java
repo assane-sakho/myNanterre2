@@ -37,7 +37,8 @@ import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousAttendanceApiHelper;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.CarteCrous;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.activity.CrousActivity;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousMenuFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.LocalisationCrousMain;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -106,8 +107,9 @@ public class CrousFragment extends ListFragment {
 
         FloatingActionButton menuCrous = v.findViewById(R.id.MenuCrous);
         menuCrous.setOnClickListener(view -> {
-            Intent myIntent = new Intent(getActivity(), CarteCrous.class);
+            Intent myIntent = new Intent(getActivity(), CrousActivity.class);
             Bundle extras = new Bundle();
+            extras.putString("nextFragment",  "CrousMenuFragment");
             myIntent.putExtras(extras);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             getContext().startActivity(myIntent);
