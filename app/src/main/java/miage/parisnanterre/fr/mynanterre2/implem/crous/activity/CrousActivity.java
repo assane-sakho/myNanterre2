@@ -19,6 +19,7 @@ public class CrousActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.club_info_activity);
 
         if (savedInstanceState == null) {
             String nextFragment = getIntent().getStringExtra("nextFragment");
