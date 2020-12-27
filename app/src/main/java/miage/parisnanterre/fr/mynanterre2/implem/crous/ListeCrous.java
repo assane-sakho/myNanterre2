@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
@@ -42,8 +45,9 @@ public class ListeCrous extends AppCompatActivity {
     private CrousApiHelper crousApiHelper;
     private CrousAttendanceApiHelper crousAttendanceApiHelper;
     private List<SimpleCrous> crousLoaded;
-    //    private ProgressBar progressBar;
+    private ProgressBar progressBar;
     private GridView gridView;
+    private TextView noneCrousOpenText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,12 @@ public class ListeCrous extends AppCompatActivity {
 
         gridView = findViewById(R.id.gridview);
 
-//        progressBar = findViewById(R.id.progress);
+        noneCrousOpenText = findViewById(R.id.noneText);
+        noneCrousOpenText.setVisibility(View.GONE);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         crousLoaded = new ArrayList<>();
 
         GetCrousAsync getCrousAsync = new GetCrousAsync();
@@ -175,7 +184,13 @@ public class ListeCrous extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                crousLoaded.addAll(crousApiHelper.getAllSimpleCrous());
+                List<SimpleCrous> simpleCrousOpenList = crousApiHelper.getAllSimpleCrous()
+                        .stream()
+                        .filter(simpleCrous -> simpleCrous.isOpen())
+                        .collect(Collectors.toList());
+                crousLoaded.addAll(simpleCrousOpenList);
+
+
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -186,7 +201,10 @@ public class ListeCrous extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-//            progressBar.setVisibility(View.GONE);
+            if (crousLoaded.size() == 0)
+                noneCrousOpenText.setVisibility(View.VISIBLE);
+
+            progressBar.setVisibility(View.GONE);
 
             gridView.setAdapter(new CrousGridAdapter(getApplicationContext(), crousLoaded));
         }
