@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,8 @@ public class CrousProductAvaiabilityFragment extends ListFragment {
     private Crous clickedCrous;
     private int clickedSimpleCrousId;
     private GridView gridView;
+    private ProduitGridAdapter adapter;
+    private ProgressBar progressBar;
 
     public CrousProductAvaiabilityFragment(int clickedSimpleCrousId){
         crousApiHelper = CrousApiHelper.getInstance();
@@ -50,47 +54,60 @@ public class CrousProductAvaiabilityFragment extends ListFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.liste_crous, container, false);
+        View v = inflater.inflate(R.layout.crous_product_availability, container, false);
+
+        TextView title = v.findViewById(R.id.Title);
+        title.setText("Produits proposés");
+
+        ImageView back = v.findViewById(R.id.back);
+        back.setOnClickListener(x -> getActivity().onBackPressed());
 
         GetCrousAsync getCrousAsync = new GetCrousAsync();
         getCrousAsync.execute();
 
-        ImageView back = v.findViewById(R.id.back);
-        back.setOnClickListener(vx -> getActivity().onBackPressed());
+        progressBar = v.findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.VISIBLE);
 
         gridView = v.findViewById(R.id.gridview);
 
         gridView.setOnItemClickListener((parent1, v13, position1, id1) -> {
 
-            LayoutInflater factory1 = LayoutInflater.from(getContext());
-            final View alertDialogView1 = factory1.inflate(R.layout.dialog_box_dispo, null);
-            AlertDialog.Builder alertDialogBuilder1;
-            alertDialogBuilder1 = new AlertDialog.Builder(getContext());
-            alertDialogBuilder1.setView(alertDialogView1);
+            LayoutInflater factory = LayoutInflater.from(getContext());
+            final View alertDialogView = factory.inflate(R.layout.dialog_box_dispo, null);
 
-            Button btnOK = alertDialogView1.findViewById(R.id.buttonok);
-            Button btnKO = alertDialogView1.findViewById(R.id.buttonko);
+            AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(getContext());
+            alertDialogBuilder.setView(alertDialogView);
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+            Button btnOK = alertDialogView.findViewById(R.id.buttonok);
+            Button btnKO = alertDialogView.findViewById(R.id.buttonko);
 
             btnOK.setOnClickListener(v1 -> {
-                PostAvailability(position1, true);
+                PostAvailability(alertDialog, position1, true);
             });
 
             btnKO.setOnClickListener(v2 -> {
-                PostAvailability(position1, false);
+                PostAvailability(alertDialog, position1, false);
             });
 
-            alertDialogBuilder1.create().show();
         });
 
         return v;
     }
 
-    private void PostAvailability(int position, boolean isAvailable) {
+    private void PostAvailability(AlertDialog alertDialog, int position, boolean isAvailable) {
         CrousProduct crousProduct = clickedCrous.getCrousProducts().get(position);
         PostAvailabilityAsync postAvailabilityAsync = new PostAvailabilityAsync(crousProduct, isAvailable);
         postAvailabilityAsync.execute();
         Toast.makeText(getContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-//        startActivity(new Intent(CrousProductAvailability.this, ListeCrous.class));
+
+        alertDialog.hide();
+
+        adapter.notifyDataSetChanged();
+        gridView.setAdapter(adapter);
     }
 
 
@@ -104,7 +121,9 @@ public class CrousProductAvaiabilityFragment extends ListFragment {
         }
         @Override
         protected void onPostExecute(String result) {
-            gridView.setAdapter(new ProduitGridAdapter(getContext(), clickedCrous));
+            adapter = new ProduitGridAdapter(getContext(), clickedCrous);
+            gridView.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
         }
     }
 

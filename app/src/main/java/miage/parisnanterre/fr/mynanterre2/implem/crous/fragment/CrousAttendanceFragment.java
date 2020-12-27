@@ -1,27 +1,16 @@
 package miage.parisnanterre.fr.mynanterre2.implem.crous.fragment;
 
-import android.Manifest;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.ListFragment;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -30,25 +19,13 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
-import miage.parisnanterre.fr.mynanterre2.api.club.Club;
-import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
-import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
-import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousAttendanceApiHelper;
-import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubInfoFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.CarteCrous;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.LocalisationCrousMain;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CrousAttendanceFragment extends ListFragment {
@@ -71,9 +48,15 @@ public class CrousAttendanceFragment extends ListFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.chart_frequentation_cafet, container, false);
-
         super.onActivityCreated(savedInstanceState);
+
+        View v = inflater.inflate(R.layout.crous_attendance, container, false);
+
+        TextView title = v.findViewById(R.id.Title);
+        title.setText("Fréquentation");
+
+        ImageView back = v.findViewById(R.id.back);
+        back.setOnClickListener(x -> getActivity().onBackPressed());
 
         List<BarEntry> barEntries = new ArrayList<>();
         clickedSimpleCrous.getCrousAttendances().forEach(attendance->{
@@ -110,6 +93,7 @@ public class CrousAttendanceFragment extends ListFragment {
 
         barChart.setData(barData);
         barChart.invalidate();
+
         return v;
     }
 
