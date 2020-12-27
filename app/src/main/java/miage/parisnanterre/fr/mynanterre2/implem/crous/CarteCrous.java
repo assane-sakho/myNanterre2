@@ -22,8 +22,8 @@ public class CarteCrous extends AppCompatActivity {
         retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), ListeCrous.class);
-                startActivity(myIntent);
+//                Intent myIntent = new Intent(getApplicationContext(), ListeCrous.class);
+//                startActivity(myIntent);
             }
         });
     }

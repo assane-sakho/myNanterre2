@@ -10,12 +10,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
-import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
 import miage.parisnanterre.fr.mynanterre2.api.crous.CrousProduct;
 import miage.parisnanterre.fr.mynanterre2.api.crous.ProductAvailability;
-import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.CrousProductAvailability;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CrousProductAvailabilityApiHelper extends ApiHelper<ProductAvailability, ProductAvailability> {
@@ -26,9 +22,8 @@ public class CrousProductAvailabilityApiHelper extends ApiHelper<ProductAvailabi
         super(baseEndPoint, false);
     }
 
-    public static CrousProductAvailabilityApiHelper getInstance()
-    {
-        if(instance == null)
+    public static CrousProductAvailabilityApiHelper getInstance() {
+        if (instance == null)
             instance = new CrousProductAvailabilityApiHelper();
         return instance;
     }
@@ -49,8 +44,9 @@ public class CrousProductAvailabilityApiHelper extends ApiHelper<ProductAvailabi
     }
 
     public void createAvailability(boolean isAvailable, CrousProduct crousProduct) throws IOException {
-        ProductAvailability productAvailability=new ProductAvailability(isAvailable,crousProduct);
+        ProductAvailability productAvailability = new ProductAvailability(isAvailable, crousProduct);
         String jsonString = gson.toJson(productAvailability).replace("{\"id\":0,", "{"); //id is not used for insertion
         sendData(jsonString, ApiRequestMethod.POST);
+        crousProduct.addProductAvailabilities(productAvailability);
     }
 }

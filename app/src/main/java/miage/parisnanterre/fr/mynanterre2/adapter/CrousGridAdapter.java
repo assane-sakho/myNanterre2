@@ -21,8 +21,8 @@ import java.util.Optional;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.CrousAttendance;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.CrousProductAvailability;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.activity.CrousAttendanceActivity;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.activity.CrousProductAvailabilityActivity;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CrousGridAdapter extends BaseAdapter{
@@ -82,11 +82,11 @@ public class CrousGridAdapter extends BaseAdapter{
         }
 
         holder.sandwich.setOnClickListener(v -> {
-            StartActivity(simpleCrous, CrousProductAvailability.class);
+            StartActivity(simpleCrous, CrousProductAvailabilityActivity.class);
         });
 
         holder.chart.setOnClickListener(v -> {
-            StartActivity(simpleCrous, CrousAttendance.class);
+            StartActivity(simpleCrous, CrousAttendanceActivity.class);
         });
         return convertView;
     }

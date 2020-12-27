@@ -52,13 +52,10 @@
         <activity android:name=".implem.GareFavoriteRerA" />
         <activity android:name=".implem.TrainRerA" />
         <activity android:name=".implem.TrainPlanRerA" />
-        <activity android:name=".implem.crous.ListeCrous" />
-        <activity android:name=".implem.crous.CrousProductAvailability" />
         <activity android:name=".implem.Cgu" />
         <activity android:name=".implem.PlanBatiments" />
         <activity android:name=".implem.ListeTrain" />
         <activity android:name=".implem.GoogleMaps" />
-        <activity android:name=".implem.crous.CrousAttendance" />
         <activity android:name=".implem.crous.MenuCrous" />
         <activity android:name=".implem.LiveTweet" />
         <activity android:name=".implem.crous.CarteCrous" />
@@ -69,6 +66,10 @@
         <receiver android:name=".implem.NotificationReceiver" />
 
         <activity android:name=".implem.crous.SandwichDispo" />
+
+        <activity android:name=".implem.crous.activity.CrousProductAvailabilityActivity" />
+        <activity android:name=".implem.crous.activity.CrousAttendanceActivity" />
+
     </application>
 
 </manifest>

@@ -1,31 +1,33 @@
-package miage.parisnanterre.fr.mynanterre2.implem.crous;
+package miage.parisnanterre.fr.mynanterre2.implem.crous.fragment;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.ListFragment;
 
 import java.io.IOException;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.ProduitGridAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Crous;
-import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.api.crous.CrousProduct;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousProductAvailabilityApiHelper;
 
-
-public class CrousProductAvailability extends AppCompatActivity {
+@RequiresApi(api = Build.VERSION_CODES.O)
+public class CrousProductAvaiabilityFragment extends ListFragment {
 
     private CrousApiHelper crousApiHelper;
     private CrousProductAvailabilityApiHelper crousProductAvailabilityApiHelper;
@@ -33,31 +35,37 @@ public class CrousProductAvailability extends AppCompatActivity {
     private int clickedSimpleCrousId;
     private GridView gridView;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.liste_produit);
-
+    public CrousProductAvaiabilityFragment(int clickedSimpleCrousId){
         crousApiHelper = CrousApiHelper.getInstance();
         crousProductAvailabilityApiHelper = CrousProductAvailabilityApiHelper.getInstance();
-        Bundle extras = getIntent().getExtras();
-        clickedSimpleCrousId = extras.getInt("clickedSimpleCrousId");
+        this.clickedSimpleCrousId = clickedSimpleCrousId;
+    }
+
+    public static CrousProductAvaiabilityFragment newInstance(int clickedSimpleCrousId) {
+        return new CrousProductAvaiabilityFragment(clickedSimpleCrousId);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.liste_crous, container, false);
 
         GetCrousAsync getCrousAsync = new GetCrousAsync();
         getCrousAsync.execute();
 
-        ImageView back = findViewById(R.id.back);
-        back.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ListeCrous.class)));
+        ImageView back = v.findViewById(R.id.back);
+        back.setOnClickListener(vx -> getActivity().onBackPressed());
 
-        gridView = findViewById(R.id.gridview);
+        gridView = v.findViewById(R.id.gridview);
 
         gridView.setOnItemClickListener((parent1, v13, position1, id1) -> {
 
-            LayoutInflater factory1 = LayoutInflater.from(CrousProductAvailability.this);
+            LayoutInflater factory1 = LayoutInflater.from(getContext());
             final View alertDialogView1 = factory1.inflate(R.layout.dialog_box_dispo, null);
             AlertDialog.Builder alertDialogBuilder1;
-            alertDialogBuilder1 = new AlertDialog.Builder(CrousProductAvailability.this);
+            alertDialogBuilder1 = new AlertDialog.Builder(getContext());
             alertDialogBuilder1.setView(alertDialogView1);
 
             Button btnOK = alertDialogView1.findViewById(R.id.buttonok);
@@ -73,15 +81,16 @@ public class CrousProductAvailability extends AppCompatActivity {
 
             alertDialogBuilder1.create().show();
         });
-    }
 
+        return v;
+    }
 
     private void PostAvailability(int position, boolean isAvailable) {
         CrousProduct crousProduct = clickedCrous.getCrousProducts().get(position);
         PostAvailabilityAsync postAvailabilityAsync = new PostAvailabilityAsync(crousProduct, isAvailable);
         postAvailabilityAsync.execute();
-        Toast.makeText(getApplicationContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(CrousProductAvailability.this, ListeCrous.class));
+        Toast.makeText(getContext(), "c'est noté!", Toast.LENGTH_SHORT).show();
+//        startActivity(new Intent(CrousProductAvailability.this, ListeCrous.class));
     }
 
 
@@ -95,7 +104,7 @@ public class CrousProductAvailability extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String result) {
-            gridView.setAdapter(new ProduitGridAdapter(getApplicationContext(), clickedCrous));
+            gridView.setAdapter(new ProduitGridAdapter(getContext(), clickedCrous));
         }
     }
 
