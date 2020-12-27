@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousProductAvailabilityApiHelper;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class CrousProductAvaiabilityFragment extends ListFragment {
+public class CrousProductAvaiabilityFragment extends Fragment {
 
     private CrousApiHelper crousApiHelper;
     private CrousProductAvailabilityApiHelper crousProductAvailabilityApiHelper;

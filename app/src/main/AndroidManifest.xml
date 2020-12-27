@@ -65,10 +65,7 @@
 
         <receiver android:name=".implem.NotificationReceiver" />
 
-        <activity android:name=".implem.crous.SandwichDispo" />
-
-        <activity android:name=".implem.crous.activity.CrousProductAvailabilityActivity" />
-        <activity android:name=".implem.crous.activity.CrousAttendanceActivity" />
+        <activity android:name=".implem.crous.activity.CrousActivity" />
 
     </application>
 

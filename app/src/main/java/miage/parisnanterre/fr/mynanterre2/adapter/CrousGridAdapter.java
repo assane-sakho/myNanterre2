@@ -21,8 +21,8 @@ import java.util.Optional;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.activity.CrousAttendanceActivity;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.activity.CrousProductAvailabilityActivity;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.activity.CrousActivity;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousAttendanceFragment;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CrousGridAdapter extends BaseAdapter{
@@ -82,11 +82,11 @@ public class CrousGridAdapter extends BaseAdapter{
         }
 
         holder.sandwich.setOnClickListener(v -> {
-            StartActivity(simpleCrous, CrousProductAvailabilityActivity.class);
+            StartActivity(simpleCrous, CrousActivity.class);
         });
 
         holder.chart.setOnClickListener(v -> {
-            StartActivity(simpleCrous, CrousAttendanceActivity.class);
+            StartActivity(simpleCrous, CrousActivity.class);
         });
         return convertView;
     }
@@ -95,7 +95,11 @@ public class CrousGridAdapter extends BaseAdapter{
     {
         Intent myIntent = new Intent(context.getApplicationContext(), aClass);
         Bundle extras = new Bundle();
+
+
         extras.putInt("clickedSimpleCrousId", simpleCrous.getId());
+        extras.putString("nextFragment",  aClass == CrousAttendanceFragment.class ? "CrousAttendanceFragment" : "CrousProductAvaiabilityFragment");
+
         myIntent.putExtras(extras);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(myIntent);

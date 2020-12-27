@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -28,7 +29,7 @@ import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class CrousAttendanceFragment extends ListFragment {
+public class CrousAttendanceFragment extends Fragment {
 
     BarChart barChart;
     private CrousApiHelper crousApiHelper;

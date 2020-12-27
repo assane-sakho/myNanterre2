@@ -15,15 +15,6 @@
         tools:layout_editor_absoluteX="-5dp"
         tools:layout_editor_absoluteY="-5dp"></include>
 
-    <ListView
-        android:id="@android:id/list"
-        android:visibility="gone"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        tools:ignore="MissingConstraints" >
-
-    </ListView>
-
     <GridView
         android:id="@+id/gridview"
         android:layout_width="414dp"
