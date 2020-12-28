@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.adapter;
+package miage.parisnanterre.fr.mynanterre2.implem.crous.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,6 @@ import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.crous.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.activity.CrousActivity;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousAttendanceFragment;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CrousGridAdapter extends BaseAdapter{

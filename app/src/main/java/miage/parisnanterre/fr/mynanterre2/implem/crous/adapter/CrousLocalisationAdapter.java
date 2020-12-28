@@ -3,7 +3,6 @@ package miage.parisnanterre.fr.mynanterre2.implem.crous.adapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.ColorSpace;
 import android.location.Location;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class LocalisationCrousAdapter extends RecyclerView.Adapter<LocalisationCrousAdapter.MyViewHolder> {
+public class CrousLocalisationAdapter extends RecyclerView.Adapter<CrousLocalisationAdapter.MyViewHolder> {
 
     private List<SimpleCrous> simpleCrousList;
     private final Location locUser;
@@ -30,7 +29,7 @@ public class LocalisationCrousAdapter extends RecyclerView.Adapter<LocalisationC
     private final int rgbGreen;
 
     // constructor
-    public LocalisationCrousAdapter(List<SimpleCrous> simpleCrousList, double latitudeUser, double longitudeUser) {
+    public CrousLocalisationAdapter(List<SimpleCrous> simpleCrousList, double latitudeUser, double longitudeUser) {
         this.simpleCrousList = simpleCrousList;
 
         locUser = new Location("");

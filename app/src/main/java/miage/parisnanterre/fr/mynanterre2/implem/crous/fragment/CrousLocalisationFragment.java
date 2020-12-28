@@ -1,16 +1,19 @@
 package miage.parisnanterre.fr.mynanterre2.implem.crous.fragment;
 
-
-import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -22,18 +25,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import miage.parisnanterre.fr.mynanterre2.R;
+import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.LocalisationListener;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.adapter.LocalisationCrousAdapter;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.adapter.CrousLocalisationAdapter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class CrousLocalisation extends Fragment {
+public class CrousLocalisationFragment extends Fragment {
 
-    public Location current;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private CrousApiHelper crousApiHelper;
+    private List<SimpleCrous> simpleCrousList;
+    private ProgressBar progressBar;
+
+    public CrousLocalisationFragment() {
+        crousApiHelper = CrousApiHelper.getInstance();
+        simpleCrousList = new ArrayList<>();
+    }
+
+    public static CrousLocalisationFragment newInstance() {
+        return new CrousLocalisationFragment();
+    }
 
     @Nullable
     @Override
@@ -42,72 +56,53 @@ public class CrousLocalisation extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
-        View v = inflater.inflate(R.layout.localisationcafetlist, container, false);
+        View v = inflater.inflate(R.layout.crous_localisation, container, false);
 
-        crousApiHelper = CrousApiHelper.getInstance();
+        progressBar = v.findViewById(R.id.progressBar3);
+        progressBar.setVisibility(View.VISIBLE);
 
+        TextView title = v.findViewById(R.id.Title);
+        title.setText("Informations");
+
+        ImageView back = v.findViewById(R.id.back);
+        back.setOnClickListener(x -> getActivity().onBackPressed());
 
         recyclerView = v.findViewById(R.id.recyclerView);
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        LocalisationListener userPosition = new LocalisationListener(getContext());
-        double latitudeUser = userPosition.getLatitude();
-        double longitudeUser = userPosition.getLongitude();
-
-        // adapter
-        try {
-            adapter = new LocalisationCrousAdapter(crousApiHelper.getAllSimpleCrous(), latitudeUser, longitudeUser);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        recyclerView.setAdapter(adapter);
+        GetSimpleCrousListAsync getSimpleCrousListAsync = new GetSimpleCrousListAsync();
+        getSimpleCrousListAsync.execute();
 
         return v;
     }
 
+    private final class GetSimpleCrousListAsync extends AsyncTask<Void, Void, String> {
 
-    //generate a list of Link
-    public List<LocalisationCafet> getListData() {
-        System.out.println("je suis ici Latitude :  " + PositionUser.getLatitude() + "Je suis ici Longitude " + PositionUser.getLongitude());
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                simpleCrousList = crousApiHelper.getAllSimpleCrous();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "executed";
+        }
 
+        @Override
+        protected void onPostExecute(String result) {
+            LocalisationListener userPosition = new LocalisationListener(getContext());
+            double latitudeUser = userPosition.getLatitude();
+            double longitudeUser = userPosition.getLongitude();
 
+            Collections.sort(simpleCrousList, Comparator.comparing(SimpleCrous::isOpen));
 
+            adapter = new CrousLocalisationAdapter(simpleCrousList, latitudeUser, longitudeUser);
 
-        List<LocalisationCafet> cafets = new LinkedList<LocalisationCafet>();
-
-        LocalisationCafet cafetTerrasse = new LocalisationCafet();
-
-        cafetTerrasse.setImage(R.drawable.laterrasse);
-        cafetTerrasse.setNom("Brasserie La Terrasse");
-        cafetTerrasse.setInfo("11h - 14h30 en semaine");
-        String distanceTerrasse = CalculDistance(48.9057091, 2.21298630000001, LatitudeUser, LongitudeUser);
-        cafetTerrasse.setDistance("Se trouve à " + distanceTerrasse + " mètres");
-        cafetTerrasse.setPlat("Spécialités asiatiques, grillades, tartes et salades");
-
-        cafets.add(cafetTerrasse);
-
-
-
-        return cafets;
+            progressBar.setVisibility(View.GONE);
+            recyclerView.setAdapter(adapter);
+        }
     }
-
-    public String CalculDistance(double latitudeCafet, double longitudeCafet, double latitudeUser, double longitudeUser ){
-
-        Location locCafet = new Location("");
-        locCafet.setLatitude(latitudeCafet);
-        locCafet.setLongitude(longitudeCafet);
-
-        Location locUser = new Location("");
-        locUser.setLatitude(latitudeUser);
-        locUser.setLongitude(longitudeUser);
-
-        String distanceToReturn = String.format("%.0f", locCafet.distanceTo(locUser));
-
-        return distanceToReturn;
-    }
-
 }
