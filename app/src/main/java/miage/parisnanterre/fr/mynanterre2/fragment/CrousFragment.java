@@ -1,7 +1,6 @@
 package miage.parisnanterre.fr.mynanterre2.fragment;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -33,13 +32,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.adapter.CrousGridAdapter;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.adapter.CrousGridAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.crous.SimpleCrous;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.CrousAttendanceApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.activity.CrousActivity;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousMenuFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.crous.LocalisationCrousMain;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CrousFragment extends ListFragment {
@@ -77,13 +74,11 @@ public class CrousFragment extends ListFragment {
 
         crousLoaded = new ArrayList<>();
 
-        GetCrousAsync getCrousAsync = new GetCrousAsync();
-        getCrousAsync.execute();
+        GetSimpleCrousListAsync getSimpleCrousListAsync = new GetSimpleCrousListAsync();
+        getSimpleCrousListAsync.execute();
 
         gridView = v.findViewById(R.id.gridview);
         gridView.setOnItemClickListener((parent, view, position, id) -> {
-            Object o = gridView.getItemAtPosition(position);
-
             LayoutInflater factory = LayoutInflater.from(getActivity());
             final View alertDialogView = factory.inflate(R.layout.dialog_box_frequentation, null);
 
@@ -98,34 +93,23 @@ public class CrousFragment extends ListFragment {
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
 
-            btn1.setOnClickListener(v1 -> PostAttendance(alertDialog, position, 1));
+            btn1.setOnClickListener(v1 -> postAttendance(alertDialog, position, 1));
 
-            btn2.setOnClickListener(v12 -> PostAttendance(alertDialog, position, 2));
+            btn2.setOnClickListener(v12 -> postAttendance(alertDialog, position, 2));
 
-            btn3.setOnClickListener(v13 -> PostAttendance(alertDialog, position, 3));
+            btn3.setOnClickListener(v13 -> postAttendance(alertDialog, position, 3));
         });
 
         FloatingActionButton menuCrous = v.findViewById(R.id.MenuCrous);
         menuCrous.setOnClickListener(view -> {
-            Intent myIntent = new Intent(getActivity(), CrousActivity.class);
-            Bundle extras = new Bundle();
-            extras.putString("nextFragment",  "CrousMenuFragment");
-            myIntent.putExtras(extras);
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getContext().startActivity(myIntent);
-
+            startNextCrousActivity("CrousMenuFragment");
         });
 
         FloatingActionButton geo = v.findViewById(R.id.Geo);
         geo.setOnClickListener(view -> {
             if (ContextCompat.checkSelfPermission(getActivity(),
                     Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                Intent myIntent = new Intent(getActivity(), LocalisationCrousMain.class);
-                Bundle extras = new Bundle();
-                myIntent.putExtras(extras);
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getContext().startActivity(myIntent);
+                startNextCrousActivity("CrousLocalisationFragment");
             } else {
                 requestLocationPermission();
             }
@@ -134,7 +118,16 @@ public class CrousFragment extends ListFragment {
         return v;
     }
 
-    private void PostAttendance(AlertDialog alertDialog,int position, int p) {
+    private void startNextCrousActivity(String nextFragment)
+    {
+        Intent myIntent = new Intent(getActivity(), CrousActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString("nextFragment",  nextFragment);
+        myIntent.putExtras(extras);
+        getContext().startActivity(myIntent);
+    }
+
+    private void postAttendance(AlertDialog alertDialog, int position, int p) {
         SimpleCrous clickedSimpleCrous = crousLoaded.get(position);
 
         PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 3);
@@ -154,14 +147,8 @@ public class CrousFragment extends ListFragment {
             new AlertDialog.Builder(getContext())
                     .setTitle("Permission nécessaire")
                     .setMessage("Nous avons besoin de votre localisation pour afficher les cafétérias proche de chez vous")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(getActivity(),
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, STORAGE_LOCATION_CODE);
-                        }
-
-                    })
+                    .setPositiveButton("ok", (dialog, which) -> ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, STORAGE_LOCATION_CODE))
                     .setNegativeButton("cancel", (dialog, which) -> dialog.dismiss())
                     .create().show();
 
@@ -175,20 +162,14 @@ public class CrousFragment extends ListFragment {
         if (requestCode == STORAGE_LOCATION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getContext(), "Permission GRANTED", Toast.LENGTH_SHORT).show();
-
-                Intent myIntent = new Intent(getContext(), LocalisationCrousMain.class);
-                Bundle extras = new Bundle();
-                myIntent.putExtras(extras);
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getContext().startActivity(myIntent);
-
+                startNextCrousActivity("CrousLocalisationFragment");
             } else {
                 Toast.makeText(getContext(), "Permission DENIED", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private final class GetCrousAsync extends AsyncTask<Void, Void, String> {
+    private final class GetSimpleCrousListAsync extends AsyncTask<Void, Void, String> {
 
         @Override
         protected String doInBackground(Void... params) {
@@ -198,8 +179,6 @@ public class CrousFragment extends ListFragment {
                         .filter(simpleCrous -> simpleCrous.isOpen())
                         .collect(Collectors.toList());
                 crousLoaded.addAll(crousApiHelper.getAllSimpleCrous());
-
-
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

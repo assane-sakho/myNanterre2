@@ -11,6 +11,7 @@ import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.fragment.CrousFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubInfoFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousAttendanceFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousLocalisationFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousMenuFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.crous.fragment.CrousProductAvaiabilityFragment;
 
@@ -37,6 +38,10 @@ public class CrousActivity extends AppCompatActivity {
                 case "CrousMenuFragment" :
                     fragmentClass = CrousMenuFragment.newInstance();
                     break;
+                case "CrousLocalisationFragment" :
+                    fragmentClass = CrousLocalisationFragment.newInstance();
+                    break;
+
                 default:
                     throw new IllegalStateException("Unexpected value: " + nextFragment);
             }

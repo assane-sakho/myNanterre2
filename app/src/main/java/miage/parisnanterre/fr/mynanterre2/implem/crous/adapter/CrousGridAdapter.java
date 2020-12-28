@@ -82,16 +82,16 @@ public class CrousGridAdapter extends BaseAdapter{
         }
 
         holder.sandwich.setOnClickListener(v -> {
-            StartActivity(simpleCrous, "CrousAttendanceFragment");
+            startNextCrousActivity(simpleCrous, "CrousAttendanceFragment");
         });
 
         holder.chart.setOnClickListener(v -> {
-            StartActivity(simpleCrous, "CrousProductAvaiabilityFragment");
+            startNextCrousActivity(simpleCrous, "CrousProductAvaiabilityFragment");
         });
         return convertView;
     }
 
-    private void StartActivity(SimpleCrous simpleCrous, String nextFragment)
+    private void startNextCrousActivity(SimpleCrous simpleCrous, String nextFragment)
     {
         Intent myIntent = new Intent(context.getApplicationContext(), CrousActivity.class);
         Bundle extras = new Bundle();

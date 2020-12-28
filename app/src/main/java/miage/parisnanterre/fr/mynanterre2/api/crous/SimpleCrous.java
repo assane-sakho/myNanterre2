@@ -16,6 +16,11 @@ import miage.parisnanterre.fr.mynanterre2.helpers.ScheduleHelper;
 public class SimpleCrous extends NamedDbElement implements Schedulable {
     protected String location;
     protected List<Schedule> crousSchedules;
+    protected byte[] image;
+    protected double longitude;
+    protected double latitude;
+
+    protected String produtcsNameConcat;
 
     @SerializedName("crousAttendance")
     protected List<Attendance> crousAttendances;
@@ -25,6 +30,7 @@ public class SimpleCrous extends NamedDbElement implements Schedulable {
         crousSchedules = new ArrayList();
         crousAttendances = new ArrayList();
     }
+
     public String getLocation() {
         return location;
     }
@@ -37,10 +43,6 @@ public class SimpleCrous extends NamedDbElement implements Schedulable {
         this.crousAttendances.add(attendance);
     }
 
-    public void setCrousSchedules(List<Schedule> crousSchedules) {
-        this.crousSchedules = crousSchedules;
-    }
-
     public List<Attendance> getCrousAttendances() {
         return crousAttendances;
     }
@@ -48,6 +50,23 @@ public class SimpleCrous extends NamedDbElement implements Schedulable {
     public void setCrousAttendances(List<Attendance> crousAttendances) {
         this.crousAttendances = crousAttendances;
     }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public String getProductsNameConcat() {
+        return produtcsNameConcat;
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
