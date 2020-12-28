@@ -81,11 +81,11 @@ public class CrousGridAdapter extends BaseAdapter{
         }
 
         holder.sandwich.setOnClickListener(v -> {
-            startNextCrousActivity(simpleCrous, "CrousAttendanceFragment");
+            startNextCrousActivity(simpleCrous, "CrousProductAvaiabilityFragment");
         });
 
         holder.chart.setOnClickListener(v -> {
-            startNextCrousActivity(simpleCrous, "CrousProductAvaiabilityFragment");
+            startNextCrousActivity(simpleCrous, "CrousAttendanceFragment");
         });
         return convertView;
     }
