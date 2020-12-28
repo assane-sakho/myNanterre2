@@ -98,7 +98,7 @@ public class CrousLocalisationFragment extends Fragment {
             double longitudeUser = userPosition.getLongitude();
 
             Collections.sort(simpleCrousList, Comparator.comparing(SimpleCrous::isOpen));
-
+            Collections.reverse(simpleCrousList);
             adapter = new CrousLocalisationAdapter(simpleCrousList, latitudeUser, longitudeUser);
 
             progressBar.setVisibility(View.GONE);
