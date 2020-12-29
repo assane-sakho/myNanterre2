@@ -7,18 +7,20 @@ import androidx.annotation.RequiresApi;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import miage.parisnanterre.fr.mynanterre2.api.db.NamedDbElement;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class SimpleClub extends NamedDbElement {
     private static final String EMPTY_STRING = "";
 
     protected byte[] imageBytes;
     @Expose(serialize = false)
-    protected LocalDateTime creationDate;
+    protected LocalDate creationDate;
     protected String description;
     protected boolean isCertificate;
     protected boolean isValidate;
@@ -29,10 +31,10 @@ public class SimpleClub extends NamedDbElement {
     @SerializedName("clubType")
     protected Type type;
 
-    public SimpleClub(String name, byte[] imageBytes, LocalDateTime creationDate, String description, boolean isCertificate, boolean isValidate, User creator, String contact, String mail, String website, Type type) {
+    public SimpleClub(String name, byte[] imageBytes, String description, boolean isCertificate, boolean isValidate, User creator, String contact, String mail, String website, Type type) {
         super(name);
         this.imageBytes = imageBytes;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDate.now();
         this.description = description;
         this.isCertificate = isCertificate;
         this.isValidate = isValidate;
@@ -47,7 +49,7 @@ public class SimpleClub extends NamedDbElement {
     public SimpleClub() {
         super(EMPTY_STRING);
         this.imageBytes = EMPTY_STRING.getBytes();
-        this.creationDate = LocalDateTime.now();
+        this.creationDate = LocalDate.now();
         this.description = EMPTY_STRING;
         this.isCertificate = false;
         this.isValidate = false;
@@ -65,11 +67,6 @@ public class SimpleClub extends NamedDbElement {
 
     public SimpleClub setImageBytes(byte[] imageBytes) {
         this.imageBytes = imageBytes;
-        return this;
-    }
-
-    public SimpleClub setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
         return this;
     }
 
@@ -129,7 +126,7 @@ public class SimpleClub extends NamedDbElement {
         return imageBytes;
     }
 
-    public LocalDateTime getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 

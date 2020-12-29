@@ -48,6 +48,7 @@ public class ClubFragment extends Fragment {
         View v = inflater.inflate(R.layout.club_fragment, container, false);
 
         clubApiHelper = ClubApiHelper.getInstance();
+        clubApiHelper.resetPaginationIndex();
 
         RecyclerView rvClub = v.findViewById(R.id.recyclerViewClub);
 

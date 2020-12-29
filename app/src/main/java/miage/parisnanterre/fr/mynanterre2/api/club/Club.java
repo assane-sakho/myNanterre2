@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,6 @@ public class Club extends SimpleClub {
     public Club(SimpleClub simpleClub) {
         super(simpleClub.getName(),
                 simpleClub.getImageBytes(),
-                simpleClub.getCreationDate(),
                 simpleClub.getDescription(),
                 simpleClub.isCertificate(),
                 simpleClub.isValidate(),
@@ -36,8 +36,8 @@ public class Club extends SimpleClub {
         publications = new ArrayList<>();
     }
 
-    public Club(String name, byte[] imageBytes, LocalDateTime creationDate, String description, boolean isCertificate, boolean isValidate, User creator, String contact, String mail, String website, Type type) {
-        super(name, imageBytes, creationDate, description, isCertificate, isValidate, creator, contact, mail, website, type);
+    public Club(String name, byte[] imageBytes, String description, boolean isCertificate, boolean isValidate, User creator, String contact, String mail, String website, Type type) {
+        super(name, imageBytes, description, isCertificate, isValidate, creator, contact, mail, website, type);
         publications = new ArrayList<>();
     }
 
@@ -87,6 +87,4 @@ public class Club extends SimpleClub {
     public int hashCode() {
         return super.hashCode();
     }
-
-
 }

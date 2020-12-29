@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +48,8 @@ import miage.parisnanterre.fr.mynanterre2.api.crous.ProductAvailability;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubAdapter;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubPublicationAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonCrousAttendanceAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonProductAvailabilityAdapter;
 
@@ -111,7 +114,10 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
         gson = new GsonBuilder()
                 .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json, typeOfT, context) -> LocalTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("HH:mm")))
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, typeOfT, context) -> LocalDate.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .registerTypeAdapter(byte[].class, (JsonDeserializer<byte[]>) (json, typeOfT, context) -> Base64.decode(json.getAsString(), Base64.NO_WRAP))
+                .registerTypeAdapter(Club.class, new JsonClubAdapter())
+                .registerTypeAdapter(Publication.class, new JsonClubPublicationAdapter())
                 .registerTypeAdapter(Attendance.class, new JsonCrousAttendanceAdapter())
                 .registerTypeAdapter(ProductAvailability.class, new JsonProductAvailabilityAdapter())
                 .create();
@@ -133,6 +139,11 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
             response.append(line).append('\n');
         }
         return response.toString();
+    }
+
+    public final void resetPaginationIndex()
+    {
+        pageIndex = 1;
     }
 
     abstract List<SimpleElement> convertToList(JsonArray jsonArray);
@@ -197,6 +208,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
     protected List<SimpleElement> getAllSimpleElements() throws ExecutionException, InterruptedException {
         if (refreshSimpleElementsEveryCall || !dataLoadedOnce) {
             synchronized (simpleElements) {
+                simpleElements.clear();
                 if(hasPagination)
                 {
                     simpleElements.addAll(getFirstPage());
