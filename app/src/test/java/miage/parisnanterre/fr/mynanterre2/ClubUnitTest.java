@@ -3,6 +3,7 @@ package miage.parisnanterre.fr.mynanterre2;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
@@ -46,7 +47,7 @@ public class ClubUnitTest {
         assertEquals("www.monclub.fr", club.getWebsite());
         assertEquals(3, club.getPublications().size());
         assertEquals("une publication", club.getPublications().stream().findFirst().get().getMessage());
-        assertEquals(LocalDateTime.now().toLocalDate(), club.getCreationDate().toLocalDate());
+        assertEquals(LocalDate.now(), club.getCreationDate());
     }
 
     @Test
@@ -65,7 +66,6 @@ public class ClubUnitTest {
 
         Club club = new Club("Article X",
                 "".getBytes(),
-                LocalDateTime.now(),
                 description,
                 true,
                 true,
@@ -84,7 +84,7 @@ public class ClubUnitTest {
         assertEquals(true, club.isValidate());
         assertEquals(website, club.getWebsite());
         assertEquals(type, club.getType());
-        assertEquals(LocalDateTime.now().toLocalDate(), club.getCreationDate().toLocalDate());
+        assertEquals(LocalDateTime.now().toLocalDate(), club.getCreationDate());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ClubUnitTest {
         assertEquals(club.isCertificate(), simpleClub.isCertificate());
         assertEquals(club.isValidate(), simpleClub.isValidate());
         assertEquals(club.getWebsite(), simpleClub.getWebsite());
-        assertEquals(club.getCreationDate().toLocalDate(), simpleClub.getCreationDate().toLocalDate());
+        assertEquals(club.getCreationDate(), simpleClub.getCreationDate());
     }
 
     @Test
@@ -130,7 +130,7 @@ public class ClubUnitTest {
         assertEquals(false, club.isCertificate());
         assertEquals(true, club.isValidate());
         assertEquals("www.monclub.fr", club.getWebsite());
-        assertEquals(LocalDateTime.now().toLocalDate(), club.getCreationDate().toLocalDate());
+        assertEquals(LocalDate.now(), club.getCreationDate());
     }
 
     @Test
