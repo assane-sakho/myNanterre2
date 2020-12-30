@@ -53,7 +53,7 @@ public class FirstFragment extends Fragment {
                 imgEmail.setVisibility(v.GONE);
             }
 
-            ImageView imgTel = v.findViewById(R.id.imgTel);
+            ImageView imgTel = v.findViewById(R.id.imgWeb);
             if(StringUtils.isEmpty(clickedLibrary.getReceptionPhoneNumber()))
             {
                 imgTel.setVisibility(v.GONE);
