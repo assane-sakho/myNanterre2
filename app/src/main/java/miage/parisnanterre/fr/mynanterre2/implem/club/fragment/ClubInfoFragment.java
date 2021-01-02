@@ -72,7 +72,7 @@ public class ClubInfoFragment extends Fragment {
         nom.setText(club.getName());
         nom.setAutoSizeTextTypeUniformWithConfiguration(16,26,1, TypedValue.COMPLEX_UNIT_SP);
         cat.setText("Catégorie : " + club.getType().getName());
-        creator.setText("Président(e) : " + club.getCreator().getFullName());
+        creator.setText("Créateur : " + club.getCreator().getFullName());
         desc.setText(club.getDescription());
         date.setText("Date de création : " + club.getCreationDate());
 
