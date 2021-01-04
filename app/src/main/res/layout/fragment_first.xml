@@ -52,7 +52,7 @@
             app:srcCompat="@mipmap/icn_email" />
 
         <ImageView
-            android:id="@+id/imgTel"
+            android:id="@+id/imgWeb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -79,10 +79,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/imgTel"
+            app:layout_constraintBottom_toBottomOf="@+id/imgWeb"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgTel"
-            app:layout_constraintTop_toTopOf="@+id/imgTel" />
+            app:layout_constraintStart_toEndOf="@+id/imgWeb"
+            app:layout_constraintTop_toTopOf="@+id/imgWeb" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

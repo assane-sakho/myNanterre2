@@ -11,11 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.ExecutionException;
 
@@ -58,19 +61,47 @@ public class ClubInfoFragment extends Fragment {
         TextView creator = v1.findViewById(R.id.creatorClub);
         TextView desc = v1.findViewById(R.id.descClub);
         TextView date = v1.findViewById(R.id.dateClub);
+        TextView mail = v1.findViewById(R.id.tvMail);
+        TextView web = v1.findViewById(R.id.tvWebsite);
+        TextView contact = v1.findViewById(R.id.tvContact);
+
 
         titre.setText("Clubs");
         Bitmap bitmap = BitmapFactory.decodeByteArray(club.getImageBytes(), 0, club.getImageBytes().length);
         img.setImageBitmap(bitmap);
         nom.setText(club.getName());
+        nom.setAutoSizeTextTypeUniformWithConfiguration(16,26,1, TypedValue.COMPLEX_UNIT_SP);
         cat.setText("Catégorie : " + club.getType().getName());
-        creator.setText("Président(e) : " + club.getCreator().getFullName());
+        creator.setText("Créateur : " + club.getCreator().getFullName());
         desc.setText(club.getDescription());
         date.setText("Date de création : " + club.getCreationDate());
 
         if(!club.isCertificate()){
             v1.findViewById(R.id.certif).setVisibility(View.INVISIBLE);
         }
+
+        ImageView imgContact = v1.findViewById(R.id.imgContact);
+        if(StringUtils.isEmpty(club.getContact()))
+        {
+            imgContact.setVisibility(v1.GONE);
+        }
+
+        ImageView imgMail = v1.findViewById(R.id.imgMail);
+        if(StringUtils.isEmpty(club.getMail()))
+        {
+            imgMail.setVisibility(v1.GONE);
+        }
+
+        ImageView imgWeb = v1.findViewById(R.id.imgWeb);
+        if(StringUtils.isEmpty(club.getWebsite()))
+        {
+            imgWeb.setVisibility(v1.GONE);
+        }
+
+        mail.setText(club.getMail());
+        web.setText(club.getWebsite());
+        contact.setText(club.getContact());
+
 
         ImageView back = v1.findViewById(R.id.back);
 
