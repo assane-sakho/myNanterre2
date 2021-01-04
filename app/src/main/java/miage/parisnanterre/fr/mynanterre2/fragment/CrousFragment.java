@@ -184,20 +184,24 @@ public class CrousFragment extends ListFragment {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             return "executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if (crousLoaded.size() == 0)
-                noneCrousOpenText.setVisibility(View.VISIBLE);
+            try {
+                if (crousLoaded.size() == 0)
+                    noneCrousOpenText.setVisibility(View.VISIBLE);
 
-            progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                adapter = new CrousGridAdapter(getContext(), crousLoaded);
+                gridView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            adapter = new CrousGridAdapter(getContext(), crousLoaded);
-            gridView.setAdapter(adapter);
         }
-
     }
 
     private final class PostAttendanceAsync extends AsyncTask<Void, Void, String> {

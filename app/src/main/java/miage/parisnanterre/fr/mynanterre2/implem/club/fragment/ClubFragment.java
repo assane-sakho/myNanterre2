@@ -117,6 +117,7 @@ public class ClubFragment extends Fragment {
 
         @Override
         protected String doInBackground(Void... params) {
+
             clubLoaded.addAll(clubApiHelper.getMoreSimpleClubs());
             return "executed";
         }

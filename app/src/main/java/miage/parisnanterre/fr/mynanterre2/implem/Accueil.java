@@ -1,12 +1,14 @@
 package miage.parisnanterre.fr.mynanterre2.implem;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -90,6 +92,7 @@ public class Accueil extends AppCompatActivity {
                 });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void selectDrawerItem(int mSelectedId) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
@@ -125,6 +128,7 @@ public class Accueil extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
