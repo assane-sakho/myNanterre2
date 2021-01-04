@@ -16,15 +16,15 @@ import org.apache.commons.lang3.StringUtils;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 
-public class FirstFragment extends Fragment {
+public class InformationFragment extends Fragment {
 
     View v;
     private Library clickedLibrary;
-    public FirstFragment() {
+    public InformationFragment() {
         // Required empty public constructor
     }
 
-    public FirstFragment(Library clickedLibrary)
+    public InformationFragment(Library clickedLibrary)
     {
         this.clickedLibrary = clickedLibrary;
     }
@@ -34,7 +34,7 @@ public class FirstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_first, container, false);
+        v = inflater.inflate(R.layout.information_bu_view, container, false);
 
         try {
 
