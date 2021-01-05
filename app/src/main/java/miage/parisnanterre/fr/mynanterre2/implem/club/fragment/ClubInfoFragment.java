@@ -34,6 +34,10 @@ public class ClubInfoFragment extends Fragment {
 
     private ClubApiHelper clubApiHelper;
 
+    /**
+     * Constructeur qui récupère l'id du club qu'on veut afficher
+     */
+
     public ClubInfoFragment(int simpleClubId){
         this.clubApiHelper = ClubApiHelper.getInstance();
         SimpleClub simpleClub = clubApiHelper.getSimpleClub(simpleClubId);
@@ -43,6 +47,11 @@ public class ClubInfoFragment extends Fragment {
     public static ClubInfoFragment newInstance(int simpleClubId) {
         return new ClubInfoFragment(simpleClubId);
     }
+
+    /**
+     * On crée l'affichage avec les données du club
+     */
+
 
     @Nullable
     @Override
@@ -110,6 +119,11 @@ public class ClubInfoFragment extends Fragment {
         return v1;
     }
 
+    /**
+     * On récupère les données du club grâce à son id
+     */
+
+
     private final class GetClubPublicationsAsync extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -125,7 +139,7 @@ public class ClubInfoFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-          //TODO Afficher les publications
+
         }
 
     }
