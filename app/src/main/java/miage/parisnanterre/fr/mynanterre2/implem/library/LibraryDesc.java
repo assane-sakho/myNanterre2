@@ -15,24 +15,20 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerBuAdapter;
-import miage.parisnanterre.fr.mynanterre2.api.library.Attendance;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
-import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.FirstFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.SecondFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.ThirdFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.ConditionPretFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.InformationFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.AffluencesFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.ContactFragment;
 
 public class LibraryDesc extends AppCompatActivity {
 
@@ -115,15 +111,23 @@ public class LibraryDesc extends AppCompatActivity {
             secondTab.setText("Affluences"); // set the Text for the second Tab
             tabLayout.addTab(secondTab); // add  the tab  in the TabLayout
 
-
             // Create a new Tab named "Third"
             TabLayout.Tab thirdTab = tabLayout.newTab();
-            thirdTab.setText("Contacts"); // set the Text for the third Tab
+            thirdTab.setText("Détails"); // set the Text for the fourth Tab
             tabLayout.addTab(thirdTab); // add  the tab at in the TabLayout
 
+            // Create a new Tab named "Third"
+            TabLayout.Tab fourthtab = tabLayout.newTab();
+            fourthtab.setText("Contacts"); // set the Text for the third Tab
+            tabLayout.addTab(fourthtab); // add  the tab at in the TabLayout
 
 
-            Fragment fragment = new FirstFragment(clickedLibrary);
+
+
+
+
+
+            Fragment fragment = new InformationFragment(clickedLibrary);
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.simpleFrameLayout, fragment);
@@ -138,13 +142,16 @@ public class LibraryDesc extends AppCompatActivity {
                     Fragment fragment = null;
                     switch (tab.getPosition()) {
                         case 0:
-                            fragment = new FirstFragment(clickedLibrary);
+                            fragment = new InformationFragment(clickedLibrary);
                             break;
                         case 1:
-                            fragment = new SecondFragment(myIntent);
+                            fragment = new AffluencesFragment(myIntent);
                             break;
                         case 2:
-                            fragment = new ThirdFragment(clickedLibrary);
+                            fragment = new ConditionPretFragment(clickedLibrary);
+                            break;
+                        case 3:
+                            fragment = new ContactFragment(clickedLibrary);
                             break;
                     }
                     FragmentManager fm = getSupportFragmentManager();

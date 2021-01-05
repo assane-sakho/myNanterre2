@@ -27,17 +27,17 @@ import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
 
-public class SecondFragment extends Fragment {
+public class AffluencesFragment extends Fragment {
 
     Intent intent;
     BarChart barChart;
     View v;
 
-    public SecondFragment() {
+    public AffluencesFragment() {
 // Required empty public constructor
     }
 
-    public SecondFragment(Intent intent) {
+    public AffluencesFragment(Intent intent) {
         this.intent = intent;
     }
 
@@ -51,7 +51,7 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_second, container, false);
+        v = inflater.inflate(R.layout.affluence_view, container, false);
 
 
 

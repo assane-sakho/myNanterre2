@@ -27,7 +27,7 @@ import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.implem.library.viewModel.BiblioViewModel;
 
-public class ThirdFragment extends Fragment {
+public class ContactFragment extends Fragment {
 
     private View v;
     private RecyclerView rvBiblio;
@@ -38,11 +38,11 @@ public class ThirdFragment extends Fragment {
     private RecyclerClubAdapter rca;
     private Library clickedLibrary;
 
-    public ThirdFragment() {
+    public ContactFragment() {
         // Required empty public constructor
     }
 
-    public ThirdFragment(Library clickedLibrary)
+    public ContactFragment(Library clickedLibrary)
     {
         this.clickedLibrary = clickedLibrary;
     }
@@ -52,7 +52,7 @@ public class ThirdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_third, container, false);
+        v = inflater.inflate(R.layout.contact_view, container, false);
 
         rvBiblio = v.findViewById(R.id.recyclerViewBiblio);
         recyclerBiblioContactAdapter = new RecyclerBiblioContactAdapter(clickedLibrary);
