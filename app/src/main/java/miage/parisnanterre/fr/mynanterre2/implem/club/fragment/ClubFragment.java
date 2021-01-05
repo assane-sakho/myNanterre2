@@ -36,9 +36,16 @@ public class ClubFragment extends Fragment {
     private List<SimpleClub> clubLoaded;
     private ProgressBar progressBar;
 
+
     public static ClubFragment newInstance() {
         return new ClubFragment();
     }
+
+    /**
+     * à la création de l'affichage on initialise le recyclerview avec les données récupérer dans la table Club de l'api,
+     * on spécifie qu'au scroll de la page on charge de nouvelle donnée pour le recyclerview et on spécifie que la page possède un menu optionnel qui
+     * est le bouton search sur le menu principal de la page
+     */
 
     @Nullable
     @Override
@@ -86,6 +93,10 @@ public class ClubFragment extends Fragment {
         return v;
     }
 
+    /**
+     * On créer la menu search
+     */
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
@@ -107,11 +118,19 @@ public class ClubFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Récupère les données des clubs de l'api
+     */
+
     public void fetchData() {
         progressBar.setVisibility(View.VISIBLE);
         GetClubsAsync getLibrariesAsync = new GetClubsAsync();
         getLibrariesAsync.execute();
     }
+
+    /**
+     * chargement des clubs en fond et affichage d'un cercle de chargement le temps que sa charge
+     */
 
     private final class GetClubsAsync extends AsyncTask<Void, Void, String> {
 

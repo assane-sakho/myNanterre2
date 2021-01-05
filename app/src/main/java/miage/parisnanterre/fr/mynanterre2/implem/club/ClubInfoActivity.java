@@ -12,6 +12,10 @@ import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubInfoFragment;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ClubInfoActivity extends AppCompatActivity {
 
+    /**
+     * On génère l'affichage de l'activity avec le fragment
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

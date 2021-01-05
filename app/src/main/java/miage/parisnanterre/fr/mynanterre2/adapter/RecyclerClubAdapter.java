@@ -35,13 +35,21 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
     List<SimpleClub> finalClubList;
     Context context;
 
+    /**
+     * Le constructeur qui initialise les variables
+     */
+
+
     public RecyclerClubAdapter(Context context, List<SimpleClub> clubList) {
         this.context = context;
         this.clubApiHelper = ClubApiHelper.getInstance();
         finalClubList = clubList;
         this.clubList = finalClubList;
-
     }
+
+    /**
+     * on créée la view
+     */
 
     @NonNull
     @Override
@@ -52,6 +60,10 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
         return new ViewHolder(view);
     }
+
+    /**
+     * On remplis chaque view avec leurs données
+     */
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -77,10 +89,18 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
 
     }
 
+    /**
+     * le nombre d'item du recycler view
+     */
+
     @Override
     public int getItemCount() {
         return clubList.size();
     }
+
+    /**
+     * On récupère le filtre utilisé pour le menu search
+     */
 
     @Override
     public Filter getFilter() {
@@ -119,6 +139,10 @@ public class RecyclerClubAdapter extends RecyclerView.Adapter<RecyclerClubAdapte
         }
 
     };
+
+    /**
+     * class du view d'un club dans le recyclerview
+     */
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
