@@ -8,4 +8,9 @@ public class Service extends LibraryRelatedElement {
         this.name = name;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
 }

@@ -113,7 +113,7 @@ public class LibraryDesc extends AppCompatActivity {
 
             // Create a new Tab named "Third"
             TabLayout.Tab thirdTab = tabLayout.newTab();
-            thirdTab.setText("Condition prêt"); // set the Text for the fourth Tab
+            thirdTab.setText("Détails"); // set the Text for the fourth Tab
             tabLayout.addTab(thirdTab); // add  the tab at in the TabLayout
 
             // Create a new Tab named "Third"

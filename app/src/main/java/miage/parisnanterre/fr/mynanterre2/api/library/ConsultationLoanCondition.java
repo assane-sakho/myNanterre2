@@ -7,4 +7,9 @@ public class ConsultationLoanCondition extends LibraryRelatedElement  {
         super(id, library);
         this.name = condition;
     }
+
+    public String getName()
+    {
+        return name;
+    }
 }
