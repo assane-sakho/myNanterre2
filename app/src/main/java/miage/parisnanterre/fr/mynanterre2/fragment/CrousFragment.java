@@ -130,7 +130,7 @@ public class CrousFragment extends ListFragment {
     private void postAttendance(AlertDialog alertDialog, int position, int p) {
         SimpleCrous clickedSimpleCrous = crousLoaded.get(position);
 
-        PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, 3);
+        PostAttendanceAsync postAttendanceAsync = new PostAttendanceAsync(clickedSimpleCrous, p);
         postAttendanceAsync.execute();
         Toast.makeText(getActivity(), "c'est noté!", Toast.LENGTH_SHORT).show();
 
