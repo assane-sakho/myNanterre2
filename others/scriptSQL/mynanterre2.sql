@@ -1,17 +1,5 @@
 /*
- Navicat Premium Data Transfer
-
- Source Server         : devmynanterre - HOST
- Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : den1.mysql3.gear.host:3306
- Source Schema         : devmynanterre
-
- Target Server Type    : MySQL
- Target Server Version : 50726
- File Encoding         : 65001
-
- Date: 10/12/2020 09:51:00
+ Date: 06/01/2021 18:11:10
 */
 
 SET NAMES utf8mb4;
@@ -62,37 +50,127 @@ DROP TABLE IF EXISTS `club`;
 CREATE TABLE `club`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `image` mediumblob NULL,
-  `creationDate` datetime(0) NOT NULL,
-  `description` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `is_certificate` binary(1) NOT NULL,
-  `creator_id` int(11) NOT NULL,
+  `image_bytes` longblob NULL,
+  `creation_date` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `description` varchar(1000) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `is_certificate` binary(1) NOT NULL DEFAULT '',
+  `is_validate` binary(1) NOT NULL DEFAULT '',
+  `creator_id` int(11) NOT NULL DEFAULT 11,
   `club_type_id` int(11) NOT NULL,
-  `is_validate` binary(1) NOT NULL,
+  `website` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `mail` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `contact` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `nanterreWebsiteUrl` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `image_url` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `club_type_id`(`club_type_id`) USING BTREE,
   INDEX `creator_id`(`creator_id`) USING BTREE,
   CONSTRAINT `club_ibfk_2` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `club_ibfk_3` FOREIGN KEY (`club_type_id`) REFERENCES `club_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 2921 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of club
 -- ----------------------------
+INSERT INTO `club` VALUES (2081, 'Article X', NULL, '2020-12-28 20:31:41', 'Cette association a pour but d\'instaurer, de développer et d\'animer une dynamique d\'ouverture au sein de l\'Université, de dynamiser la vie étudiante par des manifestations culturelles à destination de tous les étudiant·e·s et de procurer à ses membres des moyens de formation complémentaire de leur cursus universitaire. Cette association y contribue par une représentation véritablement indépendante de toute formation politique.\r\n\r\nPassionnée de théâtre et persuadée que le rire adoucit les mœurs, l\'association Article X organise depuis 2015 un festival de stand up étudiant, le Festival Arti\'Show, permettant une véritable expression de la voix étudiante au travers de l\'ironie et de la dérision, mais aussi favorisant le lien social et l\'émancipation culturelle pour toutes et tous. Le festival vise à mettre en lien trois médias humoristiques : internet, la voix étudiante et le stand-up. Il a pour but de dénicher des talents étudiants et de les amener vers le professionnel en leur apportant ', 0x31, 0x31, 0, 181, 'https://www.facebook.com/associationarticleX/', 'articleX.paris10@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R) - Boîte postale n°13\r\n200 avenue de la République\r\n92000 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/article-x-536210.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/articlex_1484751163917-png');
+INSERT INTO `club` VALUES (2091, 'Dix de Choeur', NULL, '2020-12-28 20:31:41', 'Dix de Chœur, le chœur de l\'Université, agit depuis plus de vingt ans pour sensibiliser les choristes et toute la communauté universitaire à des répertoires musicaux très divers : de la musique de la Renaissance à la musique symphonique du XXè siècle, la musique de film, en passant par les périodes classique et romantique. Le chef de chœur et son assistante s\'efforcent chaque année de proposer des programmes riches et variés afin que chacun y trouve son compte.', 0x31, 0x31, 0, 181, 'http://www.dixdechoeur.fr/', 'contact@dixdechoeur.fr', 'Université Paris Nanterre\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/dix-de-choeur-12627.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/dix-de-choeur_1524207885188-gif');
+INSERT INTO `club` VALUES (2101, 'Eloquentia Nanterre', NULL, '2020-12-28 20:31:41', 'Eloquentia est une association créée en 2012 par Stéphane de Freitas. Son but est d\'apprendre la prise de parole en public à des jeunes de moins de 30 ans, via des ateliers, une formation et un concours. Elle propose donc des évènements tout au long de l\'année.', 0x31, 0x31, 0, 181, 'http://eloquentia-nanterre.fr', 'eloquentiananterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bâtiment R)\r\nBoîte postale n°44\r\n200 Avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook : Eloquentia Nanterre', 'https://culture.parisnanterre.fr/service-action-culturelle-et-animation-du-campus/assos/annuaire-des-associations-etudiantes/eloquentia-nanterre-571427.kjsp?RH=1253625868526', 'https://culture.parisnanterre.fr/medias/photo/eloquentia_1530085421719-jpg');
+INSERT INTO `club` VALUES (2111, 'Kaméo', NULL, '2020-12-28 20:31:42', 'Kaméo a pour objet en premier lieu de réunir les étudiants aspirant aux métiers du cinéma au sein d\'une communauté.\r\nUne fois les étudiants présentés et répertoriés dans leurs domaines de compétences cinématographiques, ils auront l\'occasion, ensemble, de réaliser des films avec l\'aide de l\'association aussi bien sur un plan logistique que matériel : l\'association mettra à disposition de ses adhérents du matériel de qualité pour la réalisation de leurs films !\r\nEnfin, l\'association organisera régulièrement des ateliers et des master class réalisées par des intervenants professionnels, en plus d\'évènements festifs de rencontre entre les membres. Nous voulons démocratiser la pratique vidéo et transmettre des raisonnements de responsabilité écologique.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/Kameocinema/', 'associationkameo@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'étudiant·e (Bâtiment R)\r\nBoîte postale n°32\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/kameo-781878.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1509961883080-png');
+INSERT INTO `club` VALUES (2121, 'La Volt', NULL, '2020-12-28 20:31:42', 'Cette association a pour thème la musique. Elle a vocation à organiser divers évènements autour de cet art qui pourront rassembler les étudiant·e· s de l\'université, quel que soit leur cursus.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/LaVoltAssociation/', 'LaVolt.association@outlook.fr', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte poste n°22\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-volt-831843.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/la-volt_1521026265230-jpg');
+INSERT INTO `club` VALUES (2131, 'Les Imp\'Unis', NULL, '2020-12-28 20:31:42', 'L\'association Les Imp\'Unis (Les IMProvisateurs de l\'Université de Nanterre Imaginatifs et Saisissants) propose à ses adhérent·es la pratique de l\'improvisation théâtrale. Elle donne l\'occasion d\'intégrer une équipe soudée, énergique et positive qui souhaite égayer la vie des étudiant·es.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/Les-IMPUnis-de-la-LIPON-367455386734697/', 'lesimpunis@gmail.com', 'Université Paris Nanterre\r\nBoîte postale n°48\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/les-imp-unis-ligue-d-improvisation--571297.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/impunis_1605179369444-jpg');
+INSERT INTO `club` VALUES (2141, 'Les Indifférents', NULL, '2020-12-28 20:31:42', 'LES INDIFFÉRENTS est une compagnie de théâtre universitaire. Depuis 1998, elle accueille et forme au sein d\'ateliers toute personne désireuse de s\'initier/se perfectionner dans les arts théâtraux. Elle ne vise pas simplement au divertissement amateur ou à l\'inscription dans le monde théâtral professionnel, mais aussi à la création, la recherche, l\'inédit. Elle a créé à ce jour 38 spectacles, représentés à l\'université ou à l\'occasion de festivals internationaux de théâtre universitaire, où elle a été à chaque fois primée. Elle a aussi pour but de former les formateurs qui mèneront les ateliers de l\'association.', 0x31, 0x31, 0, 181, 'https://www.lesindifferents.com/', 'compagnielesindifferents@gmail.com', 'Page Facebook : Les Indifférents', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/les-indifferents-524080.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/les-indifferents_1493988986438-png');
+INSERT INTO `club` VALUES (2151, 'Le Phare Ouest', NULL, '2020-12-28 20:31:42', 'L\'association Le Phare Ouest est un média produit par les étudiant·es de l\'Université Paris Nanterre et à destination de tous les usager·es de l\'université. Celui-ci se développe à la fois par l\'intermédiaire d\'un magazine papier édité et d\'une chaîne Youtube.\r\nNotre ambition est d\'offrir à l\'ensemble des étudiant·es, toutes filières confondues, un média qui leur ressemble, et dans lequel iels peuvent s\'exprimer. Nous permettons également à ses membres, et à ses rédacteur·trices, d\'acquérir des compétences en lien avec le journalisme, les métiers de la communication et de l\'administration.', 0x31, 0x31, 0, 181, 'http://phareouest-nanterre.parisnanterre.fr/', 'phareouestnanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\nBoîte postale n°31\r\n92001 Nanterre Cedex\r\n\r\nFacebook Le Phare Ouest', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/le-phare-ouest-772401.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-le-phare-ouest_1575633901951-jpg');
+INSERT INTO `club` VALUES (2161, 'Lysias', NULL, '2020-12-28 20:31:42', 'La Lysias Paris Nanterre organise depuis 1993 un concours de plaidoiries et d\'éloquence à l\'Université, en vue de désigner les représentant·es de l\'Université au concours national Lysias, qui affronteront les lauréat·es d\'autres Lysias et associations de plaidoirie et d\'éloquence judiciaire. De manière générale, Lysias assure également la promotion de l\'art oratoire et de l\'éloquence judiciaire au travers de divers événements, organisés à l\'Université ou avec le Barreau des Hauts-de-Seine.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/lysiasparis10/', 'lysias.paris10@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°74\r\n200 av. de la République\r\n92001 Nanterre Cedex\r\n\r\nTwitter : @Lysias_Paris10\r\nInstagram : @lysiasnanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/lysias-nanterre-553631.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1576135276336-jpg');
+INSERT INTO `club` VALUES (2171, 'Mélo\'dix', NULL, '2020-12-28 20:31:43', 'Soutenu par le service commun de l\'ACA² de l\'Université, l\'Orchestre réunit aujourd\'hui 70 musiciens amateurs et professionnels de la région parisienne. Conduit par un chef exigeant et composé d\'étudiants investis, Mélo\'dix a désormais sa place au sein des très bons orchestres amateurs grâce à des programmes ambitieux et originaux, donnés lors de nombreux concerts.\r\n\r\nEn plus de ses représentations à l\'Université, l\'orchestre est régulièrement invité par des théâtres et des festivals étudiants (Théâtre Molière de Poissy (95), Festival International de Musique Universitaire de Belfort...) et travaille à son rayonnement en région parisienne (Eglise Notre Dame du Travail, Maison des Pratiques Artistiques Amateurs de St Germain des Prés). Mélo\'dix a également l\'honneur d\'accompagner la finale du concours International de pianos \"Piano Campus\", à Pontoise.\r\n\r\nL\'Orchestre recrute toute l\'année de nouveaux musiciens, étudiants à Paris Nanterre ou non, après audition. Pour nous rejoindre : orc', 0x31, 0x31, 0, 181, 'http://www.orchestremelodix.com/', 'orchestremelodix@yahoo.fr', 'Université Paris Nanterre\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/melo-dix-12682.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/melo-dix_1524207969486-png');
+INSERT INTO `club` VALUES (2181, 'RCVA', NULL, '2020-12-28 20:31:43', 'L\'objectif de l\'association RCVA est de concevoir et réaliser deux robots pour participer aux Coupes de France et d\'Europe de Robotique et d\'y représenter l\'IUT de Ville d\'Avray et l\'Université de Paris Nanterre.\r\n\r\nLes tâches réalisées par l\'association sont multiples : recherche de partenariats, conception des robots (mécanique, électronique…), création du terrain, assemblage des robots, développement du logiciel informatique des robots, communication sur les réseaux sociaux / forums, participation à différents évènements et participation à la coupe de France et d\'Europe de Robotique.', 0x31, 0x31, 0, 181, 'http://www.rcva.fr', 'team.rcva@gmail.com', '1 chemin Desvallières\r\n92410 Ville d\'Avray\r\n\r\nPage Facebook : RCVA\r\nCompte twitter : @TEAM_RCVA', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/robot-concept-ville-d-avray-rcva--642364.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-rcva_1574241248201-png');
+INSERT INTO `club` VALUES (2191, 'Révolte-toi Nanterre', NULL, '2020-12-28 20:31:43', 'Révolte-toi Nanterre forme les orateurs de demain en proposant un entraînement hebdomadaire à la prise de parole en public, accessible à tous librement. Notre association a pour vocation la transmission des outils de perfectionnement de l\'élocution, de la capacité de persuasion et du talent d\'improvisation à travers des exercices scéniques et une initiation au débat parlementaire.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/rvtnanterre/', 'revtoi.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\n200, avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/revolte-toi-nanterre-571437.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/rvtn_1599566664430-png');
+INSERT INTO `club` VALUES (2201, 'Nanterre Hangagée', NULL, '2020-12-28 20:31:43', 'Nanterre Hangagée a pour objectif de sensibiliser la communauté universitaire à la question du handicap. Pour cela elle souhaite regrouper tous les acteurs voulant faire changer les choses, les étudiant·es en premier lieu. Par des actions d\'accompagnement, de formation et de sensibilisation, l\'association compte devenir un lieu incontournable pour toute personne qui désire changer le regard sur le handicap.', 0x31, 0x31, 0, 191, 'https://www.facebook.com/NanterreHangagee', 'nanterrehangagee@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°81\r\n200 av de la République\r\n92 001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/nanterre-hangagee-917312.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1560265644362-jpg');
+INSERT INTO `club` VALUES (2211, 'VH Insertion', NULL, '2020-12-28 20:31:43', 'Association ayant pour but de favoriser l\'insertion sociale et professionnelle des étudiant·es, notamment ceux et celles en situation de handicap, par le biais :\r\n- d\'actions de sensibilisation, de prévention et d\'éducation à la santé\r\n- d\'activités culturelles et sportives autour du handicap', 0x31, 0x31, 0, 191, NULL, 'vh(point)insertion(arobase)laposte(point)net', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°83\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/vh-insertion-925140.kjsp?RH=1390831346216', NULL);
+INSERT INTO `club` VALUES (2221, 'AMAP ETAL', NULL, '2020-12-28 20:31:43', 'L\'AMAP ETAL* est une association créée en 2013 qui appartient au réseau AMAP Ile-de-France et qui a pour objectif de réunir des consommateurs étudiants, des personnels de l\'Université Paris Nanterre et des producteurs partageant des valeurs communes telles que la solidarité et l\'écologie.\r\n\r\nL\'activité principale de l\'association consiste à organiser une distribution hebdomadaire de paniers de légumes aux adhérent·es tous les mercredis, sur deux créneaux horaires : 12h30-13h30 et 17h30-19h à la Maison de l\'Étudiant.e.\r\n\r\n*AMAP : Association pour le Maintien d\'une Agriculture Paysanne - ETAL : Et Tous Au Local', 0x31, 0x31, 0, 201, 'https://amapetal.wordpress.com', 'amap.etal@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant\r\nBoîte postale n°41\r\n200 avenue de la République\r\n92000 Nanterre\r\n\r\nPage Facebook : AMAP ETAL', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/amap-etal-nanterre-et-tous-au-local--539360.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1606229907878-png');
+INSERT INTO `club` VALUES (2231, 'Facteur Commun', NULL, '2020-12-28 20:31:43', 'Facteur Commun est une association de sensibilisation au respect de l\'environnement. L\'équipe travaille à créer des espaces de partage, d\'expression et d\'engagement autour de l\'écologie, et à participer à l\'information du public grâce à une médiation ludique et originale.', 0x31, 0x31, 0, 201, 'https://www.facebook.com/AssoFacteurCommun/', 'facteurcommun@ecomail-asso.com', '200 avenue de la République\r\nBoîte postale n°34\r\n92001 NANTERRE https://www.facteurcommun.com', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/facteur-commun-887382.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/facteur-commun_1547562561189-jpg');
+INSERT INTO `club` VALUES (2241, 'Les Unis Verts Nanterre', NULL, '2020-12-28 20:31:43', 'Notre association a pour but de sensibiliser la communauté universitaire à la protection de l\'environnement à travers des projets comme la distribution de packs 0 déchets, l\'installation d\'Ecosia sur tout le campus, l\'instauration de fontaines à eaux ou encore un vide-dressing inter-associatif.', 0x31, 0x31, 0, 201, 'https://www.facebook.com/lesunisverts', 'lesunisverts.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°24\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/les-unis-verts/les-unis-verts-nanterre-658882.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2020_1575893585889-jpg');
+INSERT INTO `club` VALUES (2251, 'Amphibix', NULL, '2020-12-28 20:31:43', 'Amphibix (BIX) est une association d\'animation mais avant tout de musique dont le but est d\'organiser des open air et des soirées tout au long de l\'année afin de contribuer au dynamisme de l\'université', 0x31, 0x31, 0, 211, 'https://www.facebook.com/asso.bix', 'bixparis10@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\nBoîte postale n°42\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/amphibix-536852.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2016_1484750916206-png');
+INSERT INTO `club` VALUES (2261, 'Le Cercle', NULL, '2020-12-28 20:31:44', 'Le Cercle est une association de pétanque de l\'université Paris Nanterre créée en 2015. Celle-ci a pour objet d\'animer la vie du campus de l\'Université Paris Nanterre à travers l\'organisation de tournois de pétanque et de divers événements autour de cette pratique (barbecue, soirée ... ).', 0x31, 0x31, 0, 211, 'https://www.facebook.com/pages/Le-Cercle/1423823117922557?', 'lecercle.paris10@hotmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (bât. R)\r\nBoîte postale n°33\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/le-cercle-612930.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1484752804325-jpg');
+INSERT INTO `club` VALUES (2271, 'La Cartouchière', NULL, '2020-12-28 20:31:44', 'Cette association a pour but : la découverte de la chasse et sa culture, l\'organisation de soirée, de repas et de sortie afin d\'illustrer le rôle majeur de la chasse dans les domaines de l\'art de vivre, de la gastronomie et de la table.\r\nElle a aussi pour but la sauvegarde de la vie animale, de la faire connaître et de la protéger. Enfin, elle a pour objectif la formation des étudiant·e·s de Paris Nanterre à l\'examen du permis de chasser et à la connaissance de la nature.', 0x31, 0x31, 0, 211, NULL, 'lacartouchiereparisx@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e - Boîte postale n°17\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-cartouchiere-807913.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/la-cartouchie-re-logo_1574944375834-jpg');
+INSERT INTO `club` VALUES (2281, 'La Huit', NULL, '2020-12-28 20:31:44', 'La Huit est une association de loisirs sur le thème du billard. Elle organise des tournois de billard et des afterworks tout au long de l\'année dans le but de divertir les étudiant·es de l\'université.', 0x31, 0x31, 0, 211, 'https://www.facebook.com/association.lahuit', 'association.lahuit@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R)\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-huit-743139.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/la-huit_1509446505016-png');
+INSERT INTO `club` VALUES (2291, 'La Rover', NULL, '2020-12-28 20:31:44', 'Créée en 2016, la Rover fait découvrir aux étudiant·es de Nanterre et d\'ailleurs des grandes villes européennes : Prague, Londres, Barcelone, Amsterdam, Bruxelles...\r\nFière de 2 voyages par an, elle participe aussi à la vie du campus avec des barbecues sur les pelouses et afterworks non loin de l\'université.', 0x31, 0x31, 0, 211, 'https://www.facebook.com/assorover', 'larover.parisnanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (bâtiment R)\r\n200 avenue de la République\r\n92000 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-rover-654511.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2017-_1496732483750-jpg');
+INSERT INTO `club` VALUES (2301, 'Nanterre Le Rouge', NULL, '2020-12-28 20:31:44', 'Cette association a pour objet l\'initiation, la découverte et la pratique de l\'œnologie, et tout cela dans une ambiance conviviale.', 0x31, 0x31, 0, 211, 'https://www.facebook.com/nanterrelerouge', 'nanterrelerouge@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bâtiment R)\r\n200, avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/nanterre-le-rouge-571436.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2017_1495626099846-jpg');
+INSERT INTO `club` VALUES (2311, 'F.A.X', NULL, '2020-12-28 20:31:44', 'La FAX a pour but de coordonner les actions de ses associations adhérentes et de représenter les étudiant·es de l\'Université Paris Nanterre aux différentes instances de l\'Université en défendant les intérêts tant collectifs qu\'individuels.', 0x31, 0x31, 0, 221, 'https://www.facebook.com/fax.associationsnanterre', 'association.fax@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R)\r\nLocal 207\r\n200, avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/fax-federation-des-associations--536819.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/fax-2-_1586174038633-jpg');
+INSERT INTO `club` VALUES (2321, 'UNEF Nanterre', NULL, '2020-12-28 20:31:44', 'L\'Union Nationale des Etudiants de France, première organisation étudiante, est le seul syndicat présent dans tous les établissements d\'Enseignement Supérieur. Cette implantation nationale ainsi que sa démarche syndicale fondée sur la construction d\'un rapport de force dans le but d\'obtenir des avancées concrètes lui donne une légitimité et une efficacité importantes. Indépendante des partis politiques, des administrations, comme des gouvernements, l\'UNEF intervient pour représenter, informer et défendre les étudiants quelle que soit leur filière ou leur origine.', 0x31, 0x31, 0, 221, 'https://www.facebook.com/unef.ntr', 'paris10@unef.fr', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (bât. R)\r\nLocal 206\r\n200 avenue de la République\r\n92000 Nanterre\r\n01 40 97 49 45', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/unef-nanterre-553940.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1485181183304-gif');
+INSERT INTO `club` VALUES (2331, 'UNI Paris Nanterre', NULL, '2020-12-28 20:31:44', 'L\'UNI a pour objectif de peser dans le débat universitaire et d\'offrir aux étudiants une organisation étudiante défendant un enseignement supérieur de qualité, qui se base sur des valeurs telles que le travail, le mérite et la responsabilité. Nous avons quatre priorités essentielles : l\'insertion professionnelle, la qualité de l\'offre de formation, la qualité des conditions d\'études ainsi que la liberté d\'expression et d\'opinion.', 0x31, 0x31, 0, 221, 'https://www.facebook.com/UNINanterre/', 'uni.nanterre@gmail.com', 'Université Paris Nanterre\r\nLocal F214\r\nBâtiment F', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/uni-paris-nanterre-795986.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/test-logo-uni_1508935085035-jpg');
+INSERT INTO `club` VALUES (2341, 'AltiSki Paris Nanterre', NULL, '2020-12-28 20:31:45', 'L\'association L\'Altiski Paris Nanterre, organise un voyage aux sports d\'hiver adaptés à l\'ensemble des étudiant·es, tant sur le plan financier que sur le plan récréatif. L\'association a pour but de se rapprocher des étudiant·es via des évènements organisés sur l\'Université.', 0x31, 0x31, 0, 231, NULL, 'altiski.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'étudiant·e (Bât. R)\r\nBoîte postale N°16\r\n200, av. de la République\r\n92001 Nanterre Cedex.', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/l-altiski-paris-nanterre--536165.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-altiski-_1567782760579-jpg');
+INSERT INTO `club` VALUES (2351, 'Bureau des Sports du Pôle Ville d\'Avray (BDS VDA)', NULL, '2020-12-28 20:31:45', 'Le Bureau des Sports de Ville-d\'Avray (BDS VDA) est une association étudiante qui a pour objectif de permettre aux étudiant·e·s du site de Ville-d\'Avray de pratiquer du sport en dehors des heures de cours. Nous proposons également aux adhérent·e·s de participer aux différents championnats nationaux de sport étudiant, ponctuellement de participer à des tournois sportifs et enfin d\'aller voir des matchs de championnats nationaux et européens tous ensemble.', 0x31, 0x31, 0, 231, 'https://www.facebook.com/bdsvda/', 'bds.vda@gmail.com', 'IUT Ville d\'Avray\r\n50 rue de Sèvres\r\n92410 Ville-d\'Avray', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/bureau-des-sports-du-pole-ville-d-avray-886473.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-bds-vda_1547021526671-jpg');
+INSERT INTO `club` VALUES (2361, 'Hooligans Paris Nanterre', NULL, '2020-12-28 20:31:45', 'L\'association« Hooligans» de Nanterre est l\'association de rugby universitaire de Paris Nanterre. Les \"Hools\" s\'entraînent tous les lundis au stade Vincent Pascucci et défendent vaillamment les couleurs de l\'université Paris Nanterre les jeudis lors des matchs du championnat universitaire.\r\nTroisième d\'île de France à XV et deuxième d\'île de France à VII l\'an dernier, l\'équipe connait ses meilleurs résultats depuis sa création !\r\n\r\nNouveauté cette année ! Création d\'une équipe de cheerleaders membres à part entière de l\'association ! Ouverts à toutes et à tous, les Hools vous attendent nombreux parmi eux, dans les gradins pour les encourager ou lors des autres activités organisées par l\'association.', 0x31, 0x31, 0, 231, 'https://www.facebook.com/hooligansparisx/', 'hooligansparisx@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'étudiant·e (Bâtiment R)\r\nBoîte postale n°90\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/hooligans-paris-nanterre-681236.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-hools-2017_1509001641750-jpg');
+INSERT INTO `club` VALUES (2371, 'Nanterre Association Voile (la NAV)', NULL, '2020-12-28 20:31:45', 'Créée fin 2008, la NAV est une association qui regroupe une trentaine d\'étudiants de Paris Nanterre autour d\'une passion commune : la voile. Grâce à sa motivation, la NAV\' a réussi à participer à différentes courses étudiantes chaque année depuis 2009, telles que la CCE (Course Croisière de l\'Edhec) et la SPI.', 0x31, 0x31, 0, 231, 'https://www.facebook.com/Asso-Nav-1627239174192425', 'assonav@outlook.fr', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°35\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-nav-nanterre-association-de-voile--525229.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1484754921747-png');
+INSERT INTO `club` VALUES (2381, 'Red Rams', NULL, '2020-12-28 20:31:45', 'Association sportive de football américain universitaire évoluant au sein de l\'Université Paris Nanterre. A l\'image des valeurs qu\'elle défend, c\'est-à-dire celles de la jeunesse et du sport, l\'association regroupe un ensemble de centre d\'intérêts propres aux étudiant·es et au collectif qui a permis sa création.', 0x31, 0x31, 0, 231, 'redramsnanterre@gmail.com', 'redramsnanterre@gmail.com', NULL, 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/red-rams-811568.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/redrams_1512392256235-jpg');
+INSERT INTO `club` VALUES (2391, 'L\'ALTISKI PARIS NANTERRE', NULL, '2020-12-28 20:31:45', 'L\'association L\'Altiski Paris Nanterre, organise un voyage aux sports d\'hiver adaptés à l\'ensemble des étudiant·es, tant sur le plan financier que sur le plan récréatif. L\'association a pour but de se rapprocher des étudiant·es via des évènements organisés sur l\'Université.', 0x31, 0x31, 0, 231, NULL, 'altiski.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'étudiant·e (Bât. R)\r\nBoîte postale N°16\r\n200, av. de la République\r\n92001 Nanterre Cedex.', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/l-altiski-paris-nanterre--536165.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-altiski-_1567782760579-jpg');
+INSERT INTO `club` VALUES (2401, 'Amnesty International Groupe Jeunes 3047 (antenne)', NULL, '2020-12-28 20:31:45', 'Les Antennes Jeunes sensibilisent leur environnement aux droits humains, font vivre le mouvement dans leur région : elles diffusent les informations reçues mensuellement, relaient les actions menées au niveau national, mobilisent la presse locale, organisent des événements... et plus selon vos idées !', 0x31, 0x31, 0, 241, 'https://www.facebook.com/AJnanterre', 'amnesty.uparisnanterre@gmail.com', 'Maison des associations\r\n11 rue des Anciennes Mairies\r\n92000 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/amnesty-international-groupe-jeunes-3047-717005.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1485360683166-jpeg');
+INSERT INTO `club` VALUES (2411, 'Antenne Jeunes UNICEF Campus Paris Nanterre', NULL, '2020-12-28 20:31:46', 'L\'Antenne UNICEF Campus Nanterre a pour but la sensibilisation et la récolte de dons. A travers divers événements tels que le Talent Show, le concours d\'éloquence inter-antennes ou encore des ventes de gâteaux, elle contribue à son échelle à soutenir l\'UNICEF.\r\n\r\nL\'UNICEF France a pour mission de sensibiliser le public, les institutions, les médias, les leaders d\'opinion et les acteurs économiques français à la situation des enfants, de contribuer à l\'éducation des jeunes à la solidarité, de collecter des ressources pour contribuer aux actions de l\'UNICEF dans le monde, et de veiller au respect de la Convention Internationale des Droits de l\'Enfant en France.', 0x31, 0x31, 0, 241, 'https://www.facebook.com/unicef.paris.nanterre/', 'unicef.parisouest@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°52\r\n200 av. de la République\r\n92001 Nanterre Cedex\r\n\r\nwww.unicef.fr', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/antenne-unicef-campus-paris-nanterre-539357.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-unicef-campus_1582288821024-jpg');
+INSERT INTO `club` VALUES (2421, 'Une Couverture Pour l\'Hiver UCPH', NULL, '2020-12-28 20:31:46', 'Une Couverture Pour l\'Hiver est une association à majorité étudiante d\'aide aux personnes sans-abri. Lors de maraudes hebdomadaires, les bénévoles vont à la rencontre des personnes à la rue afin de lutter contre leur exclusion et apporter des produits de première nécessité. UCPH participe à la déconstruction des cliché et à l\'éveil des consciences en organisant des actions de sensibilisation. Une antenne UCPH est présente sur le campus de Nanterre.', 0x31, 0x31, 0, 241, 'www.unecouverture.fr', 'unecouverture@gmail.com', '322, rue Saint-Jacques\r\n75005, Paris', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/une-couverture-pour-l-hiver-antenne--883375.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/ucph_1544695965100-png');
+INSERT INTO `club` VALUES (2431, 'Amicale des Étudiant·es Sénégalais·es (AMESEN)', NULL, '2020-12-28 20:31:46', 'L\'Amicale des Etudiant·es Sénégalais de l\'Université Paris Nanterre (AMESEN) est une initiative estudiantine qui prit conscience de la détresse, du manque d\' information et d\'orientation des primo-arrivant.e.s. Conscient.e.s de l\'importance d\'une arrivée réussie à l\'université, l\'amicale se donne pour vocation d\'accueillir, d\'informer, d\'orienter et d\'accompagner les étudiant·es dans leurs vies estudiantines et démarches administratives pour la réalisation de leurs projets universitaires.\r\nPar ailleurs, pour faciliter un rapport convivial entre étudiant·es, des journées portes ouvertes, des sorties pédagogiques, des journées culturelles sont régulièrement organisées par l\'amicale. L\'association est un lieu de sociabilité, de partage et d\'entre aide dans un esprit de \"Terranga\" Sénégalaise.', 0x31, 0x31, 0, 251, NULL, 'etudiantsenegalais.nanterre1@gmail.com', 'Maison de l\'Étudiant·e\r\nBoîte postale n°80\r\nUniversité Paris Nanterre\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/amicale-des-etudiant-es-senegalais-es-914792.kjsp?RH=1390831346216', NULL);
+INSERT INTO `club` VALUES (2441, 'Nanterasmus', NULL, '2020-12-28 20:31:46', 'L\'association Nanterasmus permet aux étudiant·e·s étranger·e·s ayant choisi d\'étudier à l\'Université Paris Nanterre de se rencontrer à travers des événements pouvant être d\'origine culturelle et festive. Nous leur organisons des sorties diverses et variées afin qu\'ils rencontrent à la fois des étudiant·e·s en Erasmus et des français·e·s.', 0x31, 0x31, 0, 251, 'https://www.facebook.com/nanterasmusparis10/', 'nanterasmus@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R)\r\nBoîte postale n°49\r\n200 Avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/nanterasmus-571435.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/nanterasmus_1551083140293-jpg');
+INSERT INTO `club` VALUES (2451, 'Primo', NULL, '2020-12-28 20:31:46', 'Primo a pour but de promouvoir la culture italienne à Paris Nanterre. Ouverte à toutes et à tous, Primo souhaite offrir un nouveau regard sur l\'Italie à travers des actions enrichissantes et conviviales, tout en favorisant l\'échange entre étudiant·e·s. Elle propose des événements culturels, festifs et accompagne les élèves s\'engageant dans des cursus italiens.', 0x31, 0x31, 0, 251, 'https://www.facebook.com/PrimoAssociationNanterre/', 'primonanterre@gmail.com', 'https://primonanterre.wordpress.com/', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/primo-811287.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/primo_1516108584244-jpg');
+INSERT INTO `club` VALUES (2461, 'Réseau des étudiants guinéens de Nanterre (REGN)', NULL, '2020-12-28 20:31:46', 'Le REGN (Réseau des étudiants Guinéens de Nanterre) est une association regroupant des étudiant·e·s guinéen·ne·s de l\'université Paris Nanterre ainsi que d\'autres étudiant·e·s partagent les mêmes valeurs dans :\r\nL\'accueil et l\'intégration des nouveaux étudiants guinéens à l\'université de Nanterre;\r\nle maintien des liens et d\'entraide mutuelle ;\r\nl\'organisation des activités socioculturelles pour le bien de tous.', 0x31, 0x31, 0, 251, 'https://www.facebook.com/REGNANTERRE/', 'regnanterre.asso@gmail.com', 'Université Paris Nanterre\r\n200 Avenue de la République\r\nMaison de l\'Étudiant·e - Boîte postale n°23 92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/reseau-des-etudiants-guineens-regn--845372.kjsp?RH=1390831346216', NULL);
+INSERT INTO `club` VALUES (2471, 'Collectif Féministe Intersectionnel de Nanterre', NULL, '2020-12-28 20:31:46', 'Le Collectif Féministe Intersectionnel de Nanterre (COFIN) cherche à donner parole et visibilité aux personnes assignées et/ou identifiées femmes, aux personnes trans, aux personnes racisées, aux personnes à l\'identité de genre ou orientation sexuelle non normative et à toute personne qui s\'identifierait à nos luttes et nos valeurs. Notre féminisme est inclusif et matérialiste.\r\nÀ travers ateliers, conférences, réunions, expression académique et alternative, nous entendons être un espace d\'échanges et pédagogie et fournir un environnement où chacun·e peut trouver et apporter soutien, réflexion et évolution individuelle et collective.', 0x31, 0x31, 0, 261, 'https://www.facebook.com/CFeministeNU/', 'collectif.feministe.nanterreu@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°86\r\n200 Avenue de la République\r\n92001 Nanterre CEDEX', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/collectif-feministe-intersectionnel--931967.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/cofin_1568619463869-jpg');
+INSERT INTO `club` VALUES (2481, 'Étudiants Marxistes de Nanterre', NULL, '2020-12-28 20:31:46', 'Le but du Cercle Marxiste est d\'offrir aux étudiant·es et personnels de l\'université un espace de discussion sur les idées du marxisme, mais aussi un espace politique, et de débat.', 0x31, 0x31, 0, 261, 'https://www.facebook.com/cerclemarxisteP10', 'cmarxisteP10@gmail.com', 'Université Paris Nanterre\r\n200 avenue de la République\r\nMaison de l\'Étudiant·e - Boîte postale n°38\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/etudiants-marxistes-de-nanterre-768392.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/emn_1554975735762-png');
+INSERT INTO `club` VALUES (2491, 'Etudiants Musulmans de France Nanterre (EMF Nanterre)', NULL, '2020-12-28 20:31:46', 'EMF Nanterre se consacre à l\'amélioration de la vie étudiante. Elle s\'efforce de veiller au bien-être et à l\'épanouissement de tous les étudiant·es, en les guidant et en les soutenant; sans aucune distinction. De vocation socioculturelle, EMF inscrit son action au sein du campus, son champ naturel d\'action, sans pour autant négliger le rayonnement sur la ville et les questions liées à la société.', 0x31, 0x31, 0, 261, 'https://www.facebook.com/emf.nanterre.18', 'presidence@nanterre.emf-asso.com', 'Université Paris Nanterre\r\nMaison de l\'Etudiant·e\r\nBoîte postale n°92\r\n200 avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nwww.emf-asso.com', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/etudiants-musulmans-de-france-nanterre-955825.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1607677519001-jpg');
+INSERT INTO `club` VALUES (2501, 'Le Cas Réouvert', NULL, '2020-12-28 20:31:46', 'Cette association a pour objet de promouvoir le dialogue et le de´bat sur des the´matiques de socie´te´ et d\'actualite´, inviter a` l\'e´coute des diffe´rentes opinions e´nonce´es ainsi qu\'a` la conside´ration de celles-ci dans le champ des ide´es.', 0x31, 0x31, 0, 261, NULL, 'lecasreouvert@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n° (à venir)\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/le-cas-reouvert-988468.kjsp?RH=1390831346216', NULL);
+INSERT INTO `club` VALUES (2511, 'L\'Óra du débat', NULL, '2020-12-28 20:31:47', 'Óra a pour but de créer des conférences entre membres associatifs, personnages publics et universitaires, autour des sujets primordiaux de notre époque. Nos conférences seront basées sur des valeurs : le partage, l\'entraide, la solidarité, le respect, l\'égalité, la liberté, la démocratie... Vous pourrez retrouver sur la page Facebook l\'ensemble de nos activités mais aussi de quoi vous repérer au sein de l\'Université Paris Nanterre.', 0x31, 0x31, 0, 261, 'https://ora81.webnode.fr/', 'ora.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°28\r\n200 av. de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook : loradudebat', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/l-ora-du-debat-863265.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/ora_1537796349796-jpg');
+INSERT INTO `club` VALUES (2521, 'Model United Nations Society Paris Nanterre', NULL, '2020-12-28 20:31:47', 'Model United Nations Society Paris Nanterre (MSPN)\r\n\r\nLa MUN Society Paris Nanterre a pour objectif principal de promouvoir les objectifs de l\'Organisation des Nations Unies. Nous organisons et participons à des simulations sur le modèle de l\'ONU qui se déroulent en anglais. Les débats portent sur l\'actualité internationale, les relations internationales et le droit international. Cela permet aux étudiant·es de travailler non seulement leur anglais mais également leur culture générale et leur éloquence.', 0x31, 0x31, 0, 261, 'https://www.facebook.com/mspnofficial', 'societyparisnanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\nBoîte postale n°29\r\n200 avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nInstagram @mspn_official', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/model-united-nations-society-universite--667660.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/mspn2_1571645900665-jpg');
+INSERT INTO `club` VALUES (2531, 'Solidaires Etudiant-e-s Paris Nanterre', NULL, '2020-12-28 20:31:47', 'Nous appartenons à la fédération Solidaires Étudiant.e.s qui est un syndicat étudiant, membre de l\'Union syndical solidaire. Nous défendons les droits des étudiants et étudiantes au quotidien, au niveau des conditions d\'études, de logement, des inscriptions, des bourses, des examens... Nous combattons toute forme d\'oppression ( sexisme, racisme, validisme...) et militons pour une transformation sociale.', 0x31, 0x31, 0, 261, 'https://www.facebook.com/SolidairesEtudiantParisX/', 'solidaires.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (bât. R)\r\nLocal 205\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/solidaires-etudiant-e-s-526771.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/solidaires-nanterre_1586246083721-png');
+INSERT INTO `club` VALUES (2541, 'Union Générale Etudiante de Nanterre-FSE (UGEN FSE)', NULL, '2020-12-28 20:31:47', 'Union Générale Étudiante de Nanterre - FSE', 0x31, 0x31, 0, 261, 'https://www.facebook.com/FSE.Nanterre/', 'fse.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°96\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/ugen-fse-981324.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1601043147264-jpg');
+INSERT INTO `club` VALUES (2551, 'ACFA', NULL, '2020-12-28 20:31:47', 'Association du cursus franco-allemand en droit de l\'université Paris Nanterre/ Potsdam\r\n\r\nL\'Association du Cursus de droit Franco-Allemand Paris Nanterre / Potsdam, fondée en 2008, vise à rassembler les différents étudiant·es du bi-cursus de l\'Université Paris Nanterre / Universität Potsdam. Elle permet d\'établir un lien entre les anciens étudiant·es du cursus, diplômés, et les étudiant·es actuels, de la licence au master.', 0x31, 0x31, 0, 271, 'https://acfananterre.wordpress.com/', 'acfa.info@gmail.com', 'Université Paris Nanterre\r\n200 avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook ACFA', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/acfa-539366.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2017_1480670937066-jpg');
+INSERT INTO `club` VALUES (2561, 'ADER', NULL, '2020-12-28 20:31:48', 'L\'Association des Etudiant·es en Droit - Études Russes (ADER) a comme activité principale la promotion de la culture russophone et le développement de la cohésion, l\'entraide, ainsi que les échanges culturels, professionnels et académiques pour l\'ensemble des étudiants et étudiantes russophones et russophiles de l\'Université Paris Nanterre.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/aderparisx/', 'ader.parisx@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°82\r\n200 av de la République\r\n92 001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/ader-droit-etudes-russes--917315.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/ader_1566215041064-jpg');
+INSERT INTO `club` VALUES (2571, 'ADPN', NULL, '2020-12-28 20:31:48', 'L\'ADPN est l\'association du M2 de droit pénal et sciences criminelles.\r\nElle réunit les étudiant·es du M2 de droit pénal et sciences criminelles et participe à la cohésion de la promotion. Elle a pour but de promouvoir le droit pénal et permet d\'échanger à propos de l\'actualité pénale française et étrangère.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/ADPNanterre/', 'm2adpn@gmail.com', 'Université Paris Nanterre\r\nCDPC\r\nBâtiment Simone Veil - 4è étage\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/association-de-droit-penal-de-nanterre-798492.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-adpn_1508157681844-jpg');
+INSERT INTO `club` VALUES (2581, 'AEDIN', NULL, '2020-12-28 20:31:48', 'Association des Étudiant·es de Droit International de Nanterre (AEDIN)\r\n\r\nL\'Association développe les relations entre les ancien·nes, actuel·les et futur·es étudiant·es du Master Théorie et pratique du droit international et européen', 0x31, 0x31, 0, 271, 'https://www.aedin.fr/', 'aedin.nanterre@gmail.com', 'Université Paris Nanterre\r\nCEDIN, UFR DSP Bureau 136\r\nBâtiment Simone Veil\r\n200, Avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/aedin-droit-international--595163.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/aedin_1580718958172-png');
+INSERT INTO `club` VALUES (2591, 'AEDSN', NULL, '2020-12-28 20:31:48', 'L\'Association des Étudiant·e·s en droit social de Nanterre (AEDSN) a pour buts de tisser du lien, un réseau d\'entraide entre étudiant·es et \"alumnis\" du Master Droit Social de Nanterre, d\'organiser la remise des diplômes et des activités \"hors-les murs\" de l\'Université.', 0x31, 0x31, 0, 271, 'http://aedsn92.wixsite.com/aedsn', 'aedsn92@gmail.com', 'Université Paris Nanterre\r\nBâtiment Veil - 518\r\n200 av. de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook : AEDSN - Droit Social Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/aedsn-etudiant-e-s-en-droit-social--873088.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/aedsn_1541151130010-jpg');
+INSERT INTO `club` VALUES (2601, 'AJEDA', NULL, '2020-12-28 20:31:48', 'L\'Association des Juristes Européens d\'Affaires (AJEDA) a pour objet d\'assurer la renommée du Master 2 Droit des Affaires Parcours Juriste Européen des Affaires de l\'Université Paris-Nanterre, favoriser les interactions entre étudiant·es et avec les professionnel·les ainsi que parfaire la formation juridique de ses membres par l\'organisation d\'évènements divers.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/AJEDA.ParisNanterre/', 'ajeda.parisnanterre@gmail.com', 'Université Paris Nanterre\r\n200 av. de la République\r\nMaison de l\'Étudiant·e\r\nBoîte Postale n°30\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/ajeda-juristes-europeens-d-affaires--873090.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/ajeda_1541152194113-jpg');
+INSERT INTO `club` VALUES (2611, 'APX', NULL, '2020-12-28 20:31:48', 'L\'association des Publicistes de l\'Université Paris Nanterre (APX) a pour objet :\r\n\r\n1-Favoriser le lien entre les différentes promotions des Master 2 Droit public financier et Droit public général\r\n2- Promouvoir l\'activité et l\'action des étudiant·es concerné·es dans un objectif de visibilité et de réputation des diplômes\r\n3- Faciliter l\'entraide et l\'intégration entre étudiant·es via l\'organisation d\'événements\r\n4- Offrir un soutien matériel', 0x31, 0x31, 0, 271, NULL, 'associationdpgdpf@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°94\r\n200 av. de la République\r\n92000 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/association-des-publicistes-apx--717004.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/apx_1591685081965-jpg');
+INSERT INTO `club` VALUES (2621, 'Association du Master 2 CIE', NULL, '2020-12-28 20:31:48', 'L\'association du Master 2 Contentieux International et Européen (CIE) s\'occupe de la vie du master et de ses adhérent·es en organisant des colloques, visites de cabinets et des remises de diplômes.', 0x31, 0x31, 0, 271, 'https://master2cie.info/', 'master2cienanterre@gmail.com', 'Université Paris Nanterre\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/association-du-master-2-cie-751937.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-m2_1587374040088-png');
+INSERT INTO `club` VALUES (2631, 'Association du Master 2 DACA', NULL, '2020-12-28 20:31:48', 'Association du Master 2 Droit des Affaires - Contentieux des Affaires\r\n\r\nL\'association tend à établir des relations personnelles, régulières et dynamiques entre étudiant·es et anciens étudiant·es du master II professionnel de droit des affaires spécialité contentieux des affaires de l\'université Paris Nanterre, convaincus de la haute valeur du diplôme, d\'assurer la promotion du diplôme.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/master2daca', 'm2daca@gmail.com', 'Siège social : Université Paris Nanterre\r\nAdresse de gestion (postale) : 106, résidence Élysée 2 78170 La Celle Saint-Cloud', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/association-du-master-2-daca-833642.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-ass-m2-daca_1606396552793-jpg');
+INSERT INTO `club` VALUES (2641, 'Common West', NULL, '2020-12-28 20:31:48', 'Association de la bi-licence Droit Français / Common Law\r\n\r\nCommon West est l\'association des étudiant·es de la bi-licence Droit français / Common Law. Dans un esprit d\'entraide et de soutien, nous organisons parrainages, conférences, visites et voyages, mais nous tenons également à participer à la bonne ambiance sur le campus, parfois en partenariat avec d\'autres associations, en promouvant la culture anglo-saxonne.', 0x31, 0x31, 0, 271, 'http://commonwest.com', 'commonwest.asso@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (bât. R)\r\nBoîte Postale n° 43\r\n200 avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook Common West', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/common-west-553610.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-common-west_1605886790539-png');
+INSERT INTO `club` VALUES (2651, 'ELSA Paris Nanterre', NULL, '2020-12-28 20:31:48', 'L\'association ELSA Paris Nanterre est l\'association européenne des étudiant·es en droit, association apolitique présente dans 44 pays européens et comptant 50 000 adhérent·es.\r\nElle a pour objectif :\r\n- de contribuer à la formation juridique des étudiant·e·s en droit\r\n- favoriser et intensifier la coopération entre les étudiant·e·s en droit\r\n- permettre la rencontre entre étudiant·es et professionnel·les du droit (séminaires, colloques et voyages d\'étude).', 0x31, 0x31, 0, 271, 'https://www.facebook.com/elsaparisnanterre/', 'nanterre@fr.elsa.org', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte Postale n°58\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/elsa-paris-nanterre-792904.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/elsa_1530086674566-png');
+INSERT INTO `club` VALUES (2661, 'Istya', NULL, '2020-12-28 20:31:48', 'Cette association a pour objet de mettre en lumière les différentes professions liées au domaine juridique, cela par le biais d\'interviews. Dans chaque vidéo, un professionnel du droit sera interrogé sur différents points tel que l\'accès à la profession, les avantages / inconvénients... Des questions liées à l\'actualité pourront également être abordées afin de comparer leurs analyses.', 0x31, 0x31, 0, 271, 'https://www.instagram.com/istyassociation/', 'istya.association@hotmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\nBoîte postale n°87\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/istya--948729.kjsp?RH=1390831346216', NULL);
+INSERT INTO `club` VALUES (2671, 'Juris Club Paris Ouest', NULL, '2020-12-28 20:31:49', 'L\'association Juris Club Paris Ouest vise à la représentation et la mobilisation des étudiants en droit autour de la mise en place d\'une permanence juridique gratuite et bénévole accessible à tous, tenue par des étudiants avec le concours et la supervision de professeurs et avocats.', 0x31, 0x31, 0, 271, 'https://jurisclubparisouest.wordpress.com/', 'jurisclub.parisouest@outlook.fr', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R)\r\n200 avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook : Juris Club Paris Ouest', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/juris-club-paris-ouest-547593.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-juris_1606739131629-jpg');
+INSERT INTO `club` VALUES (2681, 'La Convention de Nanterre', NULL, '2020-12-28 20:31:49', 'Cette association a pour but l\'organisation et la diffusion de débats, de conférences et d\'entretiens alliant le milieu universitaire juridique et les personnalités publiques.', 0x31, 0x31, 0, 271, NULL, 'laconventiondenanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°84\r\n200 av. de la République\r\n92001 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-convention-de-nanterre-930711.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/cdn_1568015137568-png');
+INSERT INTO `club` VALUES (2691, 'Lame de Fond', NULL, '2020-12-28 20:31:49', 'La Lame de Fond, association sans couleur politique, forte de ses 37 ans d\'ancienneté au sein de l\'UFR de Droit, est un pourvoyeur de distraction de l\'Université. Elle a pour but d\'animer la vie étudiante sur le campus de l\'Université.\r\nElle organise des événements tels que le week-end d\'intégration, et plusieurs soirées dont la célèbre soirée d\'Halloween... Par ailleurs, elle organise aussi des événements sur le campus pour permettre une certaine cohésion entre les étudiant·e·s (barbecues, activités sur les pelouses etc.).\r\nCette association participe à la vie étudiante et aide chacun et chacune à sortir de l\'anonymat et à grandir pleinement au sein de l\'Université. Elle exprime une volonté implacable de transmettre ses valeurs étudiantes que sont le partage, la liberté d\'expression ainsi que l\'acceptation de sa prochaine ou son prochain.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/Assolamedefond?fref=ts', 'lame.de.fond@live.fr', 'Université Paris Nanterre\r\nBâtiment Simone Veil\r\nLocal 214 bis\r\n200 Avenue de la République\r\n92000 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/lame-de-fond-536200.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1401819961347-jpg');
+INSERT INTO `club` VALUES (2701, 'La Vieille de Nanterre', NULL, '2020-12-28 20:31:49', 'La Vieille de Nanterre (anciennement MBDE), fondée en 1987, a pour but d\'animer la vie étudiante de l\'Université. Elle organise la soirée de Noël, le Gala de fin d\'année, des conférences juridiques et autres, des barbecues, des afterworks ainsi que le week-end d\'intégration.\r\nElle met également à disposition des étudiant.e.s en droit et autres filières le site droitdesavoir qui répertorie les annales des UFR ainsi que des conférences avec des professionnels du droit et autres.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/LaVieilleDeNanterre', 'lavieilledenanterre@gmail.com', 'Université Paris Nanterre\r\nBoîte postale : Maison de l\'Étudiant·e - BP n°63\r\nLocal : Bâtiment Veil - F214\r\n200 Avenue de la République\r\n92000 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-vieille-de-nanterre-ex-mbde--536408.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1505220439733-png');
+INSERT INTO `club` VALUES (2711, 'Le Juristicier', NULL, '2020-12-28 20:31:49', 'Le juristicier est une association de droit.\r\nSon but est d\'apporter un aspect pratique du droit en parallèle du côté théorique qu\'offre l\'Université. Pour cela, elle organisera des rencontres entre praticien·nes et étudiant·es sur des aspects techniques (comment réussir le concours de l\'ENM ou du Barreau ? En quoi consiste réellement le métier d\'avocat d\'affaire?...).\r\nAussi, l\'association tiendra une gazette juridique mensuelle.', 0x31, 0x31, 0, 271, NULL, 'lejuristicier@outlook.fr', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\nBoîte postale n°88\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/le-juristicier-950111.kjsp?RH=1390831346216', NULL);
+INSERT INTO `club` VALUES (2721, 'Themis Paris Nanterre', NULL, '2020-12-28 20:31:49', 'L\'association Thémis aide les étudiants et étudiantes en droit à trouver leur voie.\r\nPour cela, nous organisons des rencontres entre professionnels du droit et étudiant·es lors de conférences. Nous permettons également aux étudiant·es de licence et de master d\'échanger sur les différents parcours possibles lors de cafés master. Enfin, nous présentons les études de droit dans les lycées.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/themisparisnanterre', 'themisparisnanterre@gmail.com', 'Université Paris Nanterre Maison de l\'Étudiant·e\r\nBP n°78\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/themis-paris-nanterre-906828.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2020_1600672509517-jpg');
+INSERT INTO `club` VALUES (2731, 'AFAGE', NULL, '2020-12-28 20:31:49', 'AFAGE : Association Franco-Allemande en Gestion et en Économie\r\n\r\nL\'AFAGE a pour objectif de promouvoir le cursus intégré franco-allemand en sciences économiques / gestion ainsi que le double master en management franco allemand de PME et entreprenariat.', 0x31, 0x31, 0, 271, 'https://ecofrall.com/afage', 'info.afage@gmail.com', 'Adresse postale :\r\nUniversité Paris Nanterre\r\n200 av. de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook : @assofrancoallemandegestioneconomie', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/association-franco-allemande-en-gestion--750331.kjsp', 'https://culture.parisnanterre.fr/medias/photo/afage_1594640224269-png');
+INSERT INTO `club` VALUES (2741, 'AEMEDN', NULL, '2020-12-28 20:31:49', 'L\'Association des Étudiant·es du Master d\'Economie du Droit de l\'Université Paris Nanterre (AEMEDN) a pour objet d\'aider les étudiant·es du master pour la recherche de stage, l\'entraide entre le Master 1 et le Master 2, de conserver des liens entre ses membres nouveaux et anciens, et de promouvoir l\'association à travers son site internet et des conférences.', 0x31, 0x31, 0, 271, 'http://mastereconomiedudroit.fr/category/presentation/lassociation/', 'aed.upond@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n° (à venir)\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/association-master-d-economie-du-droit-988465.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-clean_1605513432002-png');
+INSERT INTO `club` VALUES (2751, 'Eden Miage', NULL, '2020-12-28 20:31:50', 'Etudiants DE Nanterre en MIAGE (EDEN MIAGE)\r\nLe BDE MIAGE Nanterre est une association étudiante qui a pour principal but d\'animer la vie des étudiant·es du parcours MIAGE.', 0x31, 0x31, 0, 271, 'bde.miagenanterre.fr', 'president@bde.miagenanterre.fr', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°93\r\n200 avenue de la République\r\n92001 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/bde-miage-nanterre-alias-eden-miage-531017.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1581429817311-jpg');
+INSERT INTO `club` VALUES (2761, 'Paris Nanterre Finance Club', NULL, '2020-12-28 20:31:50', 'Le Paris Nanterre Finance Club est ne´ il y a maintenant plus d\'un an, et s\'est construit autour d\'un constat simple : l\'universite´ Paris Nanterre est tre`s proche du plus grand centre d\'affaires europe´en, mais rien ne les lie. Le but de notre association est de faciliter l\'insertion professionnelle des e´le`ves dans les domaines de la Finance, le conseil, le management et la strate´gie. Pour ce, nous nous efforc¸ons de ba^tir un re´seau solide et de pre´parer les e´le`ves aux futurs me´tiers qu\'ils exerceront.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/Nanterre.financeclub/', 'financeclub.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\nBoîte postale n°25\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/paris-nanterre-finance-club-824066.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/p-finance-club_1520238489031-jpeg');
+INSERT INTO `club` VALUES (2771, 'Les Alhumés', NULL, '2020-12-28 20:31:50', 'L\'association Les Alhumés a pour vocation de rapprocher les étudiants de la licence Humanités tout en s\'ouvrant à l\'ensemble de l\'université. Elle souhaite élargir l\'horizon culturel des étudiants en proposant des tarifs réduits (concerts, théâtre, festival, expositions…) et en les soutenant dans l\'élaboration de projets. Enfin, elle participe à dynamiser la vie étudiante du campus lors d\'apéros-concerts ouverts à tous.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/Les-Alhum%C3%A9s-Licence-Humanit%C3%A9s-825874720804437', 'les.alhumes@gmail.com', 'Université Paris Nanterre\r\n200 avenue de la République\r\nMaison de l\'Étudiant (bât. R)\r\nLocal 106\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/les-alhumes-524811.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/alhumes_1510065141327-png');
+INSERT INTO `club` VALUES (2781, 'Ciné Rebelle', NULL, '2020-12-28 20:31:50', 'Cette association a pour but l\'organisation du festival Ciné Rebelle, un festival de cinéma engagé et organisé dans le cadre du TD de programmation. Notre ligne directrice : sortir des sentiers battus.', 0x31, 0x31, 0, 271, 'https://festivalcinerebelle.com/', 'cinerebelle@gmail.com', 'Maison de l\'Étudiant·e\r\nBoîte postale n°79\r\nUniversité Paris Nanterre\r\n200 av. de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook Festival Ciné-Rebelle', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/cine-rebelle-914775.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-cine-rebelle_1573825622649-jpg');
+INSERT INTO `club` VALUES (2791, 'Association d\'Ergonomie, de Psychologie du Travail et de l\'Orientation (AEPTO)', NULL, '2020-12-28 20:31:50', 'L\'Association de Psychologie du Travail et d\'Ergonomie de Paris Nanterre a pour but de valoriser les formations de Master en Ergonomie, en Psychologie du travail et des organisations et en Psychologie de l\'Orientation de l\'Université Paris Nanterre. L\'association souhaite augmenter la visibilité de ces formations auprès des étudiants de Licence de Psychologie. L\'association cherche également à constituer un réseau entre les étudiants et les anciens étudiants issus de cette formation.', 0x31, 0x31, 0, 271, NULL, 'ergopsyori@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°95\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/apte-x-981453.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-apte-x_1605278184936-png');
+INSERT INTO `club` VALUES (2801, 'Psych\'X', NULL, '2020-12-28 20:31:50', 'Cette association a pour objet d\'accompagner les étudiant·es de la filière de psychologie durant leur parcours universitaire et ce par différents moyens :\r\n- La représentation des étudiant·es auprès de l\'université et d\'entités extérieures\r\n- La prévention en mettant en place divers événements de sensibilisations sur la santé\r\n- La culture en proposant des activités permettant l\'ouverture d\'esprit\r\n- Le divertissement par le biais de divers événements festifs afin de fédérer les étudiants.', 0x31, 0x31, 0, 271, 'psychx.paris10@gmail.com', 'psychx.paris10@gmail.com', NULL, 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/psych-x-676495.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/psychx_1513608489301-png');
+INSERT INTO `club` VALUES (2811, 'ASEGA', NULL, '2020-12-28 20:31:50', 'Association Solidaire des Étudiants en Gestion Associative\r\nL\'associatio ASEGA est l\'association des étudiants de la Licence professionelle Gestion des organisations de l\'Economie Sociale et solidaire de l\'Université de Paris Nanterre. Elle poursuit de nombreux but dont : De réaliser et soutenir des actions en lien avec la vie associative / de véhiculer de valeurs de solidarité. Le projet important de l\'ASEGA est la gestion de l\'épicerie sociale AGORAé.', 0x31, 0x31, 0, 271, NULL, 'asega92parisnanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale 57\r\n200 avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nMail de l\'épicerie solidaire : agoraeparisnanterre@gmail.com\r\nPage Facebook : Epicerie Solidaire AGORAé Paris Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/asega-772394.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-asega_1495199631366-jpg');
+INSERT INTO `club` VALUES (2821, 'ENAPE', NULL, '2020-12-28 20:31:50', 'Etudiant-e-s de Nanterre en Anthropologie, Préhistoire et Ethnomusicologie (ENAPE)\r\nL\'association a pour but de réunir les étudiant·e·s de la filière d\'anthropologie, et de nourrir une réflexion critique et transciplinaire sur les disciplines de l\'anthropologie, de l\'ethnomusicologie et de la préhistoire.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/ENAPEnanterre/', 'enape.parisnanterre@gmail.com', 'Université Paris Nanterre\r\nBureau E111 - Bâtiment Clémence Ramnoux\r\n200 avenue de la République\r\n9200 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/enape-820401.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/enape_1516095163740-jpg');
+INSERT INTO `club` VALUES (2831, 'Hypothémuse', NULL, '2020-12-28 20:31:51', 'Association des étudiants du Master 2 Conduite de projets culturels et connaissance des publics\r\n\r\nL\'association Hypothémuse a pour principal objectif la valorisation du Master 2 \"Conduite de projets culturels et connaissance des publics\". Acteur à part entière de la vie de l\'Université, l\'association organise chaque année un grand festival pluridisciplinaire et gratuit sur l\'ensemble du campus de Nanterre, à destination des étudiants, du personnel et du corps enseignant.', 0x31, 0x31, 0, 271, 'http://hypothemuse.org', 'hypothemuse@gmail.com', 'Université Paris Nanterre\r\nUFR SSA\r\nBat.Henri Lefebve - bureau 212b\r\n200, avenue de la République\r\n92000 NANTERRE\r\n\r\nPage Facebook : Les Marmites Artistiques', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/hypothemuse-524122.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-hypothemuse_1396536200485-jpg');
+INSERT INTO `club` VALUES (2841, 'Kleio', NULL, '2020-12-28 20:31:51', 'Association des étudiants en Histoire\r\n\r\nL\'association Kléio s\'adresse aux étudiants et étudiantes de toutes disciplines intéressés par l\'histoire, et se consacre à la mise en œuvre de projets culturels et à l\'organisation d\'événements conviviaux sur le campus, dans la ville de Nanterre et au-delà.', 0x31, 0x31, 0, 271, 'https://kleionanterre.jimdo.com/', 'kleio.nanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°76\r\n200 av. de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook Kleio Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/kleio-646539.kjsp?RH=1390831346216&RF=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/kleio-logo_1574171580434-png');
+INSERT INTO `club` VALUES (2851, 'Urb\'UN', NULL, '2020-12-28 20:31:51', 'Urb\'un est une association de filière qui agit pour la cohésion du master d\'urbanisme de l\'université de Nanterre, entre les promotions et le corps enseignant. Elle organise notamment un voyage d\'étude, des rencontres entre étudiants et professionnels de l\'urbanisme ou encore la maintenance du site internet du master.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/urbuniste/', 'urbun.contact@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte Postale n°85\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/urb-un-930725.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-urb-un-officiel_1567786937168-jpg');
+INSERT INTO `club` VALUES (2861, 'ADVEVA', NULL, '2020-12-28 20:31:51', 'Association pour le Développement de Véhicules Economes à Ville d\'Avray\r\n\r\nL\'association développe des véhicules électriques à basse consommation d\'énergie. Nous nous rendons à plusieurs compétitions annuelles organisées en France ou à l\'étranger. Le but de ces compétitions est de réaliser, sous forme de course automobile, la consommation d\'énergie la plus faible parmi tous les véhicules participants.', 0x31, 0x31, 0, 271, 'https://fr-fr.facebook.com/ADVEVA92/', 'adveva92@gmail.com', 'IUT de Ville d\'Avray\r\nLocal ADVEVA\r\n50 rue de Sèvres\r\n92410 Ville d\'Avray', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/adveva-523976.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-officiel-adveva_1573224278450-png');
+INSERT INTO `club` VALUES (2871, 'BDE La Piste', NULL, '2020-12-28 20:31:51', 'Le BDE La Piste est une association étudiante qui a pour objectif de permettre aux étudiant·e·s de l\'IUT de Ville d\'Avray, préparant un DUT sur le campus de Nanterre, de se réunir en dehors des heures de cours et de faciliter leur intégration dans la vie étudiante qui anime les DUT GEA et CS et, plus globalement, l\'ensemble des filières de l\'IUT de Ville d\'Avray/Saint-Cloud/Nanterre.', 0x31, 0x31, 0, 271, 'https://fb.me/bde.lapiste', 'bde.lapiste@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e BP71\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/bde-la-piste-898852.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/la-piste_1552046000461-png');
+INSERT INTO `club` VALUES (2881, 'BDE Owl Night Long', NULL, '2020-12-28 20:31:51', 'BDE du pôle Métiers du livre de l\'IUT de Saint-Cloud\r\nPromotion de la culture, intégration sociale et professionnelle des futurs diplômés, la solidarité et l\'intégration sociale, la solidarité et les échanges entre étudiants, anciens et futurs élèves ainsi qu\'avec les enseignants.', 0x31, 0x31, 0, 271, 'https://www.facebook.com/OWLBDE/', 'bde.owlnightlong@gmail.com', '11 avenue Pozzo di Borgo, 92210 Saint-Cloud', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/bde-owl-night-long-892689.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/bde-owl_1549640089391-jpg');
+INSERT INTO `club` VALUES (2891, 'BDE VDA', NULL, '2020-12-28 20:31:51', 'Bureau des Elèves du pôle sciences et technique de Ville d\'Avray (BDE VDA) aussi appelé BDE Old Bar\'hell', 0x31, 0x31, 0, 271, 'https://www.facebook.com/BDE-Old-Barhell-294615601257166/', 'bde.oldbarhell@gmail.com', '50 rue de Sèvres 92410 Ville d\'Avray', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/bde-vda-917923.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-bde-ville-d-avray_1560512463938-png');
+INSERT INTO `club` VALUES (2901, 'Together Connected', NULL, '2020-12-28 20:31:51', 'Dans le cadre des projets tuteurés, l\'association des étudiants du Département Techniques de Commercialisation (TC) de l\'IUT Ville d\'Avray / Nanterre est chargée de promouvoir le département, animer la vie des étudiant·es et permettre une meilleure intégration des nouveaux et nouvelles étudiant·es à travers l\'organisation de toute manifestation culturelle, de loisirs et sportive dans le respect des valeurs de l\'université. Un bureau, élu et renouvelé tous les ans par l\'ensemble des étudiant·es du département veillera à aider et soutenir les étudiants du Département en gérant toute activité nécessaire.', 0x31, 0x31, 0, 271, 'https://www.instagram.com/bde.tcnanterre/', 'bde.tcnanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte Postale n°59\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/together-connected-tc--981328.kjsp?RH=1390831346216', NULL);
+INSERT INTO `club` VALUES (2911, 'Association des Jeunes Chercheurs de Nanterre E.D. 395 (AJCN 395)', NULL, '2020-12-28 20:31:51', 'Association des Jeunes Chercheurs de Nanterre E.D. 395\r\n\r\nL\'association organise des ateliers scientifiques et méthodologiques et aide ses membres à en organiser. Elle participe à l\'organisation de colloques (doctorants, MAE) et à la présentation du doctorat aux étudiants de Master une fois par an.', 0x31, 0x31, 0, 271, 'ajcn395.parisnanterre.fr', 'ajcn395@gmail.com', 'Université Paris Nanterre\r\nBâtiment A - bureau A306B\r\n200 avenue de la République\r\n92001 Nanterre\r\n\r\nPage Facebook : AJCN 395', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/ajcn-395-676617.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1463581423965-jpg');
 
 -- ----------------------------
 -- Table structure for club_publication
 -- ----------------------------
 DROP TABLE IF EXISTS `club_publication`;
 CREATE TABLE `club_publication`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `message` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `date` datetime(0) NOT NULL,
   `club_id` int(11) NOT NULL,
+  `isEdited` binary(1) NOT NULL DEFAULT '\0',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `club_id`(`club_id`) USING BTREE,
-  CONSTRAINT `club_publication_ibfk_1` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `club_publication_ibfk_1` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 172 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of club_publication
@@ -106,15 +184,21 @@ CREATE TABLE `club_type`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 281 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of club_type
 -- ----------------------------
-INSERT INTO `club_type` VALUES (1, 'informative');
-INSERT INTO `club_type` VALUES (2, 'varied');
-INSERT INTO `club_type` VALUES (3, 'sport');
-INSERT INTO `club_type` VALUES (4, 'association');
+INSERT INTO `club_type` VALUES (181, 'Associations de culture artistique et scientifique / Médias');
+INSERT INTO `club_type` VALUES (191, 'Santé / Handicap');
+INSERT INTO `club_type` VALUES (201, 'Environnement / Développement Durable');
+INSERT INTO `club_type` VALUES (211, 'Associations de loisirs');
+INSERT INTO `club_type` VALUES (221, 'Associations représentatives des étudiant·es siégeant aux conseils centraux');
+INSERT INTO `club_type` VALUES (231, 'Sport');
+INSERT INTO `club_type` VALUES (241, 'Solidarité');
+INSERT INTO `club_type` VALUES (251, 'Etudiant·es Internationaux / Cultures du monde');
+INSERT INTO `club_type` VALUES (261, 'Citoyenneté');
+INSERT INTO `club_type` VALUES (271, 'Associations de filière');
 
 -- ----------------------------
 -- Table structure for crous
@@ -124,23 +208,64 @@ CREATE TABLE `crous`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `location` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `longitude` float(255, 15) NOT NULL,
+  `latitude` double(255, 15) NOT NULL,
+  `image_url` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous
 -- ----------------------------
-INSERT INTO `crous` VALUES (1, 'La Croissanterie', 'RDC Batiment G    ');
-INSERT INTO `crous` VALUES (2, 'La Terrasse', '8 allée de l\'université');
-INSERT INTO `crous` VALUES (3, 'La B.U', 'RDC de la BU');
-INSERT INTO `crous` VALUES (4, 'La sandwicherie', 'RDC du Batiment F');
-INSERT INTO `crous` VALUES (5, 'L Asiatique', 'RDC du Batiment F');
-INSERT INTO `crous` VALUES (6, 'Les Food trucks', 'Allée devant le bâtiment DD');
-INSERT INTO `crous` VALUES (7, 'L AnK', 'RDC  \r\nBatiment DD');
-INSERT INTO `crous` VALUES (8, 'Le Tex-Mex', '1er étage du RU');
-INSERT INTO `crous` VALUES (9, 'L Espace Gourmand', 'RDC du RU');
-INSERT INTO `crous` VALUES (10, 'Le Millenium', 'RDC du RU');
-INSERT INTO `crous` VALUES (11, 'Le Restaurant Universitaire', '1 allée de l\'université ');
+INSERT INTO `crous` VALUES (1, 'La Croissanterie', 'RDC Batiment G    ', 48.904727935791016, 2.208830200000000, 'https://www.parisnanterre.fr/medias/photo/img-1836_1495464819192-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (2, 'La Terrasse', '8 allée de l\'université', 48.905212402343750, 2.212417666406935, 'https://www.parisnanterre.fr/medias/photo/img-0459_1495014800633-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (3, 'La B.U', 'RDC de la BU', 48.892421722412110, 2.215330999999990, 'https://www.parisnanterre.fr/medias/photo/img-0469_1495012451136-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (4, 'La sandwicherie', 'RDC du Batiment F', 48.904727935791016, 2.208830199999970, 'https://www.parisnanterre.fr/medias/photo/img-0587_1495012675531-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (5, 'L\'Asiatique', 'RDC du Batiment F', 48.902664184570310, 2.213463000000000, 'https://www.parisnanterre.fr/medias/photo/img-0597_1495015407859-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (6, 'Les Food trucks', 'Allée devant le bâtiment DD', 48.903961181640625, 2.213141633346390, 'https://www.parisnanterre.fr/medias/photo/img-0555_1495011327880-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (7, 'L\'AnK', 'RDC  \r\nBatiment DD', 48.902469635009766, 2.212353872362268, 'https://www.parisnanterre.fr/medias/photo/img-0561_1495012107646-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (8, 'Le Tex-Mex', '1er étage du RU', 48.903961181640625, 2.213141633346390, 'https://www.parisnanterre.fr/medias/photo/img-1859_1495464671600-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (9, 'L\'Espace Gourmand', 'RDC du RU', 48.903961181640625, 2.213141633346390, 'https://www.parisnanterre.fr/medias/photo/img-1882_1495464656413-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (10, 'Le Millenium', 'RDC du RU', 48.903961181640625, 2.213141633346390, 'https://www.parisnanterre.fr/medias/photo/img-0490_1495012361872-jpg?ID_FICHE=444230');
+INSERT INTO `crous` VALUES (11, 'Le Restaurant Universitaire', '1 allée de l\'université ', 48.905834197998050, 2.214278345182794, 'https://www.parisnanterre.fr/medias/photo/img-0484_1495010982379-jpg?ID_FICHE=444230');
+
+-- ----------------------------
+-- Table structure for crous_attendance
+-- ----------------------------
+DROP TABLE IF EXISTS `crous_attendance`;
+CREATE TABLE `crous_attendance`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `proportion` int(1) NOT NULL,
+  `hour` time(6) NOT NULL,
+  `crous_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `crous_id`(`crous_id`) USING BTREE,
+  CONSTRAINT `crous_attendance_ibfk_1` FOREIGN KEY (`crous_id`) REFERENCES `crous` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 441 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of crous_attendance
+-- ----------------------------
+INSERT INTO `crous_attendance` VALUES (241, 100, '14:00:00.000000', 5);
+INSERT INTO `crous_attendance` VALUES (251, 60, '14:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (261, 100, '14:00:00.000000', 2);
+INSERT INTO `crous_attendance` VALUES (271, 60, '14:00:00.000000', 3);
+INSERT INTO `crous_attendance` VALUES (281, 30, '14:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (291, 60, '14:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (301, 60, '14:00:00.000000', 4);
+INSERT INTO `crous_attendance` VALUES (311, 60, '15:00:00.000000', 10);
+INSERT INTO `crous_attendance` VALUES (321, 30, '17:00:00.000000', 4);
+INSERT INTO `crous_attendance` VALUES (331, 100, '17:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (341, 100, '17:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (351, 30, '17:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (361, 30, '17:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (371, 100, '17:00:00.000000', 10);
+INSERT INTO `crous_attendance` VALUES (381, 30, '17:00:00.000000', 4);
+INSERT INTO `crous_attendance` VALUES (391, 30, '18:00:00.000000', 4);
+INSERT INTO `crous_attendance` VALUES (401, 100, '18:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (411, 100, '18:00:00.000000', 10);
+INSERT INTO `crous_attendance` VALUES (421, 100, '18:00:00.000000', 10);
+INSERT INTO `crous_attendance` VALUES (431, 30, '18:00:00.000000', 1);
 
 -- ----------------------------
 -- Table structure for crous_product
@@ -155,12 +280,11 @@ CREATE TABLE `crous_product`  (
   INDEX `crous_id`(`crous_id`) USING BTREE,
   CONSTRAINT `crous_product_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `crous_product_ibfk_2` FOREIGN KEY (`crous_id`) REFERENCES `crous` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 78 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous_product
 -- ----------------------------
-INSERT INTO `crous_product` VALUES (1, 1, 17);
 INSERT INTO `crous_product` VALUES (2, 1, 1);
 INSERT INTO `crous_product` VALUES (3, 1, 2);
 INSERT INTO `crous_product` VALUES (4, 1, 3);
@@ -208,6 +332,10 @@ INSERT INTO `crous_product` VALUES (70, 11, 28);
 INSERT INTO `crous_product` VALUES (71, 11, 29);
 INSERT INTO `crous_product` VALUES (72, 11, 30);
 INSERT INTO `crous_product` VALUES (73, 11, 31);
+INSERT INTO `crous_product` VALUES (74, 3, 3);
+INSERT INTO `crous_product` VALUES (75, 5, 29);
+INSERT INTO `crous_product` VALUES (76, 7, 3);
+INSERT INTO `crous_product` VALUES (77, 7, 18);
 
 -- ----------------------------
 -- Table structure for crous_product_availability
@@ -215,17 +343,27 @@ INSERT INTO `crous_product` VALUES (73, 11, 31);
 DROP TABLE IF EXISTS `crous_product_availability`;
 CREATE TABLE `crous_product_availability`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `isAvailable` bit(1) NULL DEFAULT NULL,
-  `date` datetime(0) NULL DEFAULT NULL,
-  `crous_product_id` int(11) NULL DEFAULT NULL,
+  `isAvailable` binary(1) NOT NULL DEFAULT 0,
+  `date` datetime(0) NOT NULL,
+  `crous_product_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `crous_product_availability_ibfk_1`(`crous_product_id`) USING BTREE,
   CONSTRAINT `crous_product_availability_ibfk_1` FOREIGN KEY (`crous_product_id`) REFERENCES `crous_product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 201 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous_product_availability
 -- ----------------------------
+INSERT INTO `crous_product_availability` VALUES (101, 0x30, '2020-12-28 20:40:24', 6);
+INSERT INTO `crous_product_availability` VALUES (111, 0x31, '2021-01-04 17:27:01', 6);
+INSERT INTO `crous_product_availability` VALUES (121, 0x30, '2021-01-06 15:18:47', 61);
+INSERT INTO `crous_product_availability` VALUES (131, 0x30, '2021-01-06 15:25:54', 19);
+INSERT INTO `crous_product_availability` VALUES (141, 0x30, '2021-01-06 15:26:55', 6);
+INSERT INTO `crous_product_availability` VALUES (151, 0x30, '2021-01-06 15:30:51', 3);
+INSERT INTO `crous_product_availability` VALUES (161, 0x30, '2021-01-06 15:30:59', 3);
+INSERT INTO `crous_product_availability` VALUES (171, 0x30, '2021-01-06 15:32:56', 2);
+INSERT INTO `crous_product_availability` VALUES (181, 0x30, '2021-01-06 15:33:38', 5);
+INSERT INTO `crous_product_availability` VALUES (191, 0x31, '2021-01-06 15:33:40', 5);
 
 -- ----------------------------
 -- Table structure for crous_schedule
@@ -236,7 +374,7 @@ CREATE TABLE `crous_schedule`  (
   `opening_time` time(6) NULL DEFAULT NULL,
   `closing_time` time(6) NULL DEFAULT NULL,
   `crous_id` int(11) NULL DEFAULT NULL,
-  `days` varchar(17) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `days` varchar(21) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `crous_id`(`crous_id`) USING BTREE,
   CONSTRAINT `crous_schedule_ibfk_1` FOREIGN KEY (`crous_id`) REFERENCES `crous` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -245,33 +383,17 @@ CREATE TABLE `crous_schedule`  (
 -- ----------------------------
 -- Records of crous_schedule
 -- ----------------------------
-INSERT INTO `crous_schedule` VALUES (1, '00:08:30.000000', '00:15:00.000000', 1, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (2, '00:11:00.000000', '00:14:30.000000', 2, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (3, '00:08:30.000000', '00:18:30.000000', 3, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (4, '00:10:00.000000', '00:16:00.000000', 3, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (5, '00:08:30.000000', '00:18:00.000000', 4, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (6, '00:08:00.000000', '00:15:00.000000', 5, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (7, '00:11:30.000000', '00:14:00.000000', 6, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (8, '00:08:00.000000', '00:17:00.000000', 7, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (9, '00:11:30.000000', '00:14:30.000000', 8, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (10, '00:11:45.000000', '00:14:00.000000', 9, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (11, '00:08:00.000000', '00:21:00.000000', 10, 'MO-TU-WE-TH-FR');
-INSERT INTO `crous_schedule` VALUES (12, '00:11:30.000000', '00:14:00.000000', 11, 'MO-TU-WE-TH-FR');
-
--- ----------------------------
--- Table structure for grade
--- ----------------------------
-DROP TABLE IF EXISTS `grade`;
-CREATE TABLE `grade`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `year` date NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
-
--- ----------------------------
--- Records of grade
--- ----------------------------
+INSERT INTO `crous_schedule` VALUES (1, '08:30:00.000000', '22:00:00.000000', 1, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (2, '11:00:00.000000', '14:30:00.000000', 2, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (3, '08:30:00.000000', '18:30:00.000000', 3, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (5, '08:30:00.000000', '18:00:00.000000', 4, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (6, '08:00:00.000000', '15:00:00.000000', 5, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (7, '11:30:00.000000', '14:00:00.000000', 6, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (8, '08:00:00.000000', '17:00:00.000000', 7, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (9, '11:30:00.000000', '14:30:00.000000', 8, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (10, '11:45:00.000000', '14:00:00.000000', 9, 'MON-TUE-WED-THU-FFRI');
+INSERT INTO `crous_schedule` VALUES (11, '08:00:00.000000', '21:00:00.000000', 10, 'MON-TUE-WED-THU-FRI');
+INSERT INTO `crous_schedule` VALUES (12, '11:30:00.000000', '14:00:00.000000', 11, 'MON-TUE-WED-THU-FRI');
 
 -- ----------------------------
 -- Table structure for library
@@ -293,20 +415,101 @@ CREATE TABLE `library`  (
 -- ----------------------------
 -- Records of library
 -- ----------------------------
-INSERT INTO `library` VALUES (1, 'BIBLIOTHÈQUE DE L\'UFR DSP', 'Entresol, salle E16', 'La BUFR de DSP rouvre ses portes ce mardi 13 octobre, dès 9 heures.\r\n\r\nDans le cadre de la mobilisation contre l\'épidémie de Covid-19, le nombre de places disponibles est réduit (45 contre 100). Merci de bien respecter les distances de sécurité en ne déplaçant pas les chaises et en suivant les marquages au sol.\r\n\r\nNos horaires sont également modifiés : 9h-17h du lundi au jeudi. Nous restons disponibles à distance pour toutes interrogations le vendredi.\r\n\r\nL\'accès à la salle des photocopieurs sera également limité à une personne à la fois.\r\n\r\nNous rappelons que le port du masque est obligatoire et ce pour toute la durée de votre passage dans la bibliothèque, comme c\'est le cas dans le reste du bâtiment.\r\n\r\nPour toute question ou renseignement, l\'équipe de la BUFR reste à votre disposition au 01.40.97.77.11, ou en écrivant à apare@parisnanterre.fr\r\n', 1, '0140977711', NULL);
-INSERT INTO `library` VALUES (2, 'LA BIBLIOTHÈQUE D’HISTOIRE ET D’HISTOIRE DE L’ART (UFR SSA)', 'Rez-de-chaussée', NULL, 23, NULL, NULL);
-INSERT INTO `library` VALUES (3, 'LA BIBLIOTHÈQUE DE LANGUES ET CULTURES ETRANGÈRES (UFR LCE)\r\n', '1er étage, salle 108', 'La biblothèque de l\'UFR LCE est fermée pendant toute la durée du confinement.\r\n\r\nLa durée de l\'ensemble des prêts de documents est automatiquement prolongée jusqu\'à la réouverture de la bibliothèque. Aucune pénalité n\'est encourue.\r\n\r\nLa bibliothèque universitaire vous accueille sur rendez-vous pour emprunter et retourner les ouvrages, travailler sur place aux horaires suivants : 10h-13h ; 14h-17h', 14, '0140974943', NULL);
-INSERT INTO `library` VALUES (4, 'LA BIBLIOTHÈQUE DE PHILOSOPHIE (UFR PHILLIA)', 'Salle 319', '\r\nEn raison du contexte sanitaire, à partir du 10/11 la BUFR de Philosophie sera ouverte mardi et jeudi de 9h45 à 16h45.\r\n\r\nDes créneaux de réservation sont disponibles pour consultation sur place : 9h45-12h, 12h05-14h20, 14h25-16h45. On pourra réserver un seule créneau ou plusieurs, même toute la journée. \r\nLa réservation se fera par mail à l\'adresse lpicardi@parisnanterre.fr.\r\n\r\nPour le prêt et retour des livres il y aura un créneau d\'une demi-heure à réserver. \r\n\r\nSeuls les usagers avec réservation pourront avoir accès au bâtiment. Les étudiant.e.s pour se déplacer auront besoin de leur attestation dérogatoire, un document et le mail de confirmation de réservation à montrer à l\'accueil du bâtiment.\r\n\r\nLes places disponibles (vous pourrez indiquer votre choix de préférence au moment de la réservation par mail) : \r\n6 places en salle de travail (une pour chaque table), 4 en salle de lecture (une pour chaque table), 2 sur la table ovale, 1 la petite table à côte de la fenêtre, 1 la table derrière à côté des revues non classées, + 2 places ordinateurs (seulement pour l\'utilisation des ordinateurs).\r\n\r\nTout les prêts avec échéance à partir de novembre ont été prolongés jusqu\'au 7 décembre.', 7, '0140977069', NULL);
-INSERT INTO `library` VALUES (5, 'LA BIBLIOTHÈQUE DU PÔLE UNIVERSITAIRE LÉONARD DE VINCI', 'Pôle Universitaire Léonard de Vinci\r\n     12 avenue Léonard de Vinci\r\n     92400 Courbevoie\r\n     Bâtiment de l\'infothèque\r\n     1er étage, Salle i 111', 'La bibliothèque du PULV est réservée aux étudiants de l\'IPAG (Institut de Préparation à l\'Administration Générale) et aux étudiants des UFR DSP, SEGMI et PHILLIA de l\'Université Paris Nanterre ayant cours au Pôle Universitaire Léonard de Vinci.\r\n\r\nSituée au 1er étage du bâtiment de l\'infothèque, la bibliothèque offre des espaces et un environnement calme. Elle met à disposition des étudiants et enseignants des places de travail individuel et une salle de travail en groupe.\r\n\r\nDes bibliothécaires sont au service des étudiants pour les accompagner dans leurs recherches documentaires et les former aux bases de données.\r\n\r\n(L\'entrée dans le bâtiment requiert un badge du PULV).', NULL, '0141167362', NULL);
-INSERT INTO `library` VALUES (6, 'LA BIBLIOTHÈQUE DE SOCIOLOGIE ET D’ADMINISTRATION ÉCONOMIQUE ET SOCIALE\r\nLA BIBLIOTHÈQUE DE SOCIOLOGIE ET D’ADMINISTRATION ÉCONOMIQUE ET SOCIALE', 'Salle 104', NULL, 22, '0140977401', NULL);
-INSERT INTO `library` VALUES (7, 'CENTRE DE DOCUMENTATION DES SCIENCES ET TECHNIQUES DES ACTIVITÉS SPORTIVES (UFR STAPS)', 'Rez-de-chaussée', NULL, 13, NULL, NULL);
-INSERT INTO `library` VALUES (8, 'LA BIBLIOTHÈQUE D\'ARTS DU SPECTACLE (UFR PHILLIA)', 'Salle 207', NULL, 7, '0140977340', NULL);
-INSERT INTO `library` VALUES (9, 'LA BIBLIOTHÈQUE DE GÉOGRAPHIE/CARTOTHÈQUE (UFR SSA)', 'Salle 410', 'Jusqu\'au 1er décembre, La bibliothèque-cartothèque de géographie est ouverte le jeudi sur rendez-vous de 9h30 à 12h30 et de 13h30 à 16h30\r\nEn raison de la fermeture des bâtiments à 17h la dernière entrée s\'éffectue à 16h30.\r\n\r\nLe nombre de lecteurs en accès simultané en bibliothèque D 410 est limité à 10 personnes.\r\nLa salle de lecture D 411 est en revanche fermée.\r\nIl est possible de :\r\n- rendre et emprunter des livres, consulter livres, cartes, périodiques, mémoires\r\n- travailler individuellement sur place\r\n- faire des photocopies, scans et impressions.\r\nVous devez au préalable m\'envoyer un mail (Anne-Laure Cermak acermak@parisnanterre.fr ) en précisant l\'objet de votre venue ( prêt/retour, recherche, impressions..), la durée sur place envisagée et m\'indiquer notamment si vous avez repérés des titres suite à une recherche dans le catalogue et indiquer les références.\r\nPour les cartes : préciser le titre et si possible le n°IGN.\r\nUn mail vous sera ensuite adressé pour vous confirmer l\'heure de votre rdv.\r\n\r\nEn raison de la situation sanitaire, les livres actuellement en prêt de la bibliothèque de géographie, sont prolongés jusqu\'au 7 décembre. Aucune pénalité n\'est encourue.\r\nPour vos tenir informés , consultez régulièrement cette page web et la page facebook des bibliothèques de géographie et d\'urbanisme.', 21, NULL, NULL);
-INSERT INTO `library` VALUES (10, 'LA BIBLIOTHÈQUE DE LETTRES ET DES SCIENCES DU LANGAGE (UFR PHILLIA)', 'Salle 322', 'A partir de cette semaine, la BUFR est accessible deux jours dans la semaine, le mercredi et vendredi :\r\n- aux membres de l\'UFR PHILLIA uniquement\r\n- sur rendez-vous par mail : swegiera@parisnanterre.fr\r\n- Créneaux de 9h00 à 12h00 et/ou de 13h00 à 16h45\r\nPrendre RDV est nécessaire pour accéder à la BUFR, quels que soient les motifs de votre venue (emprunter / retourner des documents, travailler sur place, imprimer / photocopier).\r\nPour venir il vous faut :\r\n- une attestation de déplacement,\r\n- une pièce d\'identité,\r\n- une carte étudiante ou professionnelle UPN,\r\n- votre confirmation de prise de rendez-vous (mail).\r\n\r\nLa durée de prêt des ouvrages empruntés avant le confinement est automatiquement prolongée jusqu\'au 7 décembre. \r\nIl n\'est donc pas nécessaire de vous déplacer uniquement pour retourner des documents.', NULL, '0140977579', 'artsduspectaclebibliotheque@yahoo.com');
-INSERT INTO `library` VALUES (11, 'LA BIBLIOTHÈQUE DE SCIENCES ECONOMIQUES, GESTION, MATHÉMATIQUES ET INFORMATIQUE (UFR SEGMI)', 'Salle 113', 'Re-Confinement de novembre - Fermeture de la bibliothèque SEGMI\r\n\r\nSuite aux annonces présidentielles et aux nouvelles consignes sanitaires, la bibliothèque SEGMI ferme ses portes au public jusqu\'à nouvel ordre.\r\nLes ouvrages empruntés avant le confinement peuvent être rendus à la grande BU pendant toute la durée de la fermeture, cependant la durée de prêt de tous les documents a été automatiquement prolongée jusqu’au 7 décembre et le sera au-delà si nécessaire. Il n\'est donc pas nécessaire de vous déplacer pour retourner des documents.\r\n\r\nA titre d\'information, à partir du 9 novembre, la grande BU est accessible aux membres de la communauté universitaire sur rendez-vous, une journée maximum par personne par semaine. Prendre rendez-vous est nécessaire pour accéder à une place de travail individuelle mais aussi pour utiliser les autres services de la BU (prêt / retour de documents, impressions / photocopies).', 2, NULL, NULL);
-INSERT INTO `library` VALUES (12, 'LA BIBLIOTHÈQUE DE PSYCHOLOGIE ET SCIENCES DE L’ÉDUCATION (UFR SPSE)', 'Salle R01', 'LA BIBLIOTHÈQUE DE PSYCHOLOGIE ET SCIENCES DE L’ÉDUCATION (UFR SPSE)\r\nConfinement de novembre - Fermeture de la Bibliothèque de l\'UFR SPSE\r\nLa bibliothèque de l\'UFR ferme ses portes au public à partir de ce lundi 2 novembre 2020.\r\n\r\nJe demeure néanmoins joignable via ma messagerie professionnelle ljouvin@parisnanterre.fr et serai théoriquement présente sur site chaque lundi et jeudi.  Ces jours-là, vous pourrez donc m\'obtenir au 01.40.97.74.24.\r\n\r\nPour ce qui est du retour des documents que vous aviez empruntés avant ce confinement, nous avons porté la date de retour au 7 décembre.\r\n\r\nIl est également envisageable de nous adresser les ouvrages par voie postale (Université de Nanterre / Bibliothèque de l\'UFR de SPSE / L. Jouvin / Bât Zazzo RDC / 200 avenue de la République / 92001 NANTERRE)\r\n\r\nLa grande B.U. réouvrant à partir du 9 novembre mais avec des horaires restreints et un nombre limité de places de travail (attention prise de rendez-vous préalable, voir les modalités), en vous y rendant, vous pourrez également déposer chez eux nos ouvrages. Nous nous chargerons de les récupérer ensuite.\r\n\r\nMerci à vous et bonne continuation dans le distanciel.', 20, '0140977044', NULL);
-INSERT INTO `library` VALUES (13, 'LA BIBLIOTHÈQUE D\'AMÉNAGEMENT ET URBANISME (UFR SSA)', 'Salle 412', 'Rattachée au département de géographie de l\'UFR SSA, au laboratoire Mosaïques depuis 2006 et à la formation en aménagement, la bibliothèque d\'aménagement et d\'urbanisme accueille en priorité les étudiants à partir du L2, les Master 1 et 2, ainsi que les doctorants et chercheurs de l\'Université Université Paris Nanterre.\r\n\r\nElle autorise aussi l\'accès à toute personne extérieure intéressée par le fonds documentaire (étudiants d\'autres universités, professionnels de l\'aménagement et de la ville, membres d\'associations...) en consultation sur place. (Prêt aux personnes inscrites au préalable à la BU comme Lecteur extérieur.)', 21, NULL, NULL);
-INSERT INTO `library` VALUES (16, 'LA BIBLIOTHÈQUE UNIVERSITAIRE', 'Campus Nanterre, Bâtiment BU - La Contemporaine (2 allée de la bibliothèque 92000 Nanterre)', 'La bibliothèque universitaire est composée de 5 salles thématiques où vous pouvez travailler et accéder librement à des ouvrages, des films et aux dernières années des revues auxquelles la BU est abonnée.\r\n\r\nCertains ouvrages et revues sont conservés dans les magasins situés dans la Tour du bâtiment. Ces documents doivent être demandés via le catalogue en ligne.\r\n\r\nAttention ! En 2019/2020, l’aile sud de la BU (BUlle, salle des Sciences sociales) est fermée, en raison des travaux de réalisation d\'un centre de ressources et des cultures numériques qui remplacera la BUlle. Les collections de la salle des Sciences sociales restent cependant accessibles en salle des Sciences économiques ou sur demande via le catalogue scd.parisnanterre.fr', 9, '0140977202', NULL);
+INSERT INTO `library` VALUES (1, 'Bibliothèque De L\'ufr Dsp', 'Entresol, salle E16', 'La BUFR de DSP rouvre ses portes ce mardi 13 octobre, dès 9 heures.\r\n\r\nDans le cadre de la mobilisation contre l\'épidémie de Covid-19, le nombre de places disponibles est réduit (45 contre 100). Merci de bien respecter les distances de sécurité en ne déplaçant pas les chaises et en suivant les marquages au sol.\r\n\r\nNos horaires sont également modifiés : 9h-17h du lundi au jeudi. Nous restons disponibles à distance pour toutes interrogations le vendredi.\r\n\r\nL\'accès à la salle des photocopieurs sera également limité à une personne à la fois.\r\n\r\nNous rappelons que le port du masque est obligatoire et ce pour toute la durée de votre passage dans la bibliothèque, comme c\'est le cas dans le reste du bâtiment.\r\n\r\nPour toute question ou renseignement, l\'équipe de la BUFR reste à votre disposition au 01.40.97.77.11, ou en écrivant à apare@parisnanterre.fr\r\n', 1, '0140977711', NULL);
+INSERT INTO `library` VALUES (2, 'La Bibliothèque D’histoire Et D’histoire De L’art (UFR SSA)', 'Rez-de-chaussée', NULL, 23, NULL, NULL);
+INSERT INTO `library` VALUES (3, 'La Bibliothèque De Langues Et Cultures Etrangères (UFR LCE)', '1er étage, salle 108', 'La biblothèque de l\'UFR LCE est fermée pendant toute la durée du confinement.\r\n\r\nLa durée de l\'ensemble des prêts de documents est automatiquement prolongée jusqu\'à la réouverture de la bibliothèque. Aucune pénalité n\'est encourue.\r\n\r\nLa bibliothèque universitaire vous accueille sur rendez-vous pour emprunter et retourner les ouvrages, travailler sur place aux horaires suivants : 10h-13h ; 14h-17h', 14, '0140974943', NULL);
+INSERT INTO `library` VALUES (4, 'La Bibliothèque De Philosophie (UFR PHILLIA)', 'Salle 319', '\r\nEn raison du contexte sanitaire, à partir du 10/11 la BUFR de Philosophie sera ouverte mardi et jeudi de 9h45 à 16h45.\r\n\r\nDes créneaux de réservation sont disponibles pour consultation sur place : 9h45-12h, 12h05-14h20, 14h25-16h45. On pourra réserver un seule créneau ou plusieurs, même toute la journée. \r\nLa réservation se fera par mail à l\'adresse lpicardi@parisnanterre.fr.\r\n\r\nPour le prêt et retour des livres il y aura un créneau d\'une demi-heure à réserver. \r\n\r\nSeuls les usagers avec réservation pourront avoir accès au bâtiment. Les étudiant.e.s pour se déplacer auront besoin de leur attestation dérogatoire, un document et le mail de confirmation de réservation à montrer à l\'accueil du bâtiment.\r\n\r\nLes places disponibles (vous pourrez indiquer votre choix de préférence au moment de la réservation par mail) : \r\n6 places en salle de travail (une pour chaque table), 4 en salle de lecture (une pour chaque table), 2 sur la table ovale, 1 la petite table à côte de la fenêtre, 1 la table derrière à côté des revues non classées, + 2 places ordinateurs (seulement pour l\'utilisation des ordinateurs).\r\n\r\nTout les prêts avec échéance à partir de novembre ont été prolongés jusqu\'au 7 décembre.', 7, '0140977069', NULL);
+INSERT INTO `library` VALUES (5, 'La Bibliothèque Du Pôle Universitaire Léonard De Vinci', 'Pôle Universitaire Léonard de Vinci\r\n     12 avenue Léonard de Vinci\r\n     92400 Courbevoie\r\n     Bâtiment de l\'infothèque\r\n     1er étage, Salle i 111', 'La bibliothèque du PULV est réservée aux étudiants de l\'IPAG (Institut de Préparation à l\'Administration Générale) et aux étudiants des UFR DSP, SEGMI et PHILLIA de l\'Université Paris Nanterre ayant cours au Pôle Universitaire Léonard de Vinci.\r\n\r\nSituée au 1er étage du bâtiment de l\'infothèque, la bibliothèque offre des espaces et un environnement calme. Elle met à disposition des étudiants et enseignants des places de travail individuel et une salle de travail en groupe.\r\n\r\nDes bibliothécaires sont au service des étudiants pour les accompagner dans leurs recherches documentaires et les former aux bases de données.\r\n\r\n(L\'entrée dans le bâtiment requiert un badge du PULV).', NULL, '0141167362', NULL);
+INSERT INTO `library` VALUES (6, 'La Bibliothèque De Sociologie Et D’administration Économique Et Sociale', 'Salle 104', NULL, 22, '0140977401', NULL);
+INSERT INTO `library` VALUES (7, 'Centre De Documentation Des Sciences Et Techniques Des Activités Sportives (UFR STAPS)', 'Rez-de-chaussée', NULL, 13, NULL, NULL);
+INSERT INTO `library` VALUES (8, 'La Bibliothèque D\'arts Du Spectacle (UFR PHILLIA)', 'Salle 207', NULL, 7, '0140977340', NULL);
+INSERT INTO `library` VALUES (9, 'La Bibliothèque De Géographie/Cartothèque (UFR SSA)', 'Salle 410', 'Jusqu\'au 1er décembre, La bibliothèque-cartothèque de géographie est ouverte le jeudi sur rendez-vous de 9h30 à 12h30 et de 13h30 à 16h30\r\nEn raison de la fermeture des bâtiments à 17h la dernière entrée s\'éffectue à 16h30.\r\n\r\nLe nombre de lecteurs en accès simultané en bibliothèque D 410 est limité à 10 personnes.\r\nLa salle de lecture D 411 est en revanche fermée.\r\nIl est possible de :\r\n- rendre et emprunter des livres, consulter livres, cartes, périodiques, mémoires\r\n- travailler individuellement sur place\r\n- faire des photocopies, scans et impressions.\r\nVous devez au préalable m\'envoyer un mail (Anne-Laure Cermak acermak@parisnanterre.fr ) en précisant l\'objet de votre venue ( prêt/retour, recherche, impressions..), la durée sur place envisagée et m\'indiquer notamment si vous avez repérés des titres suite à une recherche dans le catalogue et indiquer les références.\r\nPour les cartes : préciser le titre et si possible le n°IGN.\r\nUn mail vous sera ensuite adressé pour vous confirmer l\'heure de votre rdv.\r\n\r\nEn raison de la situation sanitaire, les livres actuellement en prêt de la bibliothèque de géographie, sont prolongés jusqu\'au 7 décembre. Aucune pénalité n\'est encourue.\r\nPour vos tenir informés , consultez régulièrement cette page web et la page facebook des bibliothèques de géographie et d\'urbanisme.', 21, NULL, NULL);
+INSERT INTO `library` VALUES (10, 'La Bibliothèque De Lettres Et Des Sciences Du Langage  (UFR PHILLIA)', 'Salle 322', 'A partir de cette semaine, la BUFR est accessible deux jours dans la semaine, le mercredi et vendredi :\r\n- aux membres de l\'UFR PHILLIA uniquement\r\n- sur rendez-vous par mail : swegiera@parisnanterre.fr\r\n- Créneaux de 9h00 à 12h00 et/ou de 13h00 à 16h45\r\nPrendre RDV est nécessaire pour accéder à la BUFR, quels que soient les motifs de votre venue (emprunter / retourner des documents, travailler sur place, imprimer / photocopier).\r\nPour venir il vous faut :\r\n- une attestation de déplacement,\r\n- une pièce d\'identité,\r\n- une carte étudiante ou professionnelle UPN,\r\n- votre confirmation de prise de rendez-vous (mail).\r\n\r\nLa durée de prêt des ouvrages empruntés avant le confinement est automatiquement prolongée jusqu\'au 7 décembre. \r\nIl n\'est donc pas nécessaire de vous déplacer uniquement pour retourner des documents.', NULL, '0140977579', 'artsduspectaclebibliotheque@yahoo.com');
+INSERT INTO `library` VALUES (11, 'La Bibliothèque De Sciences Economiques, Gestion, Mathématiques Et Informatique (UFR SEGMI)', 'Salle 113', 'Re-Confinement de novembre - Fermeture de la bibliothèque SEGMI\r\n\r\nSuite aux annonces présidentielles et aux nouvelles consignes sanitaires, la bibliothèque SEGMI ferme ses portes au public jusqu\'à nouvel ordre.\r\nLes ouvrages empruntés avant le confinement peuvent être rendus à la grande BU pendant toute la durée de la fermeture, cependant la durée de prêt de tous les documents a été automatiquement prolongée jusqu’au 7 décembre et le sera au-delà si nécessaire. Il n\'est donc pas nécessaire de vous déplacer pour retourner des documents.\r\n\r\nA titre d\'information, à partir du 9 novembre, la grande BU est accessible aux membres de la communauté universitaire sur rendez-vous, une journée maximum par personne par semaine. Prendre rendez-vous est nécessaire pour accéder à une place de travail individuelle mais aussi pour utiliser les autres services de la BU (prêt / retour de documents, impressions / photocopies).', 2, NULL, NULL);
+INSERT INTO `library` VALUES (12, 'La Bibliothèque De Psychologie Et Sciences De L’éducation (UFR SPSE)', 'Salle R01', 'LA BIBLIOTHÈQUE DE PSYCHOLOGIE ET SCIENCES DE L’ÉDUCATION (UFR SPSE)\r\nConfinement de novembre - Fermeture de la Bibliothèque de l\'UFR SPSE\r\nLa bibliothèque de l\'UFR ferme ses portes au public à partir de ce lundi 2 novembre 2020.\r\n\r\nJe demeure néanmoins joignable via ma messagerie professionnelle ljouvin@parisnanterre.fr et serai théoriquement présente sur site chaque lundi et jeudi.  Ces jours-là, vous pourrez donc m\'obtenir au 01.40.97.74.24.\r\n\r\nPour ce qui est du retour des documents que vous aviez empruntés avant ce confinement, nous avons porté la date de retour au 7 décembre.\r\n\r\nIl est également envisageable de nous adresser les ouvrages par voie postale (Université de Nanterre / Bibliothèque de l\'UFR de SPSE / L. Jouvin / Bât Zazzo RDC / 200 avenue de la République / 92001 NANTERRE)\r\n\r\nLa grande B.U. réouvrant à partir du 9 novembre mais avec des horaires restreints et un nombre limité de places de travail (attention prise de rendez-vous préalable, voir les modalités), en vous y rendant, vous pourrez également déposer chez eux nos ouvrages. Nous nous chargerons de les récupérer ensuite.\r\n\r\nMerci à vous et bonne continuation dans le distanciel.', 20, '0140977044', NULL);
+INSERT INTO `library` VALUES (13, 'La Bibliothèque D\'aménagement Et Urbanisme (UFR SSA)', 'Salle 412', 'Rattachée au département de géographie de l\'UFR SSA, au laboratoire Mosaïques depuis 2006 et à la formation en aménagement, la bibliothèque d\'aménagement et d\'urbanisme accueille en priorité les étudiants à partir du L2, les Master 1 et 2, ainsi que les doctorants et chercheurs de l\'Université Université Paris Nanterre.\r\n\r\nElle autorise aussi l\'accès à toute personne extérieure intéressée par le fonds documentaire (étudiants d\'autres universités, professionnels de l\'aménagement et de la ville, membres d\'associations...) en consultation sur place. (Prêt aux personnes inscrites au préalable à la BU comme Lecteur extérieur.)', 21, NULL, NULL);
+INSERT INTO `library` VALUES (16, 'La Bibliothèque Universitaire', 'Campus Nanterre, Bâtiment BU - La Contemporaine (2 allée de la bibliothèque 92000 Nanterre)', 'La bibliothèque universitaire est composée de 5 salles thématiques où vous pouvez travailler et accéder librement à des ouvrages, des films et aux dernières années des revues auxquelles la BU est abonnée.\r\n\r\nCertains ouvrages et revues sont conservés dans les magasins situés dans la Tour du bâtiment. Ces documents doivent être demandés via le catalogue en ligne.\r\n\r\nAttention ! En 2019/2020, l’aile sud de la BU (BUlle, salle des Sciences sociales) est fermée, en raison des travaux de réalisation d\'un centre de ressources et des cultures numériques qui remplacera la BUlle. Les collections de la salle des Sciences sociales restent cependant accessibles en salle des Sciences économiques ou sur demande via le catalogue scd.parisnanterre.fr', 9, '0140977202', NULL);
+
+-- ----------------------------
+-- Table structure for library_attendance
+-- ----------------------------
+DROP TABLE IF EXISTS `library_attendance`;
+CREATE TABLE `library_attendance`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `proportion` int(3) NOT NULL,
+  `hour` time(2) NOT NULL,
+  `library_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `library_id`(`library_id`) USING BTREE,
+  CONSTRAINT `library_attendance_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 191 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of library_attendance
+-- ----------------------------
+INSERT INTO `library_attendance` VALUES (128, 100, '17:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (129, 30, '22:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (130, 60, '14:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (131, 60, '11:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (132, 100, '17:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (133, 30, '11:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (134, 30, '14:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (135, 30, '13:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (136, 60, '14:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (137, 100, '09:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (138, 30, '07:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (139, 100, '23:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (140, 30, '22:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (141, 100, '21:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (142, 30, '23:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (143, 100, '22:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (144, 30, '23:00:00.00', 1);
+INSERT INTO `library_attendance` VALUES (145, 100, '17:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (146, 100, '21:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (147, 30, '23:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (148, 60, '15:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (149, 100, '15:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (150, 30, '14:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (151, 60, '17:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (152, 30, '22:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (153, 100, '10:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (154, 60, '08:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (155, 30, '22:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (156, 30, '18:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (157, 30, '21:00:00.00', 2);
+INSERT INTO `library_attendance` VALUES (158, 30, '11:00:00.00', 3);
+INSERT INTO `library_attendance` VALUES (159, 30, '23:00:00.00', 3);
+INSERT INTO `library_attendance` VALUES (160, 30, '17:00:00.00', 3);
+INSERT INTO `library_attendance` VALUES (161, 100, '19:00:00.00', 3);
+INSERT INTO `library_attendance` VALUES (162, 60, '16:00:00.00', 3);
+INSERT INTO `library_attendance` VALUES (163, 60, '16:00:00.00', 3);
+INSERT INTO `library_attendance` VALUES (164, 60, '17:00:00.00', 3);
+INSERT INTO `library_attendance` VALUES (165, 100, '12:00:00.00', 3);
+INSERT INTO `library_attendance` VALUES (166, 100, '16:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (167, 60, '11:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (168, 30, '15:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (169, 30, '16:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (170, 60, '18:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (171, 100, '18:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (172, 30, '16:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (173, 30, '23:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (174, 100, '21:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (175, 100, '22:00:00.00', 4);
+INSERT INTO `library_attendance` VALUES (176, 100, '23:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (177, 100, '22:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (178, 60, '22:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (179, 0, '21:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (180, 100, '18:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (181, 10, '10:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (182, 85, '19:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (183, 50, '20:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (184, 40, '11:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (185, 60, '12:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (186, 60, '13:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (187, 20, '14:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (188, 30, '15:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (189, 45, '16:00:00.00', 5);
+INSERT INTO `library_attendance` VALUES (190, 75, '17:00:00.00', 5);
 
 -- ----------------------------
 -- Table structure for library_consultation_loan_condition
@@ -314,16 +517,52 @@ INSERT INTO `library` VALUES (16, 'LA BIBLIOTHÈQUE UNIVERSITAIRE', 'Campus Nant
 DROP TABLE IF EXISTS `library_consultation_loan_condition`;
 CREATE TABLE `library_consultation_loan_condition`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `library_id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `library_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
   CONSTRAINT `library_consultation_loan_condition_ibfk_1` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of library_consultation_loan_condition
 -- ----------------------------
+INSERT INTO `library_consultation_loan_condition` VALUES (1, 'Fonds en libre-accès', 2);
+INSERT INTO `library_consultation_loan_condition` VALUES (3, 'Fonds en libre-accès répertorié par langue.', 3);
+INSERT INTO `library_consultation_loan_condition` VALUES (4, 'Périodiques empruntables à l\'exception du dernier numéro reçu.', 3);
+INSERT INTO `library_consultation_loan_condition` VALUES (5, 'Mémoires consultables sur place uniquement.', 3);
+INSERT INTO `library_consultation_loan_condition` VALUES (7, 'Mémoires uniquement consultables sur place.\r\n', 10);
+INSERT INTO `library_consultation_loan_condition` VALUES (22, 'Fonds en libre-accès', 4);
+INSERT INTO `library_consultation_loan_condition` VALUES (23, 'Bibliothèque de la Pléiade, dictionnaires de langue et sélection d\'ouvrages pour l\'agrégation uniquement consultables sur place', 4);
+INSERT INTO `library_consultation_loan_condition` VALUES (24, 'Dictionnaires et encyclopédies : Master, prépa concours, doctorat, enseignants : 1 livre pour 1 semaine', 4);
+INSERT INTO `library_consultation_loan_condition` VALUES (26, 'Périodiques cataloguées : 3 numéros pour 2 semaines', 4);
+INSERT INTO `library_consultation_loan_condition` VALUES (35, 'Le prêt s\'effectue grâce à la carte d\'étudiant de l\'université Paris Nanterre', 5);
+INSERT INTO `library_consultation_loan_condition` VALUES (36, 'Fonds en libre-accès.', 5);
+INSERT INTO `library_consultation_loan_condition` VALUES (37, 'Licence : 6 documents pour 14 jours (non renouvelable)', 5);
+INSERT INTO `library_consultation_loan_condition` VALUES (38, 'Master et Préparations aux concours : 6 documents pour 14 jours (renouvelable 1 fois via le compte lecteur)', 5);
+INSERT INTO `library_consultation_loan_condition` VALUES (39, 'Enseignants : 6 documents pour 28 jours', 5);
+INSERT INTO `library_consultation_loan_condition` VALUES (40, 'Administratifs : 6 documents pour 28 jours.', 5);
+INSERT INTO `library_consultation_loan_condition` VALUES (41, 'Périodiques : 2 revues pour 14 jours à l \'exception du dernier numéro.', 5);
+INSERT INTO `library_consultation_loan_condition` VALUES (42, 'Fonds en libre-accès sauf pour les mémoires (présentation de la carte étudiant)', 11);
+INSERT INTO `library_consultation_loan_condition` VALUES (43, 'Périodiques et mémoires uniquement consultables sur place', 11);
+INSERT INTO `library_consultation_loan_condition` VALUES (46, 'Fonds en libre-accès.', 6);
+INSERT INTO `library_consultation_loan_condition` VALUES (47, 'Périodiques, dictionnaires et mémoires uniquement consultables sur place.', 6);
+INSERT INTO `library_consultation_loan_condition` VALUES (48, 'Codes et plans comptables en prêt court.', 6);
+INSERT INTO `library_consultation_loan_condition` VALUES (52, 'Fonds en libre-accès', 12);
+INSERT INTO `library_consultation_loan_condition` VALUES (53, 'Périodiques, mémoires et documents pédagogiques uniquement consultables sur place.', 12);
+INSERT INTO `library_consultation_loan_condition` VALUES (54, 'Authentification nécessaire (login et mot de passe) pour l\'accès aux ressources en ligne de la BU et des BUFR sur le portail documentaire du S.C.D. (scd.parisnanterre.fr)', 12);
+INSERT INTO `library_consultation_loan_condition` VALUES (63, 'Aménagement possible des durées selon les cas. A aborder avec la responsable.', 12);
+INSERT INTO `library_consultation_loan_condition` VALUES (64, 'Fonds en libre-accès', 7);
+INSERT INTO `library_consultation_loan_condition` VALUES (65, 'Pas de prêt à domicile. Consultation des ouvrages sur place uniquement.', 7);
+INSERT INTO `library_consultation_loan_condition` VALUES (66, 'Fonds en libre-accès', 13);
+INSERT INTO `library_consultation_loan_condition` VALUES (67, 'Périodiques, thèses, mémoires, et rapports de stage sont uniquement consultables sur place', 13);
+INSERT INTO `library_consultation_loan_condition` VALUES (72, 'Fonds en libre-accès pour les documents de la salle D410 et présentation de la carte étudiant pour pour la consultation des documents en salle de lecture D 411.', 9);
+INSERT INTO `library_consultation_loan_condition` VALUES (73, 'Périodiques, mémoires, cartes et atlas grand format uniquement consultables sur place', 9);
+INSERT INTO `library_consultation_loan_condition` VALUES (83, 'Ouvrages en libre-accès : Documents empruntables (anciennes éditions de manuels) : gommettes jaunes ', 1);
+INSERT INTO `library_consultation_loan_condition` VALUES (84, 'Ouvrages en libre-accès : Documents consultables : nouvelles éditions de manuels, ouvrages généraux', 1);
+INSERT INTO `library_consultation_loan_condition` VALUES (85, 'Ouvrages en libre-accès : Documents exclus du prêt : dictionnaires, traités, certains codes', 1);
+INSERT INTO `library_consultation_loan_condition` VALUES (86, 'Périodiques uniquement consultables sur place.', 1);
+INSERT INTO `library_consultation_loan_condition` VALUES (101, 'Fonds en accès contrôlé avec la carte étudiante et uniquement consultable sur place', 8);
 
 -- ----------------------------
 -- Table structure for library_documentary_fund
@@ -368,8 +607,8 @@ INSERT INTO `library_documentary_fund` VALUES (25, 'Une centaine de mémoires', 
 INSERT INTO `library_documentary_fund` VALUES (26, 'Rapports du jury CAPES et AGREGATION', 10);
 INSERT INTO `library_documentary_fund` VALUES (27, '17 000 ouvrages', 4);
 INSERT INTO `library_documentary_fund` VALUES (28, '70 titres de périodiques consultables sur place, plus 13 empruntables (dont 3 abonnements en cours)', 4);
-INSERT INTO `library_documentary_fund` VALUES (29, '350 thèses et mémoires consultables sur places (Inventaire à consulter/télécharger)\r\n', 4);
-INSERT INTO `library_documentary_fund` VALUES (30, 'Copies de concours en consultation sur place\r\n', 4);
+INSERT INTO `library_documentary_fund` VALUES (29, '350 thèses et mémoires consultables sur places (Inventaire à consulter/télécharger)', 4);
+INSERT INTO `library_documentary_fund` VALUES (30, 'Copies de concours en consultation sur place', 4);
 INSERT INTO `library_documentary_fund` VALUES (31, 'ouvrages', 5);
 INSERT INTO `library_documentary_fund` VALUES (32, 'ressources en ligne', 5);
 INSERT INTO `library_documentary_fund` VALUES (33, 'bases de données', 5);
@@ -402,7 +641,7 @@ INSERT INTO `library_documentary_fund` VALUES (55, '1 400 thèses, mémoires et 
 DROP TABLE IF EXISTS `library_domain`;
 CREATE TABLE `library_domain`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `domain` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `library_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
@@ -561,7 +800,7 @@ INSERT INTO `library_link` VALUES (24, 'bufr-urbanisme', 4, 13);
 DROP TABLE IF EXISTS `library_responsable`;
 CREATE TABLE `library_responsable`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fullname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `full_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `phone_number` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `mail` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `library_id` int(11) NOT NULL,
@@ -576,14 +815,14 @@ CREATE TABLE `library_responsable`  (
 INSERT INTO `library_responsable` VALUES (1, 'Alexandre PARÉ', '0140977711', 'apare@parisnanterre.fr', 1);
 INSERT INTO `library_responsable` VALUES (2, 'Thibaut DINASQUET', NULL, NULL, 1);
 INSERT INTO `library_responsable` VALUES (3, 'Amirhoushang MOSTARSHEDI', NULL, NULL, 1);
-INSERT INTO `library_responsable` VALUES (4, ' Aurore VERNHES', NULL, NULL, 1);
+INSERT INTO `library_responsable` VALUES (4, 'Aurore VERNHES', NULL, NULL, 1);
 INSERT INTO `library_responsable` VALUES (5, 'Catherine Lescure', '0140977634', 'catherine.lescure@parisnanterre.fr', 2);
 INSERT INTO `library_responsable` VALUES (6, 'Hélène Durand', '0140977581', 'hedurand@parisnanterre.fr', 3);
 INSERT INTO `library_responsable` VALUES (7, 'Luca Picardi', '0140977009', 'lpicardi@parisnanterre.fr', 4);
-INSERT INTO `library_responsable` VALUES (8, ' Yannick Valmy', '0141167369', 'yvalmy@parisnanterre.fr', 5);
-INSERT INTO `library_responsable` VALUES (9, ' Anne-Frédérique Pérol', '0140977510', 'aperol@parisnanterre.fr', 6);
-INSERT INTO `library_responsable` VALUES (10, 'Sylia Ait Abdelmalek\r\nSylia Ait Abdelmalek\r\nSylia Ait Abdelmalek\r\nSylia Ait Abdelmalek', '0140977338', 'saitabde@parisnanterre.fr', 6);
-INSERT INTO `library_responsable` VALUES (11, ' Isabelle CARTEREAU', '0140977119', 'isabelle.cartereau@parisnanterre.fr', 7);
+INSERT INTO `library_responsable` VALUES (8, 'Yannick Valmy', '0141167369', 'yvalmy@parisnanterre.fr', 5);
+INSERT INTO `library_responsable` VALUES (9, 'Anne-Frédérique Pérol', '0140977510', 'aperol@parisnanterre.fr', 6);
+INSERT INTO `library_responsable` VALUES (10, 'Sylia Ait Abdelmalek', '0140977338', 'saitabde@parisnanterre.fr', 6);
+INSERT INTO `library_responsable` VALUES (11, 'Isabelle CARTEREAU', '0140977119', 'isabelle.cartereau@parisnanterre.fr', 7);
 INSERT INTO `library_responsable` VALUES (12, 'Marie-France NGUYEN', '0140974126', 'faugeron@parisnanterre.fr', 7);
 INSERT INTO `library_responsable` VALUES (13, 'Marine Walzer', NULL, NULL, 8);
 INSERT INTO `library_responsable` VALUES (14, 'Martin Audeguis', NULL, NULL, 8);
@@ -593,7 +832,7 @@ INSERT INTO `library_responsable` VALUES (17, 'Sasha Wegiera', '0140977270', 'sw
 INSERT INTO `library_responsable` VALUES (18, 'Sophie Da Silva', '0140977867', 'sophie.da_silva@parisnanterre.fr', 11);
 INSERT INTO `library_responsable` VALUES (19, 'Laura Jouvin', '0140977044', 'laura.jouvin@parisnanterre.fr', 12);
 INSERT INTO `library_responsable` VALUES (20, 'Franck Rakotonirina', '0140977582', 'frakoton@parisnanterre.fr', 13);
-INSERT INTO `library_responsable` VALUES (21, 'LA BIBLIOTHÈQUE UNIVERSITAIRE\r\n', '0140977202', NULL, 0);
+INSERT INTO `library_responsable` VALUES (21, 'LA BIBLIOTHÈQUE UNIVERSITAIRE', '0140977202', NULL, 0);
 
 -- ----------------------------
 -- Table structure for library_schedule
@@ -603,7 +842,7 @@ CREATE TABLE `library_schedule`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `opening_time` time(6) NOT NULL,
   `closing_time` time(6) NOT NULL,
-  `days` varchar(17) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `days` varchar(23) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `library_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `library_id`(`library_id`) USING BTREE,
@@ -613,34 +852,34 @@ CREATE TABLE `library_schedule`  (
 -- ----------------------------
 -- Records of library_schedule
 -- ----------------------------
-INSERT INTO `library_schedule` VALUES (1, '00:09:00.000000', '00:17:00.000000', 'MO-TU-WE-TH-FR', 1);
-INSERT INTO `library_schedule` VALUES (2, '00:09:00.000000', '00:17:00.000000', 'MO-TU-WE-TH-FR', 2);
-INSERT INTO `library_schedule` VALUES (3, '00:09:00.000000', '00:18:00.000000', 'MO-TU-WE-TH-FR', 3);
-INSERT INTO `library_schedule` VALUES (4, '00:09:30.000000', '00:19:30.000000', 'MO-TU-WE-TH', 4);
-INSERT INTO `library_schedule` VALUES (5, '00:09:30.000000', '00:17:30.000000', 'FR', 4);
-INSERT INTO `library_schedule` VALUES (6, '00:09:00.000000', '00:18:00.000000', 'MO-TU-WE-TH-FR', 5);
-INSERT INTO `library_schedule` VALUES (7, '00:09:15.000000', '00:18:00.000000', 'MO-TU-WE-TH', 6);
-INSERT INTO `library_schedule` VALUES (8, '00:09:15.000000', '00:17:15.000000', 'FR', 6);
-INSERT INTO `library_schedule` VALUES (9, '00:09:15.000000', '00:00:13.000000', 'MO-TU-TH', 7);
-INSERT INTO `library_schedule` VALUES (10, '00:14:00.000000', '00:17:00.000000', 'MO-TU-TH', 7);
-INSERT INTO `library_schedule` VALUES (11, '00:09:15.000000', '00:13:00.000000', 'FR', 7);
-INSERT INTO `library_schedule` VALUES (12, '00:14:00.000000', '00:16:30.000000', 'FR', 7);
-INSERT INTO `library_schedule` VALUES (13, '00:10:00.000000', '00:14:00.000000', 'MO-TU-WE', 8);
-INSERT INTO `library_schedule` VALUES (14, '00:14:30.000000', '00:17:30.000000', 'MO-WE', 8);
-INSERT INTO `library_schedule` VALUES (15, '00:14:30.000000', '00:18:30.000000', 'TU', 8);
-INSERT INTO `library_schedule` VALUES (16, '00:09:15.000000', '00:18:00.000000', 'MO', 9);
-INSERT INTO `library_schedule` VALUES (17, '00:09:15.000000', '00:17:00.000000', 'TU-WE-TH', 9);
-INSERT INTO `library_schedule` VALUES (18, '00:09:00.000000', '00:13:00.000000', 'FR', 9);
-INSERT INTO `library_schedule` VALUES (19, '00:09:00.000000', '00:19:00.000000', 'MO', 10);
-INSERT INTO `library_schedule` VALUES (20, '00:09:00.000000', '00:18:00.000000', 'TU-WE-TH-FR', 10);
-INSERT INTO `library_schedule` VALUES (21, '00:08:30.000000', '00:19:00.000000', 'MO-TU-WE-TH-FR', 11);
-INSERT INTO `library_schedule` VALUES (22, '00:09:00.000000', '00:13:00.000000', 'MO-TU', 13);
-INSERT INTO `library_schedule` VALUES (23, '00:14:00.000000', '00:17:00.000000', 'MO-TU', 13);
-INSERT INTO `library_schedule` VALUES (24, '00:09:00.000000', '00:13:00.000000', 'WE', 13);
-INSERT INTO `library_schedule` VALUES (25, '00:14:00.000000', '00:17:00.000000', 'WE', 13);
-INSERT INTO `library_schedule` VALUES (26, '00:09:00.000000', '00:13:00.000000', 'TH', 13);
-INSERT INTO `library_schedule` VALUES (27, '00:14:00.000000', '00:16:30.000000', 'TH', 13);
-INSERT INTO `library_schedule` VALUES (28, '00:09:00.000000', '00:14:00.000000', 'FR', 13);
+INSERT INTO `library_schedule` VALUES (1, '09:00:00.000000', '17:00:00.000000', 'MON-TUE-WED-THU-FRI', 1);
+INSERT INTO `library_schedule` VALUES (2, '09:00:00.000000', '17:00:00.000000', 'MON-TUE-WED-THU-FRI', 2);
+INSERT INTO `library_schedule` VALUES (3, '09:00:00.000000', '18:00:00.000000', 'MON-TUE-WED-THU-FRI', 3);
+INSERT INTO `library_schedule` VALUES (4, '09:30:00.000000', '19:30:00.000000', 'MON-TUE-WED-THU', 4);
+INSERT INTO `library_schedule` VALUES (5, '09:30:00.000000', '17:30:00.000000', 'FRI', 4);
+INSERT INTO `library_schedule` VALUES (6, '09:00:00.000000', '18:00:00.000000', 'MON-TUE-WED-THU-FRI', 5);
+INSERT INTO `library_schedule` VALUES (7, '09:15:00.000000', '18:00:00.000000', 'MON-TUE-WED-THU', 6);
+INSERT INTO `library_schedule` VALUES (8, '09:15:00.000000', '17:15:00.000000', 'FRI', 6);
+INSERT INTO `library_schedule` VALUES (9, '09:15:00.000000', '00:13:00.000000', 'MON-TUE-THU', 7);
+INSERT INTO `library_schedule` VALUES (10, '14:00:00.000000', '17:00:00.000000', 'MON-TUE-THU', 7);
+INSERT INTO `library_schedule` VALUES (11, '09:15:00.000000', '13:00:00.000000', 'FRI', 7);
+INSERT INTO `library_schedule` VALUES (12, '14:00:00.000000', '16:30:00.000000', 'FRI', 7);
+INSERT INTO `library_schedule` VALUES (13, '10:00:00.000000', '14:00:00.000000', 'MON-TUE-WED', 8);
+INSERT INTO `library_schedule` VALUES (14, '14:30:00.000000', '17:30:00.000000', 'MON-WED', 8);
+INSERT INTO `library_schedule` VALUES (15, '14:30:00.000000', '18:30:00.000000', 'TUE', 8);
+INSERT INTO `library_schedule` VALUES (16, '09:15:00.000000', '18:00:00.000000', 'MON', 9);
+INSERT INTO `library_schedule` VALUES (17, '09:15:00.000000', '17:00:00.000000', 'TUE-WED-THU', 9);
+INSERT INTO `library_schedule` VALUES (18, '09:00:00.000000', '13:00:00.000000', 'FRI', 9);
+INSERT INTO `library_schedule` VALUES (19, '09:00:00.000000', '19:00:00.000000', 'MON', 10);
+INSERT INTO `library_schedule` VALUES (20, '09:00:00.000000', '18:00:00.000000', 'TUE-WED-THU-FRI', 10);
+INSERT INTO `library_schedule` VALUES (21, '08:30:00.000000', '19:00:00.000000', 'MON-TUE-WED-THU-FRI', 11);
+INSERT INTO `library_schedule` VALUES (22, '09:00:00.000000', '13:00:00.000000', 'MON-TUE', 13);
+INSERT INTO `library_schedule` VALUES (23, '14:00:00.000000', '17:00:00.000000', 'MON-TUE', 13);
+INSERT INTO `library_schedule` VALUES (24, '09:00:00.000000', '13:00:00.000000', 'WED', 13);
+INSERT INTO `library_schedule` VALUES (25, '14:00:00.000000', '17:00:00.000000', 'WED', 13);
+INSERT INTO `library_schedule` VALUES (26, '09:00:00.000000', '13:00:00.000000', 'THU', 13);
+INSERT INTO `library_schedule` VALUES (27, '14:00:00.000000', '16:30:00.000000', 'THU', 13);
+INSERT INTO `library_schedule` VALUES (28, '09:00:00.000000', '14:00:00.000000', 'FRI', 13);
 
 -- ----------------------------
 -- Table structure for library_service
@@ -751,7 +990,7 @@ CREATE TABLE `product`  (
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `price` decimal(10, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of product
@@ -797,21 +1036,16 @@ CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `lastname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `birthdate` datetime(0) NULL DEFAULT NULL,
-  `grade_id` int(11) NOT NULL,
   `user_type_id` int(11) NOT NULL DEFAULT 1,
-  `university_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `university_id`(`university_id`) USING BTREE,
-  INDEX `grade_id`(`grade_id`) USING BTREE,
   INDEX `user_type_id`(`user_type_id`) USING BTREE,
-  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `user_ibfk_3` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 141 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES (0, 'bot', 'myNanterre', 2); --THIS ID HAS TO BE 0 !
 
 -- ----------------------------
 -- Table structure for user_type
@@ -821,12 +1055,29 @@ CREATE TABLE `user_type`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of user_type
 -- ----------------------------
 INSERT INTO `user_type` VALUES (1, 'student');
 INSERT INTO `user_type` VALUES (2, 'administrator');
+INSERT INTO `user_type` VALUES (3, 'club account');
+
+-- ----------------------------
+-- Procedure structure for proc_initData
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `proc_initData`;
+delimiter ;;
+CREATE PROCEDURE `proc_initData`()
+BEGIN  
+    DECLARE i INT DEFAULT 2081;  
+    WHILE i<=2211 DO    
+        INSERT INTO club_publication(message,date, club_id) VALUES('aaaaaaaaaaaaaaaaaaaaaaaaaaaa',NOW(), i);
+        SET i = i+1;  
+    END WHILE;  
+END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
