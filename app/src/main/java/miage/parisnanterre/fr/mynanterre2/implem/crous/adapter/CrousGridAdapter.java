@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +72,7 @@ public class CrousGridAdapter extends BaseAdapter{
         holder.lieu.setText(simpleCrous.getName());
 
         Collections.reverse(simpleCrous.getCrousAttendances());
-        Optional<Attendance> lastAttendance = simpleCrous.getCrousAttendances().stream().findFirst();
+        Optional<Attendance> lastAttendance = simpleCrous.getCrousAttendances().stream().sorted((attendance1, attendance2) -> Integer.compare(attendance1.getId(), attendance2.getId())).findFirst();
         if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 100) {
             convertView.setBackgroundColor(Color.rgb(191, 10, 1));
         } else if (lastAttendance.isPresent() && lastAttendance.get().getProportion() == 60) {
