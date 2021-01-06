@@ -45,8 +45,8 @@ public class CrousProductAvailabilityApiHelper extends ApiHelper<ProductAvailabi
 
     public void createAvailability(boolean isAvailable, CrousProduct crousProduct) throws IOException {
         ProductAvailability productAvailability = new ProductAvailability(isAvailable, crousProduct);
+        crousProduct.addProductAvailabilities(productAvailability);
         String jsonString = gson.toJson(productAvailability).replace("{\"id\":0,", "{"); //id is not used for insertion
         sendData(jsonString, ApiRequestMethod.POST);
-        crousProduct.addProductAvailabilities(productAvailability);
     }
 }

@@ -54,7 +54,8 @@ public class CrousAttendanceFragment extends Fragment {
         View v = inflater.inflate(R.layout.crous_attendance, container, false);
 
         TextView title = v.findViewById(R.id.Title);
-        title.setText("Fréquentation");
+        title.setText("Fréquentation du crous " + clickedSimpleCrous.getName());
+        title.setTextSize(15);
 
         ImageView back = v.findViewById(R.id.back);
         back.setOnClickListener(x -> getActivity().onBackPressed());
@@ -68,7 +69,7 @@ public class CrousAttendanceFragment extends Fragment {
         });
 
         TextView txtview = v.findViewById(R.id.nomBatiment);
-        txtview.setText(clickedSimpleCrous.getName() + " : " + clickedSimpleCrous.getLocation());
+        txtview.setText(clickedSimpleCrous.getLocation());
 
         barChart = v.findViewById(R.id.barchart);
 
