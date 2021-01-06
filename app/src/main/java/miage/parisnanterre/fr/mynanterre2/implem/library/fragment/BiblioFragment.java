@@ -17,6 +17,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 
+import java.util.concurrent.ExecutionException;
+
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LibraryApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.library.ListeEspacesBu;
@@ -66,7 +68,13 @@ public class BiblioFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected String doInBackground(Void... params) {
-            libraryApiHelper.getSimpleLibraries();
+            try {
+                libraryApiHelper.getAllSimpleLibraries();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             return "executed";
         }

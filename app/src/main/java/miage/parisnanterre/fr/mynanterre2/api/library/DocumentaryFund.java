@@ -8,4 +8,9 @@ public class DocumentaryFund  extends LibraryRelatedElement{
         this.name = name;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
 }

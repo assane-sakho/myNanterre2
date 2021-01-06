@@ -4,72 +4,52 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonArray;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
-import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 
-public class LibraryApiHelper extends ApiHelper {
-    private static LibraryApiHelper instance = new LibraryApiHelper();
-    private List<SimpleLibrary> simpleLibraries;
-    private boolean isSimpleLibrariesDataLoaded;
-    private List<Library> libraries;
+@RequiresApi(api = Build.VERSION_CODES.O)
+public class LibraryApiHelper extends ApiHelper<SimpleLibrary, Library> {
 
-    // Hide default constructor
+    private static LibraryApiHelper instance;
+    private static String baseEndPoint = "libraries";
+
     private LibraryApiHelper() {
-        simpleLibraries = new ArrayList<>();
-        libraries = new ArrayList<>();
-        isSimpleLibrariesDataLoaded = false;
+        super(baseEndPoint, true);
     }
 
-    public static LibraryApiHelper getInstance() {
+    public static LibraryApiHelper getInstance()
+    {
+        if(instance == null)
+            instance = new LibraryApiHelper();
         return instance;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<SimpleLibrary> getSimpleLibraries() {
-
-        synchronized (simpleLibraries) {
-            if (isSimpleLibrariesDataLoaded)
-                return simpleLibraries;
-
-            try {
-                String jsonString = getJsonAsString("libraries");
-                simpleLibraries = Arrays.asList(gson.fromJson(jsonString, SimpleLibrary[].class));
-                isSimpleLibrariesDataLoaded = true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return simpleLibraries;
-        }
+    @Override
+    List<SimpleLibrary> convertToList(JsonArray jsonArray) {
+        return Arrays.asList(gson.fromJson(jsonArray, SimpleLibrary[].class));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    List<SimpleLibrary> convertToList(String jsonString) {
+        return Arrays.asList(gson.fromJson(jsonString, SimpleLibrary[].class));
+    }
+
+    @Override
+    Library convertToComplete(String jsonString) {
+        return gson.fromJson(jsonString, Library.class);
+    }
+
+    public List<SimpleLibrary> getAllSimpleLibraries() throws ExecutionException, InterruptedException {
+        return getAllSimpleElements();
+    }
+
     public Library getLibrary(int id) {
-
-        synchronized (libraries) {
-            Optional<Library> optionalLibrary = libraries.stream().filter(l -> l.getId() == id).findFirst();
-
-            if (!optionalLibrary.isPresent()) {
-                try {
-                    String jsonString = getJsonAsString("libraries/" + id);
-                    optionalLibrary = Optional.of(gson.fromJson(jsonString, Library.class));
-                    libraries.add(optionalLibrary.get());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return optionalLibrary.get();
-        }
+        return getCompleteElement(id);
     }
-
 }

@@ -1,23 +1,15 @@
 package miage.parisnanterre.fr.mynanterre2.api.club;
 
-public abstract class ClubRelatedElement {
-    protected final int id;
-    protected final Club club;
+import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 
-    public ClubRelatedElement(int id, Club club)
-    {
-        this.id = id;
-        this.club = club;
-    }
+public class ClubRelatedElement extends BaseDbElement {
+    protected Club club;
 
-    /* GETTER */
-    protected int getId()
-    {
-        return id;
-    }
-
-    protected Club getClub()
-    {
+    public Club getClub() {
         return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 }

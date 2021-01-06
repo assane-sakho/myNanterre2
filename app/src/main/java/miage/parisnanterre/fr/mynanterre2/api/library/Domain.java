@@ -7,4 +7,9 @@ public class Domain extends LibraryRelatedElement {
         super(id, library);
         this.name = name;
     }
+
+    public String getName()
+    {
+        return name;
+    }
 }
