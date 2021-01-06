@@ -62,8 +62,7 @@ public class CrousLocalisationFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         TextView title = v.findViewById(R.id.Title);
-        title.setText("Informations");
-
+        title.setText("Informations de localisation");
         ImageView back = v.findViewById(R.id.back);
         back.setOnClickListener(x -> getActivity().onBackPressed());
 
