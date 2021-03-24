@@ -12,7 +12,6 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run: |
           yes | sdkmanager --licenses
-          yes | sdkmanager --update
           ./gradlew test
       - save_cache:
           paths:
