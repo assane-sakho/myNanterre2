@@ -10,9 +10,10 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-         command: yes | sdkmanager --licenses && yes | sdkmanager --update && ./gradlew test
+      - run: |
+          yes | sdkmanager --licenses
+          yes | sdkmanager --update
+          ./gradlew test
       - save_cache:
           paths:
             - ~/.gradle
