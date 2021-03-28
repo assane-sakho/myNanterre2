@@ -20,17 +20,17 @@ public class UserApiHelper extends ApiHelper<User, User> {
 
     private static UserApiHelper instance;
     private static String baseEndPoint = "users";
-    private UserClubApiHelper userClubApiHelper;
+    private User userConnected;
 
-    private UserApiHelper() {
+    private UserApiHelper(int userId) {
         super(baseEndPoint, true);
-        userClubApiHelper = UserClubApiHelper.getInstance();
+        userConnected = getCompleteUser(userId);
     }
 
-    public static UserApiHelper getInstance()
+    public static UserApiHelper getInstance(int userId)
     {
         if(instance == null)
-            instance = new UserApiHelper();
+            instance = new UserApiHelper(userId);
         return instance;
     }
 
@@ -49,26 +49,10 @@ public class UserApiHelper extends ApiHelper<User, User> {
         return gson.fromJson(jsonString, User.class);
     }
 
-    public User getSimpleUser(int id)
-    {
-        return getSimpleElement(id);
-    }
-
     public User getCompleteUser(int id)
     {
         return getCompleteElement(id);
     }
 
-    public List<User> getMoreUsers()
-    {
-        return getMoreSimpleElements();
-    }
-
-    public void followClub(User user, SimpleClub club) throws IOException {
-        userClubApiHelper.followClub(new UserClub(user, club));
-    }
-
-    public void unFollowClub(UserClub userClub) throws IOException {
-        userClubApiHelper.unFollowClub(userClub);
-    }
+    public User getUserConnected() { return userConnected; }
 }

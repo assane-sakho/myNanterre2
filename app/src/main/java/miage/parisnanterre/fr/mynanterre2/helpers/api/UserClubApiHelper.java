@@ -16,6 +16,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
@@ -28,16 +30,18 @@ public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
     private static UserClubApiHelper instance;
     private static String baseEndPoint = "users_club";
     private ClubPublicationApiHelper clubPublicationApiHelper;
+    private UserApiHelper userApiHelper;
 
-    private UserClubApiHelper() {
+    private UserClubApiHelper(int userId) {
         super(baseEndPoint, true);
         clubPublicationApiHelper = ClubPublicationApiHelper.getInstance();
+        userApiHelper = UserApiHelper.getInstance(userId);
     }
 
-    public static UserClubApiHelper getInstance()
+    public static UserClubApiHelper getInstance(int userId)
     {
         if(instance == null)
-            instance = new UserClubApiHelper();
+            instance = new UserClubApiHelper(userId);
         return instance;
     }
 
@@ -56,7 +60,10 @@ public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
         return gson.fromJson(jsonString, UserClub.class);
     }
 
-    public void followClub(UserClub userClub) throws IOException {
+    public void followClub(SimpleClub club) throws IOException {
+        User userConnected = userApiHelper.getUserConnected();
+        UserClub userClub = new UserClub(userConnected, club);
+
         String jsonString = gson.toJson(userClub).replace("{\"id\":0,", "{"); //id is not used for insertion
         String r = sendData(jsonString, ApiRequestMethod.POST);
         userClub = convertToComplete(r);
@@ -69,34 +76,11 @@ public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
         userClub.getUser().removeFollowedClub(userClub);
     }
 
-    private class ElementsCallable implements Callable<List<Publication>> {
-        private final int clubId;
-
-        public ElementsCallable(int clubId) {
-            this.clubId = clubId;
-        }
-
-        public List<Publication> call() throws ExecutionException, InterruptedException {
-            return clubPublicationApiHelper.getAllPublications(clubId);
-        }
-    }
-
-    public List<Publication> getFollowedClubsPublication(User user) throws InterruptedException, ExecutionException {
-        List<Publication> publications = new ArrayList<>();
-
-        ExecutorService executorService = Executors.newFixedThreadPool(user.getFollowedClubsIds().size());
-
-        List<ElementsCallable> callableTasks = new ArrayList<>();
-
-        for (int clubId: user.getFollowedClubsIds()) {
-            callableTasks.add(new ElementsCallable(clubId));
-        }
-
-        List<Future<List<Publication>>> futures = executorService.invokeAll(callableTasks);
-
-        for (Future<List<Publication>> f : futures)
-            publications.addAll(f.get());
-
+    public List<Publication> getFollowedClubsPublication() throws InterruptedException, ExecutionException {
+        User userConnected = userApiHelper.getUserConnected();
+        String ids = userConnected.getFollowedClubsIds().stream().map(String::valueOf).collect(Collectors.joining("%2C"));
+        List<Publication> publications = clubPublicationApiHelper.getAllPublications(ids);
+        publications.sort((p1, p2) -> p2.getDate().compareTo(p1.getDate()));
         return publications;
     }
 }
