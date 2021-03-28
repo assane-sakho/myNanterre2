@@ -6,10 +6,15 @@ import androidx.annotation.RequiresApi;
 
 import com.google.gson.JsonArray;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -22,6 +27,8 @@ import java.util.stream.Collectors;
 import miage.parisnanterre.fr.mynanterre2.api.club.Club;
 import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
+import miage.parisnanterre.fr.mynanterre2.api.library.Library;
+import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 import miage.parisnanterre.fr.mynanterre2.api.user.UserClub;
 
@@ -29,7 +36,7 @@ import miage.parisnanterre.fr.mynanterre2.api.user.UserClub;
 public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
 
     private static UserClubApiHelper instance;
-    private static String baseEndPoint = "users_club";
+    private static String baseEndPoint = "users_clubs";
     private ClubApiHelper clubApiHelper;
     private UserApiHelper userApiHelper;
 
@@ -61,14 +68,16 @@ public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
         return gson.fromJson(jsonString, UserClub.class);
     }
 
-    public void followClub(SimpleClub club) throws IOException {
+    public UserClub followClub(SimpleClub club) throws IOException {
         User userConnected = userApiHelper.getUserConnected();
         UserClub userClub = new UserClub(userConnected, club);
 
         String jsonString = gson.toJson(userClub).replace("{\"id\":0,", "{"); //id is not used for insertion
         String r = sendData(jsonString, ApiRequestMethod.POST);
-        userClub = convertToComplete(r);
+        String id = gson.fromJson(r, HashMap.class).get("id").toString().replace(".0", "");
+        userClub.setId(Integer.parseInt(id));
         userClub.getUser().addFollowedClub(userClub);
+        return userClub;
     }
 
     public void unFollowClub(UserClub userClub) throws IOException {

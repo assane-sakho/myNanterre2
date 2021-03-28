@@ -48,14 +48,16 @@ import miage.parisnanterre.fr.mynanterre2.api.crous.ProductAvailability;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
+import miage.parisnanterre.fr.mynanterre2.api.user.UserClub;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubPublicationAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonCrousAttendanceAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonProductAvailabilityAdapter;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonUserClubAdapter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
-    private static final String LOCALURLDEV = "http://e1e33fb98f4b.ngrok.io/api/";
+    private static final String LOCALURLDEV = "http://405dd9057754.ngrok.io/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
     private static final String BASEURL = LOCALURLDEV;
@@ -120,6 +122,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
                 .registerTypeAdapter(Publication.class, new JsonClubPublicationAdapter())
                 .registerTypeAdapter(Attendance.class, new JsonCrousAttendanceAdapter())
                 .registerTypeAdapter(ProductAvailability.class, new JsonProductAvailabilityAdapter())
+                .registerTypeAdapter(UserClub.class, new JsonUserClubAdapter())
                 .create();
 
         simpleElements = new ArrayList<>();

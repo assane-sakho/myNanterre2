@@ -14,9 +14,6 @@ public class UserClub extends BaseDbElement {
         this.club = club;
     }
 
-    public int getClubId() {
-        return club.getId();
-    }
 
     public UserClub(int id, User user, SimpleClub club) {
         this.user = user;
@@ -26,5 +23,13 @@ public class UserClub extends BaseDbElement {
 
     public User getUser() {
         return user;
+    }
+
+    public SimpleClub getClub() {
+        return club;
+    }
+
+    public int getClubId() {
+        return club.getId();
     }
 }

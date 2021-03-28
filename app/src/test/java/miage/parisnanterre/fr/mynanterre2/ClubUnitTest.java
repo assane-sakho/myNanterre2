@@ -35,8 +35,8 @@ public class ClubUnitTest {
                 .setWebsite("www.monclub.fr");
 
         club.addPublication("une publication")
-                .addPublication(new Publication("Nouvelle publication", club))
-                .addPublication("actualités du 12 décembre");
+            .addPublication(new Publication("Nouvelle publication", club))
+            .addPublication("actualités du 12 décembre");
 
         assertEquals("club de test", club.getName());
         assertEquals("une description", club.getDescription());
