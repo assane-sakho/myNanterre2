@@ -34,7 +34,7 @@ public class UserClubUnitTest {
 
     @Test
     public void testFollowedClubPublications() throws ExecutionException, InterruptedException {
-        UserClubApiHelper userClubApiHelper = UserClubApiHelper.getInstance(1);
+        UserClubApiHelper userClubApiHelper = UserClubApiHelper.getInstance(0);
         List<Publication> publications = userClubApiHelper.getFollowedClubsPublication();
         assertNotNull(publications);
     }
