@@ -57,4 +57,5 @@ public class UserApiHelper extends ApiHelper<User, User> {
     {
         return getMoreSimpleElements();
     }
+
 }

@@ -22,6 +22,7 @@ import miage.parisnanterre.fr.mynanterre2.fragment.CrousFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.MajFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.PlanFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.TrainFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.actu.ActuFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.BiblioFragment;
 
@@ -32,6 +33,7 @@ public class Accueil extends AppCompatActivity {
     private int mSelectedId;
     // Make sure to be using androidx.appcompat.app.ActionBarDrawerToggle version.
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +83,7 @@ public class Accueil extends AppCompatActivity {
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         selectDrawerItem(menuItem.getItemId());
@@ -100,6 +103,9 @@ public class Accueil extends AppCompatActivity {
         switch(mSelectedId) {
             case R.id.nav_accueil:
                 fragmentClass = AccueilFragment.class;
+                break;
+            case R.id.nav_actu:
+                fragmentClass = ActuFragment.class;
                 break;
             case R.id.nav_bu:
                 fragmentClass = BiblioFragment.class;
