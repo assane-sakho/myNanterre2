@@ -35,7 +35,7 @@ public class SupportFragment extends Fragment {
 
                 //Envoyer mail
                 Intent email = new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dasrahul2297@gmail.com"});
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact.mynanterre2@gmail.com"});
                 email.putExtra(Intent.EXTRA_SUBJECT, "Message de support MyNanterre");
                 email.putExtra(Intent.EXTRA_TEXT, SupportMessage.getText());
                 email.setType("message/rfc822");
