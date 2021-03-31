@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem.club.fragment;
+package miage.parisnanterre.fr.mynanterre2.fragment;
 
 import androidx.annotation.RequiresApi;
 import android.os.AsyncTask;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
