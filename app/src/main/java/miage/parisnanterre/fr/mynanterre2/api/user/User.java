@@ -19,6 +19,7 @@ public class User extends BaseDbElement {
     private List<UserClub> followedClubs;
     @SerializedName("userType")
     private Type type;
+    //Ajout d'une liste de club follow List<integer>clubfollowid
 
     public User(String lastName, String firstName, Type type) {
         this.lastName = lastName;
@@ -42,6 +43,11 @@ public class User extends BaseDbElement {
     {
         return firstName + " " + lastName;
     }
+    //methode Followadd
+    // this.user.addClubSuivi(club)//id du club
+
+    //methode unFollow
+
 
     public List<Integer> getFollowedClubsIds()
     {

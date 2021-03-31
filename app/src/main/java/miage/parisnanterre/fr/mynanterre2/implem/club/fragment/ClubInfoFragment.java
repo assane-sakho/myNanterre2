@@ -111,6 +111,13 @@ public class ClubInfoFragment extends Fragment {
         web.setText(club.getWebsite());
         contact.setText(club.getContact());
 
+        //tester si le user appartient à la liste de follow
+        // gestion du click :
+        // this.user.addClubSuivi(club) //pas sure si c'est ici ou dans user
+        //Button follow = v1.FindViewById()
+        //follow.setOnClick(Methode follow avec l'id du club)
+        //set button disable
+        //set button visible
 
         ImageView back = v1.findViewById(R.id.back);
 
