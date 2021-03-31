@@ -6,25 +6,31 @@ import androidx.annotation.RequiresApi;
 
 import com.google.gson.JsonArray;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
+import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
+import miage.parisnanterre.fr.mynanterre2.api.user.UserClub;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class UserApiHelper extends ApiHelper<User, User> {
 
     private static UserApiHelper instance;
     private static String baseEndPoint = "users";
+    private User userConnected;
 
-    private UserApiHelper() {
+    private UserApiHelper(int userId) {
         super(baseEndPoint, true);
+        userConnected = getCompleteUser(userId);
     }
 
-    public static UserApiHelper getInstance()
+    public static UserApiHelper getInstance(int userId)
     {
         if(instance == null)
-            instance = new UserApiHelper();
+            instance = new UserApiHelper(userId);
         return instance;
     }
 
@@ -43,19 +49,10 @@ public class UserApiHelper extends ApiHelper<User, User> {
         return gson.fromJson(jsonString, User.class);
     }
 
-    public User getSimpleUser(int id)
-    {
-        return getSimpleElement(id);
-    }
-
     public User getCompleteUser(int id)
     {
         return getCompleteElement(id);
     }
 
-    public List<User> getMoreUsers()
-    {
-        return getMoreSimpleElements();
-    }
-
+    public User getUserConnected() { return userConnected; }
 }
