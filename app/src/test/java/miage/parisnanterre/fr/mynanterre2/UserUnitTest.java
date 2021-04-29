@@ -26,7 +26,7 @@ public class UserUnitTest {
 
     @Test
     public void testConnectedUser() {
-        UserApiHelper userApiHelper = UserApiHelper.getInstance(1);
+        UserApiHelper userApiHelper = UserApiHelper.getInstance();
         User userConnected = userApiHelper.getUserConnected();
 
         assertNotNull(userConnected);

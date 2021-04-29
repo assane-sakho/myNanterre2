@@ -187,7 +187,7 @@ public class ClubInfoFragment extends Fragment {
 
         @Override
         protected String doInBackground(Void... params) {
-            userApiHelper = UserApiHelper.getInstance(0);
+            userApiHelper = UserApiHelper.getInstance();
             userConnected = userApiHelper.getUserConnected();
             followedClubs = userConnected.getFollowedClubsIds();
             return "executed";
@@ -217,9 +217,9 @@ public class ClubInfoFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             clickButton.setVisibility(View.INVISIBLE);
-            userApiHelper = UserApiHelper.getInstance(0);
+            userApiHelper = UserApiHelper.getInstance();
             userConnected = userApiHelper.getUserConnected();
-            UserClubApiHelper userClubApiHelper=new UserClubApiHelper(0);
+            UserClubApiHelper userClubApiHelper = new UserClubApiHelper();
             try {
                 userClubApiHelper.followClub(club);
             } catch (IOException e) {
@@ -242,7 +242,7 @@ public class ClubInfoFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             clickButton.setVisibility(View.INVISIBLE);
-            UserClubApiHelper userClubApiHelper=new UserClubApiHelper(0);
+            UserClubApiHelper userClubApiHelper = new UserClubApiHelper();
             try {
                 userClubApiHelper.unFollowClub(club);
             } catch (IOException e) {

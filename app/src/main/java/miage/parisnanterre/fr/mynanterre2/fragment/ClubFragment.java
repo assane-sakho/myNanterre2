@@ -180,7 +180,7 @@ public class ClubFragment extends Fragment {
 
         @Override
         protected String doInBackground(Void... params) {
-            userApiHelper = UserApiHelper.getInstance(0);
+            userApiHelper = UserApiHelper.getInstance();
             userConnected = userApiHelper.getUserConnected();
             followedClubs = userConnected.getFollowedClubsIds();
             return "executed";

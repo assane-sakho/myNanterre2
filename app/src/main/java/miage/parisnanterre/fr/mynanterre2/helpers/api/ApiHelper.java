@@ -57,7 +57,7 @@ import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonUserClubAdapte
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
-    private static final String LOCALURLDEV = "http://405dd9057754.ngrok.io/api/";
+    private static final String LOCALURLDEV = "http://f3646fa731b5.ngrok.io/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
     private static final String BASEURL = BASEURLDEV;
@@ -308,7 +308,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
 
     protected List<SimpleElement> getMoreSimpleElements()
     {
-        List<SimpleElement> simpleElementsList = new ArrayList<>();
+        List<SimpleElement> simpleElementsList;
 
         if(pageIndex <= pagesNumber || pagesNumber == 0)
         {
@@ -318,9 +318,14 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
                 simpleElementsList = getClubsByPage(pageIndex);
 
             pageIndex ++;
-        }
 
-        simpleElements.addAll(simpleElementsList);
+            simpleElements.addAll(simpleElementsList);
+        }
+        else
+        {
+            simpleElementsList = new ArrayList<>();
+            simpleElementsList.addAll(simpleElements);
+        }
 
         return simpleElementsList;
     }

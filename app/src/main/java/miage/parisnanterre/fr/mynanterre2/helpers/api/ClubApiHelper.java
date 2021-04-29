@@ -20,11 +20,12 @@ import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
 
     private static ClubApiHelper instance;
-    private static String baseEndPoint = "clubs";
+    private static final String baseFinalEndPoint = "clubs";
+
     private ClubPublicationApiHelper clubPublicationApiHelper;
 
     private ClubApiHelper() {
-        super(baseEndPoint, true);
+        super(baseFinalEndPoint, true);
         clubPublicationApiHelper = ClubPublicationApiHelper.getInstance();
     }
 
@@ -64,6 +65,17 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
         return getMoreSimpleElements();
     }
 
+    public List<SimpleClub> getCreatedClubs()
+    {
+        int creatorId = UserApiHelper.getInstance().getUserConnected().getId();
+        resetPaginationIndex();
+        baseEndpointUrl = baseFinalEndPoint + "?creator=" + creatorId;
+        parametersCompleter = '&';
+        List<SimpleClub> result =  getMoreSimpleElements();
+        baseEndpointUrl = baseFinalEndPoint;
+        parametersCompleter = '?';
+        return result;
+    }
     public Club createClub(Club club) throws IOException {
         String jsonString = gson.toJson(club).replace("{\"id\":0,", "{"); //id is not used for insertion
         return convertToComplete(sendData(jsonString, ApiRequestMethod.POST));

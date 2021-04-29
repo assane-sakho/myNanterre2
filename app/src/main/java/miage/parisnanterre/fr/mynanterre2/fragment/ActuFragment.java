@@ -119,7 +119,7 @@ public class ActuFragment extends Fragment {
         protected String doInBackground(Void... params) {
 
             try {
-                UserClubApiHelper = UserClubApiHelper.getInstance(0);
+                UserClubApiHelper = UserClubApiHelper.getInstance();
                 publicationLoad.addAll(UserClubApiHelper.getFollowedClubsPublication());
             } catch (InterruptedException e) {
                 e.printStackTrace();
