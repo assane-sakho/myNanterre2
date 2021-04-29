@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.implem.club.fragment;
+package miage.parisnanterre.fr.mynanterre2.fragment;
 
 import androidx.annotation.RequiresApi;
 import android.os.AsyncTask;
@@ -117,6 +117,18 @@ public class ClubFragment extends Fragment {
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.CreateClub:
+
+                break;
+        }
+                return true;
+    }
+
 
     /**
      * Récupère les données des clubs de l'api

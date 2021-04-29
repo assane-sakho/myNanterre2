@@ -23,7 +23,8 @@ import miage.parisnanterre.fr.mynanterre2.fragment.MajFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.PlanFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.SupportFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.TrainFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubFragment;
+import miage.parisnanterre.fr.mynanterre2.fragment.ActuFragment;
+import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.BiblioFragment;
 
 public class Accueil extends AppCompatActivity {
@@ -103,6 +104,9 @@ public class Accueil extends AppCompatActivity {
         switch(mSelectedId) {
             case R.id.nav_accueil:
                 fragmentClass = AccueilFragment.class;
+                break;
+            case R.id.nav_actu:
+                fragmentClass = ActuFragment.class;
                 break;
             case R.id.nav_bu:
                 fragmentClass = BiblioFragment.class;

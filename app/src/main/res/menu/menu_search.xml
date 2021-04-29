@@ -2,11 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <item android:id="@+id/action_search"
-            android:title="Search"
+        <item
+            android:id="@+id/action_search"
             android:icon="@drawable/search_icon"
-            app:showAsAction="always|collapseActionView"
+            android:title="Search"
             app:actionViewClass="androidx.appcompat.widget.SearchView"
-            />
+            app:showAsAction="always|collapseActionView" />
+        <item
+            android:id="@+id/UpdateClub"
+            android:icon="@drawable/club_update"
+            android:title="Item"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/CreateClub"
+            android:icon="@drawable/club_add"
+            android:title="Item"
+            app:showAsAction="always" />
 
 </menu>

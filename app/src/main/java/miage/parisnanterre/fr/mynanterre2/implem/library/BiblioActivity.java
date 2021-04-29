@@ -20,7 +20,7 @@ import miage.parisnanterre.fr.mynanterre2.fragment.CrousFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.MajFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.PlanFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.TrainFragment;
-import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubFragment;
+import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.BiblioFragment;
 
 public class BiblioActivity extends AppCompatActivity {
