@@ -27,8 +27,9 @@ public class UserApiHelper extends ApiHelper<User, User> {
         userConnected = getCompleteUser(userId);
     }
 
-    public static UserApiHelper getInstance(int userId)
+    public static UserApiHelper getInstance()
     {
+        int userId = 2;
         if(instance == null)
             instance = new UserApiHelper(userId);
         return instance;

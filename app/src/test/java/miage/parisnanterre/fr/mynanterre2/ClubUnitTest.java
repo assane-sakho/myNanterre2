@@ -21,6 +21,8 @@ import miage.parisnanterre.fr.mynanterre2.helpers.api.UserApiHelper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 
 public class ClubUnitTest {
 
@@ -136,13 +138,16 @@ public class ClubUnitTest {
     @Test
     public void testApiCreateUpdateDelete() throws IOException, ExecutionException, InterruptedException {
 
+        ClubApiHelper clubApiHelper = ClubApiHelper.getInstance();
+        int myClubsInit = clubApiHelper.getCreatedClubs().size();
+
         ClubTypeApiHelper clubTypeApiHelper = ClubTypeApiHelper.getInstance();
 
         List<Type> clubTypes= clubTypeApiHelper.getAllTypes();
         Type clubType = clubTypes.stream().findFirst().get();
 
-        UserApiHelper userApiHelper = UserApiHelper.getInstance(0);
-        User creator = userApiHelper.getUserConnected(); //bot myNanterre
+        UserApiHelper userApiHelper = UserApiHelper.getInstance();
+        User creator = userApiHelper.getUserConnected(); //user de test
 
         SimpleClub simpleClub = new SimpleClub();
         simpleClub.setName("club de test")
@@ -155,11 +160,14 @@ public class ClubUnitTest {
 
         Club club = new Club(simpleClub);
 
-        ClubApiHelper clubApiHelper = ClubApiHelper.getInstance();
 
         club = clubApiHelper.createClub(club);
 
         assertNotEquals(0, club.getId());
+
+        int myClubs = clubApiHelper.getCreatedClubs().size();
+
+        assertNotSame(myClubsInit, myClubs);
 
         String oldClubName = club.getName();
         String oldWebsite = club.getName();

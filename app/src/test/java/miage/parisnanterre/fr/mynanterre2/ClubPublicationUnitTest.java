@@ -30,8 +30,8 @@ public class ClubPublicationUnitTest {
         List<Type> clubTypes= clubTypeApiHelper.getAllTypes();
         Type clubType = clubTypes.stream().findFirst().get();
 
-        UserApiHelper userApiHelper = UserApiHelper.getInstance(0);
-        User creator = userApiHelper.getUserConnected(); //bot myNanterre
+        UserApiHelper userApiHelper = UserApiHelper.getInstance();
+        User creator = userApiHelper.getUserConnected(); //user test
 
         SimpleClub simpleClub = new SimpleClub();
         simpleClub.setName("club de test")

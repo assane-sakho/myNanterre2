@@ -40,16 +40,16 @@ public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
     private ClubApiHelper clubApiHelper;
     private UserApiHelper userApiHelper;
 
-    public UserClubApiHelper(int userId) {
+    public UserClubApiHelper() {
         super(baseEndPoint, true);
         clubApiHelper = ClubApiHelper.getInstance();
-        userApiHelper = UserApiHelper.getInstance(userId);
+        userApiHelper = UserApiHelper.getInstance();
     }
 
-    public static UserClubApiHelper getInstance(int userId)
+    public static UserClubApiHelper getInstance()
     {
         if(instance == null)
-            instance = new UserClubApiHelper(userId);
+            instance = new UserClubApiHelper();
         return instance;
     }
 
@@ -105,29 +105,33 @@ public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
     }
 
     public List<Publication> getFollowedClubsPublication() throws InterruptedException, ExecutionException {
+        List<Publication> publications = new ArrayList<>();
         User userConnected = userApiHelper.getUserConnected();
         List<Integer> ids = userConnected.getFollowedClubsIds();
-
-        ExecutorService executorService = Executors.newFixedThreadPool(ids.size());
-
-        List<ElementsCallable> callableTasks = new ArrayList<>();
-
-        for (int clubId: ids) {
-            callableTasks.add(new ElementsCallable(clubId));
-        }
-
-        List<Future<Club>> futures = executorService.invokeAll(callableTasks);
-        List<Club> clubs = new ArrayList<>();
-
-        for (Future<Club> f : futures)
+        if(ids.size() > 0)
         {
-            Club c = f.get();
-            c.getPublications().forEach(p -> p.setClub(c));
-            clubs.add(c);
+            ExecutorService executorService = Executors.newFixedThreadPool(ids.size());
+
+            List<ElementsCallable> callableTasks = new ArrayList<>();
+
+            for (int clubId: ids) {
+                callableTasks.add(new ElementsCallable(clubId));
+            }
+
+            List<Future<Club>> futures = executorService.invokeAll(callableTasks);
+            List<Club> clubs = new ArrayList<>();
+
+            for (Future<Club> f : futures)
+            {
+                Club c = f.get();
+                c.getPublications().forEach(p -> p.setClub(c));
+                clubs.add(c);
+            }
+
+            publications = clubs.stream().flatMap(c -> c.getPublications().stream()).collect(Collectors.toList());
+            publications.sort((p1, p2) -> p2.getDate().compareTo(p1.getDate()));
         }
 
-        List<Publication> publications = clubs.stream().flatMap(c -> c.getPublications().stream()).collect(Collectors.toList());
-        publications.sort((p1, p2) -> p2.getDate().compareTo(p1.getDate()));
         return publications;
     }
 }

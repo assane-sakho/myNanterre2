@@ -26,7 +26,7 @@ public class UserClubUnitTest {
 
     @Test
     public void testFollowedClub() {
-        UserApiHelper userApiHelper = UserApiHelper.getInstance(1);
+        UserApiHelper userApiHelper = UserApiHelper.getInstance();
         User userConnected = userApiHelper.getUserConnected();
         List<Integer> followedClubs = userConnected.getFollowedClubsIds();
         assertNotNull(followedClubs);
@@ -34,15 +34,16 @@ public class UserClubUnitTest {
 
     @Test
     public void testFollowedClubPublications() throws ExecutionException, InterruptedException {
-        UserClubApiHelper userClubApiHelper = UserClubApiHelper.getInstance(0);
+        UserClubApiHelper userClubApiHelper = UserClubApiHelper.getInstance();
         List<Publication> publications = userClubApiHelper.getFollowedClubsPublication();
         assertNotNull(publications);
     }
 
     @Test
     public void testFollowUnfollowClub() throws IOException, ExecutionException, InterruptedException {
-        UserApiHelper userApiHelper = UserApiHelper.getInstance(0);
+        UserApiHelper userApiHelper = UserApiHelper.getInstance();
         User userConnected = userApiHelper.getUserConnected();
+
         List<Integer> followedClubs = userConnected.getFollowedClubsIds();
 
         ClubTypeApiHelper clubTypeApiHelper = ClubTypeApiHelper.getInstance();
@@ -64,13 +65,13 @@ public class UserClubUnitTest {
 
         club = clubApiHelper.createClub(club);
 
-        UserClubApiHelper userClubApiHelper = UserClubApiHelper.getInstance(0);
+        UserClubApiHelper userClubApiHelper = UserClubApiHelper.getInstance();
         UserClub userClub = userClubApiHelper.followClub(club);
 
         List<Integer> newFollowedClubs = userConnected.getFollowedClubsIds();
         assertNotEquals(followedClubs, newFollowedClubs);
 
-        userClubApiHelper.unFollowClub(userClub);
+        userClubApiHelper.unFollowClub(userClub.getClub());
 
         Assert.assertEquals(followedClubs, userConnected.getFollowedClubsIds());
 
