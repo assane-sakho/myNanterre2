@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -26,7 +27,9 @@ import java.util.List;
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
+import miage.parisnanterre.fr.mynanterre2.api.user.User;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.UserApiHelper;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ClubFragment extends Fragment {
@@ -35,7 +38,11 @@ public class ClubFragment extends Fragment {
     private ClubApiHelper clubApiHelper;
     private List<SimpleClub> clubLoaded;
     private ProgressBar progressBar;
-
+    //getfollowedclub
+    UserApiHelper userApiHelper ;
+    User userConnected ;
+    List<Integer> followedClubs;//les clubs follow d'un user
+    Button clickButton;
 
     public static ClubFragment newInstance() {
         return new ClubFragment();
@@ -66,6 +73,7 @@ public class ClubFragment extends Fragment {
 
         progressBar = (ProgressBar) v.findViewById(R.id.progress);
         clubLoaded = new ArrayList<>();
+        followedClubs = new ArrayList<>();
         recyclerClubAdapter = new RecyclerClubAdapter(getContext(), clubLoaded);
 
         rvClub.setAdapter(recyclerClubAdapter);
@@ -89,6 +97,7 @@ public class ClubFragment extends Fragment {
         setHasOptionsMenu(true);
 
         fetchData();
+        getfollowedClubs();
 
         return v;
     }
@@ -126,8 +135,14 @@ public class ClubFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         GetClubsAsync getLibrariesAsync = new GetClubsAsync();
         getLibrariesAsync.execute();
+
     }
 
+    public void getfollowedClubs() {
+        //progressBar.setVisibility(View.VISIBLE);
+        GetFollowedClubsAsync getfollowClubsAsync = new GetFollowedClubsAsync();
+        getfollowClubsAsync.execute();
+    }
     /**
      * chargement des clubs en fond et affichage d'un cercle de chargement le temps que sa charge
      */
@@ -147,6 +162,22 @@ public class ClubFragment extends Fragment {
             recyclerClubAdapter.notifyDataSetChanged();
         }
 
+    }
+
+    private final class GetFollowedClubsAsync extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            userApiHelper = UserApiHelper.getInstance(0);
+            userConnected = userApiHelper.getUserConnected();
+            followedClubs = userConnected.getFollowedClubsIds();
+            return "executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            recyclerClubAdapter.notifyDataSetChanged();
+        }
     }
 
 }

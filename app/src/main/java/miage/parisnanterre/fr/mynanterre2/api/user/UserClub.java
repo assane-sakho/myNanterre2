@@ -9,6 +9,10 @@ public class UserClub extends BaseDbElement {
     private SimpleClub club;
     private User user;
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public UserClub(User user, SimpleClub club) {
         this.user = user;
         this.club = club;

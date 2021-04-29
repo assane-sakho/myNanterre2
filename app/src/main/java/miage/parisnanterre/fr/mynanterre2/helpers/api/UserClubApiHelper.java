@@ -40,7 +40,7 @@ public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
     private ClubApiHelper clubApiHelper;
     private UserApiHelper userApiHelper;
 
-    private UserClubApiHelper(int userId) {
+    public UserClubApiHelper(int userId) {
         super(baseEndPoint, true);
         clubApiHelper = ClubApiHelper.getInstance();
         userApiHelper = UserApiHelper.getInstance(userId);
@@ -80,10 +80,15 @@ public class UserClubApiHelper extends ApiHelper<UserClub, UserClub> {
         return userClub;
     }
 
-    public void unFollowClub(UserClub userClub) throws IOException {
-        String jsonString = gson.toJson(userClub);
-        sendData(jsonString, ApiRequestMethod.DELETE, Optional.of(userClub.getId()));
-        userClub.getUser().removeFollowedClub(userClub);
+    public void unFollowClub(SimpleClub simpleClub) throws IOException {
+        Optional<UserClub> userClub= userApiHelper.getUserConnected().getUserClub(simpleClub);
+
+        if(userClub.isPresent()){
+            userClub.get().setUser(userApiHelper.getUserConnected());
+            String jsonString = gson.toJson(userClub.get());
+            userClub.get().getUser().removeFollowedClub(userClub.get());
+            sendData(jsonString, ApiRequestMethod.DELETE, Optional.of(userClub.get().getId()));
+        }
     }
 
 

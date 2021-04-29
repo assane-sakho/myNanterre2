@@ -9,8 +9,10 @@ import com.google.gson.annotations.SerializedName;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class User extends BaseDbElement {
@@ -52,6 +54,11 @@ public class User extends BaseDbElement {
     public List<Integer> getFollowedClubsIds()
     {
         return followedClubs.stream().map(UserClub::getClubId).collect(Collectors.toList());
+    }
+
+    public Optional<UserClub> getUserClub(SimpleClub club)
+    {
+        return followedClubs.stream().filter(c -> c.getClubId() == club.getId()).findFirst();
     }
 
     public void addFollowedClub(UserClub userClub)
