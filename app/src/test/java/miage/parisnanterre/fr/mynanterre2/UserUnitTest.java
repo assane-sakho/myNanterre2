@@ -16,6 +16,7 @@ import miage.parisnanterre.fr.mynanterre2.api.club.Type;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubTypeApiHelper;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.LoginApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.UserApiHelper;
 
 import static org.junit.Assert.assertEquals;
@@ -31,6 +32,25 @@ public class UserUnitTest {
 
         assertNotNull(userConnected);
     }
+
+//    @Test
+//    public void testLogin() throws IOException, ExecutionException, InterruptedException {
+//        LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
+//
+//        boolean isLoggeed = loginApiHelper.login("test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
+//
+//        assertEquals(true, isLoggeed);
+//    }
+
+//
+//    @Test
+//    public void testSignIn() throws IOException {
+//        LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
+//        boolean isSigned = loginApiHelper.signIn("test", "testeur2", "test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
+//
+//        assertEquals(true, isSigned);
+//    }
+
 
 
 }

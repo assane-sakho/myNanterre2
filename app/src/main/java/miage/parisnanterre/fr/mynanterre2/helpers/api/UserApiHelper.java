@@ -7,8 +7,11 @@ import androidx.annotation.RequiresApi;
 import com.google.gson.JsonArray;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
@@ -22,16 +25,15 @@ public class UserApiHelper extends ApiHelper<User, User> {
     private static String baseEndPoint = "users";
     private User userConnected;
 
-    private UserApiHelper(int userId) {
+    private UserApiHelper() {
         super(baseEndPoint, true);
-        userConnected = getCompleteUser(userId);
+        userConnected = null;
     }
 
     public static UserApiHelper getInstance()
     {
-        int userId = 2;
         if(instance == null)
-            instance = new UserApiHelper(userId);
+            instance = new UserApiHelper();
         return instance;
     }
 
@@ -55,5 +57,26 @@ public class UserApiHelper extends ApiHelper<User, User> {
         return getCompleteElement(id);
     }
 
-    public User getUserConnected() { return userConnected; }
+    protected User getUser(String email) throws ExecutionException, InterruptedException {
+        baseEndpointUrl = "users?email=" + URLEncoder.encode(email);
+        parametersCompleter = '&';
+        List<User> users = getAllSimpleElements();
+        baseEndpointUrl = "users";
+        parametersCompleter = '?';
+
+        return users.get(0);
+    }
+    public void setUserConnected(User userConnected) {
+        this.userConnected = userConnected;
+    }
+
+    public User getUserConnected() {
+        if (userConnected == null) {
+            LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
+            if (loginApiHelper.isUserAuthenticated()) {
+                userConnected = getCompleteUser(loginApiHelper.getUserId());
+            }
+        }
+        return userConnected;
+    }
 }
