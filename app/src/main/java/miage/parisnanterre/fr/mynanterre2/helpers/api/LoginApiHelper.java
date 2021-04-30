@@ -33,7 +33,8 @@ public class LoginApiHelper extends ApiHelper<User, User> {
         super(baseEndPoint, true);
         Context context = MyApplication.getAppContext();
 
-        userDetails = context.getSharedPreferences("userdetails", MODE_PRIVATE);
+        if(context != null)
+            userDetails = context.getSharedPreferences("userdetails", MODE_PRIVATE);
     }
 
     public static LoginApiHelper getInstance()
@@ -44,9 +45,13 @@ public class LoginApiHelper extends ApiHelper<User, User> {
     }
 
     public boolean isUserAuthenticated(){
-        boolean b1 = userDetails.getString("token", "").length() != 0;
-        boolean b2 = userDetails.getString("userId", "").length() !=0;
-        return b1 && b2;
+        if(userDetails != null)
+        {
+            boolean b1 = userDetails.getString("token", "").length() != 0;
+            boolean b2 = userDetails.getString("userId", "").length() !=0;
+            return b1 && b2;
+        }
+        return false;
     }
 
     public boolean login(String email, String password){
@@ -97,7 +102,7 @@ public class LoginApiHelper extends ApiHelper<User, User> {
 
     public String getUserToken()
     {
-        String token = userDetails.getString("token", defaultToken);
+        String token = userDetails != null ?  userDetails.getString("token", defaultToken) : defaultToken;
         return token;
     }
 

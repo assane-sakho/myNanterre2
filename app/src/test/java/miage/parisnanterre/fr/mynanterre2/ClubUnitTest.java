@@ -160,7 +160,6 @@ public class ClubUnitTest {
 
         Club club = new Club(simpleClub);
 
-
         club = clubApiHelper.createClub(club);
 
         assertNotEquals(0, club.getId());
