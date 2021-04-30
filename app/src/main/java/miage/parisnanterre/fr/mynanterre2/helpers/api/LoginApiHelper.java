@@ -1,5 +1,7 @@
 package miage.parisnanterre.fr.mynanterre2.helpers.api;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -13,17 +15,23 @@ import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.api.club.Publication;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
+import miage.parisnanterre.fr.mynanterre2.helpers.MyApplication;
+
+import static android.content.Context.MODE_PRIVATE;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class LoginApiHelper extends ApiHelper<User, User> {
 
     private static LoginApiHelper instance;
     private static String baseEndPoint = "login";
-    private static String defaultToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTk3NzIwNjAsImV4cCI6MTY1MTkxMjg2MCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYm90QHBhcmlzbmFudGVycmUuZnIifQ.Lspc4WWgvxBF9M1rdzt7CF8F_t65PRdL6MW-IQccKvRJWQXsu8o6UBfJBECqtrPZngf98iy1h3jIp1nHmjAmwLLNKz_-i1Jq6K-wo_ev_q_Hjj4-RqMdht2zC01U-IWrxUO7S7wwzl6atvT_teTE9wa6_86e1z6l8jRJtkYHc7dv0RQnv27n9Wu2NTJ0Rs98PgifhfL-z6EZczcl0jZORzPH4uHWkBndUlVvW88Etgc6EiexOHoPtxvXOG1v30vJKbMURuno2dMeNtn8CyJ8zuthGIxDLWnB3HFMzrdorUEgbi_j4qQUNeIdZbvFkX3IfgYd-L5lYyDOsVM2VfsccDlqpKMRkmGuEzsl4qdyaC63XM6tlIW2zdjBhuXs95w_EBV8uAjwTeUA5Ra2V8zRnREmnj6QvXTbdah1YrjRNVk3JwY093ZxtXFgiGlLVRG5wkpRaXwAfBNdELPVCr-ZqI9pJW4px5sFsNerJPLFD_azlNr7X_xjaWEpHbiIvoafGifd4V2m-FPB7WJdYwSppMiX6g6AANc3-7-LQEo-3kpPiRC_8ZniJDaOY6Xm9G7ySENMeetYAgnsyfDelREUWMlHYrwhvUL6R7jYwRTiHjfO_Aoim2FTqSBCttNSo8yA96xetpqx6BaVZfy-9le5cvrk3BYyAwu3cNPekLX_s9A";
-    private static String userToken = "";
+    private static String defaultToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTk3ODIxMDEsImV4cCI6MTY1MTkyMjkwMSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYm90QHBhcmlzbmFudGVycmUuZnIifQ.Aby2bfubk8rejDYn5-IxPtWi_ujo7U-3leskfTz-7Yh2B9btbLnMRMBoRbPFKite3xZ6fJoW9o3ZmGlINQSJ9sTOa0z665_I3EAAyCiPfinvzAQdFpOnFLsbvpoljMwsoTCf0Xfr35JU5ZQMWwMtGerohRNeiVqW13OFsWZFyuBIHL6bMJVRShw4VH0v6Y_4cCz3Ec_HVMe99buj5ti3uPmvfQjEs-AHg6tgDiHLENFSpuQNTv03z-BU6Jnx222uyZ-4epTSQWi8R8V6CvMV4AMsv3SbCmNBxl1whh73SE55_UL_zBz4D8ZEBWKLWiznuyTAvrgPHSWcV3ItgMNcjDjTHzPg2D2GXRsc6Js_CMHuh94sPkW5542pCqAXb7RS8uXivYdvaECd0qXUhm-Vf3KjxVRI643HfByBJd2AJVWROx1nbx5wjMzCnO9dvJ5-cfTtB5tvsD0p_2-iDhLFtU7FnroKWDztMHaBdYiSATDJqkQITh5xt26IUgFsVSmpdkojRW1i1W6JssC98hYqJskCP1Z8937xAfEIHs9GYmntP__-TE7LDUj3XQHzohEvN0ycW3iOh0I-CXmOtzz9bAVSaiOElb_FODXf7s54j8X_HmvZ6vrFuJZojBtdTYqSiUWWWHJd0SbW_pcJCkLNsyZGIBMJPto1BwVdZQr8Tw8";
+    private SharedPreferences userDetails;
 
     private LoginApiHelper() {
         super(baseEndPoint, true);
+        Context context = MyApplication.getAppContext();
+
+        userDetails = context.getSharedPreferences("userdetails", MODE_PRIVATE);
     }
 
     public static LoginApiHelper getInstance()
@@ -34,11 +42,11 @@ public class LoginApiHelper extends ApiHelper<User, User> {
     }
 
     public boolean isUserAuthenticated(){
-        return false;
+        return userDetails.getString("token", defaultToken).length() != 0 && userDetails.getString("userId", defaultToken).length() != 0;
     }
 
     public String getUserToken(){
-        return isUserAuthenticated() ? userToken : defaultToken;
+        return isUserAuthenticated() ? GetUserToken() : defaultToken;
     }
 
     public boolean login(String email, String password){
@@ -53,9 +61,11 @@ public class LoginApiHelper extends ApiHelper<User, User> {
 
             SaveUserToken(token);
             SaveUserId(userLogged);
+
             return true;
         }
         catch (Exception ex){
+            System.out.println(ex);
             return false;
         }
     }
@@ -63,32 +73,41 @@ public class LoginApiHelper extends ApiHelper<User, User> {
     public boolean signIn(String firstName, String lastName, String email, String password) throws IOException {
         baseEndpointUrl = "users";
         User user = new User(firstName, lastName, email, password);
-        String jsonString = gson.toJson(user).replace(",\"followedClubs\":[],\"userType\":{\"name\":\"student\",\"id\":0},\"id\":0", ""); //id is not used for insertion
-       try {
-           User userLogged = convertToComplete(sendData(jsonString, ApiRequestMethod.POST));
-           SaveUserId(userLogged);
-           return true;
-       }
-        catch (Exception e)
+        String jsonString = gson.toJson(user).replace("{\"id\":0,", "{"); //id is not used for insertion
+        try {
+            sendData(jsonString, ApiRequestMethod.POST);
+            return login(email, password);
+        }
+        catch (Exception ex)
         {
+            System.out.println(ex);
             return  false;
         }
     }
 
+    public String GetUserToken()
+    {
+        return userDetails.getString("token", defaultToken);
+    }
+
     public void SaveUserToken(String token)
     {
-        //TODO
+        String tmpToken = token.replace("{\"token\":\"", "").replace("\"}", "");
+        SharedPreferences.Editor edit = userDetails.edit();
+        edit.putString("token", tmpToken);
+        edit.apply();
     }
 
     public void SaveUserId(User user)
     {
-        //TODO
+        SharedPreferences.Editor edit = userDetails.edit();
+        edit.putString("userId", "" + user.getId());
+        edit.apply();
     }
 
     public int getUserId()
     {
-        //TODO
-        return 0;
+        return Integer.valueOf(userDetails.getString("userId", ""));
     }
 
     @Override

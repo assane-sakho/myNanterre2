@@ -45,6 +45,14 @@ public class User extends BaseDbElement {
         return lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public String getFirstName() {
         return firstName;
     }
