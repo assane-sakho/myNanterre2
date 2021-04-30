@@ -57,10 +57,10 @@ import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonUserClubAdapte
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
-    private static final String LOCALURLDEV = "http://f3646fa731b5.ngrok.io/api/";
+    private static final String LOCALURLDEV = "http://352fbaae8b8e.ngrok.io/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
-    private static final String BASEURL = BASEURLDEV;
+    private static final String BASEURL = LOCALURLDEV;
     protected  Gson gson;
 
     protected List<SimpleElement> simpleElements;
@@ -171,6 +171,8 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("GET");
             conn.addRequestProperty("accept", header);
+            String token = LoginApiHelper.getInstance().getUserToken();
+            conn.setRequestProperty("Authorization", "Bearer "+  token);
             conn.connect();
             is = conn.getInputStream();
             return readIt(is);
@@ -337,6 +339,10 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
             final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setConnectTimeout(15000);
             conn.setRequestMethod(requestMethod.name());
+
+            String token = LoginApiHelper.getInstance().getUserToken();
+            conn.setRequestProperty("Authorization", "Bearer "+  token);
+
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setRequestProperty("Accept", "application/json");
             conn.setDoOutput(true);

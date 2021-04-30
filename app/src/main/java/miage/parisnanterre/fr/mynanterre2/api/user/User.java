@@ -16,12 +16,13 @@ import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class User extends BaseDbElement {
+    private String email;
+    private String password;
     private String lastName;
     private String firstName;
     private List<UserClub> followedClubs;
     @SerializedName("userType")
     private Type type;
-    //Ajout d'une liste de club follow List<integer>clubfollowid
 
     public User(String lastName, String firstName, Type type) {
         this.lastName = lastName;
@@ -29,6 +30,17 @@ public class User extends BaseDbElement {
         this.type = type;
         followedClubs = new ArrayList<>();
     }
+
+    public User(String firstName, String lastName, String email, String password) {
+        this.email = email;
+        this.password = password;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.type = new Type("student");
+        followedClubs = new ArrayList<>();
+    }
+
+
     public String getLastName() {
         return lastName;
     }
@@ -45,11 +57,6 @@ public class User extends BaseDbElement {
     {
         return firstName + " " + lastName;
     }
-    //methode Followadd
-    // this.user.addClubSuivi(club)//id du club
-
-    //methode unFollow
-
 
     public List<Integer> getFollowedClubsIds()
     {
