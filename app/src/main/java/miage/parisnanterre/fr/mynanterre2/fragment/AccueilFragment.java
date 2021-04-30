@@ -76,19 +76,30 @@ public class AccueilFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
-            boolean isSigned;
-//            try {
-//                 isSigned = loginApiHelper.signIn("test", "testeur2", "test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
-//                int id = loginApiHelper.getUserId();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                isSigned = false;
-//            }
+            loginApiHelper.logout(); //Deconnexion
 
-            //   isSigned = loginApiHelper.signIn("test", "testeur2", "test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
-            isSigned = loginApiHelper.login("test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
-            int id = loginApiHelper.getUserId();
-            return "" + isSigned;
+            if(loginApiHelper.isUserAuthenticated()) //si l'utilisateur est connecté (id et token stocké)
+            {
+                return "";
+            }
+            else
+            {
+                /* Exemple connexion */
+                boolean isLogged = loginApiHelper.login("test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
+                int id = loginApiHelper.getUserId();
+                return "" + isLogged;
+
+                /* Exemple d'inscription */
+//                boolean isSigned;
+//                try {
+//                     isSigned = loginApiHelper.signIn("test", "testeur2", "test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
+//                    int userId = loginApiHelper.getUserId();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    isSigned = false;
+//                }
+//              return "" + isSigned;
+            }
         }
 
         @Override

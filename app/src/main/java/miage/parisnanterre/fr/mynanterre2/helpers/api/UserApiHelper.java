@@ -66,12 +66,16 @@ public class UserApiHelper extends ApiHelper<User, User> {
 
         return users.get(0);
     }
+    public void setUserConnected(User userConnected) {
+        this.userConnected = userConnected;
+    }
 
     public User getUserConnected() {
-        LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
-        if(loginApiHelper.isUserAuthenticated())
-        {
-            userConnected = getCompleteUser(loginApiHelper.getUserId());
+        if (userConnected == null) {
+            LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
+            if (loginApiHelper.isUserAuthenticated()) {
+                userConnected = getCompleteUser(loginApiHelper.getUserId());
+            }
         }
         return userConnected;
     }

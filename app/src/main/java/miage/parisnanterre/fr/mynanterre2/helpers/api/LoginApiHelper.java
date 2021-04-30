@@ -7,6 +7,8 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,7 +26,7 @@ public class LoginApiHelper extends ApiHelper<User, User> {
 
     private static LoginApiHelper instance;
     private static String baseEndPoint = "login";
-    private static String defaultToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTk3ODIxMDEsImV4cCI6MTY1MTkyMjkwMSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYm90QHBhcmlzbmFudGVycmUuZnIifQ.Aby2bfubk8rejDYn5-IxPtWi_ujo7U-3leskfTz-7Yh2B9btbLnMRMBoRbPFKite3xZ6fJoW9o3ZmGlINQSJ9sTOa0z665_I3EAAyCiPfinvzAQdFpOnFLsbvpoljMwsoTCf0Xfr35JU5ZQMWwMtGerohRNeiVqW13OFsWZFyuBIHL6bMJVRShw4VH0v6Y_4cCz3Ec_HVMe99buj5ti3uPmvfQjEs-AHg6tgDiHLENFSpuQNTv03z-BU6Jnx222uyZ-4epTSQWi8R8V6CvMV4AMsv3SbCmNBxl1whh73SE55_UL_zBz4D8ZEBWKLWiznuyTAvrgPHSWcV3ItgMNcjDjTHzPg2D2GXRsc6Js_CMHuh94sPkW5542pCqAXb7RS8uXivYdvaECd0qXUhm-Vf3KjxVRI643HfByBJd2AJVWROx1nbx5wjMzCnO9dvJ5-cfTtB5tvsD0p_2-iDhLFtU7FnroKWDztMHaBdYiSATDJqkQITh5xt26IUgFsVSmpdkojRW1i1W6JssC98hYqJskCP1Z8937xAfEIHs9GYmntP__-TE7LDUj3XQHzohEvN0ycW3iOh0I-CXmOtzz9bAVSaiOElb_FODXf7s54j8X_HmvZ6vrFuJZojBtdTYqSiUWWWHJd0SbW_pcJCkLNsyZGIBMJPto1BwVdZQr8Tw8";
+    private static String defaultToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTk4MDQ0MjQsImV4cCI6MTY1MTk0NTIyNCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYm90QHBhcmlzbmFudGVycmUuZnIifQ.AuNvTTbk-nXylKl-JWcbJwrtmxUEdUlCSdS3q7js2Cg_ZqPgQueaynz8OQuUng2f0G_Rto5MpMuojZQP8qKdxG6vEBndFb87JHYqwReiD1TpVyU3hvKnL5cSDOf96uuFwaXrwp3b9rcvAjtpYwgz9bTvpFF9S8lqaS_iCLeiQOYGkJXAkTL04pMFkWJc3rI65tYeBBbKPuQzAyuRv9ZdFlxd3e65wXKI-lu4LBHqgswSZUAIAT3ynQv2yONbyY3pcrTCbVAjD6tAkl1YRVspxO-OIvlvIctNcbtyOifV3_EymU7NTLvA0HXXTvdEcuZw6LleCqsMRTL3973tKdcldxROthRvgtDzs0za0tfRWwngsLXzFgE-vkwE0UrC-nsSiPZjRHYnBZ8Psh8HWvNWqucsyRdnFa5z18kUrQe9AXmOSoQlAqR_cQEP5N1UsxPcNCNcqOXIomPh0DVWoaZq7mepwaeMupi_wNZHfYgaKuw9zJi0WAaRaWukdlkaoS0bCgqbVi1HwRBcbZMDkzVy3TXki4yH7TZrhv1sP2irqjycLPprto2D2mZAL8lTrUMNnPe48fpwNvaCyNS1vP9d6azzlpJo444gtzGLVnN8U7XiuuzPY7je4EOt0Cm-OI6y_NuiO3OWXeTpf_75P44YTJZh2Nhuzre6RnorxssYjUE";
     private SharedPreferences userDetails;
 
     private LoginApiHelper() {
@@ -42,11 +44,9 @@ public class LoginApiHelper extends ApiHelper<User, User> {
     }
 
     public boolean isUserAuthenticated(){
-        return userDetails.getString("token", defaultToken).length() != 0 && userDetails.getString("userId", defaultToken).length() != 0;
-    }
-
-    public String getUserToken(){
-        return isUserAuthenticated() ? GetUserToken() : defaultToken;
+        boolean b1 = userDetails.getString("token", "").length() != 0;
+        boolean b2 = userDetails.getString("userId", "").length() !=0;
+        return b1 && b2;
     }
 
     public boolean login(String email, String password){
@@ -58,6 +58,8 @@ public class LoginApiHelper extends ApiHelper<User, User> {
 
             UserApiHelper userApiHelper = UserApiHelper.getInstance();
             User userLogged = userApiHelper.getUser(email);
+
+            userApiHelper.setUserConnected(userLogged);
 
             SaveUserToken(token);
             SaveUserId(userLogged);
@@ -85,16 +87,28 @@ public class LoginApiHelper extends ApiHelper<User, User> {
         }
     }
 
-    public String GetUserToken()
+    public void logout()
     {
-        return userDetails.getString("token", defaultToken);
+        SharedPreferences.Editor edit = userDetails.edit();
+        edit.remove("userId");
+        edit.remove("token");
+        edit.apply();
     }
 
-    public void SaveUserToken(String token)
+    public String getUserToken()
     {
-        String tmpToken = token.replace("{\"token\":\"", "").replace("\"}", "");
+        String token = userDetails.getString("token", defaultToken);
+        return token;
+    }
+
+    public void SaveUserToken(String jsonToken)
+    {
+        JsonParser parser = new JsonParser();
+        JsonObject obj = parser.parse(jsonToken).getAsJsonObject();
+        String token = obj.get("token").getAsString();
+
         SharedPreferences.Editor edit = userDetails.edit();
-        edit.putString("token", tmpToken);
+        edit.putString("token", token);
         edit.apply();
     }
 
@@ -107,7 +121,8 @@ public class LoginApiHelper extends ApiHelper<User, User> {
 
     public int getUserId()
     {
-        return Integer.valueOf(userDetails.getString("userId", ""));
+        String userId = userDetails.getString("userId", "");
+        return Integer.valueOf(userId);
     }
 
     @Override
