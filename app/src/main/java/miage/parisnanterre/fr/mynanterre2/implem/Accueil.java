@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.RequiresApi;
@@ -16,18 +17,23 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.fragment.AccueilFragment;
+import miage.parisnanterre.fr.mynanterre2.fragment.CallbackFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.CrousFragment;
+import miage.parisnanterre.fr.mynanterre2.fragment.LoginFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.MajFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.PlanFragment;
+import miage.parisnanterre.fr.mynanterre2.fragment.RegisterFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.SupportFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.TrainFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.ActuFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.BiblioFragment;
 
-public class Accueil extends AppCompatActivity {
+public class Accueil extends AppCompatActivity implements CallbackFragment {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -63,9 +69,27 @@ public class Accueil extends AppCompatActivity {
 
         setupDrawerContent(nvDrawer);
 
-        mSelectedId = R.id.nav_accueil;
+
+        //Start page define
+
+        mSelectedId = R.id.nav_connexion;
         selectDrawerItem(mSelectedId);
-        setTitle("Accueil");
+        setTitle("Welcome");
+
+        boolean AuthToken = true;
+
+        if(AuthToken == true)
+        {
+            addFragment();
+        }
+        else
+        {
+            skipLogin();
+        }
+
+
+
+
     }
 
     @Override
@@ -101,7 +125,7 @@ public class Accueil extends AppCompatActivity {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass = null;
-        switch(mSelectedId) {
+        switch (mSelectedId) {
             case R.id.nav_accueil:
                 fragmentClass = AccueilFragment.class;
                 break;
@@ -129,6 +153,9 @@ public class Accueil extends AppCompatActivity {
             case R.id.nav_support:
                 fragmentClass = SupportFragment.class;
                 break;
+            case R.id.nav_connexion:
+                fragmentClass = LoginFragment.class;
+                break;
             default:
                 fragmentClass = AccueilFragment.class;
         }
@@ -139,16 +166,79 @@ public class Accueil extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                       .replace(R.id.flContent, fragment)
-                       .commit();
+                .replace(R.id.flContent, fragment)
+                .commit();
 
         // Highlight the selected item has been done by NavigationView
 
         // Close the navigation drawer
         mDrawer.closeDrawers();
     }
+
+    public void skipLogin()
+    {
+        AccueilFragment fragment = new AccueilFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.flContent, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void addFragment(){
+        LoginFragment fragment = new LoginFragment();
+        fragment.setCallbackFragment(this);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.flContent, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void replaceFragment(){
+        RegisterFragment fragment = new RegisterFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.flContent, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void replaceFragmentConnectionSuccess()
+    {
+        AccueilFragment fragment = new AccueilFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        ft.replace(R.id.flContent, fragment);
+        ft.commit();
+    }
+    public void replaceFragmentRegisterSuccess()
+    {
+        LoginFragment fragment = new LoginFragment();
+        fragment.setCallbackFragment(this);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.flContent, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void changeFragment() {
+        replaceFragment();
+    }
+
+    @Override
+    public void changeFragmentLoginSuccess() {
+        replaceFragmentConnectionSuccess();
+    }
+
+    @Override
+    public void changeFragmentRegisterSuccess() {
+        replaceFragmentRegisterSuccess();
+    }
+
+
 }

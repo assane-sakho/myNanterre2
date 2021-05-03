@@ -53,7 +53,7 @@ public class SimpleClub extends NamedDbElement {
         this.description = EMPTY_STRING;
         this.isCertificate = false;
         this.isValidate = false;
-        this.creator = new User(EMPTY_STRING, EMPTY_STRING, new miage.parisnanterre.fr.mynanterre2.api.user.Type(EMPTY_STRING));
+        this.creator = new User(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, new miage.parisnanterre.fr.mynanterre2.api.user.Type(EMPTY_STRING));
         this.contact = EMPTY_STRING;
         this.mail = EMPTY_STRING;
         this.website = EMPTY_STRING;
