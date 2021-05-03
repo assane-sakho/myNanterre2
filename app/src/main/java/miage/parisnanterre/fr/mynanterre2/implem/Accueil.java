@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.RequiresApi;
@@ -74,8 +75,17 @@ public class Accueil extends AppCompatActivity implements CallbackFragment {
         selectDrawerItem(mSelectedId);
         setTitle("Welcome");
 
+        boolean AuthToken = true;
 
-        addFragment();
+        if(AuthToken == true)
+        {
+            addFragment();
+        }
+        else
+        {
+            skipLogin();
+        }
+
 
 
 
@@ -162,6 +172,15 @@ public class Accueil extends AppCompatActivity implements CallbackFragment {
 
         // Close the navigation drawer
         mDrawer.closeDrawers();
+    }
+
+    public void skipLogin()
+    {
+        AccueilFragment fragment = new AccueilFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.flContent, fragment);
+        fragmentTransaction.commit();
     }
 
     public void addFragment(){
