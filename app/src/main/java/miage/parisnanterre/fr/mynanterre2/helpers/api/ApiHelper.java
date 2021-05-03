@@ -313,7 +313,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
 
     protected List<SimpleElement> getMoreSimpleElements()
     {
-        List<SimpleElement> simpleElementsList;
+        List<SimpleElement> simpleElementsList = new ArrayList<>();
 
         if(pageIndex <= pagesNumber || pagesNumber == 0)
         {
@@ -325,11 +325,6 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
             pageIndex ++;
 
             simpleElements.addAll(simpleElementsList);
-        }
-        else
-        {
-            simpleElementsList = new ArrayList<>();
-            simpleElementsList.addAll(simpleElements);
         }
 
         return simpleElementsList;

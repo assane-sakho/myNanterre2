@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class MesClubs extends Fragment {
     private ClubApiHelper clubApiHelper;
     private List<SimpleClub> clubLoaded;
     private ProgressBar progressBar;
+    private TextView tvMsg;
 
     //getfollowedclub
     UserApiHelper userApiHelper ;
@@ -67,6 +69,9 @@ public class MesClubs extends Fragment {
 
         clubApiHelper = ClubApiHelper.getInstance();
         clubApiHelper.resetPaginationIndex();
+
+        tvMsg = v.findViewById(R.id.msg2);
+        tvMsg.setVisibility(View.INVISIBLE);
 
         RecyclerView rvClub = v.findViewById(R.id.recyclerMesClubs);
 
@@ -162,6 +167,9 @@ public class MesClubs extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+            if (clubLoaded.size() == 0){
+                tvMsg.setVisibility(View.VISIBLE);
+            }
             progressBar.setVisibility(View.GONE);
             recyclerMesClubsAdapter.notifyDataSetChanged();
         }
