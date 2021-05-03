@@ -24,9 +24,11 @@ public class User extends BaseDbElement {
     @SerializedName("userType")
     private Type type;
 
-    public User(String lastName, String firstName, Type type) {
+    public User(String lastName, String firstName, String email, String password, Type type) {
         this.lastName = lastName;
         this.firstName = firstName;
+        this.email = email;
+        this.password = password;
         this.type = type;
         followedClubs = new ArrayList<>();
     }

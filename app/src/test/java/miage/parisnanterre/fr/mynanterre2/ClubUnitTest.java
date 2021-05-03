@@ -71,7 +71,7 @@ public class ClubUnitTest {
                 description,
                 true,
                 true,
-                new User("Lewis", "Gleeson", new miage.parisnanterre.fr.mynanterre2.api.user.Type("utilisateur")),
+                new User("Lewis", "Gleeson", "Lewis.gleeson@gmail.com", "LewisGleeson", new miage.parisnanterre.fr.mynanterre2.api.user.Type("utilisateur")),
                 contact,
                 mail,
                 website,
