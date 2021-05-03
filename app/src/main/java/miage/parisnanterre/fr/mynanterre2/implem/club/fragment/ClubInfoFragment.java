@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -44,7 +45,7 @@ public class ClubInfoFragment extends Fragment {
     UserApiHelper userApiHelper ;
     User userConnected ;
     List<Integer> followedClubs;//les clubs follow d'un user
-    Button clickButton;
+    ImageView Follow;
 
     /**
      * Constructeur qui récupère l'id du club qu'on veut afficher
@@ -125,8 +126,8 @@ public class ClubInfoFragment extends Fragment {
 
 
         //Partie follow / unfollow
-        clickButton= (Button) v1.findViewById(R.id.followButton);
-        clickButton.setVisibility(View.INVISIBLE);
+        Follow = v1.findViewById(R.id.ivFollow);
+        Follow.setVisibility(View.INVISIBLE);
         getfollowedClubs();
 
         /*if(followedClubs.contains(club.getId())){
@@ -138,9 +139,8 @@ public class ClubInfoFragment extends Fragment {
             clickButton.setBackgroundColor(Color.BLUE);
         }*/
 
-        clickButton.setOnClickListener( new View.OnClickListener() {
+        Follow.setOnClickListener( new View.OnClickListener() {
             @Override public void onClick(View v) {
-                // TODO Auto-generated method stub ***Do what you want with the click here***
                 //Si le club n'appartient pas à la liste des clubs follow -> qu'il veut follow le club
                 if(!followedClubs.contains(club.getId())){ //&& clickButton.getText()=="FOLLOW"
                     follow();
@@ -195,15 +195,13 @@ public class ClubInfoFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            clickButton.setVisibility(View.VISIBLE);
+            Follow.setVisibility(View.VISIBLE);
 
             if(followedClubs.contains(club.getId())){
-                clickButton.setText("UNFOLLOW");
-                clickButton.setBackgroundColor(Color.RED);
+                Follow.setImageResource(R.drawable.coeur_plein);
             }
             else{
-                clickButton.setText("FOLLOW");
-                clickButton.setBackgroundColor(Color.BLUE);
+                Follow.setImageResource(R.drawable.coeur_vide);
             }
         }
     }
@@ -216,7 +214,7 @@ public class ClubInfoFragment extends Fragment {
 
         @Override
         protected String doInBackground(Void... params) {
-            clickButton.setVisibility(View.INVISIBLE);
+            Follow.setVisibility(View.INVISIBLE);
             userApiHelper = UserApiHelper.getInstance();
             userConnected = userApiHelper.getUserConnected();
             UserClubApiHelper userClubApiHelper = new UserClubApiHelper();
@@ -230,10 +228,10 @@ public class ClubInfoFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            clickButton.setText("UNFOLLOW");
+            Follow.setImageResource(R.drawable.coeur_plein);
             followedClubs.add(club.getId());
-            clickButton.setBackgroundColor(Color.RED);
-            clickButton.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "Vous suivez ce club", Toast.LENGTH_SHORT).show();
+            Follow.setVisibility(View.VISIBLE);
         }
     }
 
@@ -241,7 +239,7 @@ public class ClubInfoFragment extends Fragment {
 
         @Override
         protected String doInBackground(Void... params) {
-            clickButton.setVisibility(View.INVISIBLE);
+            Follow.setVisibility(View.INVISIBLE);
             UserClubApiHelper userClubApiHelper = new UserClubApiHelper();
             try {
                 userClubApiHelper.unFollowClub(club);
@@ -253,10 +251,10 @@ public class ClubInfoFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            clickButton.setText("FOLLOW");
+            Follow.setImageResource(R.drawable.coeur_vide);
             followedClubs.removeIf(id->id==club.getId());
-            clickButton.setBackgroundColor(Color.BLUE);
-            clickButton.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "Vous ne suivez plus ce club", Toast.LENGTH_SHORT).show();
+            Follow.setVisibility(View.VISIBLE);
         }
     }
 

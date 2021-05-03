@@ -41,7 +41,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDM6SztNHKpGR6ZHVQ7PC3yL2925gwBPHw" />
 
-        <activity android:name=".implem.MainActivity.LoginActivity">
+        <activity android:name=".implem.Accueil">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,7 +54,7 @@
         <activity android:name=".implem.GareFavoriteRerA" />
         <activity android:name=".implem.TrainRerA" />
         <activity android:name=".implem.TrainPlanRerA" />
-        <activity android:name=".implem.Accueil" />
+
         <activity android:name=".implem.PlanBatiments" />
         <activity android:name=".implem.ListeTrain" />
         <activity android:name=".implem.GoogleMaps" />

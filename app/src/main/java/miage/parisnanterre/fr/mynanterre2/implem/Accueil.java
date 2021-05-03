@@ -72,7 +72,7 @@ public class Accueil extends AppCompatActivity implements CallbackFragment {
 
         //Start page define
 
-        mSelectedId = R.id.nav_connexion;
+        mSelectedId = R.id.nav_accueil;
         selectDrawerItem(mSelectedId);
         setTitle("Welcome");
 

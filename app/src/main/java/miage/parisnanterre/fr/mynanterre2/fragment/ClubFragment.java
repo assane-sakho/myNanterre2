@@ -138,7 +138,6 @@ public class ClubFragment extends Fragment {
                 return true;
     }
 
-
     /**
      * Récupère les données des clubs de l'api
      */

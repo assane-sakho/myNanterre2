@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class ActuFragment extends Fragment {
     private UserClubApiHelper UserClubApiHelper;
     private List<Publication> publicationLoad;
     private ProgressBar progressBar;
+    private TextView tvMsg;
 
     public static ActuFragment newInstance() {
         return new ActuFragment();
@@ -59,7 +61,8 @@ public class ActuFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_actu, container, false);
-
+        tvMsg = v.findViewById(R.id.msg);
+        tvMsg.setVisibility(View.INVISIBLE);
 
         //UserClubApiHelper.resetPaginationIndex();
 
@@ -131,6 +134,9 @@ public class ActuFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+            if (publicationLoad.size() == 0){
+                tvMsg.setVisibility(View.VISIBLE);
+            }
             progressBar.setVisibility(View.GONE);
             recyclerActuAdapter.notifyDataSetChanged();
         }
