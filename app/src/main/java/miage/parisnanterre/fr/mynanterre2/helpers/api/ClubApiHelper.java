@@ -68,6 +68,7 @@ public class ClubApiHelper extends ApiHelper<SimpleClub, Club> {
     public List<SimpleClub> getCreatedClubs()
     {
         int creatorId = UserApiHelper.getInstance().getUserConnected().getId();
+        resetPaginationIndex();
         baseEndpointUrl = baseFinalEndPoint + "?creator=" + creatorId;
         parametersCompleter = '&';
         List<SimpleClub> result =  getMoreSimpleElements();

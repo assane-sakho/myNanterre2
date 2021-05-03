@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 
@@ -161,7 +162,12 @@ public class MesClubs extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
 
-            clubLoaded.addAll(clubApiHelper.getCreatedClubs());
+            List<SimpleClub> tmpList = clubApiHelper.getCreatedClubs()
+                    .stream()
+                    .filter(simpleClub -> !clubLoaded.contains(simpleClub))
+                    .collect(Collectors.toList());
+
+            clubLoaded.addAll(tmpList);
             return "executed";
         }
 
