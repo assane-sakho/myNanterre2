@@ -9,7 +9,7 @@
             app:actionViewClass="androidx.appcompat.widget.SearchView"
             app:showAsAction="always|collapseActionView" />
         <item
-            android:id="@+id/UpdateClub"
+            android:id="@+id/ListeMesClubs"
             android:icon="@drawable/club_update"
             android:title="Item"
             app:showAsAction="always" />
