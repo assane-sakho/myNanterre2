@@ -1,4 +1,4 @@
-package miage.parisnanterre.fr.mynanterre2.fragment;
+package miage.parisnanterre.fr.mynanterre2.implem.MainActivity;
 
 public interface CallbackFragment {
     void changeFragment();

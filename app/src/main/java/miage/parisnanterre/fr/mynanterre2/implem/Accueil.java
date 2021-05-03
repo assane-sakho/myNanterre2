@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.RequiresApi;
@@ -21,19 +20,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.fragment.AccueilFragment;
-import miage.parisnanterre.fr.mynanterre2.fragment.CallbackFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.CrousFragment;
-import miage.parisnanterre.fr.mynanterre2.fragment.LoginFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.MajFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.PlanFragment;
-import miage.parisnanterre.fr.mynanterre2.fragment.RegisterFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.SupportFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.TrainFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.ActuFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
+import miage.parisnanterre.fr.mynanterre2.implem.MainActivity.LoginFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.BiblioFragment;
 
-public class Accueil extends AppCompatActivity implements CallbackFragment {
+public class Accueil extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -72,23 +69,9 @@ public class Accueil extends AppCompatActivity implements CallbackFragment {
 
         //Start page define
 
-        mSelectedId = R.id.nav_connexion;
+        mSelectedId = R.id.nav_accueil;
         selectDrawerItem(mSelectedId);
         setTitle("Welcome");
-
-        boolean AuthToken = true;
-
-        if(AuthToken == true)
-        {
-            addFragment();
-        }
-        else
-        {
-            skipLogin();
-        }
-
-
-
 
     }
 
@@ -187,58 +170,7 @@ public class Accueil extends AppCompatActivity implements CallbackFragment {
         fragmentTransaction.commit();
     }
 
-    public void addFragment(){
-        LoginFragment fragment = new LoginFragment();
-        fragment.setCallbackFragment(this);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.flContent, fragment);
-        fragmentTransaction.commit();
-    }
 
-    public void replaceFragment(){
-        RegisterFragment fragment = new RegisterFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.flContent, fragment);
-        fragmentTransaction.commit();
-    }
-
-    public void replaceFragmentConnectionSuccess()
-    {
-        AccueilFragment fragment = new AccueilFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.addToBackStack(null);
-        ft.replace(R.id.flContent, fragment);
-        ft.commit();
-    }
-    public void replaceFragmentRegisterSuccess()
-    {
-        LoginFragment fragment = new LoginFragment();
-        fragment.setCallbackFragment(this);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.flContent, fragment);
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void changeFragment() {
-        replaceFragment();
-    }
-
-    @Override
-    public void changeFragmentLoginSuccess() {
-        replaceFragmentConnectionSuccess();
-    }
-
-    @Override
-    public void changeFragmentRegisterSuccess() {
-        replaceFragmentRegisterSuccess();
-    }
 
 
 }

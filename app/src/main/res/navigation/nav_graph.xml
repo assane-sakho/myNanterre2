@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/First2Fragment"
-        android:name="miage.parisnanterre.fr.mynanterre2.implem.MainActivity.FirstFragment"
+        android:name="miage.parisnanterre.fr.mynanterre2.implem.MainActivity.LoginFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first2">
 

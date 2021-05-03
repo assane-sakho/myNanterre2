@@ -1,8 +1,6 @@
-package miage.parisnanterre.fr.mynanterre2.fragment;
+package miage.parisnanterre.fr.mynanterre2.implem.MainActivity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,29 +10,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import miage.parisnanterre.fr.mynanterre2.R;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.LoginApiHelper;
+import miage.parisnanterre.fr.mynanterre2.implem.MainActivity.CallbackFragment;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import org.apache.commons.lang3.StringUtils;
 
-import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.api.user.User;
-import miage.parisnanterre.fr.mynanterre2.helpers.api.UserApiHelper;
-
 public class LoginFragment extends Fragment {
 
+    View v;
     Button buttonLogin, buttonRegister;
-    EditText Username, Password;
+    EditText Email, Password;
     CallbackFragment callbackFragment;
 
-    String username, pass;
+    String email, pass;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.login, container, false);
+        v = inflater.inflate(R.layout.login, container, false);
 
-        Username = v.findViewById(R.id.Username);
+        Email = v.findViewById(R.id.Email);
         Password = v.findViewById(R.id.Password);
 
         buttonLogin = v.findViewById(R.id.btnLogin);
@@ -44,12 +43,12 @@ public class LoginFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                username = Username.getText().toString();
+                email = Email.getText().toString();
                 pass = Password.getText().toString();
 
                 //tester si l'utilisateur et le mot de passe sont corrects (qu'ils existent)
 
-                if(StringUtils.isEmpty(username) || StringUtils.isEmpty(pass))
+                if(StringUtils.isEmpty(email) || StringUtils.isEmpty(pass))
                 {
                     Toast.makeText(v.getContext(), "Veuillez renseigner tous les champs", Toast.LENGTH_SHORT).show();
                 }
@@ -57,12 +56,10 @@ public class LoginFragment extends Fragment {
                 {
                     if(callbackFragment != null)
                     {
-                        callbackFragment.changeFragmentLoginSuccess();
+                        LoginAsync loginAsync = new LoginAsync();
+                        loginAsync.execute();
                     }
                 }
-
-
-
             }
         });
 
@@ -82,5 +79,32 @@ public class LoginFragment extends Fragment {
     public void setCallbackFragment(CallbackFragment callbackFragment)
     {
         this.callbackFragment = callbackFragment;
+    }
+
+
+    private final class LoginAsync extends AsyncTask<Void, Void, String> {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        protected String doInBackground(Void... params) {
+            LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
+            loginApiHelper.logout(); //Deconnexion
+
+            //boolean isLogged = loginApiHelper.login("test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
+            boolean isLogged = loginApiHelper.login(email, pass);
+            return "" + isLogged;
+
+            }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(result.equals("true"))
+            {
+                callbackFragment.changeFragmentLoginSuccess();
+            }
+            else
+            {
+                Toast.makeText(v.getContext(), "Erreur : Email ou mot de passe incorrect, veuillez réessayer", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
