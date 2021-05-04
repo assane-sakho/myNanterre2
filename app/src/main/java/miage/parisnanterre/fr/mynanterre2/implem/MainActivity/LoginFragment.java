@@ -59,6 +59,8 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(v.getContext(), "Connexion en cours, veuillez patienter...", Toast.LENGTH_LONG).show();
                         LoginAsync loginAsync = new LoginAsync();
                         loginAsync.execute();
+                        buttonLogin.setEnabled(false);
+                        buttonRegister.setEnabled(false);
                     }
                 }
             }
@@ -101,10 +103,14 @@ public class LoginFragment extends Fragment {
             {
                 Toast.makeText(v.getContext(), "Connexion réussie", Toast.LENGTH_SHORT).show();
                 callbackFragment.changeFragmentLoginSuccess();
+                buttonLogin.setEnabled(true);
+                buttonRegister.setEnabled(true);
             }
             else
             {
                 Toast.makeText(v.getContext(), "Erreur : Email ou mot de passe incorrect, veuillez réessayer", Toast.LENGTH_SHORT).show();
+                buttonLogin.setEnabled(true);
+                buttonRegister.setEnabled(true);
             }
         }
     }

@@ -70,6 +70,7 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(v.getContext(), "Inscription en cours, veuillez patienter...", Toast.LENGTH_LONG).show();
                     RegisterAsync RAsync = new RegisterAsync();
                     RAsync.execute();
+                    buttonRegister.setEnabled(false);
                 }
             }
         });
@@ -110,10 +111,12 @@ public class RegisterFragment extends Fragment {
             {
                 Toast.makeText(v.getContext(), "Inscription réussie, vous êtes connecté.", Toast.LENGTH_SHORT).show();
                 callbackFragment.changeFragmentRegisterSuccess();
+                buttonRegister.setEnabled(true);
             }
             else
             {
                 Toast.makeText(v.getContext(), "Erreur : l'adresse mail existe déjà dans la base de données.", Toast.LENGTH_SHORT).show();
+                buttonRegister.setEnabled(true);
             }
         }
     }

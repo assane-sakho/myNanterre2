@@ -3,11 +3,13 @@ package miage.parisnanterre.fr.mynanterre2.implem;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,6 +33,7 @@ import miage.parisnanterre.fr.mynanterre2.fragment.TrainFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.ActuFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.LoginApiHelper;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.UserApiHelper;
 import miage.parisnanterre.fr.mynanterre2.implem.MainActivity.LoginActivity;
 import miage.parisnanterre.fr.mynanterre2.implem.MainActivity.LoginFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.BiblioFragment;
@@ -76,9 +79,28 @@ public class Accueil extends AppCompatActivity {
 
         mSelectedId = R.id.nav_accueil;
         selectDrawerItem(mSelectedId);
-        setTitle("Bonjour " + LoginApiHelper.getInstance().getUserId());
+        if(LoginApiHelper.getInstance().isUserAuthenticated())
+        {
+            LoginAsync loginAsync = new LoginAsync();
+            loginAsync.execute();
 
+        }
+    }
 
+    private final class LoginAsync extends AsyncTask<Void, Void, String> {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        protected String doInBackground(Void... params) {
+            String isLogged = UserApiHelper.getInstance().getUserConnected().getFullName();
+            return "" + isLogged;
+
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        protected void onPostExecute(String result) {
+            setTitle("Bonjour, " + result);
+        }
     }
 
     @Override
