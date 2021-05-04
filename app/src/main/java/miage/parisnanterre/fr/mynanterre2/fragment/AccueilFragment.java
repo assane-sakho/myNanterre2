@@ -35,9 +35,6 @@ public class AccueilFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.accueil, container, false);
 
-        LoginAsync loginAsync = new LoginAsync();
-        loginAsync.execute();
-
         Button mButton = v.findViewById(R.id.cgu);
         mButton.setOnClickListener(new View.OnClickListener() {
 
@@ -71,41 +68,6 @@ public class AccueilFragment extends Fragment {
         });
         return v;
     }
-    private final class LoginAsync extends AsyncTask<Void, Void, String> {
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @Override
-        protected String doInBackground(Void... params) {
-            LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
-            loginApiHelper.logout(); //Deconnexion
 
-            if(loginApiHelper.isUserAuthenticated()) //si l'utilisateur est connecté (id et token stocké)
-            {
-                return "";
-            }
-            else
-            {
-                /* Exemple connexion */
-                boolean isLogged = loginApiHelper.login("test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
-                int id = loginApiHelper.getUserId();
-                return "" + isLogged;
-
-                /* Exemple d'inscription */
-//                boolean isSigned;
-//                try {
-//                     isSigned = loginApiHelper.signIn("test", "testeur2", "test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
-//                    int userId = loginApiHelper.getUserId();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    isSigned = false;
-//                }
-//              return "" + isSigned;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-           // todo
-        }
-    }
 
 }
