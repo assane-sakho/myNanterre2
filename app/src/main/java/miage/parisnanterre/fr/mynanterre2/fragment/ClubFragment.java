@@ -149,7 +149,7 @@ public class ClubFragment extends Fragment {
                 }
 
                 // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.flContent, fragment)
                         .addToBackStack(null)
