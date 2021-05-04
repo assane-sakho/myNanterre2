@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements CallbackFragment
 
         LoginApiHelper LAH = LoginApiHelper.getInstance();
 
-        LAH.logout();
 
         if(LAH.isUserAuthenticated())
         {
@@ -61,8 +60,9 @@ public class LoginActivity extends AppCompatActivity implements CallbackFragment
 
     public void replaceFragment(){
 
-        fragment = new RegisterFragment();
+        RegisterFragment fragment = new RegisterFragment();
         FragmentManager fm = getSupportFragmentManager();
+        fragment.setCallbackFragment(this);
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.ContentLogin, fragment);

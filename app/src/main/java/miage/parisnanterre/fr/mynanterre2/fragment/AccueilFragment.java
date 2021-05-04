@@ -35,8 +35,6 @@ public class AccueilFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.accueil, container, false);
 
-
-
         Button mButton = v.findViewById(R.id.cgu);
         mButton.setOnClickListener(new View.OnClickListener() {
 

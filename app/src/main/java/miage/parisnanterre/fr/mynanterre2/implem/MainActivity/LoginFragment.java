@@ -56,6 +56,7 @@ public class LoginFragment extends Fragment {
                 {
                     if(callbackFragment != null)
                     {
+                        Toast.makeText(v.getContext(), "Connexion en cours, veuillez patienter...", Toast.LENGTH_LONG).show();
                         LoginAsync loginAsync = new LoginAsync();
                         loginAsync.execute();
                     }
@@ -89,7 +90,6 @@ public class LoginFragment extends Fragment {
             LoginApiHelper loginApiHelper = LoginApiHelper.getInstance();
             loginApiHelper.logout(); //Deconnexion
 
-            //boolean isLogged = loginApiHelper.login("test@parisnanterre.fr", "P7dBsRCPtg5bf4vy4eePg");
             boolean isLogged = loginApiHelper.login(email, pass);
             return "" + isLogged;
 
@@ -99,6 +99,7 @@ public class LoginFragment extends Fragment {
         protected void onPostExecute(String result) {
             if(result.equals("true"))
             {
+                Toast.makeText(v.getContext(), "Connexion réussie", Toast.LENGTH_SHORT).show();
                 callbackFragment.changeFragmentLoginSuccess();
             }
             else

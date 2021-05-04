@@ -1,9 +1,12 @@
 package miage.parisnanterre.fr.mynanterre2.implem;
 
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.navigation.NavigationView;
@@ -27,6 +30,8 @@ import miage.parisnanterre.fr.mynanterre2.fragment.SupportFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.TrainFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.ActuFragment;
 import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.LoginApiHelper;
+import miage.parisnanterre.fr.mynanterre2.implem.MainActivity.LoginActivity;
 import miage.parisnanterre.fr.mynanterre2.implem.MainActivity.LoginFragment;
 import miage.parisnanterre.fr.mynanterre2.implem.library.fragment.BiblioFragment;
 
@@ -63,15 +68,16 @@ public class Accueil extends AppCompatActivity {
         mDrawer = findViewById(R.id.drawer_layout);
         nvDrawer = findViewById(R.id.nvView);
         // Setup drawer view
-
         setupDrawerContent(nvDrawer);
+
 
 
         //Start page define
 
         mSelectedId = R.id.nav_accueil;
         selectDrawerItem(mSelectedId);
-        setTitle("Welcome");
+        setTitle("Bonjour " + LoginApiHelper.getInstance().getUserId());
+
 
     }
 
@@ -105,72 +111,64 @@ public class Accueil extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void selectDrawerItem(int mSelectedId) {
+
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass = null;
-        switch (mSelectedId) {
-            case R.id.nav_accueil:
-                fragmentClass = AccueilFragment.class;
-                break;
-            case R.id.nav_actu:
-                fragmentClass = ActuFragment.class;
-                break;
-            case R.id.nav_bu:
-                fragmentClass = BiblioFragment.class;
-                break;
-            case R.id.nav_crous:
-                fragmentClass = CrousFragment.class;
-                break;
-            case R.id.nav_plan:
-                fragmentClass = PlanFragment.class;
-                break;
-            case R.id.nav_clubs:
-                fragmentClass = ClubFragment.class;
-                break;
-            case R.id.nav_train:
-                fragmentClass = TrainFragment.class;
-                break;
-            case R.id.nav_maj:
-                fragmentClass = MajFragment.class;
-                break;
-            case R.id.nav_support:
-                fragmentClass = SupportFragment.class;
-                break;
-            case R.id.nav_connexion:
-                fragmentClass = LoginFragment.class;
-                break;
-            default:
-                fragmentClass = AccueilFragment.class;
+
+        if(mSelectedId == R.id.nav_deconnexion)
+        {
+            LoginApiHelper.getInstance().logout();
+            Intent myIntent = new Intent(this, LoginActivity.class);
+            startActivity(myIntent);
         }
+        else
+        {
+            switch (mSelectedId) {
+                case R.id.nav_actu:
+                    fragmentClass = ActuFragment.class;
+                    break;
+                case R.id.nav_bu:
+                    fragmentClass = BiblioFragment.class;
+                    break;
+                case R.id.nav_crous:
+                    fragmentClass = CrousFragment.class;
+                    break;
+                case R.id.nav_plan:
+                    fragmentClass = PlanFragment.class;
+                    break;
+                case R.id.nav_clubs:
+                    fragmentClass = ClubFragment.class;
+                    break;
+                case R.id.nav_train:
+                    fragmentClass = TrainFragment.class;
+                    break;
+                case R.id.nav_maj:
+                    fragmentClass = MajFragment.class;
+                    break;
+                case R.id.nav_support:
+                    fragmentClass = SupportFragment.class;
+                    break;
+                default:
+                    fragmentClass = AccueilFragment.class;
+            }
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.flContent, fragment)
+                    .commit();
+
+            // Highlight the selected item has been done by NavigationView
+
+            // Close the navigation drawer
+            mDrawer.closeDrawers();
         }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.flContent, fragment)
-                .commit();
-
-        // Highlight the selected item has been done by NavigationView
-
-        // Close the navigation drawer
-        mDrawer.closeDrawers();
     }
-
-    public void skipLogin()
-    {
-        AccueilFragment fragment = new AccueilFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.flContent, fragment);
-        fragmentTransaction.commit();
-    }
-
-
-
-
 }

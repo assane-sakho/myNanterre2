@@ -42,9 +42,9 @@
             android:id="@+id/nav_support"
             android:icon="@drawable/ic_support" />
         <item
-            android:title="Connexion"
-            android:id="@+id/nav_connexion"
-            android:icon="@drawable/ic_support">
+            android:title="Déconnexion"
+            android:id="@+id/nav_deconnexion"
+            android:icon="@drawable/ic_poweroff">
         </item>
     </group>
 </menu>

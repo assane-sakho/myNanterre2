@@ -26,12 +26,14 @@ import miage.parisnanterre.fr.mynanterre2.helpers.api.LoginApiHelper;
 public class RegisterFragment extends Fragment {
 
     View v;
-    Button buttonBacktoLogin, buttonRegister;
+    Button buttonRegister;
     EditText nom, prenom, email, password;
     CallbackFragment callbackFragment;
 
     User user;
     Type UserType;
+
+    String Nom, Prenom, Pass, Mail;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,19 +49,27 @@ public class RegisterFragment extends Fragment {
         Type userType = new Type("utilisateur");
 
 
+
+
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
+                Nom = nom.getText().toString();
+                Prenom = prenom.getText().toString();
+                Pass = password.getText().toString();
+                Mail = email.getText().toString();
 
-                if(StringUtils.isEmpty(email.getText().toString()) || StringUtils.isEmpty(password.getText().toString()))
+
+                if(StringUtils.isEmpty(Mail) || StringUtils.isEmpty(Pass) || StringUtils.isEmpty(Nom) || StringUtils.isEmpty(Prenom))
                 {
                     Toast.makeText(v.getContext(), "Veuillez renseigner tous les champs", Toast.LENGTH_SHORT).show();
                 }
                 if(callbackFragment != null)
                 {
-                    LoginAsync loginAsync = new LoginAsync();
-                    loginAsync.execute();
+                    Toast.makeText(v.getContext(), "Inscription en cours, veuillez patienter...", Toast.LENGTH_LONG).show();
+                    RegisterAsync RAsync = new RegisterAsync();
+                    RAsync.execute();
                 }
             }
         });
@@ -76,7 +86,7 @@ public class RegisterFragment extends Fragment {
 
 
 
-    private final class LoginAsync extends AsyncTask<Void, Void, String> {
+    private final class RegisterAsync extends AsyncTask<Void, Void, String> {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected String doInBackground(Void... params) {
@@ -86,8 +96,7 @@ public class RegisterFragment extends Fragment {
             /* Exemple d'inscription */
             boolean isSigned;
             try {
-                isSigned = loginApiHelper.signIn(nom.getText().toString(), prenom.getText().toString(), email.getText().toString(), password.getText().toString());
-                int userId = loginApiHelper.getUserId();
+                isSigned = loginApiHelper.signIn(Prenom, Nom, Mail, Pass);
             } catch (IOException e) {
                 e.printStackTrace();
                 isSigned = false;
@@ -99,6 +108,7 @@ public class RegisterFragment extends Fragment {
         protected void onPostExecute(String result) {
             if(result.equals("true"))
             {
+                Toast.makeText(v.getContext(), "Inscription réussie, vous êtes connecté.", Toast.LENGTH_SHORT).show();
                 callbackFragment.changeFragmentRegisterSuccess();
             }
             else
