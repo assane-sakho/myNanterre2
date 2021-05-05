@@ -64,9 +64,10 @@ public class RecyclerActuAdapter extends RecyclerView.Adapter<RecyclerActuAdapte
         holder.tv_nomClub.setText(publication.getClub().getName());
         holder.tv_heure.setText(publication.getDate().getDayOfMonth()+" "+publication.getDate().getMonth().toString()+" "+publication.getDate().getYear());
         holder.tv_desc.setText(publication.getMessage());
-        Bitmap bitmap = BitmapFactory.decodeByteArray(publication.getClub().getImageBytes(), 0,publication.getClub().getImageBytes().length);
+        holder.imgView_clubPic.setVisibility(View.GONE);
+       // Bitmap bitmap = BitmapFactory.decodeByteArray(publication.getClub().getImageBytes(), 0,publication.getClub().getImageBytes().length);
 
-        holder.imgView_clubPic.setImageBitmap(bitmap);
+        // holder.imgView_clubPic.setImageBitmap(bitmap);
     }
 
     /**

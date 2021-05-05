@@ -51,8 +51,8 @@ public class MesClubs extends Fragment {
     UserApiHelper userApiHelper ;
     User userConnected ;
 
-    public static ClubFragment newInstance() {
-        return new ClubFragment();
+    public static MesClubs newInstance() {
+        return new MesClubs();
     }
 
     /**

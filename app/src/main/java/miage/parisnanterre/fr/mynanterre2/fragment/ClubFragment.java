@@ -32,6 +32,7 @@ import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
 import miage.parisnanterre.fr.mynanterre2.api.user.User;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.UserApiHelper;
+import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.ClubCreate;
 import miage.parisnanterre.fr.mynanterre2.implem.club.fragment.MesClubs;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -134,14 +135,26 @@ public class ClubFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Fragment fragment = null;
+        FragmentManager fragmentManager = getFragmentManager();
         switch (item.getItemId()) {
             case R.id.CreateClub:
+                try {
+                    fragment = (Fragment) ClubCreate.class.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Insert the fragment by replacing any existing fragment
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.flContent, fragment)
+                        .addToBackStack(null)
+                        .commit();
 
                 break;
 
             case R.id.ListeMesClubs:
-                Fragment fragment = null;
                 try {
                     fragment = (Fragment) MesClubs.class.newInstance();
                 } catch (Exception e) {
@@ -149,7 +162,7 @@ public class ClubFragment extends Fragment {
                 }
 
                 // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = getFragmentManager();
+
                 fragmentManager.beginTransaction()
                         .replace(R.id.flContent, fragment)
                         .addToBackStack(null)

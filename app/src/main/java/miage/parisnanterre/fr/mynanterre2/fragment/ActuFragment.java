@@ -24,6 +24,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerActuAdapter;
@@ -123,7 +124,13 @@ public class ActuFragment extends Fragment {
 
             try {
                 UserClubApiHelper = UserClubApiHelper.getInstance();
-                publicationLoad.addAll(UserClubApiHelper.getFollowedClubsPublication());
+                List<Publication> tmpList = UserClubApiHelper.getFollowedClubsPublication()
+                        .stream()
+                        .filter(publi -> !publicationLoad.contains(publi))
+                        .collect(Collectors.toList());
+
+                publicationLoad.addAll(tmpList);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
