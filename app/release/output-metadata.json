@@ -5,16 +5,16 @@
     "kind": "Directory"
   },
   "applicationId": "miage.parisnanterre.fr.mynanterre2",
-  "variantName": "release",
+  "variantName": "debug",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "properties": [],
       "versionCode": 2,
-      "versionName": "1.0.0",
+      "versionName": "2.0",
       "enabled": true,
-      "outputFile": "app-release.apk"
+      "outputFile": "app-debug.apk"
     }
   ]
 }
