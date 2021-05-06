@@ -1,13 +1,14 @@
 package miage.parisnanterre.fr.mynanterre2.implem.club.fragment;
 
-import androidx.annotation.RequiresApi;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,27 +19,40 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import miage.parisnanterre.fr.mynanterre2.R;
-import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerClubAdapter;
+
+import miage.parisnanterre.fr.mynanterre2.adapter.RecyclerMesClubsAdapter;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
+import miage.parisnanterre.fr.mynanterre2.api.user.User;
+import miage.parisnanterre.fr.mynanterre2.fragment.ClubFragment;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.UserApiHelper;
+
+
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class ClubFragment extends Fragment {
+public class MesClubs extends Fragment {
 
-    private RecyclerClubAdapter recyclerClubAdapter;
+    private RecyclerMesClubsAdapter recyclerMesClubsAdapter;
     private ClubApiHelper clubApiHelper;
     private List<SimpleClub> clubLoaded;
     private ProgressBar progressBar;
+    private TextView tvMsg;
 
+    //getfollowedclub
+    UserApiHelper userApiHelper ;
+    User userConnected ;
 
-    public static ClubFragment newInstance() {
-        return new ClubFragment();
+    public static MesClubs newInstance() {
+        return new MesClubs();
     }
 
     /**
@@ -52,23 +66,26 @@ public class ClubFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.club_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_mes_clubs, container, false);
 
         clubApiHelper = ClubApiHelper.getInstance();
         clubApiHelper.resetPaginationIndex();
 
-        RecyclerView rvClub = v.findViewById(R.id.recyclerViewClub);
+        tvMsg = v.findViewById(R.id.msg2);
+        tvMsg.setVisibility(View.INVISIBLE);
+
+        RecyclerView rvClub = v.findViewById(R.id.recyclerMesClubs);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
 
         mLayoutManager.setReverseLayout(false);
         mLayoutManager.setStackFromEnd(false);
 
-        progressBar = (ProgressBar) v.findViewById(R.id.progress);
+        progressBar = (ProgressBar) v.findViewById(R.id.progress3);
         clubLoaded = new ArrayList<>();
-        recyclerClubAdapter = new RecyclerClubAdapter(getContext(), clubLoaded);
+        recyclerMesClubsAdapter = new RecyclerMesClubsAdapter(getContext(), clubLoaded);
 
-        rvClub.setAdapter(recyclerClubAdapter);
+        rvClub.setAdapter(recyclerMesClubsAdapter);
 
         rvClub.setLayoutManager(mLayoutManager);
 
@@ -100,6 +117,13 @@ public class ClubFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
+
+        MenuItem listeMesClubs = menu.findItem(R.id.ListeMesClubs);
+        listeMesClubs.setVisible(false);
+
+        MenuItem creerClub = menu.findItem(R.id.CreateClub);
+        creerClub.setVisible(false);
+
         MenuItem item = menu.findItem(R.id.action_search);
 
         final androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView)item.getActionView();
@@ -111,7 +135,7 @@ public class ClubFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                recyclerClubAdapter.getFilter().filter(newText);
+                recyclerMesClubsAdapter.getFilter().filter(newText);
                 return true;
             }
         });
@@ -124,8 +148,9 @@ public class ClubFragment extends Fragment {
 
     public void fetchData() {
         progressBar.setVisibility(View.VISIBLE);
-        GetClubsAsync getLibrariesAsync = new GetClubsAsync();
+        MesClubs.GetClubsAsync getLibrariesAsync = new MesClubs.GetClubsAsync();
         getLibrariesAsync.execute();
+
     }
 
     /**
@@ -137,16 +162,23 @@ public class ClubFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
 
-            clubLoaded.addAll(clubApiHelper.getMoreSimpleClubs());
+            List<SimpleClub> tmpList = clubApiHelper.getCreatedClubs()
+                    .stream()
+                    .filter(simpleClub -> !clubLoaded.contains(simpleClub))
+                    .collect(Collectors.toList());
+
+            clubLoaded.addAll(tmpList);
             return "executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
+            if (clubLoaded.size() == 0){
+                tvMsg.setVisibility(View.VISIBLE);
+            }
             progressBar.setVisibility(View.GONE);
-            recyclerClubAdapter.notifyDataSetChanged();
+            recyclerMesClubsAdapter.notifyDataSetChanged();
         }
 
     }
-
 }

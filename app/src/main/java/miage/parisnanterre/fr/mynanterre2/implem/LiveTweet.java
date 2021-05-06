@@ -28,11 +28,10 @@ public class LiveTweet extends ListActivity {
 
         TwitterConfig config = new TwitterConfig.Builder(this)
                 .logger(new DefaultLogger(Log.DEBUG))
-                .twitterAuthConfig(new TwitterAuthConfig("gb8GzzQkm3S3EripzroUQHG1O", "9aPqxcAgKD6vaFca0RyUxipWxj027YmW2Zhs57LzFLxdZX3aRR"))
+                .twitterAuthConfig(new TwitterAuthConfig("384ezZEDwkWM76qMCJPwAMiPW", "MSuiCumUGTP7TkUoBDDsGMexFjEV0AG1JogQjptQURqUZ0z6df"))
                 .debug(true)
                 .build();
         Twitter.initialize(config);
-        // a renouveler le 10 janvier
 
         // Twitter.initialize(this);
 

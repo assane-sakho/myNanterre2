@@ -48,14 +48,18 @@ import miage.parisnanterre.fr.mynanterre2.api.crous.ProductAvailability;
 import miage.parisnanterre.fr.mynanterre2.api.db.BaseDbElement;
 import miage.parisnanterre.fr.mynanterre2.api.library.Library;
 import miage.parisnanterre.fr.mynanterre2.api.library.SimpleLibrary;
+import miage.parisnanterre.fr.mynanterre2.api.user.User;
+import miage.parisnanterre.fr.mynanterre2.api.user.UserClub;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonClubPublicationAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonCrousAttendanceAdapter;
 import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonProductAvailabilityAdapter;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonUserAdapter;
+import miage.parisnanterre.fr.mynanterre2.helpers.jsonAdapter.JsonUserClubAdapter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteElement extends BaseDbElement> {
-    private static final String LOCALURLDEV = "http://192.168.1.43:3000/api/";
+    private static final String LOCALURLDEV = "http://43ade1f86061.ngrok.io/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
     private static final String BASEURL = BASEURLPROD;
@@ -120,6 +124,8 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
                 .registerTypeAdapter(Publication.class, new JsonClubPublicationAdapter())
                 .registerTypeAdapter(Attendance.class, new JsonCrousAttendanceAdapter())
                 .registerTypeAdapter(ProductAvailability.class, new JsonProductAvailabilityAdapter())
+                .registerTypeAdapter(UserClub.class, new JsonUserClubAdapter())
+                .registerTypeAdapter(User.class, new JsonUserAdapter())
                 .create();
 
         simpleElements = new ArrayList<>();
@@ -168,6 +174,8 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("GET");
             conn.addRequestProperty("accept", header);
+            String token = LoginApiHelper.getInstance().getUserToken();
+            conn.setRequestProperty("Authorization", "Bearer "+  token);
             conn.connect();
             is = conn.getInputStream();
             return readIt(is);
@@ -315,9 +323,9 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
                 simpleElementsList = getClubsByPage(pageIndex);
 
             pageIndex ++;
-        }
 
-        simpleElements.addAll(simpleElementsList);
+            simpleElements.addAll(simpleElementsList);
+        }
 
         return simpleElementsList;
     }
@@ -329,6 +337,10 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
             final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setConnectTimeout(15000);
             conn.setRequestMethod(requestMethod.name());
+
+            String token = LoginApiHelper.getInstance().getUserToken();
+            conn.setRequestProperty("Authorization", "Bearer "+  token);
+
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setRequestProperty("Accept", "application/json");
             conn.setDoOutput(true);

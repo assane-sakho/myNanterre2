@@ -10,6 +10,10 @@
             android:icon="@drawable/home"
             android:title="@string/accueil" />
         <item
+            android:id="@+id/nav_actu"
+            android:icon="@drawable/actu"
+            android:title="Fil d'actualité" />
+        <item
             android:id="@+id/nav_clubs"
             android:icon="@drawable/clubs"
             android:title="@string/clubs" />
@@ -33,5 +37,14 @@
             android:id="@+id/nav_maj"
             android:icon="@drawable/maj"
             android:title="@string/mise_jour" />
+        <item
+            android:title="@string/support"
+            android:id="@+id/nav_support"
+            android:icon="@drawable/ic_support" />
+        <item
+            android:title="Déconnexion"
+            android:id="@+id/nav_deconnexion"
+            android:icon="@drawable/ic_poweroff">
+        </item>
     </group>
 </menu>

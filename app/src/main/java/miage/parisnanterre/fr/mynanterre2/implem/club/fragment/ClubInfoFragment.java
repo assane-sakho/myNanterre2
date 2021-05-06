@@ -3,6 +3,7 @@ package miage.parisnanterre.fr.mynanterre2.implem.club.fragment;
 import androidx.annotation.RequiresApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,17 +16,25 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import miage.parisnanterre.fr.mynanterre2.R;
 import miage.parisnanterre.fr.mynanterre2.api.club.Club;
 import miage.parisnanterre.fr.mynanterre2.api.club.SimpleClub;
+import miage.parisnanterre.fr.mynanterre2.api.user.User;
+import miage.parisnanterre.fr.mynanterre2.api.user.UserClub;
 import miage.parisnanterre.fr.mynanterre2.helpers.api.ClubApiHelper;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.UserApiHelper;
+import miage.parisnanterre.fr.mynanterre2.helpers.api.UserClubApiHelper;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ClubInfoFragment extends Fragment {
@@ -33,6 +42,10 @@ public class ClubInfoFragment extends Fragment {
     private final Club club;
 
     private ClubApiHelper clubApiHelper;
+    UserApiHelper userApiHelper ;
+    User userConnected ;
+    List<Integer> followedClubs;//les clubs follow d'un user
+    ImageView Follow;
 
     /**
      * Constructeur qui récupère l'id du club qu'on veut afficher
@@ -112,12 +125,139 @@ public class ClubInfoFragment extends Fragment {
         contact.setText(club.getContact());
 
 
+        //Partie follow / unfollow
+        Follow = v1.findViewById(R.id.ivFollow);
+        Follow.setVisibility(View.INVISIBLE);
+        getfollowedClubs();
+
+        /*if(followedClubs.contains(club.getId())){
+            clickButton.setText("UNFOLLOW");
+            clickButton.setBackgroundColor(Color.RED);
+        }
+        else{
+            clickButton.setText("FOLLOW");
+            clickButton.setBackgroundColor(Color.BLUE);
+        }*/
+
+        Follow.setOnClickListener( new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                //Si le club n'appartient pas à la liste des clubs follow -> qu'il veut follow le club
+                if(!followedClubs.contains(club.getId())){ //&& clickButton.getText()=="FOLLOW"
+                    follow();
+                }
+                else{
+                    unFollow();
+                }
+            } });
+        //tester si le user appartient à la liste de follow
+        // gestion du click :
+        // this.user.addClubSuivi(club) //pas sure si c'est ici ou dans user
+        //Button follow = v1.FindViewById()
+        //follow.setOnClick(Methode follow avec l'id du club)
+        //set button disable
+        //set button visible
+
         ImageView back = v1.findViewById(R.id.back);
 
         back.setOnClickListener(v -> getActivity().onBackPressed());
 
         return v1;
     }
+    /**
+     * Récupère les données des clubs de l'api
+     */
+    public void getfollowedClubs() {
+        //progressBar.setVisibility(View.VISIBLE);
+        GetFollowedClubsAsync getfollowClubsAsync = new GetFollowedClubsAsync();
+        getfollowClubsAsync.execute();
+    }
+    public void follow() {
+        //progressBar.setVisibility(View.VISIBLE);
+        FollowClubsAsync followClubsAsync = new FollowClubsAsync();
+        followClubsAsync.execute();
+    }
+
+    public void unFollow() {
+        //progressBar.setVisibility(View.VISIBLE);
+        UnFollowClubsAsync unfollowClubsAsync = new UnFollowClubsAsync();
+        unfollowClubsAsync.execute();
+    }
+
+    private final class GetFollowedClubsAsync extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            userApiHelper = UserApiHelper.getInstance();
+            userConnected = userApiHelper.getUserConnected();
+            followedClubs = userConnected.getFollowedClubsIds();
+            return "executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Follow.setVisibility(View.VISIBLE);
+
+            if(followedClubs.contains(club.getId())){
+                Follow.setImageResource(R.drawable.coeur_plein);
+            }
+            else{
+                Follow.setImageResource(R.drawable.coeur_vide);
+            }
+        }
+    }
+
+    /**
+     * chargement des clubs en fond et affichage d'un cercle de chargement le temps que sa charge
+     */
+
+    private final class FollowClubsAsync extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            Follow.setVisibility(View.INVISIBLE);
+            userApiHelper = UserApiHelper.getInstance();
+            userConnected = userApiHelper.getUserConnected();
+            UserClubApiHelper userClubApiHelper = new UserClubApiHelper();
+            try {
+                userClubApiHelper.followClub(club);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Follow.setImageResource(R.drawable.coeur_plein);
+            followedClubs.add(club.getId());
+            Toast.makeText(getContext(), "Vous suivez ce club", Toast.LENGTH_SHORT).show();
+            Follow.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private final class UnFollowClubsAsync extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            Follow.setVisibility(View.INVISIBLE);
+            UserClubApiHelper userClubApiHelper = new UserClubApiHelper();
+            try {
+                userClubApiHelper.unFollowClub(club);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Follow.setImageResource(R.drawable.coeur_vide);
+            followedClubs.removeIf(id->id==club.getId());
+            Toast.makeText(getContext(), "Vous ne suivez plus ce club", Toast.LENGTH_SHORT).show();
+            Follow.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     /**
      * On récupère les données du club grâce à son id
