@@ -62,7 +62,7 @@ public abstract class ApiHelper<SimpleElement extends BaseDbElement, CompleteEle
     private static final String LOCALURLDEV = "http://43ade1f86061.ngrok.io/api/";
     private static final String BASEURLDEV = "https://dev-mynanterreapi.herokuapp.com/api/";
     private static final  String BASEURLPROD = "https://mynanterreapi.herokuapp.com/api/";
-    private static final String BASEURL = BASEURLDEV;
+    private static final String BASEURL = BASEURLPROD;
     protected  Gson gson;
 
     protected List<SimpleElement> simpleElements;
