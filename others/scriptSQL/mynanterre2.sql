@@ -1,7 +1,3 @@
-/*
- Date: 06/01/2021 18:11:10
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -67,17 +63,17 @@ CREATE TABLE `club`  (
   INDEX `creator_id`(`creator_id`) USING BTREE,
   CONSTRAINT `club_ibfk_2` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `club_ibfk_3` FOREIGN KEY (`club_type_id`) REFERENCES `club_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2921 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 6161 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of club
 -- ----------------------------
 INSERT INTO `club` VALUES (2081, 'Article X', NULL, '2020-12-28 20:31:41', 'Cette association a pour but d\'instaurer, de développer et d\'animer une dynamique d\'ouverture au sein de l\'Université, de dynamiser la vie étudiante par des manifestations culturelles à destination de tous les étudiant·e·s et de procurer à ses membres des moyens de formation complémentaire de leur cursus universitaire. Cette association y contribue par une représentation véritablement indépendante de toute formation politique.\r\n\r\nPassionnée de théâtre et persuadée que le rire adoucit les mœurs, l\'association Article X organise depuis 2015 un festival de stand up étudiant, le Festival Arti\'Show, permettant une véritable expression de la voix étudiante au travers de l\'ironie et de la dérision, mais aussi favorisant le lien social et l\'émancipation culturelle pour toutes et tous. Le festival vise à mettre en lien trois médias humoristiques : internet, la voix étudiante et le stand-up. Il a pour but de dénicher des talents étudiants et de les amener vers le professionnel en leur apportant ', 0x31, 0x31, 0, 181, 'https://www.facebook.com/associationarticleX/', 'articleX.paris10@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R) - Boîte postale n°13\r\n200 avenue de la République\r\n92000 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/article-x-536210.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/articlex_1484751163917-png');
-INSERT INTO `club` VALUES (2091, 'Dix de Choeur', NULL, '2020-12-28 20:31:41', 'Dix de Chœur, le chœur de l\'Université, agit depuis plus de vingt ans pour sensibiliser les choristes et toute la communauté universitaire à des répertoires musicaux très divers : de la musique de la Renaissance à la musique symphonique du XXè siècle, la musique de film, en passant par les périodes classique et romantique. Le chef de chœur et son assistante s\'efforcent chaque année de proposer des programmes riches et variés afin que chacun y trouve son compte.', 0x31, 0x31, 0, 181, 'http://www.dixdechoeur.fr/', 'contact@dixdechoeur.fr', 'Université Paris Nanterre\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/dix-de-choeur-12627.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/dix-de-choeur_1524207885188-gif');
-INSERT INTO `club` VALUES (2101, 'Eloquentia Nanterre', NULL, '2020-12-28 20:31:41', 'Eloquentia est une association créée en 2012 par Stéphane de Freitas. Son but est d\'apprendre la prise de parole en public à des jeunes de moins de 30 ans, via des ateliers, une formation et un concours. Elle propose donc des évènements tout au long de l\'année.', 0x31, 0x31, 0, 181, 'http://eloquentia-nanterre.fr', 'eloquentiananterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bâtiment R)\r\nBoîte postale n°44\r\n200 Avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook : Eloquentia Nanterre', 'https://culture.parisnanterre.fr/service-action-culturelle-et-animation-du-campus/assos/annuaire-des-associations-etudiantes/eloquentia-nanterre-571427.kjsp?RH=1253625868526', 'https://culture.parisnanterre.fr/medias/photo/eloquentia_1530085421719-jpg');
-INSERT INTO `club` VALUES (2111, 'Kaméo', NULL, '2020-12-28 20:31:42', 'Kaméo a pour objet en premier lieu de réunir les étudiants aspirant aux métiers du cinéma au sein d\'une communauté.\r\nUne fois les étudiants présentés et répertoriés dans leurs domaines de compétences cinématographiques, ils auront l\'occasion, ensemble, de réaliser des films avec l\'aide de l\'association aussi bien sur un plan logistique que matériel : l\'association mettra à disposition de ses adhérents du matériel de qualité pour la réalisation de leurs films !\r\nEnfin, l\'association organisera régulièrement des ateliers et des master class réalisées par des intervenants professionnels, en plus d\'évènements festifs de rencontre entre les membres. Nous voulons démocratiser la pratique vidéo et transmettre des raisonnements de responsabilité écologique.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/Kameocinema/', 'associationkameo@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'étudiant·e (Bâtiment R)\r\nBoîte postale n°32\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/kameo-781878.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1509961883080-png');
+INSERT INTO `club` VALUES (2091, 'Dix de Choeur', NULL, '2020-12-28 20:31:41', 'Dix de Chœur, le chœur de l\'Université, agit depuis plus de vingt ans pour sensibiliser les choristes et toute la communauté universitaire à des répertoires musicaux très divers : de la musique de la Renaissance à la musique symphonique du XXè siècle, la musique de film, en passant par les périodes classique et romantique. Le chef de chœur et son assistante s\'efforcent chaque année de proposer des programmes riches et variés afin que chacun y trouve son compte.', 0x31, 0x31, 65, 181, 'http://www.dixdechoeur.fr/', 'contact@dixdechoeur.fr', 'Université Paris Nanterre\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/dix-de-choeur-12627.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/dix-de-choeur_1524207885188-gif');
+INSERT INTO `club` VALUES (2101, 'Eloquentia Nanterre', NULL, '2020-12-28 20:31:41', 'Eloquentia est une association créée en 2012 par Stéphane de Freitas. Son but est d\'apprendre la prise de parole en public à des jeunes de moins de 30 ans, via des ateliers, une formation et un concours. Elle propose donc des évènements tout au long de l\'année.', 0x31, 0x31, 65, 181, 'http://eloquentia-nanterre.fr', 'eloquentiananterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bâtiment R)\r\nBoîte postale n°44\r\n200 Avenue de la République\r\n92001 Nanterre Cedex\r\n\r\nPage Facebook : Eloquentia Nanterre', 'https://culture.parisnanterre.fr/service-action-culturelle-et-animation-du-campus/assos/annuaire-des-associations-etudiantes/eloquentia-nanterre-571427.kjsp?RH=1253625868526', 'https://culture.parisnanterre.fr/medias/photo/eloquentia_1530085421719-jpg');
+INSERT INTO `club` VALUES (2111, 'Kaméo', NULL, '2020-12-28 20:31:42', 'Kaméo a pour objet en premier lieu de réunir les étudiants aspirant aux métiers du cinéma au sein d\'une communauté.\r\nUne fois les étudiants présentés et répertoriés dans leurs domaines de compétences cinématographiques, ils auront l\'occasion, ensemble, de réaliser des films avec l\'aide de l\'association aussi bien sur un plan logistique que matériel : l\'association mettra à disposition de ses adhérents du matériel de qualité pour la réalisation de leurs films !\r\nEnfin, l\'association organisera régulièrement des ateliers et des master class réalisées par des intervenants professionnels, en plus d\'évènements festifs de rencontre entre les membres. Nous voulons démocratiser la pratique vidéo et transmettre des raisonnements de responsabilité écologique.', 0x31, 0x31, 65, 181, 'https://www.facebook.com/Kameocinema/', 'associationkameo@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'étudiant·e (Bâtiment R)\r\nBoîte postale n°32\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/kameo-781878.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1509961883080-png');
 INSERT INTO `club` VALUES (2121, 'La Volt', NULL, '2020-12-28 20:31:42', 'Cette association a pour thème la musique. Elle a vocation à organiser divers évènements autour de cet art qui pourront rassembler les étudiant·e· s de l\'université, quel que soit leur cursus.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/LaVoltAssociation/', 'LaVolt.association@outlook.fr', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte poste n°22\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-volt-831843.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/la-volt_1521026265230-jpg');
-INSERT INTO `club` VALUES (2131, 'Les Imp\'Unis', NULL, '2020-12-28 20:31:42', 'L\'association Les Imp\'Unis (Les IMProvisateurs de l\'Université de Nanterre Imaginatifs et Saisissants) propose à ses adhérent·es la pratique de l\'improvisation théâtrale. Elle donne l\'occasion d\'intégrer une équipe soudée, énergique et positive qui souhaite égayer la vie des étudiant·es.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/Les-IMPUnis-de-la-LIPON-367455386734697/', 'lesimpunis@gmail.com', 'Université Paris Nanterre\r\nBoîte postale n°48\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/les-imp-unis-ligue-d-improvisation--571297.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/impunis_1605179369444-jpg');
+INSERT INTO `club` VALUES (2131, 'Les Imp\'Unis', NULL, '2020-12-28 20:31:42', 'L\'association Les Imp\'Unis (Les IMProvisateurs de l\'Université de Nanterre Imaginatifs et Saisissants) propose à ses adhérent·es la pratique de l\'improvisation théâtrale. Elle donne l\'occasion d\'intégrer une équipe soudée, énergique et positive qui souhaite égayer la vie des étudiant·es.', 0x31, 0x31, 65, 181, 'https://www.facebook.com/Les-IMPUnis-de-la-LIPON-367455386734697/', 'lesimpunis@gmail.com', 'Université Paris Nanterre\r\nBoîte postale n°48\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/les-imp-unis-ligue-d-improvisation--571297.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/impunis_1605179369444-jpg');
 INSERT INTO `club` VALUES (2141, 'Les Indifférents', NULL, '2020-12-28 20:31:42', 'LES INDIFFÉRENTS est une compagnie de théâtre universitaire. Depuis 1998, elle accueille et forme au sein d\'ateliers toute personne désireuse de s\'initier/se perfectionner dans les arts théâtraux. Elle ne vise pas simplement au divertissement amateur ou à l\'inscription dans le monde théâtral professionnel, mais aussi à la création, la recherche, l\'inédit. Elle a créé à ce jour 38 spectacles, représentés à l\'université ou à l\'occasion de festivals internationaux de théâtre universitaire, où elle a été à chaque fois primée. Elle a aussi pour but de former les formateurs qui mèneront les ateliers de l\'association.', 0x31, 0x31, 0, 181, 'https://www.lesindifferents.com/', 'compagnielesindifferents@gmail.com', 'Page Facebook : Les Indifférents', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/les-indifferents-524080.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/les-indifferents_1493988986438-png');
 INSERT INTO `club` VALUES (2151, 'Le Phare Ouest', NULL, '2020-12-28 20:31:42', 'L\'association Le Phare Ouest est un média produit par les étudiant·es de l\'Université Paris Nanterre et à destination de tous les usager·es de l\'université. Celui-ci se développe à la fois par l\'intermédiaire d\'un magazine papier édité et d\'une chaîne Youtube.\r\nNotre ambition est d\'offrir à l\'ensemble des étudiant·es, toutes filières confondues, un média qui leur ressemble, et dans lequel iels peuvent s\'exprimer. Nous permettons également à ses membres, et à ses rédacteur·trices, d\'acquérir des compétences en lien avec le journalisme, les métiers de la communication et de l\'administration.', 0x31, 0x31, 0, 181, 'http://phareouest-nanterre.parisnanterre.fr/', 'phareouestnanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\nBoîte postale n°31\r\n92001 Nanterre Cedex\r\n\r\nFacebook Le Phare Ouest', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/le-phare-ouest-772401.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-le-phare-ouest_1575633901951-jpg');
 INSERT INTO `club` VALUES (2161, 'Lysias', NULL, '2020-12-28 20:31:42', 'La Lysias Paris Nanterre organise depuis 1993 un concours de plaidoiries et d\'éloquence à l\'Université, en vue de désigner les représentant·es de l\'Université au concours national Lysias, qui affronteront les lauréat·es d\'autres Lysias et associations de plaidoirie et d\'éloquence judiciaire. De manière générale, Lysias assure également la promotion de l\'art oratoire et de l\'éloquence judiciaire au travers de divers événements, organisés à l\'Université ou avec le Barreau des Hauts-de-Seine.', 0x31, 0x31, 0, 181, 'https://www.facebook.com/lysiasparis10/', 'lysias.paris10@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e\r\nBoîte postale n°74\r\n200 av. de la République\r\n92001 Nanterre Cedex\r\n\r\nTwitter : @Lysias_Paris10\r\nInstagram : @lysiasnanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/lysias-nanterre-553631.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1576135276336-jpg');
@@ -92,7 +88,7 @@ INSERT INTO `club` VALUES (2241, 'Les Unis Verts Nanterre', NULL, '2020-12-28 20
 INSERT INTO `club` VALUES (2251, 'Amphibix', NULL, '2020-12-28 20:31:43', 'Amphibix (BIX) est une association d\'animation mais avant tout de musique dont le but est d\'organiser des open air et des soirées tout au long de l\'année afin de contribuer au dynamisme de l\'université', 0x31, 0x31, 0, 211, 'https://www.facebook.com/asso.bix', 'bixparis10@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e (Bâtiment R)\r\nBoîte postale n°42\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/amphibix-536852.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2016_1484750916206-png');
 INSERT INTO `club` VALUES (2261, 'Le Cercle', NULL, '2020-12-28 20:31:44', 'Le Cercle est une association de pétanque de l\'université Paris Nanterre créée en 2015. Celle-ci a pour objet d\'animer la vie du campus de l\'Université Paris Nanterre à travers l\'organisation de tournois de pétanque et de divers événements autour de cette pratique (barbecue, soirée ... ).', 0x31, 0x31, 0, 211, 'https://www.facebook.com/pages/Le-Cercle/1423823117922557?', 'lecercle.paris10@hotmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (bât. R)\r\nBoîte postale n°33\r\n200 avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/le-cercle-612930.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo_1484752804325-jpg');
 INSERT INTO `club` VALUES (2271, 'La Cartouchière', NULL, '2020-12-28 20:31:44', 'Cette association a pour but : la découverte de la chasse et sa culture, l\'organisation de soirée, de repas et de sortie afin d\'illustrer le rôle majeur de la chasse dans les domaines de l\'art de vivre, de la gastronomie et de la table.\r\nElle a aussi pour but la sauvegarde de la vie animale, de la faire connaître et de la protéger. Enfin, elle a pour objectif la formation des étudiant·e·s de Paris Nanterre à l\'examen du permis de chasser et à la connaissance de la nature.', 0x31, 0x31, 0, 211, NULL, 'lacartouchiereparisx@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant·e - Boîte postale n°17\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-cartouchiere-807913.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/la-cartouchie-re-logo_1574944375834-jpg');
-INSERT INTO `club` VALUES (2281, 'La Huit', NULL, '2020-12-28 20:31:44', 'La Huit est une association de loisirs sur le thème du billard. Elle organise des tournois de billard et des afterworks tout au long de l\'année dans le but de divertir les étudiant·es de l\'université.', 0x31, 0x31, 0, 211, 'https://www.facebook.com/association.lahuit', 'association.lahuit@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R)\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-huit-743139.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/la-huit_1509446505016-png');
+INSERT INTO `club` VALUES (2281, 'La Huit', NULL, '2020-12-28 20:31:44', 'La Huit est une association de loisirs sur le thème du billard. Elle organise des tournois de billard et des afterworks tout au long de l\'année dans le but de divertir les étudiant·es de l\'université.', 0x31, 0x31, 0, 211, 'https://www.facebook.com/association.lahuit', 'association.lahuit@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R)\r\n200 av. de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-huit-743139.kjsp?RH=1390831346216', NULL);
 INSERT INTO `club` VALUES (2291, 'La Rover', NULL, '2020-12-28 20:31:44', 'Créée en 2016, la Rover fait découvrir aux étudiant·es de Nanterre et d\'ailleurs des grandes villes européennes : Prague, Londres, Barcelone, Amsterdam, Bruxelles...\r\nFière de 2 voyages par an, elle participe aussi à la vie du campus avec des barbecues sur les pelouses et afterworks non loin de l\'université.', 0x31, 0x31, 0, 211, 'https://www.facebook.com/assorover', 'larover.parisnanterre@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (bâtiment R)\r\n200 avenue de la République\r\n92000 Nanterre', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/la-rover-654511.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2017-_1496732483750-jpg');
 INSERT INTO `club` VALUES (2301, 'Nanterre Le Rouge', NULL, '2020-12-28 20:31:44', 'Cette association a pour objet l\'initiation, la découverte et la pratique de l\'œnologie, et tout cela dans une ambiance conviviale.', 0x31, 0x31, 0, 211, 'https://www.facebook.com/nanterrelerouge', 'nanterrelerouge@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bâtiment R)\r\n200, avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/nanterre-le-rouge-571436.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/logo-2017_1495626099846-jpg');
 INSERT INTO `club` VALUES (2311, 'F.A.X', NULL, '2020-12-28 20:31:44', 'La FAX a pour but de coordonner les actions de ses associations adhérentes et de représenter les étudiant·es de l\'Université Paris Nanterre aux différentes instances de l\'Université en défendant les intérêts tant collectifs qu\'individuels.', 0x31, 0x31, 0, 221, 'https://www.facebook.com/fax.associationsnanterre', 'association.fax@gmail.com', 'Université Paris Nanterre\r\nMaison de l\'Étudiant (Bât. R)\r\nLocal 207\r\n200, avenue de la République\r\n92001 Nanterre Cedex', 'https://culture.parisnanterre.fr/associations/annuaire-des-associations-etudiantes/fax-federation-des-associations--536819.kjsp?RH=1390831346216', 'https://culture.parisnanterre.fr/medias/photo/fax-2-_1586174038633-jpg');
@@ -170,11 +166,204 @@ CREATE TABLE `club_publication`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `club_id`(`club_id`) USING BTREE,
   CONSTRAINT `club_publication_ibfk_1` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 172 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 8081 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of club_publication
 -- ----------------------------
+INSERT INTO `club_publication` VALUES (4511, 'publication #CLZ1G9UTPRNOSGY7 du club 2081', '2020-04-14 00:00:00', 2081, 0x00);
+INSERT INTO `club_publication` VALUES (4521, 'publication #8JUTN731OAHEA058 du club 2081', '2019-08-10 00:00:00', 2081, 0x00);
+INSERT INTO `club_publication` VALUES (4531, 'publication #HXJDQ6PIDRGSXNMI du club 2081', '2020-10-16 00:00:00', 2081, 0x00);
+INSERT INTO `club_publication` VALUES (4541, 'publication #XW88LFXR4AFC43YF du club 2091', '2020-06-11 00:00:00', 2091, 0x00);
+INSERT INTO `club_publication` VALUES (4551, 'publication #RNQSTE470A8XBV4U du club 2091', '2019-06-14 00:00:00', 2091, 0x00);
+INSERT INTO `club_publication` VALUES (4561, 'publication #1V4BXHVA63BVUBGO du club 2101', '2019-03-07 00:00:00', 2101, 0x00);
+INSERT INTO `club_publication` VALUES (4571, 'publication #SJF8MZ4HARA22TIQ du club 2101', '2019-10-25 00:00:00', 2101, 0x00);
+INSERT INTO `club_publication` VALUES (4581, 'publication #QWU5XKNP5DXB1O9T du club 2111', '2019-02-12 00:00:00', 2111, 0x00);
+INSERT INTO `club_publication` VALUES (4591, 'publication #XR7XN7DP5BDXZTBA du club 2111', '2020-02-17 00:00:00', 2111, 0x00);
+INSERT INTO `club_publication` VALUES (4601, 'publication #8RLRFUTU6BY8DFXM du club 2111', '2019-09-21 00:00:00', 2111, 0x00);
+INSERT INTO `club_publication` VALUES (4611, 'publication #GXHLCFRGHKXJ1A01 du club 2121', '2019-05-31 00:00:00', 2121, 0x00);
+INSERT INTO `club_publication` VALUES (4621, 'publication #GAIZMV01THXW28X8 du club 2121', '2019-06-04 00:00:00', 2121, 0x00);
+INSERT INTO `club_publication` VALUES (4631, 'publication #XWOHZ4VZYKBB2D3X du club 2131', '2021-02-10 00:00:00', 2131, 0x00);
+INSERT INTO `club_publication` VALUES (4641, 'publication #CS33JIASA9B37LVI du club 2131', '2019-12-01 00:00:00', 2131, 0x00);
+INSERT INTO `club_publication` VALUES (4651, 'publication #35AD282FY1PJD44P du club 2131', '2019-12-10 00:00:00', 2131, 0x00);
+INSERT INTO `club_publication` VALUES (4661, 'publication #KJH9ODRVDYH9OHUN du club 2131', '2019-05-28 00:00:00', 2131, 0x00);
+INSERT INTO `club_publication` VALUES (4671, 'publication #IBLC2X7HL4W0QO36 du club 2141', '2019-08-16 00:00:00', 2141, 0x00);
+INSERT INTO `club_publication` VALUES (4681, 'publication #IX630W8MY58I6GD0 du club 2141', '2019-02-06 00:00:00', 2141, 0x00);
+INSERT INTO `club_publication` VALUES (4691, 'publication #ZVKS39AVCC5Y2JWA du club 2151', '2020-07-16 00:00:00', 2151, 0x00);
+INSERT INTO `club_publication` VALUES (4701, 'publication #N5N3FSQOSCITG9MN du club 2151', '2020-05-12 00:00:00', 2151, 0x00);
+INSERT INTO `club_publication` VALUES (4711, 'publication #3CKJZUWN6PX0LXP6 du club 2171', '2019-08-13 00:00:00', 2171, 0x00);
+INSERT INTO `club_publication` VALUES (4721, 'publication #3KBLADB0Y50XHH53 du club 2171', '2020-02-25 00:00:00', 2171, 0x00);
+INSERT INTO `club_publication` VALUES (4731, 'publication #6O9JYAHOFMGK2XFJ du club 2171', '2021-02-03 00:00:00', 2171, 0x00);
+INSERT INTO `club_publication` VALUES (4741, 'publication #NNVNGAFJX005RYAM du club 2181', '2021-01-02 00:00:00', 2181, 0x00);
+INSERT INTO `club_publication` VALUES (4751, 'publication #QOG7FNN1UARDXSPF du club 2181', '2020-12-06 00:00:00', 2181, 0x00);
+INSERT INTO `club_publication` VALUES (4761, 'publication #UUCPAB5SM8RBRXU8 du club 2181', '2020-04-12 00:00:00', 2181, 0x00);
+INSERT INTO `club_publication` VALUES (4771, 'publication #XSSMCN3BYHP7Z3GN du club 2191', '2019-04-08 00:00:00', 2191, 0x00);
+INSERT INTO `club_publication` VALUES (4781, 'publication #4NOIZXAUQ13XSLK9 du club 2191', '2021-01-09 00:00:00', 2191, 0x00);
+INSERT INTO `club_publication` VALUES (4791, 'publication #WEWZGG86JAG7RVGY du club 2201', '2020-06-30 00:00:00', 2201, 0x00);
+INSERT INTO `club_publication` VALUES (4801, 'publication #WNCA19OCYT2DQ8WI du club 2201', '2020-01-30 00:00:00', 2201, 0x00);
+INSERT INTO `club_publication` VALUES (4811, 'publication #GZKRQH1EIWI6TFWD du club 2201', '2019-12-09 00:00:00', 2201, 0x00);
+INSERT INTO `club_publication` VALUES (4821, 'publication #7LY40BUPK4XCQPJL du club 2221', '2020-05-23 00:00:00', 2221, 0x00);
+INSERT INTO `club_publication` VALUES (4831, 'publication #37JFUBHD4GP01BRE du club 2231', '2019-02-08 00:00:00', 2231, 0x00);
+INSERT INTO `club_publication` VALUES (4841, 'publication #18EKU1QBTPL5LHHJ du club 2241', '2020-03-31 00:00:00', 2241, 0x00);
+INSERT INTO `club_publication` VALUES (4851, 'publication #NHADEF3VQZMQ54SC du club 2241', '2020-10-23 00:00:00', 2241, 0x00);
+INSERT INTO `club_publication` VALUES (4861, 'publication #T3VXO599DH7FRQHL du club 2241', '2021-01-16 00:00:00', 2241, 0x00);
+INSERT INTO `club_publication` VALUES (4871, 'publication #730MAH331ZYFY609 du club 2251', '2020-12-17 00:00:00', 2251, 0x00);
+INSERT INTO `club_publication` VALUES (4881, 'publication #Y36T4UIR6HJW3T4I du club 2251', '2020-09-20 00:00:00', 2251, 0x00);
+INSERT INTO `club_publication` VALUES (4891, 'publication #2F3GC139V5ZCR8DV du club 2261', '2019-06-26 00:00:00', 2261, 0x00);
+INSERT INTO `club_publication` VALUES (4901, 'publication #WK720XWD81J6FGI8 du club 2271', '2020-12-24 00:00:00', 2271, 0x00);
+INSERT INTO `club_publication` VALUES (4911, 'publication #HHH80A64B75Z08KD du club 2281', '2020-06-15 00:00:00', 2281, 0x00);
+INSERT INTO `club_publication` VALUES (4921, 'publication #KNRTS33IHU7X3ZBU du club 2281', '2019-03-18 00:00:00', 2281, 0x00);
+INSERT INTO `club_publication` VALUES (4931, 'publication #ROGQCSRH4TO4XDU7 du club 2281', '2020-09-20 00:00:00', 2281, 0x00);
+INSERT INTO `club_publication` VALUES (4941, 'publication #6852NVY5N09FER2V du club 2281', '2020-07-24 00:00:00', 2281, 0x00);
+INSERT INTO `club_publication` VALUES (4951, 'publication #VWX4WGJUGSUIL87F du club 2291', '2020-03-01 00:00:00', 2291, 0x00);
+INSERT INTO `club_publication` VALUES (4961, 'publication #VQB7Z8K7OYLD0W0H du club 2291', '2019-08-06 00:00:00', 2291, 0x00);
+INSERT INTO `club_publication` VALUES (4971, 'publication #96SPL7SED5PHRGMH du club 2291', '2019-10-03 00:00:00', 2291, 0x00);
+INSERT INTO `club_publication` VALUES (4981, 'publication #ZSJIX45L85D6NXHY du club 2291', '2020-03-10 00:00:00', 2291, 0x00);
+INSERT INTO `club_publication` VALUES (4991, 'publication #TB6J8AC7IOXS6E5U du club 2291', '2019-10-16 00:00:00', 2291, 0x00);
+INSERT INTO `club_publication` VALUES (5001, 'publication #FEUCUPFCE33ZUR0Z du club 2291', '2019-06-29 00:00:00', 2291, 0x00);
+INSERT INTO `club_publication` VALUES (5011, 'publication #VPI07QZT956C2MHH du club 2301', '2019-09-03 00:00:00', 2301, 0x00);
+INSERT INTO `club_publication` VALUES (5021, 'publication #LK2L6I926M5NTNU9 du club 2301', '2020-09-11 00:00:00', 2301, 0x00);
+INSERT INTO `club_publication` VALUES (5031, 'publication #SCMA1SI03PSOAZRP du club 2301', '2020-04-13 00:00:00', 2301, 0x00);
+INSERT INTO `club_publication` VALUES (5041, 'publication #1Z70NWYWBMHK9ZS5 du club 2311', '2019-11-16 00:00:00', 2311, 0x00);
+INSERT INTO `club_publication` VALUES (5051, 'publication #RAK8YCXDUG47JH9L du club 2321', '2020-02-03 00:00:00', 2321, 0x00);
+INSERT INTO `club_publication` VALUES (5061, 'publication #94P9OQQI057H7Q2F du club 2321', '2019-02-18 00:00:00', 2321, 0x00);
+INSERT INTO `club_publication` VALUES (5071, 'publication #2XN46QT2H8LK5TZ0 du club 2331', '2019-10-01 00:00:00', 2331, 0x00);
+INSERT INTO `club_publication` VALUES (5081, 'publication #UDPKRQGOPAZE2GL7 du club 2331', '2021-01-09 00:00:00', 2331, 0x00);
+INSERT INTO `club_publication` VALUES (5091, 'publication #6BTUNMGFIJ7P31IB du club 2331', '2020-09-30 00:00:00', 2331, 0x00);
+INSERT INTO `club_publication` VALUES (5101, 'publication #WWFW0X54NM1CGPJX du club 2341', '2020-05-29 00:00:00', 2341, 0x00);
+INSERT INTO `club_publication` VALUES (5111, 'publication #36DJ2NXPH67FQX8C du club 2341', '2021-02-23 00:00:00', 2341, 0x00);
+INSERT INTO `club_publication` VALUES (5121, 'publication #OZSL4V0CT9QV7Y7S du club 2341', '2020-01-11 00:00:00', 2341, 0x00);
+INSERT INTO `club_publication` VALUES (5131, 'publication #TKZ0YYL8VM1U7K26 du club 2341', '2019-11-09 00:00:00', 2341, 0x00);
+INSERT INTO `club_publication` VALUES (5141, 'publication #17XG3SW2G1VB6BO3 du club 2351', '2019-01-19 00:00:00', 2351, 0x00);
+INSERT INTO `club_publication` VALUES (5151, 'publication #SU2U57Y5XY0SGQAJ du club 2351', '2021-01-08 00:00:00', 2351, 0x00);
+INSERT INTO `club_publication` VALUES (5161, 'publication #9FKBTY4G6ZKX7BQQ du club 2361', '2020-04-04 00:00:00', 2361, 0x00);
+INSERT INTO `club_publication` VALUES (5171, 'publication #D60D9DPEYLRNXNG4 du club 2361', '2019-04-27 00:00:00', 2361, 0x00);
+INSERT INTO `club_publication` VALUES (5181, 'publication #WQCRMXBDDFBWDNUP du club 2371', '2019-11-13 00:00:00', 2371, 0x00);
+INSERT INTO `club_publication` VALUES (5191, 'publication #ODUJMWDMST94Y7CH du club 2371', '2020-05-04 00:00:00', 2371, 0x00);
+INSERT INTO `club_publication` VALUES (5201, 'publication #A5GAVWZWT42UJ4WF du club 2371', '2020-02-19 00:00:00', 2371, 0x00);
+INSERT INTO `club_publication` VALUES (5211, 'publication #CJJHVQUHLI2KM13P du club 2371', '2019-09-05 00:00:00', 2371, 0x00);
+INSERT INTO `club_publication` VALUES (5221, 'publication #JCGCFXWFO6YUKL8Y du club 2381', '2020-02-20 00:00:00', 2381, 0x00);
+INSERT INTO `club_publication` VALUES (5231, 'publication #GK4H5PB2BJTWCZ9G du club 2381', '2020-11-08 00:00:00', 2381, 0x00);
+INSERT INTO `club_publication` VALUES (5241, 'publication #3EEKK5L8CV6JJUND du club 2391', '2020-10-17 00:00:00', 2391, 0x00);
+INSERT INTO `club_publication` VALUES (5251, 'publication #5R7PWCP9QPXLCSBL du club 2391', '2021-02-22 00:00:00', 2391, 0x00);
+INSERT INTO `club_publication` VALUES (5261, 'publication #ISUJPLZUYE9UEPNM du club 2391', '2019-05-29 00:00:00', 2391, 0x00);
+INSERT INTO `club_publication` VALUES (5271, 'publication #BYWPFFQ82WXJHUK6 du club 2391', '2020-09-01 00:00:00', 2391, 0x00);
+INSERT INTO `club_publication` VALUES (5281, 'publication #0J5AS9P925RWKWMZ du club 2401', '2019-07-14 00:00:00', 2401, 0x00);
+INSERT INTO `club_publication` VALUES (5291, 'publication #SU0C0N2FQRQD3FCI du club 2401', '2019-11-04 00:00:00', 2401, 0x00);
+INSERT INTO `club_publication` VALUES (5301, 'publication #V17TX89KFWQRTNY8 du club 2411', '2020-05-03 00:00:00', 2411, 0x00);
+INSERT INTO `club_publication` VALUES (5311, 'publication #LQLU6XJ3IMMLW7H1 du club 2411', '2019-07-11 00:00:00', 2411, 0x00);
+INSERT INTO `club_publication` VALUES (5321, 'publication #X2AXWD5GZVWQ9X8Z du club 2421', '2020-04-25 00:00:00', 2421, 0x00);
+INSERT INTO `club_publication` VALUES (5331, 'publication #BFJS8I4CGWQWIXOP du club 2421', '2020-03-26 00:00:00', 2421, 0x00);
+INSERT INTO `club_publication` VALUES (5341, 'publication #I33G3KYKERWZTUO9 du club 2421', '2020-01-02 00:00:00', 2421, 0x00);
+INSERT INTO `club_publication` VALUES (5351, 'publication #11V4BCV8Y8FSKCOB du club 2421', '2019-05-29 00:00:00', 2421, 0x00);
+INSERT INTO `club_publication` VALUES (5361, 'publication #VIJ01TY1LTXAXJBE du club 2431', '2020-06-23 00:00:00', 2431, 0x00);
+INSERT INTO `club_publication` VALUES (5371, 'publication #FCDOGCIEQYPFCH17 du club 2441', '2019-02-09 00:00:00', 2441, 0x00);
+INSERT INTO `club_publication` VALUES (5381, 'publication #2AC9O9Q71DT6P37K du club 2441', '2020-06-19 00:00:00', 2441, 0x00);
+INSERT INTO `club_publication` VALUES (5391, 'publication #A1V5DIZO8S1PYPH9 du club 2451', '2019-02-27 00:00:00', 2451, 0x00);
+INSERT INTO `club_publication` VALUES (5401, 'publication #EGMY7JJ3ZDYYU4Z8 du club 2461', '2020-09-05 00:00:00', 2461, 0x00);
+INSERT INTO `club_publication` VALUES (5411, 'publication #R9AMZ9MW4S6LINRW du club 2471', '2020-04-17 00:00:00', 2471, 0x00);
+INSERT INTO `club_publication` VALUES (5421, 'publication #DTCV0KU4L8JRTHOD du club 2471', '2021-03-05 00:00:00', 2471, 0x00);
+INSERT INTO `club_publication` VALUES (5431, 'publication #SVESY281WHVYWJVH du club 2471', '2021-03-18 00:00:00', 2471, 0x00);
+INSERT INTO `club_publication` VALUES (5441, 'publication #5MPDTX4UG3IR7A39 du club 2481', '2020-04-24 00:00:00', 2481, 0x00);
+INSERT INTO `club_publication` VALUES (5451, 'publication #THVCF35D0EWHL8J7 du club 2481', '2021-01-25 00:00:00', 2481, 0x00);
+INSERT INTO `club_publication` VALUES (5461, 'publication #TMQHD8DHRHZTQ0LV du club 2481', '2019-06-06 00:00:00', 2481, 0x00);
+INSERT INTO `club_publication` VALUES (5471, 'publication #R5TNBZO0VSQTT5HY du club 2481', '2020-08-03 00:00:00', 2481, 0x00);
+INSERT INTO `club_publication` VALUES (5481, 'publication #QLK3QU15XADKOSFF du club 2501', '2020-09-01 00:00:00', 2501, 0x00);
+INSERT INTO `club_publication` VALUES (5491, 'publication #EH42ZI6PYLTDUR1M du club 2501', '2020-10-11 00:00:00', 2501, 0x00);
+INSERT INTO `club_publication` VALUES (5501, 'publication #MKENLBL3JDVBAOQZ du club 2501', '2021-02-22 00:00:00', 2501, 0x00);
+INSERT INTO `club_publication` VALUES (5511, 'publication #INCO7P1IYWEG0ZTO du club 2501', '2019-04-12 00:00:00', 2501, 0x00);
+INSERT INTO `club_publication` VALUES (5521, 'publication #CJHRG4NR8AZBBK03 du club 2501', '2021-02-15 00:00:00', 2501, 0x00);
+INSERT INTO `club_publication` VALUES (5531, 'publication #BIQSR1YOOVOTLGES du club 2501', '2021-01-31 00:00:00', 2501, 0x00);
+INSERT INTO `club_publication` VALUES (5541, 'publication #I8R3U7I1X4FOK1IQ du club 2511', '2020-11-22 00:00:00', 2511, 0x00);
+INSERT INTO `club_publication` VALUES (5551, 'publication #2ZDPGTSK14L54H6L du club 2511', '2021-01-19 00:00:00', 2511, 0x00);
+INSERT INTO `club_publication` VALUES (5561, 'publication #BH4H9NA3UIT9FRIU du club 2511', '2020-10-08 00:00:00', 2511, 0x00);
+INSERT INTO `club_publication` VALUES (5571, 'publication #53ZXIM4P3MWHDEU4 du club 2521', '2021-01-29 00:00:00', 2521, 0x00);
+INSERT INTO `club_publication` VALUES (5581, 'publication #O1AJYG3IZE7VOVDN du club 2521', '2020-09-21 00:00:00', 2521, 0x00);
+INSERT INTO `club_publication` VALUES (5591, 'publication #VB248EFCUH4QTXQU du club 2521', '2019-12-20 00:00:00', 2521, 0x00);
+INSERT INTO `club_publication` VALUES (5601, 'publication #8LRIQL485LF32JVA du club 2521', '2019-09-08 00:00:00', 2521, 0x00);
+INSERT INTO `club_publication` VALUES (5611, 'publication #X9UDQ55Z6SVPNMRJ du club 2531', '2019-09-13 00:00:00', 2531, 0x00);
+INSERT INTO `club_publication` VALUES (5621, 'publication #2HJOVB9JOMDFHOMB du club 2531', '2019-03-21 00:00:00', 2531, 0x00);
+INSERT INTO `club_publication` VALUES (5631, 'publication #1MQ28WKY83TRWRIZ du club 2541', '2020-03-08 00:00:00', 2541, 0x00);
+INSERT INTO `club_publication` VALUES (5641, 'publication #BDOV77DLB61O74TE du club 2551', '2019-05-31 00:00:00', 2551, 0x00);
+INSERT INTO `club_publication` VALUES (5651, 'publication #B9VWBUSREKZIG9A6 du club 2551', '2019-11-19 00:00:00', 2551, 0x00);
+INSERT INTO `club_publication` VALUES (5661, 'publication #574FN4ZYRUUFER9O du club 2551', '2019-11-01 00:00:00', 2551, 0x00);
+INSERT INTO `club_publication` VALUES (5671, 'publication #CMBMD72PLWKQLSTE du club 2551', '2021-01-11 00:00:00', 2551, 0x00);
+INSERT INTO `club_publication` VALUES (5681, 'publication #BKXDC7TEQEPLAGN8 du club 2551', '2021-02-01 00:00:00', 2551, 0x00);
+INSERT INTO `club_publication` VALUES (5691, 'publication #0935997KRDZ9IP93 du club 2561', '2020-11-17 00:00:00', 2561, 0x00);
+INSERT INTO `club_publication` VALUES (5701, 'publication #XFLOL86ULON9FY7G du club 2571', '2019-07-18 00:00:00', 2571, 0x00);
+INSERT INTO `club_publication` VALUES (5711, 'publication #U68HTFSSPKF8RLYU du club 2571', '2020-02-24 00:00:00', 2571, 0x00);
+INSERT INTO `club_publication` VALUES (5721, 'publication #AZPX2Y5X5RJ74BHV du club 2581', '2020-02-02 00:00:00', 2581, 0x00);
+INSERT INTO `club_publication` VALUES (5731, 'publication #MSIFQ8IFE6UXBOMR du club 2581', '2019-09-17 00:00:00', 2581, 0x00);
+INSERT INTO `club_publication` VALUES (5741, 'publication #A19FW7092ZUW0UNK du club 2591', '2020-11-24 00:00:00', 2591, 0x00);
+INSERT INTO `club_publication` VALUES (5751, 'publication #J08HDGJPYVGZX7EU du club 2591', '2021-01-28 00:00:00', 2591, 0x00);
+INSERT INTO `club_publication` VALUES (5761, 'publication #ZT8FCZ729U3KPBON du club 2601', '2019-09-28 00:00:00', 2601, 0x00);
+INSERT INTO `club_publication` VALUES (5771, 'publication #RK3EXPU308MMKTLR du club 2601', '2020-03-01 00:00:00', 2601, 0x00);
+INSERT INTO `club_publication` VALUES (5781, 'publication #B1GYTLEY40VW1FEI du club 2601', '2019-07-17 00:00:00', 2601, 0x00);
+INSERT INTO `club_publication` VALUES (5791, 'publication #A1K1MVMKL0TSUCDH du club 2601', '2020-12-18 00:00:00', 2601, 0x00);
+INSERT INTO `club_publication` VALUES (5801, 'publication #C8J20XJH8RIIJIZ1 du club 2601', '2020-09-18 00:00:00', 2601, 0x00);
+INSERT INTO `club_publication` VALUES (5811, 'publication #RQ2QVFHKC53QHAEY du club 2601', '2020-01-20 00:00:00', 2601, 0x00);
+INSERT INTO `club_publication` VALUES (5821, 'publication #LGDG6EVTE54PPTE2 du club 2601', '2019-01-01 00:00:00', 2601, 0x00);
+INSERT INTO `club_publication` VALUES (5831, 'publication #M521AKQAC4J9MVUN du club 2611', '2019-12-28 00:00:00', 2611, 0x00);
+INSERT INTO `club_publication` VALUES (5841, 'publication #6CNJW5N2GYGSOIVT du club 2621', '2019-12-07 00:00:00', 2621, 0x00);
+INSERT INTO `club_publication` VALUES (5851, 'publication #CHWZ6DERQJW1PEEV du club 2621', '2020-01-22 00:00:00', 2621, 0x00);
+INSERT INTO `club_publication` VALUES (5861, 'publication #8A5X7N32IV70IDQ9 du club 2621', '2019-08-20 00:00:00', 2621, 0x00);
+INSERT INTO `club_publication` VALUES (5871, 'publication #MNMZL6DHJJSOK73I du club 2621', '2020-06-20 00:00:00', 2621, 0x00);
+INSERT INTO `club_publication` VALUES (5881, 'publication #SATJU4S1SCVXVNEA du club 2621', '2020-07-30 00:00:00', 2621, 0x00);
+INSERT INTO `club_publication` VALUES (5891, 'publication #F7RL4LDPL7VKL4RZ du club 2631', '2020-03-10 00:00:00', 2631, 0x00);
+INSERT INTO `club_publication` VALUES (5901, 'publication #PNSGIJRUD9791BFS du club 2631', '2019-11-16 00:00:00', 2631, 0x00);
+INSERT INTO `club_publication` VALUES (5911, 'publication #PIKW0011RQLIGVPL du club 2651', '2020-08-20 00:00:00', 2651, 0x00);
+INSERT INTO `club_publication` VALUES (5921, 'publication #QE4YZQLL042ALDXU du club 2661', '2019-08-15 00:00:00', 2661, 0x00);
+INSERT INTO `club_publication` VALUES (5931, 'publication #62CZXPHKGF97SWR0 du club 2661', '2019-07-01 00:00:00', 2661, 0x00);
+INSERT INTO `club_publication` VALUES (5941, 'publication #1J5H3R15BQ7CTXVA du club 2661', '2020-09-15 00:00:00', 2661, 0x00);
+INSERT INTO `club_publication` VALUES (5951, 'publication #H9TEY8KT25O048GZ du club 2661', '2019-12-25 00:00:00', 2661, 0x00);
+INSERT INTO `club_publication` VALUES (5961, 'publication #PURSLSJ2PPDXXQEV du club 2671', '2020-01-29 00:00:00', 2671, 0x00);
+INSERT INTO `club_publication` VALUES (5971, 'publication #BANN8IGVMPAQUGFO du club 2671', '2019-12-29 00:00:00', 2671, 0x00);
+INSERT INTO `club_publication` VALUES (5981, 'publication #GLRR7P06TUE0L5BF du club 2681', '2020-10-18 00:00:00', 2681, 0x00);
+INSERT INTO `club_publication` VALUES (5991, 'publication #TGVBZXISB23ZOS2D du club 2681', '2019-06-07 00:00:00', 2681, 0x00);
+INSERT INTO `club_publication` VALUES (6001, 'publication #NDTR8TC4I4MT48JU du club 2681', '2020-03-27 00:00:00', 2681, 0x00);
+INSERT INTO `club_publication` VALUES (6011, 'publication #G2GPHVHIE4ZU1Z2S du club 2691', '2019-08-21 00:00:00', 2691, 0x00);
+INSERT INTO `club_publication` VALUES (6021, 'publication #FOX4GL0BDYLZFG41 du club 2691', '2020-09-26 00:00:00', 2691, 0x00);
+INSERT INTO `club_publication` VALUES (6031, 'publication #PFIRYF0AEHX12TFN du club 2711', '2021-01-10 00:00:00', 2711, 0x00);
+INSERT INTO `club_publication` VALUES (6041, 'publication #H5L8U46KMGPUBK3H du club 2711', '2020-03-26 00:00:00', 2711, 0x00);
+INSERT INTO `club_publication` VALUES (6051, 'publication #SH6Z8Q002C0TGU1G du club 2711', '2019-12-30 00:00:00', 2711, 0x00);
+INSERT INTO `club_publication` VALUES (6061, 'publication #8ROKNK2B2OFZSEL3 du club 2731', '2020-06-05 00:00:00', 2731, 0x00);
+INSERT INTO `club_publication` VALUES (6071, 'publication #QU057PA13OP4WNNM du club 2731', '2020-06-01 00:00:00', 2731, 0x00);
+INSERT INTO `club_publication` VALUES (6081, 'publication #1KI6CO44WFEOHD0J du club 2731', '2019-03-10 00:00:00', 2731, 0x00);
+INSERT INTO `club_publication` VALUES (6091, 'publication #0CKGZL518SJGJKD7 du club 2731', '2021-01-19 00:00:00', 2731, 0x00);
+INSERT INTO `club_publication` VALUES (6101, 'publication #2964LNR71T2BCXR8 du club 2731', '2020-04-24 00:00:00', 2731, 0x00);
+INSERT INTO `club_publication` VALUES (6111, 'publication #K02XTSLP2TQDRP6D du club 2741', '2019-08-10 00:00:00', 2741, 0x00);
+INSERT INTO `club_publication` VALUES (6121, 'publication #U4KT6UWH86LC8QPW du club 2741', '2020-07-15 00:00:00', 2741, 0x00);
+INSERT INTO `club_publication` VALUES (6131, 'publication #E3RBTFNONYXUQ99H du club 2741', '2020-12-30 00:00:00', 2741, 0x00);
+INSERT INTO `club_publication` VALUES (6141, 'publication #J6KVPB2KVA6Y66Z4 du club 2741', '2020-06-28 00:00:00', 2741, 0x00);
+INSERT INTO `club_publication` VALUES (6151, 'publication #GYRMDZTD20V3H0QM du club 2741', '2020-11-13 00:00:00', 2741, 0x00);
+INSERT INTO `club_publication` VALUES (6161, 'publication #CWIR1KGW16BQUKMS du club 2741', '2019-09-13 00:00:00', 2741, 0x00);
+INSERT INTO `club_publication` VALUES (6171, 'publication #GFJG2KQZL2FWRJ1Z du club 2751', '2020-06-18 00:00:00', 2751, 0x00);
+INSERT INTO `club_publication` VALUES (6181, 'publication #VD5DTL3M1OXP4ZWH du club 2761', '2019-04-02 00:00:00', 2761, 0x00);
+INSERT INTO `club_publication` VALUES (6191, 'publication #ZYTPIN5JU6PDDGPT du club 2771', '2020-08-04 00:00:00', 2771, 0x00);
+INSERT INTO `club_publication` VALUES (6201, 'publication #22RTL1VE48C8UMT8 du club 2781', '2019-04-01 00:00:00', 2781, 0x00);
+INSERT INTO `club_publication` VALUES (6211, 'publication #JMJAJSS7HUMIQAEG du club 2781', '2020-08-07 00:00:00', 2781, 0x00);
+INSERT INTO `club_publication` VALUES (6221, 'publication #KFJW0XGD249JNVNE du club 2781', '2019-06-14 00:00:00', 2781, 0x00);
+INSERT INTO `club_publication` VALUES (6231, 'publication #WG7MPGNFEQFRL24J du club 2791', '2019-11-25 00:00:00', 2791, 0x00);
+INSERT INTO `club_publication` VALUES (6241, 'publication #BPCJ8KMFNNDQD52L du club 2801', '2020-01-03 00:00:00', 2801, 0x00);
+INSERT INTO `club_publication` VALUES (6251, 'publication #702L21CI2HMHWUR5 du club 2801', '2020-02-22 00:00:00', 2801, 0x00);
+INSERT INTO `club_publication` VALUES (6261, 'publication #3V5CBKCWYZXP2YAB du club 2811', '2019-07-12 00:00:00', 2811, 0x00);
+INSERT INTO `club_publication` VALUES (6271, 'publication #4ZESL2U2YVUR86Z6 du club 2811', '2019-08-04 00:00:00', 2811, 0x00);
+INSERT INTO `club_publication` VALUES (6281, 'publication #KCES3AN0BY7CEH0S du club 2811', '2020-03-28 00:00:00', 2811, 0x00);
+INSERT INTO `club_publication` VALUES (6291, 'publication #SVHUGSM68ERMTCFV du club 2841', '2019-12-01 00:00:00', 2841, 0x00);
+INSERT INTO `club_publication` VALUES (6301, 'publication #T8II9I7CIPNSW899 du club 2841', '2020-01-01 00:00:00', 2841, 0x00);
+INSERT INTO `club_publication` VALUES (6311, 'publication #NMNLLBXWWPDKSLI9 du club 2841', '2020-12-25 00:00:00', 2841, 0x00);
+INSERT INTO `club_publication` VALUES (6321, 'publication #A1DH7U0NGXSDVFJO du club 2841', '2020-08-08 00:00:00', 2841, 0x00);
+INSERT INTO `club_publication` VALUES (6331, 'publication #HPMHBI2V1HCN9ELG du club 2851', '2019-02-10 00:00:00', 2851, 0x00);
+INSERT INTO `club_publication` VALUES (6341, 'publication #MQS4UWG5CFRPNV3Y du club 2851', '2019-09-23 00:00:00', 2851, 0x00);
+INSERT INTO `club_publication` VALUES (6351, 'publication #V9470W8P263FEA6J du club 2861', '2020-01-29 00:00:00', 2861, 0x00);
+INSERT INTO `club_publication` VALUES (6361, 'publication #C55GWONZ8R3IYKJ8 du club 2861', '2020-07-20 00:00:00', 2861, 0x00);
+INSERT INTO `club_publication` VALUES (6371, 'publication #V5WIPT1898RFKQ7Q du club 2861', '2019-03-18 00:00:00', 2861, 0x00);
+INSERT INTO `club_publication` VALUES (6381, 'publication #53INXAQEZ7D6710H du club 2871', '2020-12-28 00:00:00', 2871, 0x00);
+INSERT INTO `club_publication` VALUES (6391, 'publication #EYID5ATRM50P5F3O du club 2871', '2021-03-05 00:00:00', 2871, 0x00);
+INSERT INTO `club_publication` VALUES (6401, 'publication #4TA80NJ5XE1SUR23 du club 2881', '2020-11-13 00:00:00', 2881, 0x00);
+INSERT INTO `club_publication` VALUES (6411, 'publication #IJ7LHRZQOQ2NIGCX du club 2891', '2020-06-14 00:00:00', 2891, 0x00);
+INSERT INTO `club_publication` VALUES (6421, 'publication #L66MQBF2WNZQZLDA du club 2891', '2020-04-13 00:00:00', 2891, 0x00);
+INSERT INTO `club_publication` VALUES (6431, 'publication #S1AXDDTPT3W87TAD du club 2901', '2020-10-05 00:00:00', 2901, 0x00);
 
 -- ----------------------------
 -- Table structure for club_type
@@ -184,7 +373,7 @@ CREATE TABLE `club_type`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 281 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 272 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of club_type
@@ -241,7 +430,7 @@ CREATE TABLE `crous_attendance`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `crous_id`(`crous_id`) USING BTREE,
   CONSTRAINT `crous_attendance_ibfk_1` FOREIGN KEY (`crous_id`) REFERENCES `crous` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 441 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 445 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous_attendance
@@ -266,6 +455,7 @@ INSERT INTO `crous_attendance` VALUES (401, 100, '18:00:00.000000', 1);
 INSERT INTO `crous_attendance` VALUES (411, 100, '18:00:00.000000', 10);
 INSERT INTO `crous_attendance` VALUES (421, 100, '18:00:00.000000', 10);
 INSERT INTO `crous_attendance` VALUES (431, 30, '18:00:00.000000', 1);
+INSERT INTO `crous_attendance` VALUES (435, 30, '12:00:00.000000', 3);
 
 -- ----------------------------
 -- Table structure for crous_product
@@ -349,7 +539,7 @@ CREATE TABLE `crous_product_availability`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `crous_product_availability_ibfk_1`(`crous_product_id`) USING BTREE,
   CONSTRAINT `crous_product_availability_ibfk_1` FOREIGN KEY (`crous_product_id`) REFERENCES `crous_product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 201 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 192 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crous_product_availability
@@ -1037,15 +1227,21 @@ CREATE TABLE `user`  (
   `firstname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `lastname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `user_type_id` int(11) NOT NULL DEFAULT 1,
+  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `roles` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `email`(`email`) USING BTREE,
   INDEX `user_type_id`(`user_type_id`) USING BTREE,
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 141 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 281 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (0, 'bot', 'myNanterre', 2); --THIS ID HAS TO BE 0 !
+INSERT INTO `user` VALUES (0, 'bot', 'myNanterre', 2, 'bot@parisnanterre.fr', '[]', '$argon2id$v=19$m=65536,t=4,p=1$WURBNGFXc0xPYkQ4eFNVTA$LGzFmBErA2jtdUF7rhnufSf86CS3shEHvwlQVuiAR1A');
+INSERT INTO `user` VALUES (65, 'test', 'testeur2', 1, 'test@parisnanterre.fr', '[]', '$argon2id$v=19$m=65536,t=4,p=1$c3VXcHYxVmNRdHRydUpGMA$+DozNKj9gp9c6pm3cY1eTXu5F2b07Cl9ulzu+NyaAOY');
+INSERT INTO `user` VALUES (75, 'testeur', 'compte de test', 1, 'testeurcompte@parisnanterre.fr', '[]', '$argon2id$v=19$m=65536,t=4,p=1$aGU5RnZxeUNRSGxsNGhSUQ$lYOAtAQYujaKy0uevU/RBlqS7YraFWtqU/MCOYr9xIo');
 
 -- ----------------------------
 -- Table structure for user_type
@@ -1063,6 +1259,37 @@ CREATE TABLE `user_type`  (
 INSERT INTO `user_type` VALUES (1, 'student');
 INSERT INTO `user_type` VALUES (2, 'administrator');
 INSERT INTO `user_type` VALUES (3, 'club account');
+
+-- ----------------------------
+-- Table structure for users_clubs
+-- ----------------------------
+DROP TABLE IF EXISTS `users_clubs`;
+CREATE TABLE `users_clubs`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `club_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  INDEX `club_id`(`club_id`) USING BTREE,
+  CONSTRAINT `users_clubs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `users_clubs_ibfk_2` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1151 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = FIXED;
+
+-- ----------------------------
+-- Records of users_clubs
+-- ----------------------------
+INSERT INTO `users_clubs` VALUES (1, 0, 2081);
+INSERT INTO `users_clubs` VALUES (11, 0, 2091);
+INSERT INTO `users_clubs` VALUES (21, 0, 2101);
+INSERT INTO `users_clubs` VALUES (31, 0, 2111);
+INSERT INTO `users_clubs` VALUES (41, 0, 2121);
+INSERT INTO `users_clubs` VALUES (51, 0, 2131);
+INSERT INTO `users_clubs` VALUES (61, 0, 2141);
+INSERT INTO `users_clubs` VALUES (71, 0, 2151);
+INSERT INTO `users_clubs` VALUES (81, 0, 2161);
+INSERT INTO `users_clubs` VALUES (91, 0, 2171);
+INSERT INTO `users_clubs` VALUES (355, 65, 2551);
+INSERT INTO `users_clubs` VALUES (505, 65, 2121);
 
 -- ----------------------------
 -- Procedure structure for proc_initData
